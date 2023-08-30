@@ -94,4 +94,9 @@ public class Leitor extends Usuario{
 
         DAO.getReserva().criar(reserva);
     }
+
+    public void retirarReserva(double isbn){
+        DAO.getReserva().removerUmaReserva(this.getID(),isbn);
+        DAO.getPrazos().removerUmPrazo(this.getID(),isbn);
+    }
 }
