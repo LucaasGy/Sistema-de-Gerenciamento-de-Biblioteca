@@ -1,0 +1,11 @@
+import java.util.List;
+
+public interface ReservaDAO extends CRUD<Reserva>{
+    public List<Reserva> encontrarLeitorReservouLivro(double isbn);
+    public List<Reserva> encontrarLivroReservadoPorLeitor(int id);
+    public void removerReservasDeUmLivro(double isbn);
+    public boolean leitorTemReserva(int id);
+    public boolean livroTemReserva(double isbn);
+    public Reserva top1Reserva(double isbn);
+    public void removeTop1(double isbn);
+}
