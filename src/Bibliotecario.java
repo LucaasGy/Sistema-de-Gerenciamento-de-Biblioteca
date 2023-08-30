@@ -53,31 +53,38 @@ public class Bibliotecario extends Usuario{
         EmprestimoImpl opera = new EmprestimoImpl();
         ReservaImpl opera2 = new ReservaImpl();
         Emprestimo opera3 = opera.encontrarPorId(id);
-
-        opera3.getLivro().setDisponivel(true);
-        opera3.getLeitor().setLimiteRenova(0);
+        PrazosImpl opera4 = new PrazosImpl();
 
         LocalDate devolve = LocalDate.now();
 
         long dias = ChronoUnit.DAYS.between(opera3.getdataPrevista(),devolve);
 
         if(dias>0) {
+
             opera3.getLeitor().setDataMulta(devolve.plusDays(dias*2));
 
             if(opera2.leitorTemReserva(id))
                 opera2.remover(id);
+
+            if(opera4.leitorTemPrazos(id))
+                opera4.removerPrazosDeUmLeitor(id);
         }
 
         //caso o livro tenha reserva, ao ser devolvido, eu pego o top 1 da fila e crio um prazo para ele
-        //fazer o emprestimo do livro e adiciono na lista de prazos que cada leitor tem ( max 3 )
-        //Ao tentar fazer o emprestim, verifico se ta dentro do prazo
+        //fazer o emprestimo do livro e adiciono na lista de prazos cotendo de quem é o prazo, o livro do prazo
+        //e a data limite que ele tem pra fazer o emprestimo
+        //Ao tentar fazer o emprestimo, verifico se ta dentro do prazo
         //Se tiver, faco o emprestimo, removo o prazo e removo a reserva dele
         //Se nao tiver, nao faco o emprestimo, removo o prazo e removo a reserva dele
         if(opera2.livroTemReserva(opera3.getLivro().getISBN())){
-            Reserva opera4 = opera2.top1Reserva(opera3.getLivro().getISBN());
-            Prazos novo = new Prazos(opera4.getLivro(),devolve.plusDays(2));
-            opera4.getLeitor().addPrazos(novo);
+            Reserva opera5 = opera2.top1Reserva(opera3.getLivro().getISBN());
+            Prazos novo = new Prazos(opera5.getLeitor(),opera5.getLivro(),devolve.plusDays(2));
+
+            opera4.criar(novo);
         }
+
+        opera3.getLivro().setDisponivel(true);
+        opera3.getLeitor().setLimiteRenova(0);
 
         opera.remover(id);
     }

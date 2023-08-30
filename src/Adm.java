@@ -19,11 +19,16 @@ public class Adm extends Usuario {
     public void removerUmLivro(double isbn){
         LivroImpl opera = new LivroImpl();
         ReservaImpl opera2 = new ReservaImpl();
-
-        opera.removerPorISBN(isbn);
+        PrazosImpl opera3 = new PrazosImpl();
 
         if(opera2.livroTemReserva(isbn))
             opera2.removerReservasDeUmLivro(isbn);
+
+        if(opera3.livroTemPrazos(isbn))
+            opera3.removerPrazosDeUmLivro(isbn);
+
+        opera.removerPorISBN(isbn);
+
     }
 
     public Livro pesquisarLivroPorISBN(double isbn){
@@ -60,11 +65,15 @@ public class Adm extends Usuario {
     public void removerLeitor(int id){
         LeitorImpl opera = new LeitorImpl();
         ReservaImpl opera2 = new ReservaImpl();
-
-        opera.remover(id);
+        PrazosImpl opera3 = new PrazosImpl();
 
         if(opera2.leitorTemReserva(id))
-            opera2.remover(id);
+            opera2.removerReservasDeUmLeitor(id);
+
+        if(opera3.leitorTemPrazos(id))
+            opera3.removerPrazosDeUmLeitor(id);
+
+        opera.remover(id);
     }
 
     public void atualizarSenhaLeitor(String senha, int id){
@@ -131,12 +140,16 @@ public class Adm extends Usuario {
     public void bloquearLeitor(int id){
         LeitorImpl opera = new LeitorImpl();
         ReservaImpl opera2 = new ReservaImpl();
+        PrazosImpl opera3 = new PrazosImpl();
         Leitor bloquear = opera.encontrarPorId(id);
 
-        bloquear.setBloqueado(true);
-
         if(opera2.leitorTemReserva(id))
-            opera2.remover(id);
+            opera2.removerReservasDeUmLeitor(id);
+
+        if(opera3.leitorTemPrazos(id))
+            opera3.removerPrazosDeUmLeitor(id);
+
+        bloquear.setBloqueado(true);
     }
 
     public void desbloquearLeitor(int id){
@@ -191,12 +204,17 @@ public class Adm extends Usuario {
     public void atualizarDisponibilidadeLivro(double isbn, boolean FouT){
         LivroImpl opera = new LivroImpl();
         ReservaImpl opera2 = new ReservaImpl();
-        Livro opera3 = opera.encontrarPorISBN(isbn);
+        PrazosImpl opera3 = new PrazosImpl();
 
-        opera3.setDisponivel(FouT);
+        Livro novo = opera.encontrarPorISBN(isbn);
 
         if(opera2.livroTemReserva(isbn))
             opera2.removerReservasDeUmLivro(isbn);
+
+        if(opera3.livroTemPrazos(isbn))
+            opera3.removerPrazosDeUmLivro(isbn);
+
+        novo.setDisponivel(FouT);
     }
 
     public List<Livro> estoque(){
