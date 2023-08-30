@@ -16,26 +16,18 @@ public class Convidado {
     }
 
     public Livro pesquisarLivroPorISBN(double isbn){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorISBN(isbn);
+        return DAO.getLivro().encontrarPorISBN(isbn);
     }
 
     public List<Livro> pesquisarLivroPorTitulo(String titulo){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorTitulo(titulo);
+        return DAO.getLivro().encontrarPorTitulo(titulo);
     }
 
     public List<Livro> pesquisarLivroPorAutor(String autor){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorAutor(autor);
+        return DAO.getLivro().encontrarPorAutor(autor);
     }
 
     public List<Livro> pesquisarLivroPorCategoria(String categoria){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorCategoria(categoria);
+        return DAO.getLivro().encontrarPorCategoria(categoria);
     }
 }

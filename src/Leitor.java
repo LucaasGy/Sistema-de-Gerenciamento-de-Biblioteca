@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Leitor extends Usuario{
@@ -62,50 +61,37 @@ public class Leitor extends Usuario{
     }
 
     public Livro pesquisarLivroPorISBN(double isbn){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorISBN(isbn);
+        return DAO.getLivro().encontrarPorISBN(isbn);
     }
 
     public List<Livro> pesquisarLivroPorTitulo(String titulo){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorTitulo(titulo);
+        return DAO.getLivro().encontrarPorTitulo(titulo);
     }
 
     public List<Livro> pesquisarLivroPorAutor(String autor){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorAutor(autor);
+        return DAO.getLivro().encontrarPorAutor(autor);
     }
 
     public List<Livro> pesquisarLivroPorCategoria(String categoria){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorCategoria(categoria);
+        return DAO.getLivro().encontrarPorCategoria(categoria);
     }
 
     public void renovarEmprestimo(){
-        EmprestimoImpl opera = new EmprestimoImpl();
-        Emprestimo novo = opera.encontrarPorId(this.getID());
+        Emprestimo novo = DAO.getEmprestimo().encontrarPorId(this.getID());
 
-        opera.remover(novo.getLeitor().getID());
+        DAO.getEmprestimo().remover(novo.getLeitor().getID());
 
         novo.setdataPegou(LocalDate.now());
         novo.setdataPrevista(novo.getdataPegou().plusDays(7));
 
-        opera.criar(novo);
+        DAO.getEmprestimo().criar(novo);
 
         this.limiteRenova++;
     }
 
     public void reservarLivro(double isbn){
-        ReservaImpl opera = new ReservaImpl();
-        LeitorImpl opera2 = new LeitorImpl();
-        LivroImpl opera3 = new LivroImpl();
+        Reserva reserva = new Reserva(DAO.getLivro().encontrarPorISBN(isbn) , DAO.getLeitor().encontrarPorId(this.getID()));
 
-        Reserva reserva = new Reserva(opera3.encontrarPorISBN(isbn) , opera2.encontrarPorId(this.getID()));
-
-        opera.criar(reserva);
+        DAO.getReserva().criar(reserva);
     }
 }

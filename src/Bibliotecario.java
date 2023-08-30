@@ -9,65 +9,49 @@ public class Bibliotecario extends Usuario{
     }
 
     public Livro pesquisarLivroPorISBN(double isbn){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorISBN(isbn);
+        return DAO.getLivro().encontrarPorISBN(isbn);
     }
 
     public List<Livro> pesquisarLivroPorTitulo(String titulo){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorTitulo(titulo);
+        return DAO.getLivro().encontrarPorTitulo(titulo);
     }
 
     public List<Livro> pesquisarLivroPorAutor(String autor){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorAutor(autor);
+        return DAO.getLivro().encontrarPorAutor(autor);
     }
 
     public List<Livro> pesquisarLivroPorCategoria(String categoria){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorCategoria(categoria);
+        return DAO.getLivro().encontrarPorCategoria(categoria);
     }
 
     public void registrarLivro(String titulo, String autor, String editora, int ano, String categoria){
         Livro opera = new Livro(titulo, autor, editora, ano, categoria);
-        LivroImpl opera2 = new LivroImpl();
 
-        opera2.criar(opera);
+        DAO.getLivro().criar(opera);
     }
 
     public void fazerEmprestimo(int id, double isbn){
-        LivroImpl opera = new LivroImpl();
-        LeitorImpl opera2 = new LeitorImpl();
-        EmprestimoImpl opera3 = new EmprestimoImpl();
+        Emprestimo novo = new Emprestimo(DAO.getLivro().encontrarPorISBN(isbn),DAO.getLeitor().encontrarPorId(id));
 
-        Emprestimo novo = new Emprestimo(opera.encontrarPorISBN(isbn),opera2.encontrarPorId(id));
-
-        opera3.criar(novo);
+        DAO.getEmprestimo().criar(novo);
     }
 
     public void devolverLivro(int id){
-        EmprestimoImpl opera = new EmprestimoImpl();
-        ReservaImpl opera2 = new ReservaImpl();
-        Emprestimo opera3 = opera.encontrarPorId(id);
-        PrazosImpl opera4 = new PrazosImpl();
+        Emprestimo opera = DAO.getEmprestimo().encontrarPorId(id);
 
         LocalDate devolve = LocalDate.now();
 
-        long dias = ChronoUnit.DAYS.between(opera3.getdataPrevista(),devolve);
+        long dias = ChronoUnit.DAYS.between(opera.getdataPrevista(),devolve);
 
         if(dias>0) {
 
-            opera3.getLeitor().setDataMulta(devolve.plusDays(dias*2));
+            opera.getLeitor().setDataMulta(devolve.plusDays(dias*2));
 
-            if(opera2.leitorTemReserva(id))
-                opera2.remover(id);
+            if(DAO.getReserva().leitorTemReserva(id))
+                DAO.getReserva().remover(id);
 
-            if(opera4.leitorTemPrazos(id))
-                opera4.removerPrazosDeUmLeitor(id);
+            if(DAO.getPrazos().leitorTemPrazos(id))
+                DAO.getPrazos().removerPrazosDeUmLeitor(id);
         }
 
         //caso o livro tenha reserva, ao ser devolvido, eu pego o top 1 da fila e crio um prazo para ele
@@ -76,16 +60,16 @@ public class Bibliotecario extends Usuario{
         //Ao tentar fazer o emprestimo, verifico se ta dentro do prazo
         //Se tiver, faco o emprestimo, removo o prazo e removo a reserva dele
         //Se nao tiver, nao faco o emprestimo, removo o prazo e removo a reserva dele
-        if(opera2.livroTemReserva(opera3.getLivro().getISBN())){
-            Reserva opera5 = opera2.top1Reserva(opera3.getLivro().getISBN());
-            Prazos novo = new Prazos(opera5.getLeitor(),opera5.getLivro(),devolve.plusDays(2));
+        if(DAO.getReserva().livroTemReserva(opera.getLivro().getISBN())){
+            Reserva opera2 = DAO.getReserva().top1Reserva(opera.getLivro().getISBN());
+            Prazos novo = new Prazos(opera2.getLeitor(),opera2.getLivro(),devolve.plusDays(2));
 
-            opera4.criar(novo);
+            DAO.getPrazos().criar(novo);
         }
 
-        opera3.getLivro().setDisponivel(true);
-        opera3.getLeitor().setLimiteRenova(0);
+        opera.getLivro().setDisponivel(true);
+        opera.getLeitor().setLimiteRenova(0);
 
-        opera.remover(id);
+        DAO.getEmprestimo().remover(id);
     }
 }

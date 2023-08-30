@@ -11,223 +11,176 @@ public class Adm extends Usuario {
 
     public void registrarLivro(String titulo, String autor, String editora, int ano, String categoria){
         Livro opera = new Livro(titulo, autor, editora, ano, categoria);
-        LivroImpl opera2 = new LivroImpl();
 
-        opera2.criar(opera);
+        DAO.getLivro().criar(opera);
     }
 
     public void removerUmLivro(double isbn){
-        LivroImpl opera = new LivroImpl();
-        ReservaImpl opera2 = new ReservaImpl();
-        PrazosImpl opera3 = new PrazosImpl();
+        if(DAO.getReserva().livroTemReserva(isbn))
+            DAO.getReserva().removerReservasDeUmLivro(isbn);
 
-        if(opera2.livroTemReserva(isbn))
-            opera2.removerReservasDeUmLivro(isbn);
+        if(DAO.getPrazos().livroTemPrazos(isbn))
+            DAO.getPrazos().removerPrazosDeUmLivro(isbn);
 
-        if(opera3.livroTemPrazos(isbn))
-            opera3.removerPrazosDeUmLivro(isbn);
-
-        opera.removerPorISBN(isbn);
-
+        DAO.getLivro().removerPorISBN(isbn);
     }
 
     public Livro pesquisarLivroPorISBN(double isbn){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorISBN(isbn);
+        return DAO.getLivro().encontrarPorISBN(isbn);
     }
 
     public List<Livro> pesquisarLivroPorTitulo(String titulo){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorTitulo(titulo);
+        return DAO.getLivro().encontrarPorTitulo(titulo);
     }
 
     public List<Livro> pesquisarLivroPorAutor(String autor){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorAutor(autor);
+        return DAO.getLivro().encontrarPorAutor(autor);
     }
 
     public List<Livro> pesquisarLivroPorCategoria(String categoria){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarPorCategoria(categoria);
+        return DAO.getLivro().encontrarPorCategoria(categoria);
     }
 
     public void criarLeitor(String nome, String endereco, String telefone, String senha){
         Leitor novo = new Leitor(nome, endereco, telefone, senha);
-        LeitorImpl opera = new LeitorImpl();
 
-        opera.criar(novo);
+        DAO.getLeitor().criar(novo);
     }
 
     public void removerLeitor(int id){
-        LeitorImpl opera = new LeitorImpl();
-        ReservaImpl opera2 = new ReservaImpl();
-        PrazosImpl opera3 = new PrazosImpl();
+        if(DAO.getReserva().leitorTemReserva(id))
+            DAO.getReserva().removerReservasDeUmLeitor(id);
 
-        if(opera2.leitorTemReserva(id))
-            opera2.removerReservasDeUmLeitor(id);
+        if(DAO.getPrazos().leitorTemPrazos(id))
+            DAO.getPrazos().removerPrazosDeUmLeitor(id);
 
-        if(opera3.leitorTemPrazos(id))
-            opera3.removerPrazosDeUmLeitor(id);
-
-        opera.remover(id);
+        DAO.getLeitor().remover(id);
     }
 
     public void atualizarSenhaLeitor(String senha, int id){
-        LeitorImpl opera = new LeitorImpl();
-        Leitor leitor = opera.encontrarPorId(id);
+        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         leitor.setSenha(senha);
     }
 
     public void atualizarEnderecoLeitor(String endereco, int id){
-        LeitorImpl opera = new LeitorImpl();
-        Leitor leitor = opera.encontrarPorId(id);
+        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         leitor.setEndereco(endereco);
     }
 
     public void atualizarTelefoneLeitor(String telefone, int id){
-        LeitorImpl opera = new LeitorImpl();
-        Leitor leitor = opera.encontrarPorId(id);
+        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         leitor.setTelefone(telefone);
     }
 
     public void criarBibliotecario(String nome, String senha){
         Bibliotecario novo = new Bibliotecario(nome, senha);
-        BibliotecarioImpl opera = new BibliotecarioImpl();
 
-        opera.criar(novo);
+        DAO.getBibliotecario().criar(novo);
     }
 
     public void removerBibliotecario(int id){
-        BibliotecarioImpl opera = new BibliotecarioImpl();
-
-        opera.remover(id);
+        DAO.getBibliotecario().remover(id);
     }
 
     public void atualizarSenhaBibliotecario(String senha, int id){
-        BibliotecarioImpl opera = new BibliotecarioImpl();
-        Bibliotecario bibliotecario = opera.encontrarPorId(id);
+        Bibliotecario bibliotecario = DAO.getBibliotecario().encontrarPorId(id);
 
         bibliotecario.setSenha(senha);
     }
 
     public void criarAdm(String nome, String senha){
         Adm novo = new Adm(nome, senha);
-        AdmImpl opera = new AdmImpl();
 
-        opera.criar(novo);
+        DAO.getAdm().criar(novo);
     }
 
     public void removerAdm(int id){
-        AdmImpl opera = new AdmImpl();
-
-        opera.remover(id);
+        DAO.getAdm().remover(id);
     }
 
     public void atualizarSenhaAdm(String senha, int id){
-        AdmImpl opera = new AdmImpl();
-        Adm adm = opera.encontrarPorId(id);
+        Adm adm = DAO.getAdm().encontrarPorId(id);
 
         adm.setSenha(senha);
     }
 
     public void bloquearLeitor(int id){
-        LeitorImpl opera = new LeitorImpl();
-        ReservaImpl opera2 = new ReservaImpl();
-        PrazosImpl opera3 = new PrazosImpl();
-        Leitor bloquear = opera.encontrarPorId(id);
+        Leitor bloquear = DAO.getLeitor().encontrarPorId(id);
 
-        if(opera2.leitorTemReserva(id))
-            opera2.removerReservasDeUmLeitor(id);
+        if(DAO.getReserva().leitorTemReserva(id))
+            DAO.getReserva().removerReservasDeUmLeitor(id);
 
-        if(opera3.leitorTemPrazos(id))
-            opera3.removerPrazosDeUmLeitor(id);
+        if(DAO.getPrazos().leitorTemPrazos(id))
+            DAO.getPrazos().removerPrazosDeUmLeitor(id);
 
         bloquear.setBloqueado(true);
     }
 
     public void desbloquearLeitor(int id){
-        LeitorImpl opera = new LeitorImpl();
-        Leitor bloquear = opera.encontrarPorId(id);
+        Leitor bloquear = DAO.getLeitor().encontrarPorId(id);
 
         bloquear.setBloqueado(false);
     }
 
     public void tirarMulta(int id){
-        LeitorImpl opera = new LeitorImpl();
-        Leitor tira = opera.encontrarPorId(id);
+        Leitor tira = DAO.getLeitor().encontrarPorId(id);
 
         tira.setDataMulta(null);
     }
 
     public void atualizarTituloLivro(String titulo, double isbn){
-        LivroImpl opera = new LivroImpl();
-        Livro opera2 = opera.encontrarPorISBN(isbn);
+        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
 
         opera2.setTitulo(titulo);
     }
 
     public void atualizarAutorLivro(String autor, double isbn){
-        LivroImpl opera = new LivroImpl();
-        Livro opera2 = opera.encontrarPorISBN(isbn);
+        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
 
         opera2.setAutor(autor);
     }
 
     public void atualizarEditoraLivro(String editora, double isbn){
-        LivroImpl opera = new LivroImpl();
-        Livro opera2 = opera.encontrarPorISBN(isbn);
+        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
 
         opera2.setEditora(editora);
     }
 
     public void atualizarAnoLivro(int ano, double isbn){
-        LivroImpl opera = new LivroImpl();
-        Livro opera2 = opera.encontrarPorISBN(isbn);
+        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
 
         opera2.setAno(ano);
     }
 
     public void atualizarCategoriaLivro(String categoria, double isbn){
-        LivroImpl opera = new LivroImpl();
-        Livro opera2 = opera.encontrarPorISBN(isbn);
+        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
 
         opera2.setCategoria(categoria);
     }
 
     public void atualizarDisponibilidadeLivro(double isbn, boolean FouT){
-        LivroImpl opera = new LivroImpl();
-        ReservaImpl opera2 = new ReservaImpl();
-        PrazosImpl opera3 = new PrazosImpl();
+        Livro novo = DAO.getLivro().encontrarPorISBN(isbn);
 
-        Livro novo = opera.encontrarPorISBN(isbn);
+        if(DAO.getReserva().livroTemReserva(isbn))
+            DAO.getReserva().removerReservasDeUmLivro(isbn);
 
-        if(opera2.livroTemReserva(isbn))
-            opera2.removerReservasDeUmLivro(isbn);
-
-        if(opera3.livroTemPrazos(isbn))
-            opera3.removerPrazosDeUmLivro(isbn);
+        if(DAO.getPrazos().livroTemPrazos(isbn))
+            DAO.getPrazos().removerPrazosDeUmLivro(isbn);
 
         novo.setDisponivel(FouT);
     }
 
     public List<Livro> estoque(){
-        LivroImpl opera = new LivroImpl();
-
-        return opera.encontrarTodos();
+        return DAO.getLivro().encontrarTodos();
     }
 
     public List<Livro> livrosEmprestados(){
-        EmprestimoImpl opera = new EmprestimoImpl();
         List<Livro> livros = new ArrayList<Livro>();
 
-        for(Emprestimo emp : opera.encontrarTodosAtuais()){
+        for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
             livros.add(emp.getLivro());
         }
 
@@ -235,12 +188,11 @@ public class Adm extends Usuario {
     }
 
     public List<Livro> livrosAtrasados(){
-        EmprestimoImpl opera = new EmprestimoImpl();
         List<Livro> livrosAtrasados = new ArrayList<Livro>();
 
         LocalDate agr = LocalDate.now();
 
-        for(Emprestimo emp : opera.encontrarTodosAtuais()){
+        for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
             if(emp.getdataPrevista().isBefore(agr)){
                 livrosAtrasados.add(emp.getLivro());
             }
@@ -250,10 +202,9 @@ public class Adm extends Usuario {
     }
 
     public List<Livro> livrosReservados(){
-        ReservaImpl opera = new ReservaImpl();
         List<Livro> livros = new ArrayList<Livro>();
 
-        for(Reserva res : opera.encontrarTodos()){
+        for(Reserva res : DAO.getReserva().encontrarTodos()){
             livros.add(res.getLivro());
         }
 
@@ -261,14 +212,11 @@ public class Adm extends Usuario {
     }
 
     public List<Emprestimo> historicoEmprestimoDeUmLeitor(int id){
-        EmprestimoImpl opera = new EmprestimoImpl();
-
-        return opera.encontrarHistoricoDeUmLeitor(id);
+        return DAO.getEmprestimo().encontrarHistoricoDeUmLeitor(id);
     }
 
     public List<Livro> livrosMaisPopulares(){
-        LivroImpl opera = new LivroImpl();
-        List<Livro> livrosPopulares = opera.encontrarTodos();
+        List<Livro> livrosPopulares = DAO.getLivro().encontrarTodos();
 
         Comparator<Livro> comparador = Comparator.comparingInt(Livro::getQtdEmprestimo);
         //Collections.sort(copia, comparador);
