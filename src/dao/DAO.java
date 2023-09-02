@@ -1,3 +1,20 @@
+package dao;
+
+import dao.adm.AdmDAO;
+import dao.adm.AdmImpl;
+import dao.bibliotecario.BibliotecarioDAO;
+import dao.bibliotecario.BibliotecarioImpl;
+import dao.emprestimo.EmprestimoDAO;
+import dao.emprestimo.EmprestimoImpl;
+import dao.leitor.LeitorDAO;
+import dao.leitor.LeitorImpl;
+import dao.livro.LivroDAO;
+import dao.livro.LivroImpl;
+import dao.prazo.PrazosDAO;
+import dao.prazo.PrazosImpl;
+import dao.reserva.ReservaDAO;
+import dao.reserva.ReservaImpl;
+
 public class DAO {
     private static AdmDAO admDAO;
     private static BibliotecarioDAO bibliotecarioDAO;

@@ -1,3 +1,7 @@
+package dao.adm;
+
+import model.Adm;
+
 import java.util.ArrayList;
 import java.util.List;
 

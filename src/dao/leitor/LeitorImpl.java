@@ -1,6 +1,10 @@
+package dao.leitor;
+
+import model.Leitor;
+
 import java.util.ArrayList;
 import java.util.List;
-public class LeitorImpl implements LeitorDAO{
+public class LeitorImpl implements LeitorDAO {
     private List<Leitor> listaLeitor;
     private int nextID;
 

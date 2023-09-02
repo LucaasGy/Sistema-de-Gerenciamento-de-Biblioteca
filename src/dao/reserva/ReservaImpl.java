@@ -1,7 +1,11 @@
+package dao.reserva;
+
+import model.Reserva;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservaImpl implements ReservaDAO{
+public class ReservaImpl implements ReservaDAO {
 
     private List<Reserva> listaReserva;
 
@@ -26,7 +30,7 @@ public class ReservaImpl implements ReservaDAO{
     }
 
 
-    //remove todas as reservas de um leitor
+    //remove todas as reservas de um dao.leitor
     @Override
     public void removerReservasDeUmLeitor(int id) {
         for(int i = 0; i < this.listaReserva.size(); i++){
@@ -35,7 +39,7 @@ public class ReservaImpl implements ReservaDAO{
         }
     }
 
-    //remove todas as reservas de um livro
+    //remove todas as reservas de um dao.livro
     @Override
     public void removerReservasDeUmLivro(double isbn) {
         for(int i = 0; i < this.listaReserva.size(); i++){
@@ -98,8 +102,8 @@ public class ReservaImpl implements ReservaDAO{
         return false;
     }
 
-    //retorno a primeira reserva de um livro para comparar de Id dessa reserva é o mesmo id de quem ta querendo fazer
-    //o emprestimo de um livro reservado
+    //retorno a primeira dao.reserva de um dao.livro para comparar de Id dessa dao.reserva é o mesmo id de quem ta querendo fazer
+    //o dao.emprestimo de um dao.livro reservado
     @Override
     public Reserva top1Reserva(double isbn){
         for(Reserva reserva : this.listaReserva){
@@ -110,7 +114,7 @@ public class ReservaImpl implements ReservaDAO{
         return null;
     }
 
-    //removo a primeira reserva de um livro ( top1 )
+    //removo a primeira dao.reserva de um dao.livro ( top1 )
     @Override
     public void removeTop1(double isbn){
         for(Reserva reserva : this.listaReserva){

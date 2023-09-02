@@ -1,7 +1,11 @@
+package dao.emprestimo;
+
+import model.Emprestimo;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmprestimoImpl implements EmprestimoDAO{
+public class EmprestimoImpl implements EmprestimoDAO {
     private List<Emprestimo> listaEmprestimoTotal;
     private List<Emprestimo> listaEmprestimoAtual;
 
@@ -39,6 +43,26 @@ public class EmprestimoImpl implements EmprestimoDAO{
         }
 
         return null;
+    }
+
+    @Override
+    public Emprestimo encontrarPorISBN(double isbn){
+        for(Emprestimo emp : this.listaEmprestimoAtual){
+            if(emp.getLivro().getISBN()==isbn)
+                return emp;
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean livroTemEmprestimo(double isbn){
+        for(Emprestimo emp : this.listaEmprestimoAtual){
+            if(emp.getLivro().getISBN()==isbn)
+                return true;
+        }
+
+        return false;
     }
 
     @Override //todos os emprestimos ja registrados

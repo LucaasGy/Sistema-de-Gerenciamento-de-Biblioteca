@@ -1,3 +1,5 @@
+package model;
+
 public class Livro {
     private String titulo;
     private String autor;
@@ -7,7 +9,7 @@ public class Livro {
     private String categoria;
     private boolean disponivel;
 
-    //medir popularidade ( quantas vezes tal livro ja foi emprestado )
+    //medir popularidade ( quantas vezes tal dao.livro ja foi emprestado )
     private int qtdEmprestimo;
 
     public Livro(String titulo, String autor, String editora, int ano, String categoria) {

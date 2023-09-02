@@ -1,6 +1,11 @@
+package dao.livro;
+
+import dao.CRUD;
+import model.Livro;
+
 import java.util.List;
 
-public interface LivroDAO extends CRUD<Livro>{
+public interface LivroDAO extends CRUD<Livro> {
     public List<Livro> encontrarPorTitulo(String titulo);
 
     public List<Livro> encontrarPorAutor(String autor);

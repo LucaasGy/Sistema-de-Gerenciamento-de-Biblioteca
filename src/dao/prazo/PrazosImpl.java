@@ -1,7 +1,11 @@
+package dao.prazo;
+
+import model.Prazos;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrazosImpl implements PrazosDAO{
+public class PrazosImpl implements PrazosDAO {
 
     private List<Prazos> listaPrazos;
 
@@ -57,6 +61,16 @@ public class PrazosImpl implements PrazosDAO{
         }
 
         return prazosLivro;
+    }
+
+    @Override
+    public Prazos encontrarUmPrazo(int id, double isbn){
+        for(Prazos prazos : this.listaPrazos){
+            if(prazos.getLeitor().getID()==id && prazos.getLivro().getISBN()==isbn)
+                return prazos;
+        }
+
+        return null;
     }
 
     @Override

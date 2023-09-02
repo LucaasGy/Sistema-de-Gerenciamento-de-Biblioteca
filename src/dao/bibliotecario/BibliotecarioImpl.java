@@ -1,3 +1,7 @@
+package dao.bibliotecario;
+
+import model.Bibliotecario;
+
 import java.util.ArrayList;
 import java.util.List;
 

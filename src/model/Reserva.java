@@ -1,3 +1,8 @@
+package model;
+
+import model.Leitor;
+import model.Livro;
+
 public class Reserva {
     private Livro livro;
     private Leitor leitor;

@@ -1,6 +1,11 @@
+package dao.reserva;
+
+import dao.CRUD;
+import model.Reserva;
+
 import java.util.List;
 
-public interface ReservaDAO extends CRUD<Reserva>{
+public interface ReservaDAO extends CRUD<Reserva> {
     public List<Reserva> encontrarLeitorReservouLivro(double isbn);
     public List<Reserva> encontrarLivroReservadoPorLeitor(int id);
     public void removerReservasDeUmLeitor(int id);
