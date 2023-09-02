@@ -73,19 +73,23 @@ public class Leitor extends Usuario {
         if(novo==null)
             throw new LeitorNaoPossuiEmprestimo();
 
-        if(novo.getLeitor().getBloqueado())
+        if(this.getBloqueado())
             throw new LeitorBloqueado();
 
-        if(novo.getLeitor().getDataMulta()!=null)
-            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: "+novo.getLeitor().getDataMulta());
+        if(this.getDataMulta()!=null) {
+            if(this.getDataMulta().isAfter(LocalDate.now()))
+                throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + this.getDataMulta());
+
+            this.setDataMulta(null);
+        }
 
         if(DAO.getReserva().livroTemReserva(novo.getLivro().getISBN()))
             throw new LivroReservado();
 
-        if(novo.getLeitor().getLimiteRenova()==1)
+        if(this.getLimiteRenova()==1)
             throw new LeitorLimiteDeRenovacao();
 
-        DAO.getEmprestimo().remover(novo.getLeitor().getID());
+        DAO.getEmprestimo().remover(this.getID());
 
         novo.setdataPegou(LocalDate.now());
         novo.setdataPrevista(novo.getdataPegou().plusDays(7));
@@ -102,8 +106,12 @@ public class Leitor extends Usuario {
         if(getBloqueado())
             throw new LeitorBloqueado();
 
-        if(getDataMulta()!=null)
-            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: "+getDataMulta());
+        if(getDataMulta()!=null) {
+            if(getDataMulta().isAfter(LocalDate.now()))
+                throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + getDataMulta());
+
+            this.setDataMulta(null);
+        }
 
         if(DAO.getReserva().encontrarLeitorReservouLivro(isbn).size()==4)
             throw new LivroLimiteDeReservas();

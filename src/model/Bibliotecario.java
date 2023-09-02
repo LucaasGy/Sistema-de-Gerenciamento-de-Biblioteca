@@ -36,8 +36,12 @@ public class Bibliotecario extends Usuario {
         if(leitor.getBloqueado())
             throw new LeitorBloqueado();
 
-        if(leitor.getDataMulta()!=null)
-            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: "+leitor.getDataMulta());
+        if(leitor.getDataMulta()!=null) {
+            if(leitor.getDataMulta().isAfter(LocalDate.now()))
+                throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + leitor.getDataMulta());
+
+            leitor.setDataMulta(null);
+        }
 
         if(DAO.getEmprestimo().encontrarPorId(id)!=null)
             throw new LeitorTemEmprestimo();
@@ -49,14 +53,12 @@ public class Bibliotecario extends Usuario {
             if(DAO.getReserva().top1Reserva(isbn).getLeitor().getID()!=id)
                 throw new LivroReservado();
 
-            if (DAO.getPrazos().encontrarUmPrazo(id, isbn).getDataLimite().isBefore(LocalDate.now())){
-                DAO.getPrazos().removerUmPrazo(id, isbn);
-                DAO.getReserva().removeTop1(isbn);
-                throw new PrazoVencido();
-            }
-
             DAO.getPrazos().removerUmPrazo(id, isbn);
             DAO.getReserva().removeTop1(isbn);
+
+            if (DAO.getPrazos().encontrarUmPrazo(id, isbn).getDataLimite().isBefore(LocalDate.now())){
+                throw new PrazoVencido();
+            }
         }
 
         Emprestimo novo = new Emprestimo(livro,leitor);
