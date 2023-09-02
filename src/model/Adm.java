@@ -10,33 +10,58 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Subclasse Adm que extende a Superclasse Usuário.
+ *
+ * Representa um Administrador do sistema, podendo realizar CRUD dos livros e usuários,
+ * solicitar relatórios e estatísticas do sistema, bloqueio e desbloqueio de Leitores,
+ * gerenciamento de multas e também pesquisa de livros herdado da Superclasse Usuário.
+ *
+ * @author Lucas Gabriel.
+ */
+
 public class Adm extends Usuario {
+
+    /**
+     * Construtor de um Administrador do sistema.
+     *
+     * Recebe a maioria dos atributos da classe para inseri-las diretamente.
+     * A inserção é feita chamando o construtor da Superclasse.
+     * O tipo de usuário é definido a depender do usuário em questão.
+     *
+     * @param nome nome do Administrador
+     * @param senha senha do Administrador
+     */
 
     public Adm(String nome, String senha){
         super(nome, senha, TipoUsuario.ADM);
     }
 
-    public void registrarLivro(Livro livro){
-        DAO.getLivro().criar(livro);
-    }
-
-    public void removerUmLivro(double isbn) throws ObjetoInvalido, LivroEmprestado {
-        if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
-
-        if(DAO.getEmprestimo().livroTemEmprestimo(isbn))
-            throw new LivroEmprestado();
-
-        DAO.getReserva().removerReservasDeUmLivro(isbn);
-        DAO.getPrazos().removerPrazosDeUmLivro(isbn);
-
-        DAO.getLivro().removerPorISBN(isbn);
-    }
+    /**
+     * Método que cria um novo usuário do tipo Leitor e o adiciona no sistema
+     *
+     * @param leitor objeto leitor contendo todas as informações pré definidas
+     */
 
     public void criarLeitor(Leitor leitor){
 
         DAO.getLeitor().criar(leitor);
     }
+
+    /**
+     * Método que remove um Leitor do sistema.
+     *
+     * Caso o leitor não seja encontrado ou esteja com algum empréstimo
+     * ele não poderá ser removido.
+     * Caso tudo esteja correto, é removido todas as reservas e prazos do leitor
+     * e ele é removido do sistema.
+     *
+     * @param id identificação do leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     * @throws LeitorTemEmprestimo caso o leitor esteja com algum emprestimo de livro,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void removerLeitor(int id) throws ObjetoInvalido, LeitorTemEmprestimo {
         if(DAO.getLeitor().encontrarPorId(id)==null)
@@ -51,6 +76,15 @@ public class Adm extends Usuario {
         DAO.getLeitor().remover(id);
     }
 
+    /**
+     * Método que atualiza a Senha de um Leitor.
+     *
+     * @param senha nova senha do leitor
+     * @param id identificação do leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     public void atualizarSenhaLeitor(String senha, int id) throws ObjetoInvalido {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
@@ -59,6 +93,15 @@ public class Adm extends Usuario {
 
         leitor.setSenha(senha);
     }
+
+    /**
+     * Método que atualiza o Endereço de um Leitor.
+     *
+     * @param endereco novo endereço
+     * @param id identificação do leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void atualizarEnderecoLeitor(String endereco, int id) throws ObjetoInvalido {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
@@ -69,6 +112,15 @@ public class Adm extends Usuario {
         leitor.setEndereco(endereco);
     }
 
+    /**
+     * Método que atualiza o Telefone de um Leitor.
+     *
+     * @param telefone novo telefone
+     * @param id identicação do leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     public void atualizarTelefoneLeitor(String telefone, int id) throws ObjetoInvalido {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
@@ -78,16 +130,38 @@ public class Adm extends Usuario {
         leitor.setTelefone(telefone);
     }
 
+    /**
+     * Método que cria um novo usuário do tipo Bibliotecario e o adiciona no sistema.
+     *
+     * @param bibliotecario objeto bibliotecario contendo todas as informações pré definidas
+     */
+
     public void criarBibliotecario(Bibliotecario bibliotecario){
         DAO.getBibliotecario().criar(bibliotecario);
     }
 
+    /**
+     * Método que remove um Bibliotecario do sistema.
+     *
+     * @param id identificação do bibliotecario
+     * @throws ObjetoInvalido caso não seja encontrado o bibliotecario com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
     public void removerBibliotecario(int id) throws ObjetoInvalido {
         if(DAO.getBibliotecario().encontrarPorId(id)==null)
             throw new ObjetoInvalido("BIBLIOTECARIO NAO ENCONTRADO");
 
         DAO.getBibliotecario().remover(id);
     }
+
+    /**
+     * Método que atualiza Senha de um Bibliotecario.
+     *
+     * @param senha nova senha
+     * @param id identificação do bibliotecario
+     * @throws ObjetoInvalido caso não seja encontrado o bibliotecario com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void atualizarSenhaBibliotecario(String senha, int id) throws ObjetoInvalido {
         Bibliotecario bibliotecario = DAO.getBibliotecario().encontrarPorId(id);
@@ -98,9 +172,23 @@ public class Adm extends Usuario {
         bibliotecario.setSenha(senha);
     }
 
+    /**
+     * Método que cria um novo usuário do tipo Administrador e o adiciona no sistema.
+     *
+     * @param adm objeto adm contendo todas as informações pré definidas
+     */
+
     public void criarAdm(Adm adm){
         DAO.getAdm().criar(adm);
     }
+
+    /**
+     * Método que remove um Administrador do sistema.
+     *
+     * @param id identicação do administrador
+     * @throws ObjetoInvalido caso não seja encontrado o administrador com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void removerAdm(int id) throws ObjetoInvalido {
         if(DAO.getAdm().encontrarPorId(id)==null)
@@ -108,6 +196,15 @@ public class Adm extends Usuario {
 
         DAO.getAdm().remover(id);
     }
+
+    /**
+     * Método que atualiza Senha de um Administrador.
+     *
+     * @param senha nova senha
+     * @param id identicação do administrador
+     * @throws ObjetoInvalido caso não seja encontrado o administrador com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void atualizarSenhaAdm(String senha, int id) throws ObjetoInvalido {
         Adm adm = DAO.getAdm().encontrarPorId(id);
@@ -117,6 +214,17 @@ public class Adm extends Usuario {
 
         adm.setSenha(senha);
     }
+
+    /**
+     * Método que bloqueia um Leitor no sistema.
+     *
+     * Caso tudo esteja correto, é removido todas as reservas e prazos do leitor
+     * e ele é bloqueado no sistema.
+     *
+     * @param id identificação do leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void bloquearLeitor(int id) throws ObjetoInvalido {
         Leitor bloquear = DAO.getLeitor().encontrarPorId(id);
@@ -130,6 +238,14 @@ public class Adm extends Usuario {
         bloquear.setBloqueado(true);
     }
 
+    /**
+     * Método que desbloqueia um Leitor no sistema.
+     *
+     * @param id identificação do leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     public void desbloquearLeitor(int id) throws ObjetoInvalido {
         Leitor bloquear = DAO.getLeitor().encontrarPorId(id);
 
@@ -138,6 +254,14 @@ public class Adm extends Usuario {
 
         bloquear.setBloqueado(false);
     }
+
+    /**
+     * Método que retira manualmente a multa de algum Leitor.
+     *
+     * @param id identicação do leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void tirarMulta(int id) throws ObjetoInvalido {
         Leitor tira = DAO.getLeitor().encontrarPorId(id);
@@ -148,6 +272,52 @@ public class Adm extends Usuario {
         tira.setDataMulta(null);
     }
 
+    /**
+     * Método que cria um novo Livro e o adiciona no sistema.
+     *
+     * @param livro objeto livro contendo todas as informações pré definidas
+     */
+    public void registrarLivro(Livro livro){
+        DAO.getLivro().criar(livro);
+    }
+
+    /**
+     * Método que remove um Livro do acervo da biblioteca.
+     *
+     * Caso o livro não seja encontrado ou esteja emprestado
+     * ele não poderá ser removido.
+     * Caso tudo esteja correto, é removido todas as reservas e prazos do livro
+     * e ele é removido do acervo.
+     *
+     * @param isbn isbn do livro
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
+     * retorna uma exceção informando o ocorrido
+     * @throws LivroEmprestado caso o livro esteja emprestado por algum leitor,
+     * retorna uma exceção informando o ocorrido
+     */
+
+    public void removerUmLivro(double isbn) throws ObjetoInvalido, LivroEmprestado {
+        if(DAO.getLivro().encontrarPorISBN(isbn)==null)
+            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+
+        if(DAO.getEmprestimo().livroTemEmprestimo(isbn))
+            throw new LivroEmprestado();
+
+        DAO.getReserva().removerReservasDeUmLivro(isbn);
+        DAO.getPrazos().removerPrazosDeUmLivro(isbn);
+
+        DAO.getLivro().removerPorISBN(isbn);
+    }
+
+    /**
+     * Método que atualiza Titulo de um Livro.
+     *
+     * @param titulo novo titulo
+     * @param isbn isbn do livro
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     public void atualizarTituloLivro(String titulo, double isbn) throws ObjetoInvalido {
         Livro opera = DAO.getLivro().encontrarPorISBN(isbn);
 
@@ -156,6 +326,15 @@ public class Adm extends Usuario {
 
         opera.setTitulo(titulo);
     }
+
+    /**
+     * Método que atualiza Autor de um Livro.
+     *
+     * @param autor novo autor
+     * @param isbn isbn do livro
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void atualizarAutorLivro(String autor, double isbn) throws ObjetoInvalido {
         Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
@@ -166,6 +345,15 @@ public class Adm extends Usuario {
         opera2.setAutor(autor);
     }
 
+    /**
+     * Método que atualiza Editora de um Livro.
+     *
+     * @param editora nova editora
+     * @param isbn isbn do livro
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     public void atualizarEditoraLivro(String editora, double isbn) throws ObjetoInvalido {
         Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
 
@@ -174,6 +362,15 @@ public class Adm extends Usuario {
 
         opera2.setEditora(editora);
     }
+
+    /**
+     * Método que atualiza Ano de um Livro.
+     *
+     * @param ano novo ano
+     * @param isbn isbn do livro
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void atualizarAnoLivro(int ano, double isbn) throws ObjetoInvalido {
         Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
@@ -184,6 +381,14 @@ public class Adm extends Usuario {
         opera2.setAno(ano);
     }
 
+    /**
+     * Método que atualiza Categoria de um Livro.
+     *
+     * @param categoria nova categoria
+     * @param isbn isbn do livro
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
+     * retorna uma exceção informando o ocorrido
+     */
     public void atualizarCategoriaLivro(String categoria, double isbn) throws ObjetoInvalido {
         Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
 
@@ -192,6 +397,24 @@ public class Adm extends Usuario {
 
         opera2.setCategoria(categoria);
     }
+
+    /**
+     * Método que atualiza Disponibilidade de um Livro.
+     *
+     * Caso o livro não seja encontrado ou esteja emprestado
+     * ele não poderá ser removido.
+     * Caso tudo esteja correto, é removido todas as reservas e prazos do livro
+     * e sua disponibilidade é atualizada.
+     *
+     * ps: não posso colocar que o livro está disponível caso ele esteja emprestado
+     *
+     * @param isbn isbn do livro
+     * @param FouT booleano true ou false
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
+     * retorna uma exceção informando o ocorrido
+     * @throws LivroEmprestado caso o livro esteja emprestado por algum leitor,
+     * retorna uma exceção informando o ocorrido
+     */
 
     public void atualizarDisponibilidadeLivro(double isbn, boolean FouT) throws ObjetoInvalido, LivroEmprestado {
         Livro novo = DAO.getLivro().encontrarPorISBN(isbn);
@@ -208,9 +431,21 @@ public class Adm extends Usuario {
         novo.setDisponivel(FouT);
     }
 
+    /**
+     * Método que retorna todos os Livros cadastrados no sistema.
+     *
+     * @return retorna uma lista de livros cadastrados
+     */
+
     public List<Livro> estoque(){
         return DAO.getLivro().encontrarTodos();
     }
+
+    /**
+     * Método que retorna todos os Livros emprestados atualmente.
+     *
+     * @return retorna uma lista de livros emprestados
+     */
 
     public List<Livro> livrosEmprestados(){
         List<Livro> livros = new ArrayList<Livro>();
@@ -221,6 +456,12 @@ public class Adm extends Usuario {
 
         return livros;
     }
+
+    /**
+     * Método que retorna todos os Livros atrasados atualmente.
+     *
+     * @return retorna uma lista de livros atrasados
+     */
 
     public List<Livro> livrosAtrasados(){
         List<Livro> livrosAtrasados = new ArrayList<Livro>();
@@ -236,6 +477,12 @@ public class Adm extends Usuario {
         return livrosAtrasados;
     }
 
+    /**
+     * Método que retorna todos os Livros reservados atualmente.
+     *
+     * @return retorna uma lista de livros reservados
+     */
+
     public List<Livro> livrosReservados(){
         List<Livro> livros = new ArrayList<Livro>();
 
@@ -246,12 +493,28 @@ public class Adm extends Usuario {
         return livros;
     }
 
+    /**
+     * Método que retorna todos os Empréstimos de um determinado Leitor.
+     *
+     * @param id identificação do leitor
+     * @return retorna uma lista de empréstimos de um leitor
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     public List<Emprestimo> historicoEmprestimoDeUmLeitor(int id) throws ObjetoInvalido {
         if(DAO.getLeitor().encontrarPorId(id)==null)
             throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
 
         return DAO.getEmprestimo().encontrarHistoricoDeUmLeitor(id);
     }
+
+    /**
+     * Método que retorna os Livros mais populares em ordem usando como parâmetro
+     * a quantidade de vezes que cada livro foi emprestado.
+     *
+     * @return retorna lista de livros mais populares
+     */
 
     public List<Livro> livrosMaisPopulares(){
         List<Livro> livrosPopulares = DAO.getLivro().encontrarTodos();
