@@ -96,22 +96,19 @@ public class Leitor extends Usuario {
     /**
      * Método que realiza uma Renovação de um empréstimo ativo do Leitor.
      *
-     * Caso o leitor não possua um empréstimo ativo, esteja bloqueado, com multa ativa, já tenha
-     * alcançado o limite de renovações de empréstimo ou o livro possua alguma reserva,
-     * o leitor não poderá realizar a renovação.
+     * Caso o leitor não possua um empréstimo ativo, possua um emprestimo ativo em atraso,
+     * esteja bloqueado, já tenha alcançado o limite de renovações de empréstimo ou
+     * o livro possua alguma reserva, o leitor não poderá realizar a renovação.
      * Caso tudo esteja correto, o empréstimo atual é removido da lista de empréstimos ativos,
      * é criado um novo empréstimo com dataPegou atual e dataPrevista para daqui 7 dias e esse
      * novo empréstimo é registrado na lista de empréstimos ativos e na lista de todos os empréstimos
      * já feitos. Também é atualizado o limite de renovações.
      *
-     * ps:
-     * -> se a multa do leitor ja estiver vencido, a multa é retirada
-     *
      * @throws LeitorNaoPossuiEmprestimo caso o leitor não possua um empréstimo ativo,
      * retorna uma exceção informando o ocorrido
      * @throws LeitorBloqueado caso o leitor esteja bloqueado,
      * retorna uma exceção informando o ocorrido
-     * @throws LeitorMultado caso o leitor esteja multado e a multa ainda estiver ativa,
+     * @throws LeitorTemEmprestimoEmAtraso caso o leitor possua um emprestimo ativo em atraso,
      * retorna uma exceção informando o ocorrido
      * @throws LivroReservado caso o livro possua alguma reserva,
      * retorna uma exceção informando o ocorrido
@@ -119,7 +116,7 @@ public class Leitor extends Usuario {
      * renovações de empréstimo, retorna uma exceção informando o ocorrido
      */
 
-    public void renovarEmprestimo() throws LeitorNaoPossuiEmprestimo, LeitorBloqueado, LeitorMultado, LivroReservado, LeitorLimiteDeRenovacao {
+    public void renovarEmprestimo() throws LeitorNaoPossuiEmprestimo, LeitorBloqueado, LivroReservado, LeitorLimiteDeRenovacao, LeitorTemEmprestimoEmAtraso {
         Emprestimo novo = DAO.getEmprestimo().encontrarPorId(this.getID());
 
         if(novo==null)
@@ -128,12 +125,8 @@ public class Leitor extends Usuario {
         if(this.getBloqueado())
             throw new LeitorBloqueado();
 
-        if(this.getDataMulta()!=null) {
-            if(this.getDataMulta().isAfter(LocalDate.now()))
-                throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + this.getDataMulta());
-
-            this.setDataMulta(null);
-        }
+        if(novo.getdataPrevista().isBefore(LocalDate.now()))
+            throw new LeitorTemEmprestimoEmAtraso();
 
         if(DAO.getReserva().livroTemReserva(novo.getLivro().getISBN()))
             throw new LivroReservado();
@@ -154,8 +147,9 @@ public class Leitor extends Usuario {
     /**
      * Método que realiza a Reserva de um livro para o Leitor.
      *
-     * Caso o leitor esteja bloqueado, com multa ativa, tenha atingido o limite de reservas ativas,
-     * esteja tentando reservar um livro que esteja emprestado por ele, a reserva não pode ser feita.
+     * Caso o leitor esteja bloqueado, com multa ativa, possua um emprestimo ativo em atraso,
+     * tenha atingido o limite de reservas ativas ou esteja tentando reservar um livro que esteja
+     * emprestado por ele, a reserva não pode ser feita.
      * Caso o livro não seja encontrado ou tenha atingido o limite de reservas ativas,
      * a reserva não pode ser feita.
      * Caso tudo esteja correto, é criada uma reserva para o livro e a reserva é registrada no sistema.
@@ -176,9 +170,11 @@ public class Leitor extends Usuario {
      * retorna uma exceção informando o ocorrido
      * @throws LeitorMultado caso o leitor possua multa ativa,
      * retorna uma exceção informando o ocorrido
+     * @throws LeitorTemEmprestimoEmAtraso caso o leitor possua um emprestimo ativo em atraso,
+     * retorna uma exceção informando o ocorrido
      */
 
-    public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado {
+    public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimoEmAtraso {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
@@ -190,6 +186,13 @@ public class Leitor extends Usuario {
                 throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + getDataMulta());
 
             this.setDataMulta(null);
+        }
+
+        Emprestimo emp = DAO.getEmprestimo().encontrarPorId(this.getID());
+
+        if(emp!=null){
+            if(emp.getdataPrevista().isBefore(LocalDate.now()))
+                throw new LeitorTemEmprestimoEmAtraso();
         }
 
         if(DAO.getReserva().encontrarLeitorReservouLivro(isbn).size()==4)
