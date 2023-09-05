@@ -28,7 +28,7 @@ public class Leitor extends Usuario {
     /**
      * Construtor de um Leitor do sistema.
      *
-     * Recebe a maioria dos atributos da classe para inseri-las diretamente.
+     * Recebe como parâmetro a maioria dos atributos da classe para inseri-las diretamente.
      * A inserção é feita chamando o construtor da Superclasse.
      * O tipo de usuário é definido a depender do usuário em questão.
      * O atributo bloqueado indicia se o leitor está bloqueado ou não
@@ -104,6 +104,11 @@ public class Leitor extends Usuario {
      * novo empréstimo é registrado na lista de empréstimos ativos e na lista de todos os empréstimos
      * já feitos. Também é atualizado o limite de renovações.
      *
+     * ps:
+     * -> é necessário verificar se o leitor possui empréstimo ativo em atraso, pois como a multa
+     * só é aplicada ao devolver um livro, existe a possibilidade dele estar "multado" sem a multa
+     * ter sido aplicada ainda, restringindo ele de realizar reservas e emprestimos.
+     *
      * @throws LeitorNaoPossuiEmprestimo caso o leitor não possua um empréstimo ativo,
      * retorna uma exceção informando o ocorrido
      * @throws LeitorBloqueado caso o leitor esteja bloqueado,
@@ -156,6 +161,9 @@ public class Leitor extends Usuario {
      *
      * ps:
      * -> se a multa do leitor ja estiver vencido, a multa é retirada
+     * -> é necessário verificar se o leitor possui empréstimo ativo em atraso, pois como a multa
+     * só é aplicada ao devolver um livro, existe a possibilidade dele estar "multado" sem a multa
+     * ter sido aplicada ainda, restringindo ele de realizar reservas e emprestimos.
      *
      * @param isbn isbn do livro
      * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,

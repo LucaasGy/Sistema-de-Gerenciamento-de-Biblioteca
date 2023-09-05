@@ -25,7 +25,7 @@ public class Adm extends Usuario {
     /**
      * Construtor de um Administrador do sistema.
      *
-     * Recebe a maioria dos atributos da classe para inseri-las diretamente.
+     * Recebe como parâmetro a maioria dos atributos da classe para inseri-las diretamente.
      * A inserção é feita chamando o construtor da Superclasse.
      * O tipo de usuário é definido a depender do usuário em questão.
      *
@@ -510,10 +510,10 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna os Livros mais populares em ordem usando como parâmetro
+     * Método que retorna os 10 Livros mais populares em ordem usando como parâmetro
      * a quantidade de vezes que cada livro foi emprestado.
      *
-     * @return retorna lista de livros mais populares
+     * @return retorna lista de 10 livros mais populares
      */
 
     public List<Livro> livrosMaisPopulares(){
@@ -523,6 +523,12 @@ public class Adm extends Usuario {
         //Collections.sort(copia, comparador);
         livrosPopulares.sort(comparador);
 
-        return livrosPopulares;
+        List<Livro> top10livros = new ArrayList<Livro>();
+
+        for(int i=0; i<10; i++){
+            top10livros.add(livrosPopulares.get(i));
+        }
+
+        return top10livros;
     }
 }

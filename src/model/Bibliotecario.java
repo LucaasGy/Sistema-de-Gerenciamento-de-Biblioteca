@@ -7,11 +7,9 @@ import erros.leitor.LeitorNaoPossuiEmprestimo;
 import erros.leitor.LeitorTemEmprestimo;
 import erros.livro.LivroEmprestado;
 import erros.livro.LivroReservado;
-import erros.livro.PrazoVencido;
 import erros.objetos.ObjetoInvalido;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Subclasse Bibliotecario que extende a Superclasse Usuário.
@@ -28,7 +26,7 @@ public class Bibliotecario extends Usuario {
     /**
      * Construtor de um Bibliotecario do sistema.
      *
-     * Recebe a maioria dos atributos da classe para inseri-las diretamente.
+     * Recebe como parâmetro a maioria dos atributos da classe para inseri-las diretamente.
      * A inserção é feita chamando o construtor da Superclasse.
      * O tipo de usuário é definido a depender do usuário em questão.
      *
@@ -54,21 +52,23 @@ public class Bibliotecario extends Usuario {
      * Método que realiza o Empréstimo de um livro para um determinado Leitor.
      *
      * Caso o livro não seja encontrado, esteja emprestado, possua reserva e o top 1 da fila não
-     * for o leitor em questão ou o leitor em questão seja o top 1 da fila mas seu prazo para fazer o empréstimo
-     * está vencido, o livro não poderá ser emprestado.
+     * for o leitor em questão, o livro não poderá ser emprestado.
      * Caso o leitor não seja encontrado, esteja bloqueado, com multa ativa ou com algum emprestimo ativo,
      * o leitor não poderá realizar o empréstimo.
      * Caso tudo esteja correto, é realizado o empréstimo do livro e o empréstimo é registrado no sistema.
      *
      * ps:
      * -> se a multa do leitor ja estiver vencido, a multa é retirada
-     * -> se o livro tiver reservado e o leitor em questão ser o top 1, ele é retirado da fila de reserva e seu prazo
-     * é excluido
+     * -> se o livro possuir reserva, é verificado se o prazo de emprestimo do top1 da fila ja venceu,
+     * caso tenha vencido, seu prazo e sua reserva são deletados. Após isso, verifica novamente se
+     * o livro ainda possui reservas e se possuir, verifica se o novo top1 da fila é o leitor que está
+     * tentando realizar o empréstimo. Caso seja, sua reserva e prazo sao deletados. Caso não seja, retorna
+     * uma exceção.
      *
      * @param id identicação do leitor
      * @param isbn isbn do livro
      * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado ou
-     * o não seja encontrado o letiro com id informado, retorna uma exceção informando o ocorrido
+     * o não seja encontrado o leitor com o id informado, retorna uma exceção informando o ocorrido
      * @throws LeitorBloqueado caso o leitor esteja bloqueado,
      * retorna uma exceção informando o ocorrido
      * @throws LeitorMultado caso o leitor esteja multado e a multa ainda não ter vencido,
@@ -79,11 +79,9 @@ public class Bibliotecario extends Usuario {
      * retorna uma exceção informando o ocorrido
      * @throws LivroReservado caso o livro esteja reservado e o top 1 da fila não seja o leitor em questão,
      * retorna uma exceção informando o ocorrido
-     * @throws PrazoVencido caso o livro esteja reservado, o leitor em questão seja o top 1 da fila, mas
-     * o prazo para realizar o empréstimo esteja vencido, retorna uma exceção informando o ocorrido
      */
 
-    public void fazerEmprestimo(int id, double isbn) throws ObjetoInvalido, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimo, LivroEmprestado, LivroReservado, PrazoVencido {
+    public void fazerEmprestimo(int id, double isbn) throws ObjetoInvalido, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimo, LivroEmprestado, LivroReservado{
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
@@ -110,19 +108,18 @@ public class Bibliotecario extends Usuario {
             throw new LivroEmprestado();
 
         if(DAO.getReserva().livroTemReserva(isbn)){
-            if(DAO.getReserva().top1Reserva(isbn).getLeitor().getID()!=id)
-                throw new LivroReservado();
+            Sistema.atualizaReservasEPrazos(isbn);
 
-            DAO.getPrazos().removerUmPrazo(id, isbn);
-            DAO.getReserva().removeTop1(isbn);
+            if(DAO.getReserva().livroTemReserva(isbn)) {
+                if (DAO.getReserva().top1Reserva(isbn).getLeitor().getID() != id)
+                    throw new LivroReservado();
 
-            if (DAO.getPrazos().encontrarUmPrazo(id, isbn).getDataLimite().isBefore(LocalDate.now())){
-                throw new PrazoVencido();
+                DAO.getPrazos().removerUmPrazo(id, isbn);
+                DAO.getReserva().removeTop1(isbn);
             }
         }
 
         Emprestimo novo = new Emprestimo(livro,leitor);
-
         DAO.getEmprestimo().criar(novo);
     }
 
@@ -159,19 +156,11 @@ public class Bibliotecario extends Usuario {
         if(opera==null)
             throw new LeitorNaoPossuiEmprestimo();
 
-        LocalDate devolve = LocalDate.now();
-
-        long dias = ChronoUnit.DAYS.between(opera.getdataPrevista(),devolve);
-
-        if(dias>0) {
-
-            opera.getLeitor().setDataMulta(devolve.plusDays(dias*2));
-
-            DAO.getReserva().remover(id);
-            DAO.getPrazos().removerPrazosDeUmLeitor(id);
-        }
+        Sistema.checarMulta(opera);
 
         if(DAO.getReserva().livroTemReserva(opera.getLivro().getISBN())){
+            LocalDate devolve = LocalDate.now();
+
             Reserva opera2 = DAO.getReserva().top1Reserva(opera.getLivro().getISBN());
             Prazos novo = new Prazos(opera2.getLeitor(),opera2.getLivro(),devolve.plusDays(2));
 

@@ -1,25 +1,33 @@
 package model;
 
-import model.Leitor;
-import model.Livro;
-
 import java.time.LocalDate;
 
+/**
+ * Classe Prazos que representa um prazo para o primeiro da fila de reserva ir realizar o empréstimo do Livro.
+ * Classe criada pois um leitor pode realizar até 3 reservas ativas, logo pode precisar de 3 prazos ativos,
+ * mesmo não podendo fazer empréstimo dos 3.
+ *
+ * É definida pelo objeto Leitor e Livro, contendo todos os dados de ambos,
+ * além de um atributo da classe LocalDate para armazenar a data limite para
+ * o leitor ir realizar o empréstimo ( 2 dias após a devolução do livro ).
+ *
+ * @author Lucas Gabriel.
+ */
+
 public class Prazos {
-
-    //como um usuario pode reservar ate 3 livros, quando o dao.livro reservado for devolvido e o dao.leitor ser o top 1 da fila
-    //cria-se um dao.prazo para o dao.livro em questao, como sao no max 3 livros, preciso ter 3 prazos na lista que conteria,
-    //o dao.livro, o dao.leitor em questao e a data limite para o dao.leitor fazer o dao.emprestimo dele.
-    //caso ao tentar fazer o dao.emprestimo de um dos 3 livros o dao.prazo tenha sido estrapolado, eu removo esse dao.prazo da
-    //lista e removo o usuario da fila de dao.reserva do dao.livro em questao, nao interferindo na dao.reserva e dao.prazo dos outros 2
-    //livros restantes.
-    //Nao posso adicionar essa lista de prazos como atributo em letiro, porque caso eu remova algum dao.livro do acervo, ou ate
-    //mesmo queira tirar todas as reservas de um dao.livro, eu tambem teria que tirar todos os prazos daquele dao.livro, e eu teria
-    //que procurar na lista de prazos de cada objeto dao.leitor e ir removendo caso eu achasse o dao.livro em questao
-
     private Leitor leitor;
     private Livro livro;
     private LocalDate dataLimite;
+
+    /**
+     * Construtor de um prazo para empréstimo.
+     *
+     * Recebe como parâmetros todos os atributos da classe para inseri-los diretamente.
+     *
+     * @param leitor o Leitor do prazo
+     * @param livro o Livro do prazo
+     * @param dataLimite a data limite para ir realizar o empréstimo
+     */
 
     public Prazos(Leitor leitor, Livro livro, LocalDate dataLimite) {
 

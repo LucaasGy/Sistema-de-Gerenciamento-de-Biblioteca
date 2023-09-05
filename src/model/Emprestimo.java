@@ -2,11 +2,32 @@ package model;
 
 import java.time.LocalDate;
 
+/**
+ * Classe Empréstimo que representa um empréstimo de um Livro por um Leitor.
+ *
+ * É definida pelo objeto Leitor e Livro, contendo todos os dados de ambos,
+ * dois atributos da classe LocalDate para armazenar a data que foi realizada
+ * o empréstimo e a data prevista para devolução ( 7 dias ).
+ *
+ * @author Lucas Gabriel.
+ */
+
 public class Emprestimo {
     private Livro livro;
     private Leitor leitor;
     private LocalDate dataPegou;
     private LocalDate dataPrevista;
+
+    /**
+     * Construtor de um Empréstimo de Livro.
+     *
+     * Recebe como parâmetro os dados do leitor e livro para inseri-los diretamente.
+     * A data que pegou e a data prevista para devolução são inseridas automaticamente
+     * na criação do empréstimo.
+     *
+     * @param livro o Livro que está sendo emprestado
+     * @param leitor o Leitor que está fazendo o empréstimo
+     */
     public Emprestimo(Livro livro, Leitor leitor) {
         this.livro = livro;
         this.leitor = leitor;
