@@ -83,6 +83,17 @@ public class ReservaImpl implements ReservaDAO {
     }
 
     @Override
+    public boolean leitorJaReservouEsseLivro(int id, double isbn){
+        for(Reserva reserva : this.listaReserva){
+            if(reserva.getLeitor().getID()==id && reserva.getLivro().getISBN()==isbn){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     public boolean leitorTemReserva(int id){
         for(Reserva reserva : this.listaReserva){
             if(reserva.getLeitor().getID()==id)

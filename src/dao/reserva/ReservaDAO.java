@@ -13,6 +13,7 @@ public interface ReservaDAO extends CRUD<Reserva> {
     public void removerUmaReserva(int id, double isbn);
     public boolean leitorTemReserva(int id);
     public boolean livroTemReserva(double isbn);
+    public boolean leitorJaReservouEsseLivro(int id, double isbn);
     public Reserva top1Reserva(double isbn);
     public void removeTop1(double isbn);
 }
