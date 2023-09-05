@@ -494,6 +494,39 @@ public class Adm extends Usuario {
     }
 
     /**
+     * Método que retorna o número de livros emprestados atualmente.
+     * @return retorna tamanho da lista de livros emprestados atualmente
+     */
+
+    public int numeroLivrosEmprestados(){
+        int n;
+
+        return n = livrosEmprestados().size();
+    }
+
+    /**
+     * Método que retorna o número de livros atrasados atualmente.
+     * @return retorna tamanho da lista de livros atrasados atualmente
+     */
+
+    public int numeroLivrosAtrasados(){
+        int n;
+
+        return n = livrosAtrasados().size();
+    }
+
+    /**
+     * Método que retorna o número de livros reservados atualmente.
+     * @return retorna tamanho da lista de livros reservados atualmente
+     */
+    
+    public int numeroLivrosReservados(){
+        int n;
+
+        return n = livrosReservados().size();
+    }
+
+    /**
      * Método que retorna todos os Empréstimos de um determinado Leitor.
      *
      * @param id identificação do leitor

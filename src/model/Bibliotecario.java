@@ -108,7 +108,7 @@ public class Bibliotecario extends Usuario {
             throw new LivroEmprestado();
 
         if(DAO.getReserva().livroTemReserva(isbn)){
-            Sistema.atualizaReservasEPrazos(isbn);
+            Sistema.atualizaReservaEPrazo(isbn);
 
             if(DAO.getReserva().livroTemReserva(isbn)) {
                 if (DAO.getReserva().top1Reserva(isbn).getLeitor().getID() != id)

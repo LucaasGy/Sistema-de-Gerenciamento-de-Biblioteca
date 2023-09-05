@@ -143,7 +143,7 @@ public class Sistema {
      * @param isbn identificação do livro reservado que está tentando ser emprestado
      */
 
-    public static void atualizaReservasEPrazos(double isbn){
+    public static void atualizaReservaEPrazo(double isbn){
         Prazos prazoLivro = DAO.getPrazos().encontrarPrazoDeUmLivro(isbn);
             if(prazoLivro.getDataLimite().isBefore(LocalDate.now())){
                 DAO.getReserva().removeTop1(isbn);
