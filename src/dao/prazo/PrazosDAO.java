@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PrazosDAO extends CRUD<Prazos> {
     public List<Prazos> encontrarPrazosDeUmLeitor(int id);
-    public List<Prazos> encontrarPrazosDeUmLivro(double isbn);
+    public Prazos encontrarPrazoDeUmLivro(double isbn);
     public Prazos encontrarUmPrazo(int id, double isbn);
     public void removerPrazosDeUmLeitor(int id);
     public void removerPrazosDeUmLivro(double isbn);

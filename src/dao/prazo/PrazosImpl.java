@@ -52,15 +52,14 @@ public class PrazosImpl implements PrazosDAO {
     }
 
     @Override
-    public List<Prazos> encontrarPrazosDeUmLivro(double isbn) {
-        List<Prazos> prazosLivro = new ArrayList<Prazos>();
+    public Prazos encontrarPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
             if(prazo.getLivro().getISBN()==isbn){
-                prazosLivro.add(prazo);
+                return prazo;
             }
         }
 
-        return prazosLivro;
+        return null;
     }
 
     @Override
