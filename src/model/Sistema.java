@@ -6,7 +6,6 @@ import erros.objetos.UsuarioSenhaIncorreta;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -157,6 +156,52 @@ public class Sistema {
 
                 DAO.getPrazos().removerUmPrazo(prazoLivro.getLeitor().getID(),isbn);
             }
+    }
+
+    /**
+     * Método utilizado para verificar se a multa de um leitor já expirou.
+     *
+     * Este método será utilizado na fase 3, quando o projeto possuir uma "main",
+     * onde a cada vez que o programa for aberto, ele irá verificar se caso um leitor
+     * possuir multa e essa multa já tiver sido expirada, a multa é retirada.
+     */
+
+    public static void verificarMultasLeitores(){
+        for(Leitor leitor : DAO.getLeitor().encontrarTodos()){
+            if(leitor.getDataMulta()!=null) {
+                if (leitor.getDataMulta().isBefore(LocalDate.now()))
+                    leitor.setDataMulta(null);
+            }
+        }
+    }
+
+    /**
+     * Método utilizado para verificar se os prazos para realizar empréstimo de um livro
+     * já expirou.
+     *
+     * Este método será utilizado na fase 3, quando o projeto possuir uma "main",
+     * onde a cada vez que o programa for aberto, ele irá verificar quais de todos os prazos
+     * existentes já foram expirados. Caso tenham sido, remove o top1 da fila de reserva do livro
+     * em questão e remove também seu prazo. Caso após a remoção, o livro ainda possua reservas,
+     * é criado um prazo para o antigo top2 da fila ir realizar seu empréstimo.
+     */
+
+    public static void verificarPrazosEReservas(){
+        List<Prazos> todosPrazos = DAO.getPrazos().encontrarTodos();
+
+        for(int i=0; i<todosPrazos.size(); i++){
+            if(todosPrazos.get(i).getDataLimite().isBefore(LocalDate.now())){
+                DAO.getReserva().removeTop1(todosPrazos.get(i).getLivro().getISBN());
+
+                if(DAO.getReserva().livroTemReserva(todosPrazos.get(i).getLivro().getISBN())){
+                    Reserva reserva1 = DAO.getReserva().top1Reserva(todosPrazos.get(i).getLivro().getISBN());
+                    Prazos prazotop1 = new Prazos(reserva1.getLeitor(),reserva1.getLivro(),LocalDate.now().plusDays(2));
+                    DAO.getPrazos().criar(prazotop1);
+                }
+
+                DAO.getPrazos().removerUmPrazo(todosPrazos.get(i).getLeitor().getID(),todosPrazos.get(i).getLivro().getISBN());
+            }
+        }
     }
 }
 
