@@ -182,7 +182,7 @@ public class Leitor extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimoEmAtraso {
+    public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimoEmAtraso, LeitorPossuiReservaDesseLivro {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
@@ -203,14 +203,17 @@ public class Leitor extends Usuario {
                 throw new LeitorTemEmprestimoEmAtraso();
         }
 
+        if(DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
+            throw new LeitorReservarLivroEmMaos();
+
+        if(DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
+            throw new LeitorPossuiReservaDesseLivro();
+
         if(DAO.getReserva().encontrarLeitorReservouLivro(isbn).size()==4)
             throw new LivroLimiteDeReservas();
 
         if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).size()==3)
             throw new LeitorLimiteDeReservas();
-
-        if(DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
-            throw new LeitorReservarLivroEmMaos();
 
         Reserva reserva = new Reserva(DAO.getLivro().encontrarPorISBN(isbn) , DAO.getLeitor().encontrarPorId(this.getID()));
 
