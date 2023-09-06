@@ -38,7 +38,7 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que cria um novo usuário do tipo Leitor e o adiciona no sistema
+     * Método que cria um novo usuário do tipo Leitor e o adiciona no sistema.
      *
      * @param leitor objeto leitor contendo todas as informações pré definidas
      */
@@ -71,7 +71,7 @@ public class Adm extends Usuario {
             throw new LeitorTemEmprestimo();
 
         DAO.getReserva().removerReservasDeUmLeitor(id);
-        DAO.getPrazos().removerPrazosDeUmLeitor(id);
+        DAO.getPrazos().remover(id);
 
         DAO.getLeitor().remover(id);
     }
@@ -233,7 +233,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
 
         DAO.getReserva().removerReservasDeUmLeitor(id);
-        DAO.getPrazos().removerPrazosDeUmLeitor(id);
+        DAO.getPrazos().remover(id);
 
         bloquear.setBloqueado(true);
     }
@@ -300,7 +300,7 @@ public class Adm extends Usuario {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
-        if(DAO.getEmprestimo().livroTemEmprestimo(isbn))
+        if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
             throw new LivroEmprestado();
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
@@ -422,7 +422,7 @@ public class Adm extends Usuario {
         if(novo==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
-        if(DAO.getEmprestimo().livroTemEmprestimo(isbn))
+        if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
             throw new LivroEmprestado();
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
@@ -432,13 +432,25 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna todos os Livros cadastrados no sistema.
+     * Método que retorna todos os Livros armazenados no sistema.
      *
-     * @return retorna uma lista de livros cadastrados
+     * @return retorna uma lista de livros armazenados
      */
 
     public List<Livro> estoque(){
         return DAO.getLivro().encontrarTodos();
+    }
+
+    /**
+     * Método que retorna o total de número de livros armazenados no sistema.
+     *
+     * @return retorna tamanho da lista de livro armazenados
+     */
+
+    public int numeroLivrosEstoque(){
+        int n;
+
+        return n = estoque().size();
     }
 
     /**
@@ -495,6 +507,7 @@ public class Adm extends Usuario {
 
     /**
      * Método que retorna o número de livros emprestados atualmente.
+     *
      * @return retorna tamanho da lista de livros emprestados atualmente
      */
 
@@ -506,6 +519,7 @@ public class Adm extends Usuario {
 
     /**
      * Método que retorna o número de livros atrasados atualmente.
+     *
      * @return retorna tamanho da lista de livros atrasados atualmente
      */
 
@@ -517,9 +531,10 @@ public class Adm extends Usuario {
 
     /**
      * Método que retorna o número de livros reservados atualmente.
+     *
      * @return retorna tamanho da lista de livros reservados atualmente
      */
-    
+
     public int numeroLivrosReservados(){
         int n;
 
@@ -546,7 +561,7 @@ public class Adm extends Usuario {
      * Método que retorna os 10 Livros mais populares em ordem usando como parâmetro
      * a quantidade de vezes que cada livro foi emprestado.
      *
-     * @return retorna lista de 10 livros mais populares
+     * @return retorna lista dos 10 livros mais populares
      */
 
     public List<Livro> livrosMaisPopulares(){

@@ -5,14 +5,35 @@ import model.Adm;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * É responsável por armazenar todos os administradores do sistema, e estruturar os métodos
+ * necessários para inserir, consultar, alterar ou remover. Implementa a interface AdmDAO.
+ *
+ * @author Lucas Gabriel.
+ */
+
 public class AdmImpl implements AdmDAO {
     private List<Adm> listaAdm;
     private int nextID;
+
+    /**
+     * Construtor que inicializa a lista de armazenamento de administradores e o número de ID. O ID do
+     * técnico possui o 1 como número fixo na casa da unidade, modificando apenas os valores nas
+     * outras casas.
+     */
 
     public AdmImpl() {
         this.listaAdm = new ArrayList<Adm>();
         this.nextID = 1001;
     }
+
+    /**
+     * Método para adicionar um Administrador na lista de armazenamento. O ID é inserido nos dados do administrador
+     * antes de adicioná-lo na lista. O valor 10 é somado no atributo id para o próximo administrador.
+     *
+     * @param obj Administrador que deve ser armazenado
+     * @return retorna objeto administrador criado
+     */
 
     @Override
     public Adm criar(Adm obj) {
@@ -23,6 +44,13 @@ public class AdmImpl implements AdmDAO {
         return obj;
     }
 
+    /**
+     * Método de retorno do Administrador através da busca por ID.
+     *
+     * @param id identificação do administrador a ser encontrado
+     * @return retorna objeto administrador encontrado
+     */
+
     @Override
     public Adm encontrarPorId(int id) {
         for(Adm adm : this.listaAdm){
@@ -32,6 +60,15 @@ public class AdmImpl implements AdmDAO {
 
         return null;
     }
+
+    /**
+     * Método que encontra Administradores por meio de seus nomes.
+     * Objetos Administradores que possuam o nome informado, são adicionados numa
+     * lista e retornados.
+     *
+     * @param nome o nome sobre os quais os Administradores devem ser encontrados
+     * @return retorna lista de administradores encontrados
+     */
 
     @Override
     public List<Adm> encontrarPorNome(String nome) {
@@ -45,6 +82,12 @@ public class AdmImpl implements AdmDAO {
         return listaNome;
     }
 
+    /**
+     * Método para remover determinado Administrador da estrutura de armazenamento.
+     *
+     * @param id identificação do administrador a ser deletado
+     */
+
     @Override
     public void remover(int id) {
         for(Adm adm : this.listaAdm){
@@ -55,11 +98,22 @@ public class AdmImpl implements AdmDAO {
         }
     }
 
+    /**
+     * Método de retorno de todos os objetos do tipo Administrador do banco de dados.
+     *
+     * @return retorna todos os objetos do tipo administrador
+     */
+
     @Override
     public List<Adm> encontrarTodos() {
 
         return this.listaAdm;
     }
+
+    /**
+     * Deleta todos os objetos do tipo Administrador do banco de dados.
+     * A contagem de ID é resetada para o valor inicial.
+     */
 
     @Override
     public void removerTodos() {

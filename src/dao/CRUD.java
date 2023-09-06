@@ -35,7 +35,7 @@ public interface CRUD<T> {
     /**
      * Método de busca do objeto através da busca por ID
      *
-     * @param id id do objeto a ser encontrado
+     * @param id identificação do objeto a ser encontrado
      * @return retorna o objeto que foi encontrado
      */
     T encontrarPorId(int id);

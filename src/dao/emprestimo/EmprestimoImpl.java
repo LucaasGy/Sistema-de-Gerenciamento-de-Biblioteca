@@ -5,25 +5,50 @@ import model.Emprestimo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * É responsável por armazenar todos os empréstimos do sistema, e estruturar os métodos
+ * necessários para inserir, consultar, alterar ou remover. Implementa a interface EmprestimoDAO.
+ *
+ * @author Lucas Gabriel.
+ */
+
+
 public class EmprestimoImpl implements EmprestimoDAO {
     private List<Emprestimo> listaEmprestimoTotal;
     private List<Emprestimo> listaEmprestimoAtual;
+
+    /**
+     * Construtor que inicializa as listas de armazenamento de empréstimos.
+     * É criados duas lista distintas para armazenar empréstimos ativo e a
+     * de todos empréstimos já feitos.
+     */
 
     public EmprestimoImpl() {
         this.listaEmprestimoTotal = new ArrayList<Emprestimo>();
         this.listaEmprestimoAtual = new ArrayList<Emprestimo>();
     }
 
+    /**
+     * Método para adicionar um objeto do tipo Emprestimo na lista de armazenamento de empréstimos ativos
+     * e a de todos os empréstimo já feitos.
+     *
+     * @param obj Empréstimo que deve ser armazenado
+     * @return retorna objeto empréstimo criado
+     */
+
     @Override
     public Emprestimo criar(Emprestimo obj) {
-        obj.getLivro().setDisponivel(false);
-        obj.getLivro().setQtdEmprestimo(obj.getLivro().getQtdEmprestimo()+1);
-
         this.listaEmprestimoTotal.add(obj);
         this.listaEmprestimoAtual.add(obj);
 
         return obj;
     }
+
+    /**
+     * Método para remover determinado Empréstimo da estrutura de armazenamento.
+     *
+     * @param id identificação do Leitor que realizou o Emprestimo a ser deletado
+     */
 
     @Override
     public void remover(int id) {
@@ -35,6 +60,13 @@ public class EmprestimoImpl implements EmprestimoDAO {
         }
     }
 
+    /**
+     * Método de retorno do Emprestimo através da busca por ID.
+     *
+     * @param id identificação do Leitor que realizou o Emprestimo a ser encontrado
+     * @return retorna objeto emprestimo encontrado
+     */
+
     @Override
     public Emprestimo encontrarPorId(int id) {
         for(Emprestimo emp : this.listaEmprestimoAtual){
@@ -44,6 +76,13 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
         return null;
     }
+
+    /**
+     * Método que encontra um empréstimo pelo isbn do livro emprestado.
+     *
+     * @param isbn isbn do livro que foi emprestado
+     * @return retorna o empréstimo do livro encontrado
+     */
 
     @Override
     public Emprestimo encontrarPorISBN(double isbn){
@@ -55,25 +94,36 @@ public class EmprestimoImpl implements EmprestimoDAO {
         return null;
     }
 
+    /**
+     * Método que encontra todos os empréstimos já feitos.
+     *
+     * @return retorna lista de todos os empréstimos já feitos encontrados
+     */
+
     @Override
-    public boolean livroTemEmprestimo(double isbn){
-        for(Emprestimo emp : this.listaEmprestimoAtual){
-            if(emp.getLivro().getISBN()==isbn)
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override //todos os emprestimos ja registrados
     public List<Emprestimo> encontrarTodos() {
         return this.listaEmprestimoTotal;
     }
 
-    @Override //todos os emprestimos atuais
+    /**
+     * Método que encontra todos os empréstimos ativos.
+     *
+     * @return retorna lista de empréstimos ativos encontrados
+     */
+
+    @Override
     public List<Emprestimo> encontrarTodosAtuais() {
         return this.listaEmprestimoAtual;
     }
+
+    /**
+     * Método que encontra todos os empréstimos já feitos por um determinado leitor.
+     * Objetos Emprestimo que possuam o ID informado, são adicionados numa
+     * lista e retornados.
+     *
+     * @param id identificação do leitor que realizou o emprestimo
+     * @return retorna lista de empréstimos de um leitor
+     */
 
     @Override
     public List<Emprestimo> encontrarHistoricoDeUmLeitor(int id) {
@@ -86,6 +136,13 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
         return historicoDoID;
     }
+
+    /**
+     * Deleta todos os objetos do tipo Emprestimo do banco de dados.
+     * Antes de deletar todos os empréstimos, a quantidade de empréstimos
+     * feitos de cada livro é resetado para 0.
+     * É deletado os empréstimos ativos e todos os empréstimos já feitos.
+     */
 
     @Override
     public void removerTodos(){
