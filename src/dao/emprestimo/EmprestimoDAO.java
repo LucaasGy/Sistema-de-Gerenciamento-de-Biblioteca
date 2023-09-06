@@ -38,4 +38,12 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
      */
 
     public Emprestimo encontrarPorISBN(double isbn);
+
+    /**
+     * Método que remove todos os empréstimos já feitos de um livro deletado do sistema.
+     *
+     * @param isbn isbn do livro deletado
+     */
+
+    public void removerTodosEmprestimosDeUmLivro(double isbn);
 }

@@ -61,6 +61,23 @@ public class EmprestimoImpl implements EmprestimoDAO {
     }
 
     /**
+     * Método que remove todos os empréstimos já feitos de um livro deletado do sistema.
+     * É utilizado um for padrão invés de um for each, pois como
+     * se trata de sequências de remoções em um loop, o for each
+     * acaba dando erro pois o tamanho da lista vai alterando durante
+     * as remoções. Utilizando um for padrão, este erro não ocorre.
+     *
+     * @param isbn isbn do livro deletado
+     */
+
+    public void removerTodosEmprestimosDeUmLivro(double isbn){
+        for(int i=0; i<this.listaEmprestimoTotal.size(); i++){
+            if(this.listaEmprestimoTotal.get(i).getLivro().getISBN()==isbn)
+                this.listaEmprestimoTotal.remove(i);
+        }
+    }
+
+    /**
      * Método de retorno do Emprestimo através da busca por ID.
      *
      * @param id identificação do Leitor que realizou o Emprestimo a ser encontrado
