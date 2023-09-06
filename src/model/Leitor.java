@@ -31,9 +31,11 @@ public class Leitor extends Usuario {
      * Recebe como parâmetro a maioria dos atributos da classe para inseri-las diretamente.
      * A inserção é feita chamando o construtor da Superclasse.
      * O tipo de usuário é definido a depender do usuário em questão.
-     * O atributo bloqueado indicia se o leitor está bloqueado ou não
-     * O atributo dataMulta indica a data que o leitor poderá voltar a realizar empréstimos, reservas e renovações
-     * O atributo limiteRenova indica o limite de renovações de empréstimo ativo que o leitor pode realizar
+     * O atributo bloqueado indica se o leitor está bloqueado ou não. É iniciado como false, pois não está bloqueado.
+     * O atributo dataMulta indica a data que o leitor poderá voltar a realizar empréstimos, reservas e renovações.
+     * É iniciado como null, pois não foi multado.
+     * O atributo limiteRenova indica o limite de renovações de empréstimo ativo que o leitor pode realizar. É iniciado
+     * com 0, pois não realizou nenhuma renovação.
      *
      * @param nome nome do leitor
      * @param endereco endereço do leitor
@@ -189,12 +191,8 @@ public class Leitor extends Usuario {
         if(getBloqueado())
             throw new LeitorBloqueado();
 
-        if(getDataMulta()!=null) {
-            if(getDataMulta().isAfter(LocalDate.now()))
-                throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + getDataMulta());
-
-            this.setDataMulta(null);
-        }
+        if(getDataMulta()!=null)
+            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + getDataMulta());
 
         Emprestimo emp = DAO.getEmprestimo().encontrarPorId(this.getID());
 

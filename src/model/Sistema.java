@@ -123,39 +123,8 @@ public class Sistema {
             emprestimo.getLeitor().setDataMulta(devolve.plusDays(dias*2));
 
             DAO.getReserva().remover(emprestimo.getLeitor().getID());
-            DAO.getPrazos().removerPrazosDeUmLeitor(emprestimo.getLeitor().getID());
+            DAO.getPrazos().remover(emprestimo.getLeitor().getID());
         }
-    }
-
-    /**
-     * Método que verifica se o prazo para o top1 da fila de
-     * reserva realizar o empréstimo de um livro, ainda é válido.
-     *
-     * Quando um usuario tentar realizar um empréstimo de um livro que esteja reservado,
-     * é verificado se o top1 da fila de reserva ainda possui o prazo válido para realizar
-     * o empréstimo.
-     * Caso não possua, sua reserva é deletada e caso o livro ainda
-     * possuir uma reserva, é criado um novo prazo para o top2 da fila ir fazer o empréstimo,
-     * e o prazo do top1 é deletado.
-     * Caso, após deletar a reserva do top1, o livro não possuir mais reservas, não é criado
-     * nenhum prazo novo e o prazo do top1 fazer o empréstimo é deletado.
-     *
-     * @param isbn identificação do livro reservado que está tentando ser emprestado
-     */
-
-    public static void atualizaReservaEPrazo(double isbn){
-        Prazos prazoLivro = DAO.getPrazos().encontrarPrazoDeUmLivro(isbn);
-            if(prazoLivro.getDataLimite().isBefore(LocalDate.now())){
-                DAO.getReserva().removeTop1(isbn);
-
-                if(DAO.getReserva().livroTemReserva(isbn)){
-                    Reserva reserva1 = DAO.getReserva().top1Reserva(isbn);
-                    Prazos prazotop1 = new Prazos(reserva1.getLeitor(),reserva1.getLivro(),LocalDate.now().plusDays(2));
-                    DAO.getPrazos().criar(prazotop1);
-                }
-
-                DAO.getPrazos().removerUmPrazo(prazoLivro.getLeitor().getID(),isbn);
-            }
     }
 
     /**
