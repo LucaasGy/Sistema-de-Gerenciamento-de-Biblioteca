@@ -6,6 +6,7 @@ import erros.leitor.LeitorMultado;
 import erros.leitor.LeitorNaoPossuiEmprestimo;
 import erros.leitor.LeitorTemEmprestimo;
 import erros.livro.LivroEmprestado;
+import erros.livro.LivroNaoDisponivel;
 import erros.livro.LivroReservado;
 import erros.objetos.ObjetoInvalido;
 
@@ -51,19 +52,18 @@ public class Bibliotecario extends Usuario {
     /**
      * Método que realiza o Empréstimo de um livro para um determinado Leitor.
      *
-     * Caso o livro não seja encontrado, esteja emprestado, possua reserva e o top 1 da fila não
+     * Caso o livro não seja encontrado, não esteja disponível ou possua reserva e o top 1 da fila não
      * for o leitor em questão, o livro não poderá ser emprestado.
      * Caso o leitor não seja encontrado, esteja bloqueado, com multa ativa ou com algum emprestimo ativo,
      * o leitor não poderá realizar o empréstimo.
      * Caso tudo esteja correto, é realizado o empréstimo do livro e o empréstimo é registrado no sistema.
      *
      * ps:
-     * -> se a multa do leitor ja estiver vencido, a multa é retirada
-     * -> se o livro possuir reserva, é verificado se o prazo de emprestimo do top1 da fila ja venceu,
-     * caso tenha vencido, seu prazo e sua reserva são deletados. Após isso, verifica novamente se
-     * o livro ainda possui reservas e se possuir, verifica se o novo top1 da fila é o leitor que está
-     * tentando realizar o empréstimo. Caso seja, sua reserva e prazo sao deletados. Caso não seja, retorna
-     * uma exceção.
+     * -> se o livro possuir reserva e o top 1 da fila for o leitor em questão, sua reserva e seu prazo
+     * são deletados.
+     * -> como existe a possiblidadade de um adm alterar a disponibilidade de um livro que não esteja com
+     * um empréstimo ativo, é necessário verificar porque um livro não está disponível. Ele pode não está
+     * disponível mesmo não possuindo um empréstimo ativo.
      *
      * @param id identicação do leitor
      * @param isbn isbn do livro
@@ -75,13 +75,15 @@ public class Bibliotecario extends Usuario {
      * retorna uma exceção informando o ocorrido
      * @throws LeitorTemEmprestimo caso o leitor já possua um empréstimo ativo,
      * retorna uma exceção informando o ocorrido
-     * @throws LivroEmprestado caso o livro esteja emprestado,
-     * retorna uma exceção informando o ocorrido
      * @throws LivroReservado caso o livro esteja reservado e o top 1 da fila não seja o leitor em questão,
+     * retorna uma exceção informando o ocorrido
+     * @throws LivroEmprestado caso o livro não esteja disponível e possua um empréstimo ativo,
+     * retorna uma exceção informando o ocorrido
+     * @throws LivroNaoDisponivel caso o livro não esteja disponível e não possua um empréstimo ativo,
      * retorna uma exceção informando o ocorrido
      */
 
-    public void fazerEmprestimo(int id, double isbn) throws ObjetoInvalido, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimo, LivroEmprestado, LivroReservado{
+    public void fazerEmprestimo(int id, double isbn) throws ObjetoInvalido, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimo, LivroEmprestado, LivroReservado, LivroNaoDisponivel {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
@@ -97,11 +99,15 @@ public class Bibliotecario extends Usuario {
         if(leitor.getDataMulta()!=null)
             throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + leitor.getDataMulta());
 
-        if(DAO.getEmprestimo().encontrarPorId(id)!=null)
-            throw new LeitorTemEmprestimo();
+        if(!livro.getDisponivel()) {
+            if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
+                throw new LivroEmprestado();
 
-        if(!livro.getDisponivel())
-            throw new LivroEmprestado();
+            throw new LivroNaoDisponivel();
+        }
+
+        if (DAO.getEmprestimo().encontrarPorId(id) != null)
+            throw new LeitorTemEmprestimo();
 
         if(DAO.getReserva().livroTemReserva(isbn)){
             if (DAO.getReserva().top1Reserva(isbn).getLeitor().getID() != id)
