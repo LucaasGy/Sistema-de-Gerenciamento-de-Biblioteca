@@ -287,7 +287,7 @@ public class Adm extends Usuario {
      * Caso o livro não seja encontrado ou esteja emprestado
      * ele não poderá ser removido.
      * Caso tudo esteja correto, é removido todas as reservas e prazos do livro
-     * e ele é removido do acervo.
+     * e também o histórico de empréstimos já feitos desse livro. Após isso, ele é removido do acervo.
      *
      * @param isbn isbn do livro
      * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
@@ -305,6 +305,7 @@ public class Adm extends Usuario {
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
         DAO.getPrazos().removerPrazosDeUmLivro(isbn);
+        DAO.getEmprestimo().removerTodosEmprestimosDeUmLivro(isbn);
 
         DAO.getLivro().removerPorISBN(isbn);
     }
@@ -558,8 +559,11 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna os 10 Livros mais populares em ordem usando como parâmetro
+     * Método que retorna os Livros mais populares em ordem usando como parâmetro
      * a quantidade de vezes que cada livro foi emprestado.
+     *
+     * Caso possua mais de 10 livros cadastrados no sistema, retorna os 10 mais populares.
+     * Caso não possua, retorna a quantidade que tiver.
      *
      * @return retorna lista dos 10 livros mais populares
      */
@@ -570,11 +574,24 @@ public class Adm extends Usuario {
         Comparator<Livro> comparador = Comparator.comparingInt(Livro::getQtdEmprestimo);
         //Collections.sort(copia, comparador);
         livrosPopulares.sort(comparador);
+        int n = livrosPopulares.size();
 
         List<Livro> top10livros = new ArrayList<Livro>();
 
-        for(int i=0; i<10; i++){
-            top10livros.add(livrosPopulares.get(i));
+        if(n>=10){
+            for(int i=0; i<10; i++){
+                top10livros.add(livrosPopulares.get(i));
+            }
+
+            return top10livros;
+        }
+
+        else if(n!=0){
+            for(int i=0; i<n; i++){
+                top10livros.add(livrosPopulares.get(i));
+            }
+
+            return top10livros;
         }
 
         return top10livros;
