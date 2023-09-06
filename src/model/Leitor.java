@@ -3,6 +3,8 @@ package model;
 import dao.DAO;
 import erros.leitor.*;
 import erros.livro.LivroLimiteDeReservas;
+import erros.livro.LivroNaoDisponivel;
+import erros.livro.LivroNaoPossuiEmprestimoNemReserva;
 import erros.livro.LivroReservado;
 import erros.objetos.ObjetoInvalido;
 
@@ -157,15 +159,14 @@ public class Leitor extends Usuario {
      * Caso o leitor esteja bloqueado, com multa ativa, possua um emprestimo ativo em atraso,
      * tenha atingido o limite de reservas ativas ou esteja tentando reservar um livro que esteja
      * emprestado por ele, a reserva não pode ser feita.
-     * Caso o livro não seja encontrado ou tenha atingido o limite de reservas ativas,
-     * a reserva não pode ser feita.
+     * Caso o livro não seja encontrado, tenha atingido o limite de reservas ativas, não esteja disponível e
+     * sem empréstimo ativo ou esteja disponível e sem reservas, a reserva não pode ser feita.
      * Caso tudo esteja correto, é criada uma reserva para o livro e a reserva é registrada no sistema.
      *
      * ps:
-     * -> se a multa do leitor ja estiver vencido, a multa é retirada
-     * -> é necessário verificar se o leitor possui empréstimo ativo em atraso, pois como a multa
-     * só é aplicada ao devolver um livro, existe a possibilidade dele estar "multado" sem a multa
-     * ter sido aplicada ainda, restringindo ele de realizar reservas e emprestimos.
+     * -> como existe a possiblidadade de um adm alterar a disponibilidade de um livro que não esteja com
+     * um empréstimo ativo, é necessário verificar porque um livro não está disponível. Ele pode não está
+     * disponível mesmo não possuindo um empréstimo ativo.
      *
      * @param isbn isbn do livro
      * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
@@ -182,9 +183,15 @@ public class Leitor extends Usuario {
      * retorna uma exceção informando o ocorrido
      * @throws LeitorTemEmprestimoEmAtraso caso o leitor possua um emprestimo ativo em atraso,
      * retorna uma exceção informando o ocorrido
+     * @throws LivroNaoPossuiEmprestimoNemReserva caso o livro não possua um empréstimo ativo e nem reservas,
+     * retorna uma exceção informando o ocorrido
+     * @throws LivroNaoDisponivel caso o livro não esteja disponível e não possua um empréstimo ativo e
+     * esteja disponível, retorna uma exceção informando o ocorrido
+     * @throws LeitorPossuiReservaDesseLivro caso o leitor tentar reserva um livro que ele já possui reserva ativa,
+     * retorna uma exceção informando o ocorrido
      */
 
-    public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimoEmAtraso, LeitorPossuiReservaDesseLivro {
+    public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimoEmAtraso, LeitorPossuiReservaDesseLivro, LivroNaoDisponivel, LivroNaoPossuiEmprestimoNemReserva {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
@@ -196,10 +203,14 @@ public class Leitor extends Usuario {
 
         Emprestimo emp = DAO.getEmprestimo().encontrarPorId(this.getID());
 
-        if(emp!=null){
-            if(emp.getdataPrevista().isBefore(LocalDate.now()))
+        if(emp!=null && emp.getdataPrevista().isBefore(LocalDate.now()))
                 throw new LeitorTemEmprestimoEmAtraso();
-        }
+
+        if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
+                throw new LivroNaoDisponivel();
+
+        if(DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && !DAO.getReserva().livroTemReserva(isbn))
+            throw new LivroNaoPossuiEmprestimoNemReserva();
 
         if(DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
             throw new LeitorReservarLivroEmMaos();
