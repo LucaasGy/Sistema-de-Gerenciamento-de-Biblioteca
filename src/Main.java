@@ -18,10 +18,14 @@ public class Main{
             System.out.println(kk);
         }
 
-        for(Integer ll : sla){
-            if(ll==2)
-                sla.remove(ll);
+        for(int i=0; i<sla.size(); i++){
+            if(sla.get(i)==2) {
+                sla.add(6);
+                sla.remove(sla.get(i));
+            }
         }
+
+        System.out.println("-------------------------------");
 
         for(Integer kk : sla){
             System.out.println(kk);
