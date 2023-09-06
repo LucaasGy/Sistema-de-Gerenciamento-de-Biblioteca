@@ -13,6 +13,6 @@ public class LivroReservado extends Exception{
      */
 
     public LivroReservado( ) {
-        super("LIVRO RESERVADO");
+        super("LIVRO ESTÁ RESERVADO");
     }
 }
