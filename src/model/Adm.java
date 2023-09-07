@@ -304,7 +304,7 @@ public class Adm extends Usuario {
             throw new LivroEmprestado();
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
-        DAO.getPrazos().removerPrazosDeUmLivro(isbn);
+        DAO.getPrazos().removerPrazoDeUmLivro(isbn);
         DAO.getEmprestimo().removerTodosEmprestimosDeUmLivro(isbn);
 
         DAO.getLivro().removerPorISBN(isbn);
@@ -403,11 +403,11 @@ public class Adm extends Usuario {
      * Método que atualiza Disponibilidade de um Livro.
      *
      * Caso o livro não seja encontrado ou esteja emprestado
-     * ele não poderá ser removido.
+     * ele não poderá ter sua disponibilidade alterada.
      * Caso tudo esteja correto, é removido todas as reservas e prazos do livro
      * e sua disponibilidade é atualizada.
      *
-     * ps: não posso colocar que o livro está disponível caso ele esteja emprestado
+     * ps: não alterar disponibilidade do livro caso ele esteja emprestado
      *
      * @param isbn isbn do livro
      * @param FouT booleano true ou false
@@ -427,7 +427,7 @@ public class Adm extends Usuario {
             throw new LivroEmprestado();
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
-        DAO.getPrazos().removerPrazosDeUmLivro(isbn);
+        DAO.getPrazos().removerPrazoDeUmLivro(isbn);
 
         novo.setDisponivel(FouT);
     }
@@ -568,31 +568,20 @@ public class Adm extends Usuario {
      * @return retorna lista dos 10 livros mais populares
      */
 
-    public List<Livro> livrosMaisPopulares(){
+    public List<Livro> livrosMaisPopulares() {
         List<Livro> livrosPopulares = DAO.getLivro().encontrarTodos();
 
         Comparator<Livro> comparador = Comparator.comparingInt(Livro::getQtdEmprestimo);
         //Collections.sort(copia, comparador);
         livrosPopulares.sort(comparador);
-        int n = livrosPopulares.size();
 
         List<Livro> top10livros = new ArrayList<Livro>();
 
-        if(n>=10){
-            for(int i=0; i<10; i++){
-                top10livros.add(livrosPopulares.get(i));
-            }
+        if (livrosPopulares.size() >= 10)
+            top10livros.addAll(livrosPopulares.subList(0, 10));
 
-            return top10livros;
-        }
-
-        else if(n!=0){
-            for(int i=0; i<n; i++){
-                top10livros.add(livrosPopulares.get(i));
-            }
-
-            return top10livros;
-        }
+        else
+            top10livros.addAll(livrosPopulares);
 
         return top10livros;
     }
