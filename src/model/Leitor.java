@@ -111,7 +111,7 @@ public class Leitor extends Usuario {
      * ps:
      * -> é necessário verificar se o leitor possui empréstimo ativo em atraso, pois como a multa
      * só é aplicada ao devolver um livro, existe a possibilidade dele estar "multado" sem a multa
-     * ter sido aplicada ainda, restringindo ele de realizar reservas e emprestimos.
+     * ter sido aplicada ainda, restringindo ele de realizar reservas, emprestimos e renovações.
      *
      * @throws LeitorNaoPossuiEmprestimo caso o leitor não possua um empréstimo ativo,
      * retorna uma exceção informando o ocorrido
@@ -204,10 +204,10 @@ public class Leitor extends Usuario {
         Emprestimo emp = DAO.getEmprestimo().encontrarPorId(this.getID());
 
         if(emp!=null && emp.getdataPrevista().isBefore(LocalDate.now()))
-                throw new LeitorTemEmprestimoEmAtraso();
+            throw new LeitorTemEmprestimoEmAtraso();
 
         if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
-                throw new LivroNaoDisponivel();
+            throw new LivroNaoDisponivel();
 
         if(DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && !DAO.getReserva().livroTemReserva(isbn))
             throw new LivroNaoPossuiEmprestimoNemReserva();
@@ -245,6 +245,8 @@ public class Leitor extends Usuario {
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);
-        DAO.getPrazos().removerUmPrazo(this.getID(),isbn);
+
+        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor().getID()==this.getID())
+            DAO.getPrazos().removerPrazoDeUmLivro(isbn);
     }
 }

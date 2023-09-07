@@ -39,23 +39,6 @@ public class PrazosImpl implements PrazosDAO {
     }
 
     /**
-     * Método que remove um determinado prazo ativo.
-     *
-     * @param id identificação do leitor que recebe o prazo
-     * @param isbn isbn do livro que recebe o prazo
-     */
-
-    @Override
-    public void removerUmPrazo(int id, double isbn){
-        for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLeitor().getID()==id && prazo.getLivro().getISBN()==isbn) {
-                this.listaPrazos.remove(prazo);
-                return;
-            }
-        }
-    }
-
-    /**
      * Deleta todos os objetos do tipo Prazos do banco de dados.
      */
 
@@ -112,20 +95,18 @@ public class PrazosImpl implements PrazosDAO {
     }
 
     /**
-     * Método que remove todos os prazos ativos de um livro.
-     * É utilizado um for padrão invés de um for each, pois como
-     * se trata de sequências de remoções em um loop, o for each
-     * acaba dando erro pois o tamanho da lista vai alterando durante
-     * as remoções. Utilizando um for padrão, este erro não ocorre.
+     * Método que remove o prazo ativo de um livro.
      *
      * @param isbn isbn do livro que recebe o prazo a ser deletado
      */
 
     @Override
-    public void removerPrazosDeUmLivro(double isbn) {
-        for(int i = 0; i < this.listaPrazos.size(); i++){
-            if (this.listaPrazos.get(i).getLivro().getISBN()==isbn)
-                this.listaPrazos.remove(i);
+    public void removerPrazoDeUmLivro(double isbn) {
+        for(Prazos prazo : this.listaPrazos){
+            if(prazo.getLivro().getISBN()==isbn){
+                this.listaPrazos.remove(prazo);
+                return;
+            }
         }
     }
 

@@ -119,7 +119,6 @@ public class Sistema {
         long dias = ChronoUnit.DAYS.between(emprestimo.getdataPrevista(),devolve);
 
         if(dias>0) {
-
             emprestimo.getLeitor().setDataMulta(devolve.plusDays(dias*2));
 
             DAO.getReserva().remover(emprestimo.getLeitor().getID());
@@ -145,7 +144,7 @@ public class Sistema {
     }
 
     /**
-     * Método utilizado para verificar se os prazos para realizar empréstimo de um livro
+     * Método utilizado para verificar se os prazos para realizar empréstimo de livros
      * já expirou.
      *
      * Este método será utilizado na fase 3, quando o projeto possuir uma "main",
@@ -168,7 +167,7 @@ public class Sistema {
                     DAO.getPrazos().criar(prazotop1);
                 }
 
-                DAO.getPrazos().removerUmPrazo(todosPrazos.get(i).getLeitor().getID(),todosPrazos.get(i).getLivro().getISBN());
+                DAO.getPrazos().removerPrazoDeUmLivro(todosPrazos.get(i).getLivro().getISBN());
             }
         }
     }

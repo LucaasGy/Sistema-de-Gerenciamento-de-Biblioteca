@@ -22,19 +22,10 @@ public interface PrazosDAO extends CRUD<Prazos> {
     public Prazos encontrarPrazoDeUmLivro(double isbn);
 
     /**
-     * Método que remove todos os prazos ativos de um livro.
+     * Método que remove o prazo ativo de um livro.
      *
      * @param isbn isbn do livro que recebe o prazo
      */
 
-    public void removerPrazosDeUmLivro(double isbn);
-
-    /**
-     * Método que remove um determinado prazo ativo.
-     *
-     * @param id identificação do leitor que recebe o prazo
-     * @param isbn isbn do livro que recebe o prazo
-     */
-
-    public void removerUmPrazo(int id, double isbn);
+    public void removerPrazoDeUmLivro(double isbn);
 }

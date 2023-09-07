@@ -113,7 +113,7 @@ public class Bibliotecario extends Usuario {
             if (DAO.getReserva().top1Reserva(isbn).getLeitor().getID() != id)
                 throw new LivroReservado();
 
-            DAO.getPrazos().removerUmPrazo(id, isbn);
+            DAO.getPrazos().removerPrazoDeUmLivro(isbn);
             DAO.getReserva().removeTop1(isbn);
         }
 

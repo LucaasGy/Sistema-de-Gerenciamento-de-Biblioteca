@@ -13,6 +13,6 @@ public class LivroNaoPossuiEmprestimoNemReserva extends Exception{
      */
 
     public LivroNaoPossuiEmprestimoNemReserva() {
-        super("LIVRO NÃO POSSUI EMPRÉSTIMO ATIVO E NEM RESERVAS ATIVAS");
+        super("LIVRO NÃO POSSUI EMPRÉSTIMO E NEM RESERVA ATIVA");
     }
 }
