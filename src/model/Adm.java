@@ -53,8 +53,10 @@ public class Adm extends Usuario {
      *
      * Caso o leitor não seja encontrado ou esteja com algum empréstimo
      * ele não poderá ser removido.
-     * Caso tudo esteja correto, é removido todas as reservas e prazos do leitor
+     * Caso tudo esteja correto, é removido todas as reservas do leitor
      * e ele é removido do sistema.
+     * Caso ele possua prazos ativos, os prazos são deletados e são criados novos prazos
+     * para o top2 da fila ( oque vem depois do leitor bloqueado ) ir realizar o empréstimo.
      *
      * @param id identificação do leitor
      * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
@@ -71,7 +73,8 @@ public class Adm extends Usuario {
             throw new LeitorTemEmprestimo();
 
         DAO.getReserva().removerReservasDeUmLeitor(id);
-        DAO.getPrazos().remover(id);
+
+        Sistema.adicionarPrazoParaTop2reserva(id);
 
         DAO.getLeitor().remover(id);
     }
@@ -218,8 +221,10 @@ public class Adm extends Usuario {
     /**
      * Método que bloqueia um Leitor no sistema.
      *
-     * Caso tudo esteja correto, é removido todas as reservas e prazos do leitor
+     * Caso tudo esteja correto, é removido todas as reservas do leitor
      * e ele é bloqueado no sistema.
+     * Caso ele possua prazos ativos, os prazos são deletados e são criados novos prazos
+     * para o top2 da fila ( oque vem depois do leitor bloqueado ) ir realizar o empréstimo.
      *
      * @param id identificação do leitor
      * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
@@ -227,15 +232,16 @@ public class Adm extends Usuario {
      */
 
     public void bloquearLeitor(int id) throws ObjetoInvalido {
-        Leitor bloquear = DAO.getLeitor().encontrarPorId(id);
+        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
-        if(bloquear==null)
+        if(leitor==null)
             throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
 
         DAO.getReserva().removerReservasDeUmLeitor(id);
-        DAO.getPrazos().remover(id);
 
-        bloquear.setBloqueado(true);
+        Sistema.adicionarPrazoParaTop2reserva(id);
+
+        leitor.setBloqueado(true);
     }
 
     /**
@@ -247,12 +253,12 @@ public class Adm extends Usuario {
      */
 
     public void desbloquearLeitor(int id) throws ObjetoInvalido {
-        Leitor bloquear = DAO.getLeitor().encontrarPorId(id);
+        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
-        if(bloquear==null)
+        if(leitor==null)
             throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
 
-        bloquear.setBloqueado(false);
+        leitor.setBloqueado(false);
     }
 
     /**
@@ -264,12 +270,12 @@ public class Adm extends Usuario {
      */
 
     public void tirarMulta(int id) throws ObjetoInvalido {
-        Leitor tira = DAO.getLeitor().encontrarPorId(id);
+        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
-        if(tira==null)
+        if(leitor==null)
             throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
 
-        tira.setDataMulta(null);
+        leitor.setDataMulta(null);
     }
 
     /**
@@ -320,12 +326,12 @@ public class Adm extends Usuario {
      */
 
     public void atualizarTituloLivro(String titulo, double isbn) throws ObjetoInvalido {
-        Livro opera = DAO.getLivro().encontrarPorISBN(isbn);
+        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
-        if(opera==null)
+        if(livro==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
-        opera.setTitulo(titulo);
+        livro.setTitulo(titulo);
     }
 
     /**
@@ -338,12 +344,12 @@ public class Adm extends Usuario {
      */
 
     public void atualizarAutorLivro(String autor, double isbn) throws ObjetoInvalido {
-        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
+        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
-        if(opera2==null)
+        if(livro==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
-        opera2.setAutor(autor);
+        livro.setAutor(autor);
     }
 
     /**
@@ -356,12 +362,12 @@ public class Adm extends Usuario {
      */
 
     public void atualizarEditoraLivro(String editora, double isbn) throws ObjetoInvalido {
-        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
+        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
-        if(opera2==null)
+        if(livro==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
-        opera2.setEditora(editora);
+        livro.setEditora(editora);
     }
 
     /**
@@ -374,12 +380,12 @@ public class Adm extends Usuario {
      */
 
     public void atualizarAnoLivro(int ano, double isbn) throws ObjetoInvalido {
-        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
+        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
-        if(opera2==null)
+        if(livro==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
-        opera2.setAno(ano);
+        livro.setAno(ano);
     }
 
     /**
@@ -391,12 +397,12 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
     public void atualizarCategoriaLivro(String categoria, double isbn) throws ObjetoInvalido {
-        Livro opera2 = DAO.getLivro().encontrarPorISBN(isbn);
+        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
-        if(opera2==null)
+        if(livro==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
-        opera2.setCategoria(categoria);
+        livro.setCategoria(categoria);
     }
 
     /**
@@ -418,9 +424,9 @@ public class Adm extends Usuario {
      */
 
     public void atualizarDisponibilidadeLivro(double isbn, boolean FouT) throws ObjetoInvalido, LivroEmprestado {
-        Livro novo = DAO.getLivro().encontrarPorISBN(isbn);
+        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
-        if(novo==null)
+        if(livro==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
         if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
@@ -429,7 +435,7 @@ public class Adm extends Usuario {
         DAO.getReserva().removerReservasDeUmLivro(isbn);
         DAO.getPrazos().removerPrazoDeUmLivro(isbn);
 
-        novo.setDisponivel(FouT);
+        livro.setDisponivel(FouT);
     }
 
     /**
