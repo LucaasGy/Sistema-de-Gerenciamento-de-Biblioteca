@@ -13,6 +13,6 @@ public class LeitorPossuiReservaDesseLivro extends Exception{
      */
 
     public LeitorPossuiReservaDesseLivro() {
-        super("LEITOR JÁ RESERVOU ESSE LIVRO");
+        super("LEITOR JÁ POSSUI RESERVA DESSE LIVRO");
     }
 }
