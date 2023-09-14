@@ -104,25 +104,28 @@ public class Sistema {
     }
 
     /**
-     * Método que verifica se o Leitor recebe alguma multa.
+     * Método que verifica se o Leitor recebe uma multa.
      *
      * Ao devolver o livro, sistema verifica se houve atraso na devolução,
-     * e caso houver, aplica o dobro da quantidade de dias de atraso e remove
-     * todas as reservas e prazos do leitor.
+     * e caso houver, aplica o dobro da quantidade de dias de atraso, remove
+     * todas as reservas e prazos do leitor e caso necessário, cria um novo prazo
+     * para o novo top1 da fila de reserva do livro que o leitor possuia prazo, ir
+     * realizar o empréstimo.
+     *
      *
      * @param emprestimo empréstimo do leitor
      */
 
     public static void checarMulta(Emprestimo emprestimo){
-        LocalDate devolve = LocalDate.now();
+        LocalDate dataDevolvendo = LocalDate.now();
 
-        long dias = ChronoUnit.DAYS.between(emprestimo.getdataPrevista(),devolve);
+        long diasDeAtraso = ChronoUnit.DAYS.between(emprestimo.getdataPrevista(),dataDevolvendo);
 
-        if(dias>0) {
-            emprestimo.getLeitor().setDataMulta(devolve.plusDays(dias*2));
+        if(diasDeAtraso>0) {
+            emprestimo.getLeitor().setDataMulta(dataDevolvendo.plusDays(diasDeAtraso*2));
 
             DAO.getReserva().remover(emprestimo.getLeitor().getID());
-            DAO.getPrazos().remover(emprestimo.getLeitor().getID());
+            adicionarPrazoParaTop2reserva(emprestimo.getLeitor().getID());
         }
     }
 
@@ -131,7 +134,7 @@ public class Sistema {
      *
      * Este método será utilizado na fase 3, quando o projeto possuir uma "main",
      * onde a cada vez que o programa for aberto, ele irá verificar se caso um leitor
-     * possuir multa e essa multa já tiver sido expirada, a multa é retirada.
+     * possua multa e essa multa já tiver sido expirada, a multa é retirada.
      */
 
     public static void verificarMultasLeitores(){
@@ -151,7 +154,7 @@ public class Sistema {
      * onde a cada vez que o programa for aberto, ele irá verificar quais de todos os prazos
      * existentes já foram expirados. Caso tenham sido, remove o top1 da fila de reserva do livro
      * em questão e remove também seu prazo. Caso após a remoção, o livro ainda possua reservas,
-     * é criado um prazo para o antigo top2 da fila ir realizar seu empréstimo.
+     * é criado um prazo para o novo top1 da fila ir realizar seu empréstimo.
      */
 
     public static void verificarPrazosEReservas(){
@@ -169,6 +172,32 @@ public class Sistema {
 
                 DAO.getPrazos().removerPrazoDeUmLivro(todosPrazos.get(i).getLivro().getISBN());
             }
+        }
+    }
+
+    /**
+     * Método que verifica se um leitor possui prazos.
+     *
+     * Caso o leitor possua prazos, é verificado se o livro do prazo do leitor
+     * possui alguma reserva, pois se possuir é necessário criar um prazo
+     * para o top1 da fila ir realizar o emprestimo do livro em questão.
+     *
+     * @param id identificação do leitor
+     */
+
+    public static void adicionarPrazoParaTop2reserva(int id){
+        List<Prazos> listaPrazos = DAO.getPrazos().prazosDeUmLeitor(id);
+
+        if(listaPrazos!=null){
+            for(Prazos prazo : listaPrazos){
+                Reserva reservaTop1 = DAO.getReserva().top1Reserva(prazo.getLivro().getISBN());
+                if(reservaTop1!=null){
+                    Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro(), LocalDate.now().plusDays(2));
+                    DAO.getPrazos().criar(novoPrazoTop1);
+                }
+            }
+
+            DAO.getPrazos().remover(id);
         }
     }
 }

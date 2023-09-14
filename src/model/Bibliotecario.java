@@ -148,24 +148,24 @@ public class Bibliotecario extends Usuario {
         if(DAO.getLeitor().encontrarPorId(id)==null)
             throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
 
-        Emprestimo opera = DAO.getEmprestimo().encontrarPorId(id);
+        Emprestimo emprestimoLeitor = DAO.getEmprestimo().encontrarPorId(id);
 
-        if(opera==null)
+        if(emprestimoLeitor==null)
             throw new LeitorNaoPossuiEmprestimo();
 
-        Sistema.checarMulta(opera);
+        Sistema.checarMulta(emprestimoLeitor);
 
-        if(DAO.getReserva().livroTemReserva(opera.getLivro().getISBN())){
+        if(DAO.getReserva().livroTemReserva(emprestimoLeitor.getLivro().getISBN())){
             LocalDate devolve = LocalDate.now();
 
-            Reserva opera2 = DAO.getReserva().top1Reserva(opera.getLivro().getISBN());
-            Prazos novo = new Prazos(opera2.getLeitor(),opera2.getLivro(),devolve.plusDays(2));
+            Reserva reservaTop1 = DAO.getReserva().top1Reserva(emprestimoLeitor.getLivro().getISBN());
+            Prazos novo = new Prazos(reservaTop1.getLeitor(),reservaTop1.getLivro(),devolve.plusDays(2));
 
             DAO.getPrazos().criar(novo);
         }
 
-        opera.getLivro().setDisponivel(true);
-        opera.getLeitor().setLimiteRenova(0);
+        emprestimoLeitor.getLivro().setDisponivel(true);
+        emprestimoLeitor.getLeitor().setLimiteRenova(0);
 
         DAO.getEmprestimo().remover(id);
     }
