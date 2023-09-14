@@ -126,18 +126,18 @@ public class Leitor extends Usuario {
      */
 
     public void renovarEmprestimo() throws LeitorNaoPossuiEmprestimo, LeitorBloqueado, LivroReservado, LeitorLimiteDeRenovacao, LeitorTemEmprestimoEmAtraso {
-        Emprestimo novo = DAO.getEmprestimo().encontrarPorId(this.getID());
+        Emprestimo emprestimoDoLeitor = DAO.getEmprestimo().encontrarPorId(this.getID());
 
-        if(novo==null)
+        if(emprestimoDoLeitor==null)
             throw new LeitorNaoPossuiEmprestimo();
 
         if(this.getBloqueado())
             throw new LeitorBloqueado();
 
-        if(novo.getdataPrevista().isBefore(LocalDate.now()))
+        if(emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
 
-        if(DAO.getReserva().livroTemReserva(novo.getLivro().getISBN()))
+        if(DAO.getReserva().livroTemReserva(emprestimoDoLeitor.getLivro().getISBN()))
             throw new LivroReservado();
 
         if(this.getLimiteRenova()==1)
@@ -145,12 +145,12 @@ public class Leitor extends Usuario {
 
         DAO.getEmprestimo().remover(this.getID());
 
-        novo.setdataPegou(LocalDate.now());
-        novo.setdataPrevista(novo.getdataPegou().plusDays(7));
+        emprestimoDoLeitor.setdataPegou(LocalDate.now());
+        emprestimoDoLeitor.setdataPrevista(emprestimoDoLeitor.getdataPegou().plusDays(7));
 
         this.setLimiteRenova(1);
 
-        DAO.getEmprestimo().criar(novo);
+        DAO.getEmprestimo().criar(emprestimoDoLeitor);
     }
 
     /**
@@ -201,9 +201,9 @@ public class Leitor extends Usuario {
         if(getDataMulta()!=null)
             throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + getDataMulta());
 
-        Emprestimo emp = DAO.getEmprestimo().encontrarPorId(this.getID());
+        Emprestimo emprestimoDoLeitor = DAO.getEmprestimo().encontrarPorId(this.getID());
 
-        if(emp!=null && emp.getdataPrevista().isBefore(LocalDate.now()))
+        if(emprestimoDoLeitor!=null && emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
 
         if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
@@ -238,15 +238,27 @@ public class Leitor extends Usuario {
      * @param isbn isbn do livro
      * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
      * retorna uma exceção informando o ocorrido
+     * @throws LeitorNaoPossuiReservaDesseLivro caso não seja encontrada a reserva do leitor do livro,
+     * retorna uma exceção informando o ocorrido
      */
 
-    public void retirarReserva(double isbn) throws ObjetoInvalido {
+    public void retirarReserva(double isbn) throws ObjetoInvalido, LeitorNaoPossuiReservaDesseLivro {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
 
+        if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).isEmpty())
+            throw new LeitorNaoPossuiReservaDesseLivro();
+
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);
 
-        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor().getID()==this.getID())
+        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor().getID()==this.getID()) {
             DAO.getPrazos().removerPrazoDeUmLivro(isbn);
+
+            Reserva reservaTop1 = DAO.getReserva().top1Reserva(isbn);
+            if(reservaTop1!=null){
+                Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro(), LocalDate.now().plusDays(2));
+                DAO.getPrazos().criar(novoPrazoTop1);
+            }
+        }
     }
 }
