@@ -77,6 +77,25 @@ public class PrazosImpl implements PrazosDAO {
     }
 
     /**
+     * Método que encontra todos os prazos ativos de um leitor.
+     *
+     * @param id identificação do leitor
+     * @return retorna lista de prazos ativos de um leitor
+     */
+
+    @Override
+    public List<Prazos> prazosDeUmLeitor(int id){
+        List<Prazos> listaPrazosLeitor = new ArrayList<Prazos>();
+
+        for(Prazos prazos : this.listaPrazos){
+            if(prazos.getLeitor().getID()==id)
+                listaPrazosLeitor.add(prazos);
+        }
+
+        return listaPrazosLeitor;
+    }
+
+    /**
      * Método de retorno do Prazos através da busca por ID.
      *
      * @param id identificação do leitor que recebe o prazo a ser encontrado

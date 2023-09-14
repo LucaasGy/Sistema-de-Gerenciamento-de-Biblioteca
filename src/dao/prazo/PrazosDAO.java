@@ -3,6 +3,8 @@ package dao.prazo;
 import dao.CRUD;
 import model.Prazos;
 
+import java.util.List;
+
 /**
  * Interface para as implementações de armazenamento dos objetos da classe Prazos. É uma
  * extensão da interface CRUD.
@@ -28,4 +30,13 @@ public interface PrazosDAO extends CRUD<Prazos> {
      */
 
     public void removerPrazoDeUmLivro(double isbn);
+
+    /**
+     * Método que encontra todos os prazos ativos de um leitor.
+     *
+     * @param id identificação do leitor
+     * @return retorna lista de prazos ativos de um leitor
+     */
+
+    public List<Prazos> prazosDeUmLeitor(int id);
 }
