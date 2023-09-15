@@ -67,9 +67,9 @@ public class Adm extends Usuario {
 
     public void removerLeitor(int id) throws ObjetoInvalido, LeitorTemEmprestimo {
         if(DAO.getLeitor().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
-        if(DAO.getEmprestimo().encontrarPorId(id)!=null)
+        else if(DAO.getEmprestimo().encontrarPorId(id)!=null)
             throw new LeitorTemEmprestimo();
 
         DAO.getReserva().removerReservasDeUmLeitor(id);
@@ -77,6 +77,19 @@ public class Adm extends Usuario {
         Sistema.adicionarPrazoParaTop2reserva(id);
 
         DAO.getLeitor().remover(id);
+    }
+
+    /**
+     * Método que atualiza os dados de um Leitor.
+     *
+     * @param leitor objeto leitor que será atualizado
+     * @throws ObjetoInvalido caso não seja encontrado o leitor com o objeto informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
+    public void atualizarDadosLeitor(Leitor leitor) throws ObjetoInvalido {
+        if(DAO.getLeitor().atualizar(leitor)==null)
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
     }
 
     /**
@@ -92,7 +105,7 @@ public class Adm extends Usuario {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setSenha(senha);
     }
@@ -110,7 +123,7 @@ public class Adm extends Usuario {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setEndereco(endereco);
     }
@@ -128,7 +141,7 @@ public class Adm extends Usuario {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setTelefone(telefone);
     }
@@ -152,9 +165,22 @@ public class Adm extends Usuario {
      */
     public void removerBibliotecario(int id) throws ObjetoInvalido {
         if(DAO.getBibliotecario().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("BIBLIOTECARIO NAO ENCONTRADO");
+            throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
         DAO.getBibliotecario().remover(id);
+    }
+
+    /**
+     * Método que atualiza os dados de um Bibliotecario.
+     *
+     * @param bibliotecario objeto bibliotecario que será atualizado
+     * @throws ObjetoInvalido caso não seja encontrado o bibliotecario com o objeto informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
+    public void atualizarDadosBibliotecario(Bibliotecario bibliotecario) throws ObjetoInvalido {
+        if(DAO.getBibliotecario().atualizar(bibliotecario)==null)
+            throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
     }
 
     /**
@@ -170,7 +196,7 @@ public class Adm extends Usuario {
         Bibliotecario bibliotecario = DAO.getBibliotecario().encontrarPorId(id);
 
         if(bibliotecario==null)
-            throw new ObjetoInvalido("BIBLIOTECARIO NAO ENCONTRADO");
+            throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
         bibliotecario.setSenha(senha);
     }
@@ -195,9 +221,22 @@ public class Adm extends Usuario {
 
     public void removerAdm(int id) throws ObjetoInvalido {
         if(DAO.getAdm().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("ADMINISTRADOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
         DAO.getAdm().remover(id);
+    }
+
+    /**
+     * Método que atualiza os dados de um Administrador.
+     *
+     * @param administrador objeto administrador que será atualizado
+     * @throws ObjetoInvalido caso não seja encontrado o administrador com o objeto informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
+    public void atualizarDadosAdministrador(Adm administrador) throws ObjetoInvalido {
+        if(DAO.getAdm().atualizar(administrador)==null)
+            throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
     }
 
     /**
@@ -213,7 +252,7 @@ public class Adm extends Usuario {
         Adm adm = DAO.getAdm().encontrarPorId(id);
 
         if(adm==null)
-            throw new ObjetoInvalido("ADMINISTRADOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
         adm.setSenha(senha);
     }
@@ -235,7 +274,7 @@ public class Adm extends Usuario {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         DAO.getReserva().removerReservasDeUmLeitor(id);
 
@@ -256,7 +295,7 @@ public class Adm extends Usuario {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setBloqueado(false);
     }
@@ -273,7 +312,7 @@ public class Adm extends Usuario {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setDataMulta(null);
     }
@@ -304,9 +343,9 @@ public class Adm extends Usuario {
 
     public void removerUmLivro(double isbn) throws ObjetoInvalido, LivroEmprestado {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
+        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
             throw new LivroEmprestado();
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
@@ -314,6 +353,19 @@ public class Adm extends Usuario {
         DAO.getEmprestimo().removerTodosEmprestimosDeUmLivro(isbn);
 
         DAO.getLivro().removerPorISBN(isbn);
+    }
+
+    /**
+     * Método que atualiza os dados de um Livro.
+     *
+     * @param livro objeto livro que será atualizado
+     * @throws ObjetoInvalido caso não seja encontrado o livro com o objeto informado,
+     * retorna uma exceção informando o ocorrido
+     */
+
+    public void atualizarDadosLivro(Livro livro) throws ObjetoInvalido {
+        if(DAO.getLivro().atualizar(livro)==null)
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
     }
 
     /**
@@ -329,7 +381,7 @@ public class Adm extends Usuario {
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
         if(livro==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setTitulo(titulo);
     }
@@ -347,7 +399,7 @@ public class Adm extends Usuario {
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
         if(livro==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setAutor(autor);
     }
@@ -365,7 +417,7 @@ public class Adm extends Usuario {
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
         if(livro==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setEditora(editora);
     }
@@ -383,7 +435,7 @@ public class Adm extends Usuario {
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
         if(livro==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setAno(ano);
     }
@@ -400,7 +452,7 @@ public class Adm extends Usuario {
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
         if(livro==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setCategoria(categoria);
     }
@@ -427,9 +479,9 @@ public class Adm extends Usuario {
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
         if(livro==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
+        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
             throw new LivroEmprestado();
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
@@ -559,7 +611,7 @@ public class Adm extends Usuario {
 
     public List<Emprestimo> historicoEmprestimoDeUmLeitor(int id) throws ObjetoInvalido {
         if(DAO.getLeitor().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         return DAO.getEmprestimo().encontrarHistoricoDeUmLeitor(id);
     }
