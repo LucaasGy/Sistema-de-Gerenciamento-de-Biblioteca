@@ -111,6 +111,25 @@ public class AdmImpl implements AdmDAO {
     }
 
     /**
+     * Método que atualiza um objeto do tipo Adm.
+     *
+     * @param obj administrador a ser atualizado
+     * @return retorna administrador que foi atualizado
+     */
+
+    @Override
+    public Adm atualizar(Adm obj) {
+        for(Adm adm : this.listaAdm){
+            if(adm.getID()==obj.getID()){
+                this.listaAdm.set(listaAdm.indexOf(adm), obj);
+                return obj;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Deleta todos os objetos do tipo Administrador do banco de dados.
      * A contagem de ID é resetada para o valor inicial.
      */

@@ -78,7 +78,7 @@ public abstract class Usuario {
 
     public List<Livro> pesquisarLivroPorTitulo(String titulo) throws ObjetoInvalido {
         if(DAO.getLivro().encontrarPorTitulo(titulo)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         return DAO.getLivro().encontrarPorTitulo(titulo);
     }
@@ -94,7 +94,7 @@ public abstract class Usuario {
 
     public List<Livro> pesquisarLivroPorAutor(String autor) throws ObjetoInvalido{
         if(DAO.getLivro().encontrarPorTitulo(autor)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         return DAO.getLivro().encontrarPorAutor(autor);
     }
@@ -110,7 +110,7 @@ public abstract class Usuario {
 
     public List<Livro> pesquisarLivroPorCategoria(String categoria) throws ObjetoInvalido{
         if(DAO.getLivro().encontrarPorTitulo(categoria)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         return DAO.getLivro().encontrarPorCategoria(categoria);
     }
@@ -126,7 +126,7 @@ public abstract class Usuario {
 
     public Livro pesquisarLivroPorISBN(double isbn) throws ObjetoInvalido{
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         return DAO.getLivro().encontrarPorISBN(isbn);
     }

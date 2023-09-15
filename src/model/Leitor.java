@@ -131,16 +131,16 @@ public class Leitor extends Usuario {
         if(emprestimoDoLeitor==null)
             throw new LeitorNaoPossuiEmprestimo();
 
-        if(this.getBloqueado())
+        else if(this.getBloqueado())
             throw new LeitorBloqueado();
 
-        if(emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
+        else if(emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
 
-        if(DAO.getReserva().livroTemReserva(emprestimoDoLeitor.getLivro().getISBN()))
+        else if(DAO.getReserva().livroTemReserva(emprestimoDoLeitor.getLivro().getISBN()))
             throw new LivroReservado();
 
-        if(this.getLimiteRenova()==1)
+        else if(this.getLimiteRenova()==1)
             throw new LeitorLimiteDeRenovacao();
 
         DAO.getEmprestimo().remover(this.getID());
@@ -193,35 +193,35 @@ public class Leitor extends Usuario {
 
     public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimoEmAtraso, LeitorPossuiReservaDesseLivro, LivroNaoDisponivel, LivroNaoPossuiEmprestimoNemReserva {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        if(getBloqueado())
+        else if(getBloqueado())
             throw new LeitorBloqueado();
 
-        if(getDataMulta()!=null)
-            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + getDataMulta());
+        else if(getDataMulta()!=null)
+            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERÁ EM: " + getDataMulta());
 
         Emprestimo emprestimoDoLeitor = DAO.getEmprestimo().encontrarPorId(this.getID());
 
         if(emprestimoDoLeitor!=null && emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
 
-        if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
+        else if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
             throw new LivroNaoDisponivel();
 
-        if(DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && !DAO.getReserva().livroTemReserva(isbn))
+        else if(DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && !DAO.getReserva().livroTemReserva(isbn))
             throw new LivroNaoPossuiEmprestimoNemReserva();
 
-        if(DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
+        else if(DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
             throw new LeitorReservarLivroEmMaos();
 
-        if(DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
+        else if(DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
             throw new LeitorPossuiReservaDesseLivro();
 
-        if(DAO.getReserva().encontrarLeitorReservouLivro(isbn).size()==4)
+        else if(DAO.getReserva().encontrarLeitorReservouLivro(isbn).size()==4)
             throw new LivroLimiteDeReservas();
 
-        if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).size()==3)
+        else if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).size()==3)
             throw new LeitorLimiteDeReservas();
 
         Reserva reserva = new Reserva(DAO.getLivro().encontrarPorISBN(isbn) , DAO.getLeitor().encontrarPorId(this.getID()));
@@ -233,7 +233,9 @@ public class Leitor extends Usuario {
      * Método que retira uma Reserva feita pelo Leitor.
      *
      * Caso tudo esteja correto, remove uma reserva específica do sistema e caso exista,
-     * remove também o prazo para aquela reserva.
+     * remove também o prazo para aquela reserva. Caso o livro ainda possua reserva,
+     * é criado também um novo prazo para o novo top1 da fila de reserva ir efetuar o
+     * empréstimo.
      *
      * @param isbn isbn do livro
      * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
@@ -244,9 +246,9 @@ public class Leitor extends Usuario {
 
     public void retirarReserva(double isbn) throws ObjetoInvalido, LeitorNaoPossuiReservaDesseLivro {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).isEmpty())
+        else if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).isEmpty())
             throw new LeitorNaoPossuiReservaDesseLivro();
 
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);

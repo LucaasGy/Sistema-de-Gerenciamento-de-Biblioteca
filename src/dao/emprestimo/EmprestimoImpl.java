@@ -169,4 +169,9 @@ public class EmprestimoImpl implements EmprestimoDAO {
         this.listaEmprestimoAtual.clear();
         this.listaEmprestimoTotal.clear();
     }
+
+    @Override
+    public Emprestimo atualizar(Emprestimo obj) {
+        return null;
+    }
 }

@@ -224,6 +224,10 @@ public class ReservaImpl implements ReservaDAO {
     }
 
     @Override
+    public Reserva atualizar(Reserva obj) {
+        return null;
+    }
+    @Override
     public Reserva encontrarPorId(int id) {
         return null;
     }

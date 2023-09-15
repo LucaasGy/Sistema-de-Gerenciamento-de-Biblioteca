@@ -147,4 +147,8 @@ public class PrazosImpl implements PrazosDAO {
         }
     }
 
+    @Override
+    public Prazos atualizar(Prazos obj) {
+        return null;
+    }
 }

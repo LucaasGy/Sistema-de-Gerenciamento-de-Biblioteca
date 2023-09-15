@@ -189,6 +189,25 @@ public class LivroImpl implements LivroDAO {
         return null;
     }
 
+    /**
+     * Método que atualiza um objeto do tipo Livro.
+     *
+     * @param obj livro a ser atualizado
+     * @return retorna livro que foi atualizado
+     */
+
+    @Override
+    public Livro atualizar(Livro obj) {
+        for(Livro livro : this.listaLivro){
+            if(livro.getISBN()==obj.getISBN()){
+                this.listaLivro.set(listaLivro.indexOf(livro), obj);
+                return obj;
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public void remover(int id) {
     }

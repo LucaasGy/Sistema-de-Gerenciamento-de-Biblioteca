@@ -46,4 +46,12 @@ public interface CRUD<T> {
      * @return retorna todos os objetos do tipo T
      */
     List<T> encontrarTodos();
+
+    /**
+     * Método que atualiza um objeto do tipo T.
+     *
+     * @param obj objeto a ser atualizado
+     * @return retorna objeto que foi atualizado
+     */
+    T atualizar (T obj);
 }

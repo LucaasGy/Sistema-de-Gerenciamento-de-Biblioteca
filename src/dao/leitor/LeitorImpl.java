@@ -105,6 +105,25 @@ public class LeitorImpl implements LeitorDAO {
     }
 
     /**
+     * Método que atualiza um objeto do tipo Leitor.
+     *
+     * @param obj leitor a ser atualizado
+     * @return retorna leitor que foi atualizado
+     */
+
+    @Override
+    public Leitor atualizar(Leitor obj) {
+        for(Leitor leitor : this.listaLeitor){
+            if(leitor.getID()==obj.getID()){
+                this.listaLeitor.set(listaLeitor.indexOf(leitor), obj);
+                return obj;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Método para remover determinado Leitor da estrutura de armazenamento.
      *
      * @param id identificação do leitor a ser deletado

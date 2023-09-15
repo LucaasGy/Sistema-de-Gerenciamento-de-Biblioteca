@@ -83,6 +83,25 @@ public class BibliotecarioImpl implements BibliotecarioDAO {
     }
 
     /**
+     * Método que atualiza um objeto do tipo Bibliotecario.
+     *
+     * @param obj bibliotecario a ser atualizado
+     * @return retorna bibliotecario que foi atualizado
+     */
+
+    @Override
+    public Bibliotecario atualizar(Bibliotecario obj) {
+        for(Bibliotecario bibliotecario : this.listaBibliotecario){
+            if(bibliotecario.getID()==obj.getID()){
+                this.listaBibliotecario.set(listaBibliotecario.indexOf(bibliotecario), obj);
+                return obj;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Método para remover determinado Bibliotecario da estrutura de armazenamento.
      *
      * @param id identificação do bibliotecario a ser deletado

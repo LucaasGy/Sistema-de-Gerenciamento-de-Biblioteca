@@ -88,28 +88,28 @@ public class Bibliotecario extends Usuario {
         Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
 
         if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
-        if(livro==null)
-            throw new ObjetoInvalido("LIVRO NAO ENCONTRADO");
+        else if(livro==null)
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        if(leitor.getBloqueado())
+        else if(leitor.getBloqueado())
             throw new LeitorBloqueado();
 
-        if(leitor.getDataMulta()!=null)
-            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERA EM: " + leitor.getDataMulta());
+        else if(leitor.getDataMulta()!=null)
+            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERÁ EM: " + leitor.getDataMulta());
 
-        if(!livro.getDisponivel()) {
+        else if(!livro.getDisponivel()) {
             if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
                 throw new LivroEmprestado();
 
             throw new LivroNaoDisponivel();
         }
 
-        if (DAO.getEmprestimo().encontrarPorId(id) != null)
+        else if (DAO.getEmprestimo().encontrarPorId(id) != null)
             throw new LeitorTemEmprestimo();
 
-        if(DAO.getReserva().livroTemReserva(isbn)){
+        else if(DAO.getReserva().livroTemReserva(isbn)){
             if (DAO.getReserva().top1Reserva(isbn).getLeitor().getID() != id)
                 throw new LivroReservado();
 
@@ -146,7 +146,7 @@ public class Bibliotecario extends Usuario {
 
     public void devolverLivro(int id) throws ObjetoInvalido, LeitorNaoPossuiEmprestimo {
         if(DAO.getLeitor().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("LEITOR NAO ENCONTRADO");
+            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         Emprestimo emprestimoLeitor = DAO.getEmprestimo().encontrarPorId(id);
 
