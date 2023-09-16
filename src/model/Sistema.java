@@ -6,6 +6,7 @@ import erros.objetos.UsuarioSenhaIncorreta;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -174,6 +175,42 @@ public class Sistema {
             }
         }
     }
+
+    /**
+     * Método utilizado para verificar se os prazos para realizar empréstimo de livros
+     * já expiraram.
+     *
+     * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
+     * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
+     * Ao final, envia a lista de prazos atualizada para o DAO.
+     */
+
+    /**public static void verificarPrazosEReservas(){
+        List<Prazos> todosPrazos = DAO.getPrazos().encontrarTodos();
+
+        List<Prazos> prazosARemover = new ArrayList<>();
+        List<Prazos> prazosAAdicionar = new ArrayList<>();
+
+        for(Prazos prazo : todosPrazos){
+            if(prazo.getDataLimite().isBefore(LocalDate.now())){
+                DAO.getReserva().removeTop1(prazo.getLivro().getISBN());
+
+                if(DAO.getReserva().livroTemReserva(prazo.getLivro().getISBN())){
+                    Reserva reserva1 = DAO.getReserva().top1Reserva(prazo.getLivro().getISBN());
+                    Prazos prazotop1 = new Prazos(reserva1.getLeitor(),reserva1.getLivro(),LocalDate.now().plusDays(2));
+                    prazosAAdicionar.add(prazotop1);
+                }
+
+                prazosARemover.add(prazo);
+            }
+        }
+
+        todosPrazos.removeAll(prazosARemover);
+        todosPrazos.addAll(prazosAAdicionar);
+
+        DAO.getPrazos().atualizarPrazos(todosPrazos);
+    }*/
+
 
     /**
      * Método que verifica se um leitor possui prazos.
