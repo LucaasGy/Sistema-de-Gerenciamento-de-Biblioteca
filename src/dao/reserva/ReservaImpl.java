@@ -1,5 +1,6 @@
 package dao.reserva;
 
+import model.Emprestimo;
 import model.Reserva;
 
 import java.util.ArrayList;
@@ -58,38 +59,44 @@ public class ReservaImpl implements ReservaDAO {
 
     /**
      * Método que remove todas as reservas ativas de um leitor.
-     * É utilizado um for padrão invés de um for each, pois como
-     * se trata de sequências de remoções em um loop, o for each
-     * acaba dando erro pois o tamanho da lista vai alterando durante
-     * as remoções. Utilizando um for padrão, este erro não ocorre.
+     *
+     * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
+     * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
      * 
      * @param id identificação do leitor
      */
 
     @Override
     public void removerReservasDeUmLeitor(int id) {
-        for(int i = 0; i < this.listaReserva.size(); i++){
-            if (this.listaReserva.get(i).getLeitor().getID()==id)
-                this.listaReserva.remove(i);
+        List<Reserva> reservasARemover = new ArrayList<>();
+
+        for (Reserva reserva : this.listaReserva) {
+            if (reserva.getLeitor().getID() == id)
+                reservasARemover.add(reserva);
         }
+
+        this.listaReserva.removeAll(reservasARemover);
     }
 
     /**
      * Método que remove todas as reservas ativas de um livro.
-     * É utilizado um for padrão invés de um for each, pois como
-     * se trata de sequências de remoções em um loop, o for each
-     * acaba dando erro pois o tamanho da lista vai alterando durante
-     * as remoções. Utilizando um for padrão, este erro não ocorre.
+     *
+     * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
+     * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
      *
      * @param isbn isbn do livro
      */
 
     @Override
     public void removerReservasDeUmLivro(double isbn) {
-        for(int i = 0; i < this.listaReserva.size(); i++){
-            if (this.listaReserva.get(i).getLivro().getISBN()==isbn)
-                this.listaReserva.remove(i);
+        List<Reserva> reservasARemover = new ArrayList<>();
+
+        for (Reserva reserva : this.listaReserva) {
+            if (reserva.getLivro().getISBN() == isbn)
+                reservasARemover.add(reserva);
         }
+
+        this.listaReserva.removeAll(reservasARemover);
     }
 
     /**
@@ -114,6 +121,7 @@ public class ReservaImpl implements ReservaDAO {
 
     /**
      * Método que encontra todas as reserva ativas de um livro.
+     *
      * Objetos Reserva que possuam o ISBN informado, são adicionados numa
      * lista e retornados.
      *
@@ -122,7 +130,7 @@ public class ReservaImpl implements ReservaDAO {
      */
 
     @Override
-    public List<Reserva> encontrarLeitorReservouLivro(double isbn) {
+    public List<Reserva> encontrarReservasLivro(double isbn) {
         List<Reserva> listaReservaLeitor = new ArrayList<Reserva>();
 
         for(Reserva reserva : this.listaReserva){
@@ -135,6 +143,7 @@ public class ReservaImpl implements ReservaDAO {
 
     /**
      * Método que encontra todas as reserva ativas de um leitor.
+     *
      * Objetos Reserva que possuam o ID informado, são adicionados numa
      * lista e retornados.
      *
@@ -143,7 +152,7 @@ public class ReservaImpl implements ReservaDAO {
      */
 
     @Override
-    public List<Reserva> encontrarLivroReservadoPorLeitor(int id) {
+    public List<Reserva> encontrarReservasLeitor(int id) {
         List<Reserva> listaReservaLivro = new ArrayList<Reserva>();
 
         for(Reserva reserva : this.listaReserva){

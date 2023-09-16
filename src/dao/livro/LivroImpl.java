@@ -17,18 +17,21 @@ import java.util.Random;
 public class LivroImpl implements LivroDAO {
 
     private List<Livro> listaLivro;
-    private static List<Double> isbnCadastrado;
+    private List<Double> isbnCadastrado;
     private double isbn;
 
     /**
-     * Construtor que inicializa a lista de armazenamento de livros e o número do ISBN. O ISBN do
-     * livro é gerado por um número aleatório no intervalo de 10 a 99, seguido por 5 casas decimais.
+     * Construtor que inicializa a lista de armazenamento de livros, a lista
+     * de isbn já cadastrados e o número do ISBN. O ISBN do livro
+     * recebe um número aleatório sorteado no intervalo de 10 a 99, seguido por 5 casas decimais.
      * A cada sorteio, é verificado se o número já foi sorteado, caso não tenha sido sorteado, o número
-     * é guardado em uma lista estática da classe, impedindo assim ISBN iguais.
+     * é guardado na lista de isbnCadastrado, impedindo assim ISBN iguais.
      */
 
     public LivroImpl() {
         this.listaLivro = new ArrayList<Livro>();
+        this.isbnCadastrado = new ArrayList<Double>();
+
         this.isbn = isbnAleatorio();
     }
 
@@ -48,10 +51,9 @@ public class LivroImpl implements LivroDAO {
         do{
             chute = 10.0 + r.nextDouble() * 90;
             chute = Math.round(chute * 100000.0) / 100000.0;
-        } while (isbnCadastrado.contains(chute));
+        } while (this.isbnCadastrado.contains(chute));
 
-        isbnCadastrado.add(chute);
-
+        this.isbnCadastrado.add(chute);
         return chute;
     }
 
@@ -66,6 +68,7 @@ public class LivroImpl implements LivroDAO {
     @Override
     public Livro criar(Livro obj) {
         obj.setISBN(this.isbn);
+        this.isbn = isbnAleatorio();
         this.listaLivro.add(obj);
 
         return obj;
@@ -90,12 +93,14 @@ public class LivroImpl implements LivroDAO {
     /**
      * Deleta todos os objetos do tipo Livro do banco de dados.
      * A lista de ISBN sorteados é limpa, apagando todos números sorteados.
+     * ISBN inicial é sorteado novamente.
      */
 
     @Override
     public void removerTodos() {
         this.listaLivro.clear();
-        isbnCadastrado.clear();
+        this.isbnCadastrado.clear();
+        this.isbn = isbnAleatorio();
     }
 
     /**
@@ -123,7 +128,7 @@ public class LivroImpl implements LivroDAO {
         List<Livro> listaTitulo = new ArrayList<Livro>();
 
         for(Livro livro : this.listaLivro){
-            if(livro.getTitulo().equals(titulo))
+            if(livro.getTitulo().equals(titulo.toLowerCase()))
                 listaTitulo.add(livro);
         }
 
@@ -144,7 +149,7 @@ public class LivroImpl implements LivroDAO {
         List<Livro> listaAutor = new ArrayList<Livro>();
 
         for(Livro livro : this.listaLivro){
-            if(livro.getAutor().equals(autor))
+            if(livro.getAutor().equals(autor.toLowerCase()))
                 listaAutor.add(livro);
         }
 
@@ -165,7 +170,7 @@ public class LivroImpl implements LivroDAO {
         List<Livro> listaCategoria = new ArrayList<Livro>();
 
         for(Livro livro : this.listaLivro){
-            if(livro.getCategoria().equals(categoria))
+            if(livro.getCategoria().equals(categoria.toLowerCase()))
                 listaCategoria.add(livro);
         }
 

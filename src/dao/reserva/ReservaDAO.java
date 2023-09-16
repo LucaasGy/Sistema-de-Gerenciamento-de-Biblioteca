@@ -21,7 +21,7 @@ public interface ReservaDAO extends CRUD<Reserva> {
      * @return retorna lista de reservas ativas de um livro
      */
 
-    public List<Reserva> encontrarLeitorReservouLivro(double isbn);
+    public List<Reserva> encontrarReservasLivro(double isbn);
 
     /**
      * Método que encontra todas as reserva ativas de um leitor.
@@ -30,7 +30,7 @@ public interface ReservaDAO extends CRUD<Reserva> {
      * @return retorna lista de reservas ativas de um leitor
      */
 
-    public List<Reserva> encontrarLivroReservadoPorLeitor(int id);
+    public List<Reserva> encontrarReservasLeitor(int id);
 
     /**
      * Método que remove todas as reservas ativas de um leitor.
