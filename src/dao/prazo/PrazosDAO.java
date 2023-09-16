@@ -39,4 +39,12 @@ public interface PrazosDAO extends CRUD<Prazos> {
      */
 
     public List<Prazos> prazosDeUmLeitor(int id);
+
+    /**
+     * Método que atualiza a lista de prazos com a exclusão de prazos vencidos.
+     *
+     * @param novosPrazos lista de prazos atualizada ( prazos vencidos excluidos )
+     */
+
+    public void atualizarPrazos(List<Prazos> novosPrazos);
 }
