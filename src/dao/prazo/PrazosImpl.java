@@ -1,6 +1,7 @@
 package dao.prazo;
 
 import model.Prazos;
+import model.Reserva;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,20 +132,37 @@ public class PrazosImpl implements PrazosDAO {
 
     /**
      * Método que remove todos os prazos ativos de um leitor.
-     * É utilizado um for padrão invés de um for each, pois como
-     * se trata de sequências de remoções em um loop, o for each
-     * acaba dando erro pois o tamanho da lista vai alterando durante
-     * as remoções. Utilizando um for padrão, este erro não ocorre.
+     *
+     * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
+     * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
      *
      * @param id identificação do leitor que recebe o prazo a ser deletado
      */
 
     @Override
     public void remover(int id) {
-        for(int i = 0; i < this.listaPrazos.size(); i++){
-            if (this.listaPrazos.get(i).getLeitor().getID()==id)
-                this.listaPrazos.remove(i);
+        List<Prazos> prazosARemover = new ArrayList<>();
+
+        for(Prazos prazos : this.listaPrazos){
+            if (prazos.getLeitor().getID()==id)
+                prazosARemover.add(prazos);
         }
+
+        this.listaPrazos.removeAll(prazosARemover);
+    }
+
+    /**
+     * Método que atualiza a lista de prazos com a exclusão de prazos vencidos.
+     *
+     * Limpa a lista desatualizada com prazos vencidos e adiciona os prazos
+     * atualizados.
+     *
+     * @param novosPrazos lista de prazos atualizada ( prazos vencidos excluidos )
+     */
+
+    public void atualizarPrazos(List<Prazos> novosPrazos){
+        this.listaPrazos.clear();
+        this.listaPrazos.addAll(novosPrazos);
     }
 
     @Override
