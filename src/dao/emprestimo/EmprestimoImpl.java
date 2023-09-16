@@ -45,7 +45,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
     }
 
     /**
-     * Método para remover determinado Empréstimo da estrutura de armazenamento.
+     * Método para remover determinado Empréstimo da estrutura de armazenamento de Empréstimos Ativos.
      *
      * @param id identificação do Leitor que realizou o Emprestimo a ser deletado
      */
@@ -62,19 +62,46 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
     /**
      * Método que remove todos os empréstimos já feitos de um livro deletado do sistema.
-     * É utilizado um for padrão invés de um for each, pois como
-     * se trata de sequências de remoções em um loop, o for each
-     * acaba dando erro pois o tamanho da lista vai alterando durante
-     * as remoções. Utilizando um for padrão, este erro não ocorre.
+     *
+     * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
+     * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
      *
      * @param isbn isbn do livro deletado
      */
 
-    public void removerTodosEmprestimosDeUmLivro(double isbn){
-        for(int i=0; i<this.listaEmprestimoTotal.size(); i++){
-            if(this.listaEmprestimoTotal.get(i).getLivro().getISBN()==isbn)
-                this.listaEmprestimoTotal.remove(i);
+    public void removerTodosEmprestimosDeUmLivro(double isbn) {
+        List<Emprestimo> emprestimosARemover = new ArrayList<>();
+
+        for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
+            if (emprestimo.getLivro().getISBN() == isbn) {
+                emprestimosARemover.add(emprestimo);
+            }
         }
+
+        this.listaEmprestimoTotal.removeAll(emprestimosARemover);
+    }
+
+
+    /**
+     * Método que remove todos os empréstimos já feitos de um leitor deletado do sistema.
+     *
+     * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
+     * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
+     *
+     * @param id identificação do leitor deletado
+     */
+
+    @Override
+    public void removerTodosEmprestimoDeUmLeitor(int id){
+        List<Emprestimo> emprestimosARemover = new ArrayList<>();
+
+        for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
+            if (emprestimo.getLeitor().getID() == id) {
+                emprestimosARemover.add(emprestimo);
+            }
+        }
+
+        this.listaEmprestimoTotal.removeAll(emprestimosARemover);
     }
 
     /**
@@ -95,7 +122,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
     }
 
     /**
-     * Método que encontra um empréstimo pelo isbn do livro emprestado.
+     * Método que encontra um empréstimo ativo pelo isbn do livro emprestado.
      *
      * @param isbn isbn do livro que foi emprestado
      * @return retorna o empréstimo do livro encontrado
@@ -135,6 +162,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
     /**
      * Método que encontra todos os empréstimos já feitos por um determinado leitor.
+     *
      * Objetos Emprestimo que possuam o ID informado, são adicionados numa
      * lista e retornados.
      *
@@ -155,7 +183,30 @@ public class EmprestimoImpl implements EmprestimoDAO {
     }
 
     /**
+     * Método que encontra todos os empréstimos já feitos de um determinado livro.
+     *
+     * Objetos Emprestimo que possuam o ISBN informado, são adicionados numa
+     * lista e retornados.
+     *
+     * @param isbn isbn do livro emprestado
+     * @return retorna lista de empréstimos de um livro
+     */
+
+    @Override
+    public List<Emprestimo> encontrarHistoricoDeUmLivro(double isbn) {
+        List<Emprestimo> historicoDoISBN = new ArrayList<Emprestimo>();
+
+        for(Emprestimo emp : this.listaEmprestimoTotal){
+            if(emp.getLivro().getISBN()==isbn)
+                historicoDoISBN.add(emp);
+        }
+
+        return historicoDoISBN;
+    }
+
+    /**
      * Deleta todos os objetos do tipo Emprestimo do banco de dados.
+     *
      * Antes de deletar todos os empréstimos, a quantidade de empréstimos
      * feitos de cada livro é resetado para 0.
      * É deletado os empréstimos ativos e todos os empréstimos já feitos.

@@ -218,10 +218,10 @@ public class Leitor extends Usuario {
         else if(DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
             throw new LeitorPossuiReservaDesseLivro();
 
-        else if(DAO.getReserva().encontrarLeitorReservouLivro(isbn).size()==4)
+        else if(DAO.getReserva().encontrarReservasLivro(isbn).size()==4)
             throw new LivroLimiteDeReservas();
 
-        else if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).size()==3)
+        else if(DAO.getReserva().encontrarReservasLeitor(this.getID()).size()==3)
             throw new LeitorLimiteDeReservas();
 
         Reserva reserva = new Reserva(DAO.getLivro().encontrarPorISBN(isbn) , DAO.getLeitor().encontrarPorId(this.getID()));
@@ -248,7 +248,7 @@ public class Leitor extends Usuario {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        else if(DAO.getReserva().encontrarLivroReservadoPorLeitor(this.getID()).isEmpty())
+        else if(!DAO.getReserva().leitorJaReservouEsseLivro(this.getID(),isbn))
             throw new LeitorNaoPossuiReservaDesseLivro();
 
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);

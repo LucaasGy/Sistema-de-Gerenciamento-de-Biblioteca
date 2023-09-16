@@ -75,7 +75,7 @@ public class BibliotecarioImpl implements BibliotecarioDAO {
         List<Bibliotecario> listaNome = new ArrayList<Bibliotecario>();
 
         for(Bibliotecario biblio : this.listaBibliotecario){
-            if(biblio.getNome().equals(nome))
+            if(biblio.getNome().equals(nome.toLowerCase()))
                 listaNome.add(biblio);
         }
 

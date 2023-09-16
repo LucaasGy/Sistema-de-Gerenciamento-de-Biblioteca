@@ -75,7 +75,7 @@ public class AdmImpl implements AdmDAO {
         List<Adm> listaNome = new ArrayList<Adm>();
 
         for(Adm adm : this.listaAdm){
-            if(adm.getNome().equals(nome))
+            if(adm.getNome().equals(nome.toLowerCase()))
                 listaNome.add(adm);
         }
 

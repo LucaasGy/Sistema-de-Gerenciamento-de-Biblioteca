@@ -59,7 +59,7 @@ public class LeitorImpl implements LeitorDAO {
         List<Leitor> listaNome = new ArrayList<Leitor>();
 
         for(Leitor leitor : this.listaLeitor){
-            if(leitor.getNome().equals(nome))
+            if(leitor.getNome().equals(nome.toLowerCase()))
                 listaNome.add(leitor);
         }
 

@@ -53,7 +53,7 @@ public class Adm extends Usuario {
      *
      * Caso o leitor não seja encontrado ou esteja com algum empréstimo
      * ele não poderá ser removido.
-     * Caso tudo esteja correto, é removido todas as reservas do leitor
+     * Caso tudo esteja correto, é removido todas as reservas e empréstimos já feitos do leitor
      * e ele é removido do sistema.
      * Caso ele possua prazos ativos, os prazos são deletados e são criados novos prazos
      * para o top2 da fila ( oque vem depois do leitor bloqueado ) ir realizar o empréstimo.
@@ -75,6 +75,8 @@ public class Adm extends Usuario {
         DAO.getReserva().removerReservasDeUmLeitor(id);
 
         Sistema.adicionarPrazoParaTop2reserva(id);
+
+        DAO.getEmprestimo().removerTodosEmprestimoDeUmLeitor(id);
 
         DAO.getLeitor().remover(id);
     }
