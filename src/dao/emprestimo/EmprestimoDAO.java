@@ -31,6 +31,15 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
     public List<Emprestimo> encontrarHistoricoDeUmLeitor(int id);
 
     /**
+     * Método que encontra todos os empréstimos já feitos de um determinado livro.
+     *
+     * @param isbn isbn do livro que foi emprestado
+     * @return retorna lista de empréstimos de um livro
+     */
+
+    public List<Emprestimo> encontrarHistoricoDeUmLivro(double isbn);
+
+    /**
      * Método que encontra um empréstimo pelo isbn do livro emprestado.
      *
      * @param isbn isbn do livro que foi emprestado
@@ -46,4 +55,12 @@ public interface EmprestimoDAO extends CRUD<Emprestimo> {
      */
 
     public void removerTodosEmprestimosDeUmLivro(double isbn);
+
+    /**
+     * Método que remove todos os empréstimos já feitos de um leitor deletado do sistema.
+     *
+     * @param id identificação do leitor deletado
+     */
+
+    public void removerTodosEmprestimoDeUmLeitor(int id);
 }
