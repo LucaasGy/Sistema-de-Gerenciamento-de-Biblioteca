@@ -1,4 +1,4 @@
-package testes;
+package testes.dao;
 
 import dao.DAO;
 
@@ -14,13 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReservaImplTest {
 
-    private Reserva reserva1;
-    private Reserva reserva2;
-    private Reserva reserva3;
-    private Reserva reserva4;
-    private Reserva reserva5;
-    private Reserva reserva6;
-    private Reserva reserva7;
+    private Reserva reserva1, reserva2, reserva3, reserva4, reserva5, reserva6, reserva7;
 
     @BeforeEach
     void setUp() {
@@ -31,7 +25,6 @@ class ReservaImplTest {
         Livro livro5 = new Livro("O grito","Percy","Seu medo",1991,"Horror");
         Livro livro6 = new Livro("Os aflitos","Donald","Seu medo",1982,"Terror");
         Livro livro7 = new Livro("A origem","Ana","Seu medo",1994,"Suspense");
-
         livro1.setISBN(10.00000);
         livro2.setISBN(11.00000);
         livro3.setISBN(12.00000);
@@ -47,7 +40,6 @@ class ReservaImplTest {
         Leitor leitor5 = new Leitor("Carlos", "Rua dos Passarinhos", "11111111", "senha12345");
         Leitor leitor6 = new Leitor("Sofia", "Avenida das Árvores", "99999999", "sofiasenha");
         Leitor leitor7 = new Leitor("Valentina", "Avenida Principal", "99999999", "senha8372");
-
         leitor1.setID(1000);
         leitor2.setID(1100);
         leitor3.setID(1200);
@@ -100,7 +92,7 @@ class ReservaImplTest {
     }
 
     @Test
-    void removerReservasDeUmLeitor() {
+    void remover() {
         Leitor leitor1 = new Leitor("Lucas", "Rua Alameda", "75757575", "batata");
         leitor1.setID(1000);
 
@@ -115,7 +107,7 @@ class ReservaImplTest {
 
         assertEquals(3, DAO.getReserva().encontrarReservasLeitor(1000).size());
 
-        DAO.getReserva().removerReservasDeUmLeitor(1000);
+        DAO.getReserva().remover(1000);
 
         assertEquals(6, DAO.getReserva().encontrarTodos().size());
     }

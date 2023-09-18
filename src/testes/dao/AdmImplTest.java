@@ -1,4 +1,4 @@
-package testes;
+package testes.dao;
 
 import dao.DAO;
 import model.Adm;
@@ -13,11 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdmImplTest {
 
-    private Adm lucas;
-    private Adm ana;
-    private Adm gabriel;
-    private Adm paulo;
-    private Adm fernanda;
+    private Adm lucas, ana, gabriel, paulo, fernanda;
 
     @BeforeEach
     void setUp() {

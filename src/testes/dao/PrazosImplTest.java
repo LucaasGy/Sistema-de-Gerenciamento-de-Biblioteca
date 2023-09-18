@@ -1,4 +1,4 @@
-package testes;
+package testes.dao;
 
 import dao.DAO;
 
@@ -18,13 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PrazosImplTest {
 
-    private Prazos prazo1;
-    private Prazos prazo2;
-    private Prazos prazo3;
-    private Prazos prazo4;
-    private Prazos prazo5;
-    private Prazos prazo6;
-    private Prazos prazo7;
+    private Prazos prazo1, prazo2, prazo3, prazo4, prazo5, prazo6, prazo7;
 
     @BeforeEach
     void setUp() {
@@ -60,13 +54,13 @@ class PrazosImplTest {
         leitor6.setID(1500);
         leitor7.setID(1600);
 
-        prazo1 = DAO.getPrazos().criar(new Prazos(leitor1,livro1, LocalDate.now()));
-        prazo2 = DAO.getPrazos().criar(new Prazos(leitor2,livro2, LocalDate.now()));
-        prazo3 = DAO.getPrazos().criar(new Prazos(leitor3,livro3, LocalDate.now()));
-        prazo4 = DAO.getPrazos().criar(new Prazos(leitor4,livro4, LocalDate.now()));
-        prazo5 = DAO.getPrazos().criar(new Prazos(leitor5,livro5, LocalDate.now()));
-        prazo6 = DAO.getPrazos().criar(new Prazos(leitor6,livro6, LocalDate.now()));
-        prazo7 = DAO.getPrazos().criar(new Prazos(leitor7,livro7, LocalDate.now()));
+        prazo1 = DAO.getPrazos().criar(new Prazos(leitor1,livro1));
+        prazo2 = DAO.getPrazos().criar(new Prazos(leitor2,livro2));
+        prazo3 = DAO.getPrazos().criar(new Prazos(leitor3,livro3));
+        prazo4 = DAO.getPrazos().criar(new Prazos(leitor4,livro4));
+        prazo5 = DAO.getPrazos().criar(new Prazos(leitor5,livro5));
+        prazo6 = DAO.getPrazos().criar(new Prazos(leitor6,livro6));
+        prazo7 = DAO.getPrazos().criar(new Prazos(leitor7,livro7));
     }
 
     @AfterEach
@@ -82,7 +76,7 @@ class PrazosImplTest {
         Leitor leitorEsperado = new Leitor("Joaquim","Rua banana","01010101","sapato");
         leitorEsperado.setID(1300);
 
-        Prazos prazoEsperado = new Prazos(leitorEsperado,livroEsperado,LocalDate.now());
+        Prazos prazoEsperado = new Prazos(leitorEsperado,livroEsperado);
 
         Prazos atual =  DAO.getPrazos().criar(prazoEsperado);
 
@@ -120,8 +114,8 @@ class PrazosImplTest {
         livro8.setISBN(17.00000);
         livro9.setISBN(18.00000);
 
-        DAO.getPrazos().criar(new Prazos(leitor1,livro8,LocalDate.now()));
-        DAO.getPrazos().criar(new Prazos(leitor1,livro9,LocalDate.now()));
+        DAO.getPrazos().criar(new Prazos(leitor1,livro8));
+        DAO.getPrazos().criar(new Prazos(leitor1,livro9));
 
         assertEquals(3,DAO.getPrazos().prazosDeUmLeitor(1000).size());
     }
@@ -159,8 +153,8 @@ class PrazosImplTest {
         livro8.setISBN(17.00000);
         livro9.setISBN(18.00000);
 
-        DAO.getPrazos().criar(new Prazos(leitor1,livro8,LocalDate.now()));
-        DAO.getPrazos().criar(new Prazos(leitor1,livro9,LocalDate.now()));
+        DAO.getPrazos().criar(new Prazos(leitor1,livro8));
+        DAO.getPrazos().criar(new Prazos(leitor1,livro9));
 
         assertEquals(9, DAO.getPrazos().encontrarTodos().size());
 
@@ -173,25 +167,25 @@ class PrazosImplTest {
     void atualizarPrazos() {
         Livro livro1 = new Livro("As cronicas","Jorge","Sua paz",2000,"Fantasia");
         Livro livro2 = new Livro("As aventuras","Leall","Sua guerra",2010,"Aventura");
-
         livro1.setISBN(10.00000);
         livro2.setISBN(11.00000);
 
         Leitor leitor1 = new Leitor("Lucas", "Rua Alameda", "75757575", "batata");
         Leitor leitor2 = new Leitor("Ana", "Avenida Central", "12345678", "senha123");
-
         leitor1.setID(1000);
         leitor2.setID(1100);
 
-        Prazos novoPrazo1 = new Prazos(leitor1, livro2, LocalDate.now());
-        Prazos novoPrazo2 = new Prazos(leitor2, livro1, LocalDate.now());
+        Prazos novoPrazo1 = new Prazos(leitor1, livro2);
+        Prazos novoPrazo2 = new Prazos(leitor2, livro1);
 
         List<Prazos> novosPrazos = new ArrayList<Prazos>();
         novosPrazos.add(novoPrazo1);
         novosPrazos.add(novoPrazo2);
 
-        DAO.getPrazos().atualizarPrazos(novosPrazos);
+        List<Prazos> naoRemovePrazos = new ArrayList<>();
 
-        assertEquals(novosPrazos, DAO.getPrazos().encontrarTodos());
+        DAO.getPrazos().atualizarPrazos(naoRemovePrazos,novosPrazos);
+
+        assertEquals(9, DAO.getPrazos().encontrarTodos().size());
     }
 }

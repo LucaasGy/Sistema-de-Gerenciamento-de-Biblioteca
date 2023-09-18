@@ -22,18 +22,19 @@ public class Prazos {
     /**
      * Construtor de um prazo para empréstimo.
      *
-     * Recebe como parâmetros todos os atributos da classe para inseri-los diretamente.
+     * Recebe como parâmetros os atributos da classe para inseri-los diretamente.
+     * A dataLimite é definida como a data atual da criação do prazo mais 2 dias,
+     * referente o limite de dias para ir realizar o empréstimo do livro.
      *
      * @param leitor o Leitor do prazo
      * @param livro o Livro do prazo
-     * @param dataLimite a data limite para ir realizar o empréstimo
      */
 
-    public Prazos(Leitor leitor, Livro livro, LocalDate dataLimite) {
+    public Prazos(Leitor leitor, Livro livro) {
 
         this.leitor = leitor;
         this.livro = livro;
-        this.dataLimite = dataLimite;
+        this.dataLimite = LocalDate.now().plusDays(2);
     }
 
     public Livro getLivro() {

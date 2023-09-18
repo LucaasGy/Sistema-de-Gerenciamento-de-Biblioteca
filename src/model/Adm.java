@@ -72,7 +72,7 @@ public class Adm extends Usuario {
         else if(DAO.getEmprestimo().encontrarPorId(id)!=null)
             throw new LeitorTemEmprestimo();
 
-        DAO.getReserva().removerReservasDeUmLeitor(id);
+        DAO.getReserva().remover(id);
 
         Sistema.adicionarPrazoParaTop2reserva(id);
 
@@ -109,7 +109,7 @@ public class Adm extends Usuario {
         if(leitor==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
-        leitor.setSenha(senha);
+        leitor.setSenha(senha.toLowerCase());
     }
 
     /**
@@ -127,7 +127,7 @@ public class Adm extends Usuario {
         if(leitor==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
-        leitor.setEndereco(endereco);
+        leitor.setEndereco(endereco.toLowerCase());
     }
 
     /**
@@ -145,7 +145,7 @@ public class Adm extends Usuario {
         if(leitor==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
-        leitor.setTelefone(telefone);
+        leitor.setTelefone(telefone.toLowerCase());
     }
 
     /**
@@ -200,7 +200,7 @@ public class Adm extends Usuario {
         if(bibliotecario==null)
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
-        bibliotecario.setSenha(senha);
+        bibliotecario.setSenha(senha.toLowerCase());
     }
 
     /**
@@ -256,7 +256,7 @@ public class Adm extends Usuario {
         if(adm==null)
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
-        adm.setSenha(senha);
+        adm.setSenha(senha.toLowerCase());
     }
 
     /**
@@ -277,8 +277,6 @@ public class Adm extends Usuario {
 
         if(leitor==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
-
-        DAO.getReserva().removerReservasDeUmLeitor(id);
 
         Sistema.adicionarPrazoParaTop2reserva(id);
 
@@ -385,7 +383,7 @@ public class Adm extends Usuario {
         if(livro==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        livro.setTitulo(titulo);
+        livro.setTitulo(titulo.toLowerCase());
     }
 
     /**
@@ -403,7 +401,7 @@ public class Adm extends Usuario {
         if(livro==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        livro.setAutor(autor);
+        livro.setAutor(autor.toLowerCase());
     }
 
     /**
@@ -421,7 +419,7 @@ public class Adm extends Usuario {
         if(livro==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        livro.setEditora(editora);
+        livro.setEditora(editora.toLowerCase());
     }
 
     /**
@@ -456,7 +454,7 @@ public class Adm extends Usuario {
         if(livro==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        livro.setCategoria(categoria);
+        livro.setCategoria(categoria.toLowerCase());
     }
 
     /**

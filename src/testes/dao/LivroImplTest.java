@@ -1,4 +1,4 @@
-package testes;
+package testes.dao;
 
 import dao.DAO;
 import model.Livro;
@@ -13,11 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LivroImplTest {
 
-    private Livro livro1;
-    private Livro livro2;
-    private Livro livro3;
-    private Livro livro4;
-    private Livro livro5;
+    private Livro livro1, livro2, livro3, livro4, livro5;
 
     @BeforeEach
     void setUp() {

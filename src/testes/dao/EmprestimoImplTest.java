@@ -1,4 +1,4 @@
-package testes;
+package testes.dao;
 
 import dao.DAO;
 import model.Emprestimo;
@@ -9,15 +9,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmprestimoImplTest {
 
-    private Emprestimo emprestimo1;
-    private Emprestimo emprestimo2;
-    private Emprestimo emprestimo3;
+    private Emprestimo emprestimo1, emprestimo2, emprestimo3;
 
     @BeforeEach
     void setUp() {
@@ -189,8 +185,13 @@ class EmprestimoImplTest {
 
     @Test
     void removerTodos() {
+        assertEquals(1,this.emprestimo1.getLivro().getQtdEmprestimo());
+        assertEquals(1,this.emprestimo2.getLivro().getQtdEmprestimo());
+
         DAO.getEmprestimo().removerTodos();
 
         assertEquals(0, DAO.getEmprestimo().encontrarTodos().size());
+        assertEquals(0,this.emprestimo1.getLivro().getQtdEmprestimo());
+        assertEquals(0,this.emprestimo2.getLivro().getQtdEmprestimo());
     }
 }

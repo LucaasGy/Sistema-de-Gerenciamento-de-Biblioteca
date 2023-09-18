@@ -33,14 +33,6 @@ public interface ReservaDAO extends CRUD<Reserva> {
     public List<Reserva> encontrarReservasLeitor(int id);
 
     /**
-     * Método que remove todas as reservas ativas de um leitor.
-     *
-     * @param id identificação do leitor
-     */
-
-    public void removerReservasDeUmLeitor(int id);
-
-    /**
      * Método que remove todas as reservas ativas de um livro.
      *
      * @param isbn isbn do livro

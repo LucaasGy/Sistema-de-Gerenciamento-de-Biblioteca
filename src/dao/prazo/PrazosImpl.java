@@ -152,17 +152,18 @@ public class PrazosImpl implements PrazosDAO {
     }
 
     /**
-     * Método que atualiza a lista de prazos com a exclusão de prazos vencidos.
+     * Método que atualiza a lista de prazos com a exclusão de prazos vencidos e adição de novos prazos.
      *
-     * Limpa a lista desatualizada com prazos vencidos e adiciona os prazos
-     * atualizados.
+     * Remove prazos vencidos da lista e adiciona novos prazos ativos.
      *
-     * @param novosPrazos lista de prazos atualizada ( prazos vencidos excluidos )
+     * @param removePrazos lista de prazos a remover ( prazos vencidos excluidos )
+     * @param adinionaPrazos lista de prazos a adicionar ( novos prazos )
      */
 
-    public void atualizarPrazos(List<Prazos> novosPrazos){
-        this.listaPrazos.clear();
-        this.listaPrazos.addAll(novosPrazos);
+    @Override
+    public void atualizarPrazos(List<Prazos> removePrazos, List<Prazos> adinionaPrazos){
+        this.listaPrazos.removeAll(removePrazos);
+        this.listaPrazos.addAll(adinionaPrazos);
     }
 
     @Override

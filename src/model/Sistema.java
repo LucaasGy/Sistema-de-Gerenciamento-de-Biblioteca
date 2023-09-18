@@ -42,7 +42,7 @@ public class Sistema {
         if(adm==null)
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
-        else if (!adm.getSenha().equals(senha))
+        else if (!adm.getSenha().equals(senha.toLowerCase()))
                 throw new UsuarioSenhaIncorreta();
 
         return adm;
@@ -70,7 +70,7 @@ public class Sistema {
         if(bibliotecario==null)
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
-        else if(!bibliotecario.getSenha().equals(senha))
+        else if(!bibliotecario.getSenha().equals(senha.toLowerCase()))
                 throw new UsuarioSenhaIncorreta();
 
         return bibliotecario;
@@ -98,7 +98,7 @@ public class Sistema {
         if(leitor==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
-        else if(!leitor.getSenha().equals(senha))
+        else if(!leitor.getSenha().equals(senha.toLowerCase()))
             throw new UsuarioSenhaIncorreta();
 
         return leitor;
@@ -117,7 +117,7 @@ public class Sistema {
      * @param emprestimo empréstimo do leitor
      */
 
-    public static void checarMulta(Emprestimo emprestimo){
+    public static void aplicarMulta(Emprestimo emprestimo){
         LocalDate dataDevolvendo = LocalDate.now();
 
         long diasDeAtraso = ChronoUnit.DAYS.between(emprestimo.getdataPrevista(),dataDevolvendo);
@@ -125,7 +125,6 @@ public class Sistema {
         if(diasDeAtraso>0) {
             emprestimo.getLeitor().setDataMulta(dataDevolvendo.plusDays(diasDeAtraso*2));
 
-            DAO.getReserva().remover(emprestimo.getLeitor().getID());
             adicionarPrazoParaTop2reserva(emprestimo.getLeitor().getID());
         }
     }
@@ -149,55 +148,25 @@ public class Sistema {
 
     /**
      * Método utilizado para verificar se os prazos para realizar empréstimo de livros
-     * já expirou.
-     *
-     * Este método será utilizado na fase 3, quando o projeto possuir uma "main",
-     * onde a cada vez que o programa for aberto, ele irá verificar quais de todos os prazos
-     * existentes já foram expirados. Caso tenham sido, remove o top1 da fila de reserva do livro
-     * em questão e remove também seu prazo. Caso após a remoção, o livro ainda possua reservas,
-     * é criado um prazo para o novo top1 da fila ir realizar seu empréstimo.
-     */
-
-    public static void verificarPrazosEReservas(){
-        List<Prazos> todosPrazos = DAO.getPrazos().encontrarTodos();
-
-        for(int i=0; i<todosPrazos.size(); i++){
-            if(todosPrazos.get(i).getDataLimite().isBefore(LocalDate.now())){
-                DAO.getReserva().removeTop1(todosPrazos.get(i).getLivro().getISBN());
-
-                if(DAO.getReserva().livroTemReserva(todosPrazos.get(i).getLivro().getISBN())){
-                    Reserva reserva1 = DAO.getReserva().top1Reserva(todosPrazos.get(i).getLivro().getISBN());
-                    Prazos prazotop1 = new Prazos(reserva1.getLeitor(),reserva1.getLivro(),LocalDate.now().plusDays(2));
-                    DAO.getPrazos().criar(prazotop1);
-                }
-
-                DAO.getPrazos().removerPrazoDeUmLivro(todosPrazos.get(i).getLivro().getISBN());
-            }
-        }
-    }
-
-    /**
-     * Método utilizado para verificar se os prazos para realizar empréstimo de livros
      * já expiraram.
      *
      * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
      * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
-     * Ao final, envia a lista de prazos atualizada para o DAO.
+     *
+     * Ao final, envia as listas de prazos para remover e adicionar para o DAO.
      */
 
-    /**public static void verificarPrazosEReservas(){
-        List<Prazos> todosPrazos = DAO.getPrazos().encontrarTodos();
-
+    public static void verificarPrazosEReservas(){
         List<Prazos> prazosARemover = new ArrayList<>();
         List<Prazos> prazosAAdicionar = new ArrayList<>();
 
-        for(Prazos prazo : todosPrazos){
+        for(Prazos prazo : DAO.getPrazos().encontrarTodos()){
             if(prazo.getDataLimite().isBefore(LocalDate.now())){
                 DAO.getReserva().removeTop1(prazo.getLivro().getISBN());
 
                 if(DAO.getReserva().livroTemReserva(prazo.getLivro().getISBN())){
                     Reserva reserva1 = DAO.getReserva().top1Reserva(prazo.getLivro().getISBN());
-                    Prazos prazotop1 = new Prazos(reserva1.getLeitor(),reserva1.getLivro(),LocalDate.now().plusDays(2));
+                    Prazos prazotop1 = new Prazos(reserva1.getLeitor(),reserva1.getLivro());
                     prazosAAdicionar.add(prazotop1);
                 }
 
@@ -205,15 +174,14 @@ public class Sistema {
             }
         }
 
-        todosPrazos.removeAll(prazosARemover);
-        todosPrazos.addAll(prazosAAdicionar);
-
-        DAO.getPrazos().atualizarPrazos(todosPrazos);
-    }*/
+        DAO.getPrazos().atualizarPrazos(prazosARemover, prazosAAdicionar);
+    }
 
 
     /**
      * Método que verifica se um leitor possui prazos.
+     *
+     * Primeiramente é removido todas as reservas ativas do leitor.
      *
      * Caso o leitor possua prazos, é verificado se o livro do prazo do leitor
      * possui alguma reserva, pois se possuir é necessário criar um prazo
@@ -223,13 +191,15 @@ public class Sistema {
      */
 
     public static void adicionarPrazoParaTop2reserva(int id){
+        DAO.getReserva().remover(id);
+
         List<Prazos> listaPrazos = DAO.getPrazos().prazosDeUmLeitor(id);
 
         if(listaPrazos!=null){
             for(Prazos prazo : listaPrazos){
                 Reserva reservaTop1 = DAO.getReserva().top1Reserva(prazo.getLivro().getISBN());
                 if(reservaTop1!=null){
-                    Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro(), LocalDate.now().plusDays(2));
+                    Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro());
                     DAO.getPrazos().criar(novoPrazoTop1);
                 }
             }

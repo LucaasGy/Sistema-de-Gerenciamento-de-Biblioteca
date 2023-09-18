@@ -153,13 +153,11 @@ public class Bibliotecario extends Usuario {
         if(emprestimoLeitor==null)
             throw new LeitorNaoPossuiEmprestimo();
 
-        Sistema.checarMulta(emprestimoLeitor);
+        Sistema.aplicarMulta(emprestimoLeitor);
 
         if(DAO.getReserva().livroTemReserva(emprestimoLeitor.getLivro().getISBN())){
-            LocalDate devolve = LocalDate.now();
-
             Reserva reservaTop1 = DAO.getReserva().top1Reserva(emprestimoLeitor.getLivro().getISBN());
-            Prazos novo = new Prazos(reservaTop1.getLeitor(),reservaTop1.getLivro(),devolve.plusDays(2));
+            Prazos novo = new Prazos(reservaTop1.getLeitor(),reservaTop1.getLivro());
 
             DAO.getPrazos().criar(novo);
         }

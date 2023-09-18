@@ -209,9 +209,6 @@ public class Leitor extends Usuario {
         else if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
             throw new LivroNaoDisponivel();
 
-        else if(DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && !DAO.getReserva().livroTemReserva(isbn))
-            throw new LivroNaoPossuiEmprestimoNemReserva();
-
         else if(DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
             throw new LeitorReservarLivroEmMaos();
 
@@ -223,6 +220,9 @@ public class Leitor extends Usuario {
 
         else if(DAO.getReserva().encontrarReservasLeitor(this.getID()).size()==3)
             throw new LeitorLimiteDeReservas();
+
+        else if(DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && !DAO.getReserva().livroTemReserva(isbn))
+            throw new LivroNaoPossuiEmprestimoNemReserva();
 
         Reserva reserva = new Reserva(DAO.getLivro().encontrarPorISBN(isbn) , DAO.getLeitor().encontrarPorId(this.getID()));
 
@@ -248,17 +248,17 @@ public class Leitor extends Usuario {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        else if(!DAO.getReserva().leitorJaReservouEsseLivro(this.getID(),isbn))
+        else if(!DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
             throw new LeitorNaoPossuiReservaDesseLivro();
 
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);
 
-        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor().getID()==this.getID()) {
+        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn)!=null && DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor().getID()==this.getID()) {
             DAO.getPrazos().removerPrazoDeUmLivro(isbn);
 
             Reserva reservaTop1 = DAO.getReserva().top1Reserva(isbn);
             if(reservaTop1!=null){
-                Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro(), LocalDate.now().plusDays(2));
+                Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro());
                 DAO.getPrazos().criar(novoPrazoTop1);
             }
         }

@@ -1,4 +1,4 @@
-package testes;
+package testes.dao;
 
 import dao.DAO;
 import model.Leitor;
@@ -14,9 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LeitorImplTest {
 
-    private Leitor lucas;
-    private Leitor ana;
-    private Leitor gabriel;
+    private Leitor lucas, ana, gabriel;
 
     @BeforeEach
     void setUp() {

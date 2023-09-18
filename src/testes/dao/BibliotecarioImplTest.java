@@ -1,4 +1,4 @@
-package testes;
+package testes.dao;
 
 import dao.DAO;
 import model.Bibliotecario;
@@ -13,11 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BibliotecarioImplTest {
 
-    private Bibliotecario lucas;
-    private Bibliotecario ana;
-    private Bibliotecario gabriel;
-    private Bibliotecario paulo;
-    private Bibliotecario fernanda;
+    private Bibliotecario lucas, ana, gabriel, paulo, fernanda;
 
     @BeforeEach
     void setUp() {
