@@ -55,9 +55,22 @@ class LeitorTest {
 
         this.lucas.setLimiteRenova(1);
         assertThrows(LeitorLimiteDeRenovacao.class, ()-> this.lucas.renovarEmprestimo());
+        this.lucas.setLimiteRenova(0);
+
+        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPegou(LocalDate.now().minusDays(5));
+        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(2));
+
+        //ps: alterar a data para 5 dias antes da data atual do teste
+        assertEquals(LocalDate.of(2023,9,13), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
+        //ps: alterar a data para 2 dias depois da data atual do teste
+        assertEquals(LocalDate.of(2023,9,20), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+
+        this.lucas.renovarEmprestimo();
 
         assertEquals(1, this.lucas.getLimiteRenova());
         assertNotNull(DAO.getEmprestimo().encontrarPorId(this.lucas.getID()));
+        assertEquals(LocalDate.now(), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
+        assertEquals(LocalDate.now().plusDays(7), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
     }
 
     @Test

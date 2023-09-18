@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -133,6 +132,7 @@ class SistemaTest {
         this.leitor2.setDataMulta(LocalDate.now().minusDays(2));
         this.leitor3.setDataMulta(LocalDate.now().minusDays(3));
 
+        //ps: trocar a data por um dia anterior à data da realização do teste
         assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 17));
         assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 16));
         assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 15));
@@ -146,8 +146,6 @@ class SistemaTest {
 
     @Test
     void verificarPrazosEReservas() {
-        List<Prazos> sla = DAO.getPrazos().encontrarTodos();
-
         assertEquals(3, DAO.getPrazos().encontrarTodos().size());
         assertEquals(5, DAO.getReserva().encontrarTodos().size());
 
