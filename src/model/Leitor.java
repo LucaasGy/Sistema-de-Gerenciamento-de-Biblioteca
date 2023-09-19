@@ -126,13 +126,13 @@ public class Leitor extends Usuario {
      */
 
     public void renovarEmprestimo() throws LeitorNaoPossuiEmprestimo, LeitorBloqueado, LivroReservado, LeitorLimiteDeRenovacao, LeitorTemEmprestimoEmAtraso {
+        if(this.getBloqueado())
+            throw new LeitorBloqueado();
+
         Emprestimo emprestimoDoLeitor = DAO.getEmprestimo().encontrarPorId(this.getID());
 
         if(emprestimoDoLeitor==null)
             throw new LeitorNaoPossuiEmprestimo();
-
-        else if(this.getBloqueado())
-            throw new LeitorBloqueado();
 
         else if(emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
@@ -192,14 +192,14 @@ public class Leitor extends Usuario {
      */
 
     public void reservarLivro(double isbn) throws ObjetoInvalido, LeitorReservarLivroEmMaos, LivroLimiteDeReservas, LeitorLimiteDeReservas, LeitorBloqueado, LeitorMultado, LeitorTemEmprestimoEmAtraso, LeitorPossuiReservaDesseLivro, LivroNaoDisponivel, LivroNaoPossuiEmprestimoNemReserva {
-        if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        else if(getBloqueado())
+        if(getBloqueado())
             throw new LeitorBloqueado();
 
         else if(getDataMulta()!=null)
             throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERÁ EM: " + getDataMulta());
+
+        else if(DAO.getLivro().encontrarPorISBN(isbn)==null)
+            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         Emprestimo emprestimoDoLeitor = DAO.getEmprestimo().encontrarPorId(this.getID());
 
@@ -209,7 +209,7 @@ public class Leitor extends Usuario {
         else if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
             throw new LivroNaoDisponivel();
 
-        else if(DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
+        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null && DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
             throw new LeitorReservarLivroEmMaos();
 
         else if(DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))

@@ -104,23 +104,24 @@ class SistemaTest {
         Emprestimo emp1 = new Emprestimo(this.livro1,this.leitor1);
         Emprestimo emp2 = new Emprestimo(this.livro2,this.leitor2);
         Emprestimo emp3 = new Emprestimo(this.livro3,this.leitor3);
-
         emp1.setdataPrevista(LocalDate.now());
         emp2.setdataPrevista(LocalDate.now().minusDays(2));
         emp3.setdataPrevista(LocalDate.now().minusDays(3));
-
         DAO.getEmprestimo().criar(emp1);
         DAO.getEmprestimo().criar(emp2);
         DAO.getEmprestimo().criar(emp3);
 
+        //nenhum leitor está multado (leitor 2 e 3 possuem empréstimo em atraso)
         assertNull(this.leitor1.getDataMulta());
         assertNull(this.leitor2.getDataMulta());
         assertNull(this.leitor3.getDataMulta());
 
+        //checando quem possui empréstimo em atraso
         Sistema.aplicarMulta(emp1);
         Sistema.aplicarMulta(emp2);
         Sistema.aplicarMulta(emp3);
 
+        //leitor1 continua sem multa, leitor 2 e 3 possuem multa equivalente ao dobro de dias de atraso
         assertNull(this.leitor1.getDataMulta());
         assertEquals(this.leitor2.getDataMulta(), LocalDate.now().plusDays(4));
         assertEquals(this.leitor3.getDataMulta(), LocalDate.now().plusDays(6));
@@ -128,18 +129,22 @@ class SistemaTest {
 
     @Test
     void verificarMultasLeitores() {
-        this.leitor1.setDataMulta(LocalDate.now().minusDays(1));
+        //somente leitor 1 não possui multa vencida
+        this.leitor1.setDataMulta(LocalDate.now().plusDays(1));
         this.leitor2.setDataMulta(LocalDate.now().minusDays(2));
         this.leitor3.setDataMulta(LocalDate.now().minusDays(3));
 
-        //ps: trocar a data por um dia anterior à data da realização do teste
-        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 17));
-        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 16));
-        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 15));
+        //ps: trocar a data por um dia posterior à data da realização do teste
+        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 20));
+        //ps: trocar a data por um dia/dois anterior à data da realização do teste
+        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 17));
+        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 16));
 
+        //checa quais leitores possuem multas ativas
         Sistema.verificarMultasLeitores();
 
-        assertNull(this.leitor1.getDataMulta());
+        //leitor 2 e 3 tem suas multas retiradas
+        assertNotNull(this.leitor1.getDataMulta());
         assertNull(this.leitor2.getDataMulta());
         assertNull(this.leitor3.getDataMulta());
     }
@@ -149,24 +154,36 @@ class SistemaTest {
         assertEquals(3, DAO.getPrazos().encontrarTodos().size());
         assertEquals(5, DAO.getReserva().encontrarTodos().size());
 
+        //todos os prazos vencidos, porém livro 1 e 2 possuem leitores na fila de reserva
         this.prazo1.setDataLimite(LocalDate.now().minusDays(1));
         this.prazo2.setDataLimite(LocalDate.now().minusDays(1));
         this.prazo3.setDataLimite(LocalDate.now().minusDays(1));
 
+        //checa prazos vencidos
         Sistema.verificarPrazosEReservas();
 
+        //todos os prazos são removidos, porém como o livro 1 e 2 possuiam leitores na fila de reserva,
+        //são criados novos prazos para eles
         assertEquals(2, DAO.getPrazos().encontrarTodos().size());
+        //reservas com prazos ativos em atraso, deletadas
         assertEquals(2, DAO.getReserva().encontrarTodos().size());
     }
 
     @Test
     void adicionarPrazoParaTop2reserva() {
+        //top2 da fila de reserva do livro 1 não possui prazo ativo
         assertNull(DAO.getPrazos().encontrarPorId(this.leitor3.getID()));
+        //leitor 1 possui 2 prazos para livros diferentes, ambos com atraso
         assertEquals(2, DAO.getPrazos().prazosDeUmLeitor(this.leitor1.getID()).size());
 
+        //checa prazos ativos em atraso do leitor 2 e transfere para o top2 da fila de reserva de um livro,
+        //caso tenha um top2
         Sistema.adicionarPrazoParaTop2reserva(this.leitor1.getID());
 
+        //leitor 2 não possui mais prazos ativos
         assertEquals(0, DAO.getPrazos().prazosDeUmLeitor(this.leitor1.getID()).size());
+        //leitor 3, antigo top2 da fila de reserva do livro 1, agora tem um prazo de 2 dias para realizar
+        //o empréstimo do livro 1
         assertEquals(LocalDate.now().plusDays(2),DAO.getPrazos().encontrarPorId(this.leitor3.getID()).getDataLimite());
     }
 }
