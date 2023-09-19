@@ -209,6 +209,10 @@ public class EmprestimoImpl implements EmprestimoDAO {
      *
      * Antes de deletar todos os empréstimos, a quantidade de empréstimos
      * feitos de cada livro é resetado para 0.
+     * Os livros com empréstimos ativos tem sua disponibilidade alterada,
+     * visto que seus empréstimos serao deletados.
+     * Os limites de renovações dos leitores também são resetados para 0.
+     *
      * É deletado os empréstimos ativos e todos os empréstimos já feitos.
      */
 
@@ -217,6 +221,15 @@ public class EmprestimoImpl implements EmprestimoDAO {
         for(Emprestimo emp : this.listaEmprestimoTotal){
             emp.getLivro().setQtdEmprestimo(0);
         }
+
+        for(Emprestimo emp : this.listaEmprestimoAtual){
+            emp.getLivro().setDisponivel(true);
+            if(emp.getLeitor().getLimiteRenova()==1)
+                emp.getLeitor().setLimiteRenova(0);
+        }
+
+
+
         this.listaEmprestimoAtual.clear();
         this.listaEmprestimoTotal.clear();
     }

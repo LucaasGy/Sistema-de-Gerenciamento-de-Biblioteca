@@ -187,11 +187,15 @@ class EmprestimoImplTest {
     void removerTodos() {
         assertEquals(1,this.emprestimo1.getLivro().getQtdEmprestimo());
         assertEquals(1,this.emprestimo2.getLivro().getQtdEmprestimo());
+        assertFalse(this.emprestimo1.getLivro().getDisponivel());
+        assertFalse(this.emprestimo2.getLivro().getDisponivel());
 
         DAO.getEmprestimo().removerTodos();
 
         assertEquals(0, DAO.getEmprestimo().encontrarTodos().size());
         assertEquals(0,this.emprestimo1.getLivro().getQtdEmprestimo());
         assertEquals(0,this.emprestimo2.getLivro().getQtdEmprestimo());
+        assertTrue(this.emprestimo1.getLivro().getDisponivel());
+        assertTrue(this.emprestimo2.getLivro().getDisponivel());
     }
 }

@@ -72,8 +72,6 @@ public class Adm extends Usuario {
         else if(DAO.getEmprestimo().encontrarPorId(id)!=null)
             throw new LeitorTemEmprestimo();
 
-        DAO.getReserva().remover(id);
-
         Sistema.adicionarPrazoParaTop2reserva(id);
 
         DAO.getEmprestimo().removerTodosEmprestimoDeUmLeitor(id);
@@ -465,7 +463,7 @@ public class Adm extends Usuario {
      * Caso tudo esteja correto, é removido todas as reservas e prazos do livro
      * e sua disponibilidade é atualizada.
      *
-     * ps: não alterar disponibilidade do livro caso ele esteja emprestado
+     * ps: não altera disponibilidade do livro caso ele esteja emprestado
      *
      * @param isbn isbn do livro
      * @param FouT booleano true ou false
@@ -501,15 +499,13 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna o total de número de livros armazenados no sistema.
+     * Método que retorna o total de número de Livros armazenados no sistema.
      *
      * @return retorna tamanho da lista de livro armazenados
      */
 
     public int numeroLivrosEstoque(){
-        int n;
-
-        return n = estoque().size();
+        return estoque().size();
     }
 
     /**
@@ -557,8 +553,8 @@ public class Adm extends Usuario {
     public List<Livro> livrosReservados(){
         List<Livro> livros = new ArrayList<Livro>();
 
-        for(Reserva res : DAO.getReserva().encontrarTodos()){
-            livros.add(res.getLivro());
+        for(Reserva reserva : DAO.getReserva().encontrarTodos()){
+            livros.add(reserva.getLivro());
         }
 
         return livros;
@@ -571,9 +567,7 @@ public class Adm extends Usuario {
      */
 
     public int numeroLivrosEmprestados(){
-        int n;
-
-        return n = livrosEmprestados().size();
+        return livrosEmprestados().size();
     }
 
     /**
@@ -583,9 +577,7 @@ public class Adm extends Usuario {
      */
 
     public int numeroLivrosAtrasados(){
-        int n;
-
-        return n = livrosAtrasados().size();
+        return livrosAtrasados().size();
     }
 
     /**
@@ -595,9 +587,7 @@ public class Adm extends Usuario {
      */
 
     public int numeroLivrosReservados(){
-        int n;
-
-        return n = livrosReservados().size();
+        return livrosReservados().size();
     }
 
     /**
