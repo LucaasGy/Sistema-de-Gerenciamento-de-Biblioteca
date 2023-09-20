@@ -482,8 +482,10 @@ public class Adm extends Usuario {
         else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
             throw new LivroEmprestado();
 
-        DAO.getReserva().removerReservasDeUmLivro(isbn);
-        DAO.getPrazos().removerPrazoDeUmLivro(isbn);
+        if(!FouT){
+            DAO.getReserva().removerReservasDeUmLivro(isbn);
+            DAO.getPrazos().removerPrazoDeUmLivro(isbn);
+        }
 
         livro.setDisponivel(FouT);
     }
@@ -533,10 +535,8 @@ public class Adm extends Usuario {
     public List<Livro> livrosAtrasados(){
         List<Livro> livrosAtrasados = new ArrayList<Livro>();
 
-        LocalDate agr = LocalDate.now();
-
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
-            if(emp.getdataPrevista().isBefore(agr)){
+            if(emp.getdataPrevista().isBefore(LocalDate.now())){
                 livrosAtrasados.add(emp.getLivro());
             }
         }
@@ -554,7 +554,8 @@ public class Adm extends Usuario {
         List<Livro> livros = new ArrayList<Livro>();
 
         for(Reserva reserva : DAO.getReserva().encontrarTodos()){
-            livros.add(reserva.getLivro());
+            if(!livros.contains(reserva.getLivro()))
+                livros.add(reserva.getLivro());
         }
 
         return livros;
@@ -607,7 +608,7 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna os Livros mais populares em ordem usando como parâmetro
+     * Método que retorna os Livros mais populares em ordem decrescente usando como parâmetro
      * a quantidade de vezes que cada livro foi emprestado.
      *
      * Caso possua mais de 10 livros cadastrados no sistema, retorna os 10 mais populares.
@@ -619,8 +620,7 @@ public class Adm extends Usuario {
     public List<Livro> livrosMaisPopulares() {
         List<Livro> livrosPopulares = DAO.getLivro().encontrarTodos();
 
-        Comparator<Livro> comparador = Comparator.comparingInt(Livro::getQtdEmprestimo);
-        //Collections.sort(copia, comparador);
+        Comparator<Livro> comparador = Comparator.comparingInt(Livro::getQtdEmprestimo).reversed();
         livrosPopulares.sort(comparador);
 
         List<Livro> top10livros = new ArrayList<Livro>();
