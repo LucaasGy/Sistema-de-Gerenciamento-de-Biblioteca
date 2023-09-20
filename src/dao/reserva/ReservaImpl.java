@@ -1,6 +1,5 @@
 package dao.reserva;
 
-import model.Emprestimo;
 import model.Reserva;
 
 import java.util.ArrayList;

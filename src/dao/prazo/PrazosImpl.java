@@ -1,7 +1,6 @@
 package dao.prazo;
 
 import model.Prazos;
-import model.Reserva;
 
 import java.util.ArrayList;
 import java.util.List;

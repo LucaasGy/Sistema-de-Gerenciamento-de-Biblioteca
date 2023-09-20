@@ -1,6 +1,7 @@
 package model;
 
 import dao.DAO;
+
 import erros.leitor.*;
 import erros.livro.LivroLimiteDeReservas;
 import erros.livro.LivroNaoDisponivel;
@@ -54,7 +55,7 @@ public class Leitor extends Usuario {
         this.bloqueado = false;
         this.dataMulta = null;
 
-        this.limiteRenova=0;
+        this.limiteRenova = 0;
     }
 
     public LocalDate getDataMulta() {

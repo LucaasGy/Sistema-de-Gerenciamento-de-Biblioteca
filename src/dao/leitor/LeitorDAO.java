@@ -1,6 +1,7 @@
 package dao.leitor;
 
 import dao.CRUD;
+
 import model.Leitor;
 
 import java.util.List;

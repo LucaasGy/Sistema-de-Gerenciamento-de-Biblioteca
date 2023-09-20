@@ -1,6 +1,7 @@
 package model;
 
 import dao.DAO;
+
 import erros.objetos.ObjetoInvalido;
 
 import java.util.List;

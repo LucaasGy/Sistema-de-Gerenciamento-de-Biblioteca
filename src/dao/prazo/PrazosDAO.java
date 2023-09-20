@@ -1,6 +1,7 @@
 package dao.prazo;
 
 import dao.CRUD;
+
 import model.Prazos;
 
 import java.util.List;

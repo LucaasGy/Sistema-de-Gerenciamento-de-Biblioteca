@@ -1,6 +1,7 @@
 package model;
 
 import dao.DAO;
+
 import erros.leitor.LeitorBloqueado;
 import erros.leitor.LeitorMultado;
 import erros.leitor.LeitorNaoPossuiEmprestimo;
@@ -9,8 +10,6 @@ import erros.livro.LivroEmprestado;
 import erros.livro.LivroNaoDisponivel;
 import erros.livro.LivroReservado;
 import erros.objetos.ObjetoInvalido;
-
-import java.time.LocalDate;
 
 /**
  * Subclasse Bibliotecario que extende a Superclasse Usuário.
