@@ -32,7 +32,7 @@ public class LeitorImpl implements LeitorDAO {
      * Método para adicionar um Leitor na lista de armazenamento. O ID é inserido nos dados do leitor
      * antes de adicioná-lo na lista. O valor 10 é somado no atributo id para o próximo leitor.
      *
-     * @param obj Leitor que deve ser armazenado
+     * @param obj leitor que deve ser armazenado
      * @return retorna objeto leitor criado
      */
 
@@ -47,6 +47,7 @@ public class LeitorImpl implements LeitorDAO {
 
     /**
      * Método que encontra Leitores por meio de seus nomes.
+     *
      * Objetos Leitor que possuam o nome informado, são adicionados numa
      * lista e retornados.
      *
@@ -152,6 +153,7 @@ public class LeitorImpl implements LeitorDAO {
 
     /**
      * Deleta todos os objetos do tipo Leitor do banco de dados.
+     *
      * A contagem de ID é resetada para o valor inicial.
      */
 

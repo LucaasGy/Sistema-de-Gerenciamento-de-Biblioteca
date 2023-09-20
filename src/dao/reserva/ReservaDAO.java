@@ -68,7 +68,7 @@ public interface ReservaDAO extends CRUD<Reserva> {
     public boolean livroTemReserva(double isbn);
 
     /**
-     * Método que verifica se já possui uma reserva ativa de um livro por um leitor.
+     * Método que verifica se tem uma reserva ativa de um livro por um leitor.
      *
      * @param id identificação do leitor
      * @param isbn isbn do livro

@@ -114,7 +114,6 @@ public class Sistema {
      * para o novo top1 da fila de reserva do livro que o leitor possuia prazo, ir
      * realizar o empréstimo.
      *
-     *
      * @param emprestimo empréstimo do leitor
      */
 
@@ -209,4 +208,3 @@ public class Sistema {
         }
     }
 }
-

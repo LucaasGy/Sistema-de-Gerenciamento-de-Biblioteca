@@ -9,7 +9,7 @@ import java.time.LocalDate;
  *
  * É definida pelo objeto Leitor e Livro, contendo todos os dados de ambos,
  * além de um atributo da classe LocalDate para armazenar a data limite para
- * o leitor ir realizar o empréstimo ( 2 dias após o livro ficar disponível ).
+ * o leitor ir realizar o empréstimo ( 2 dias após o livro ser devolvido ).
  *
  * @author Lucas Gabriel.
  */

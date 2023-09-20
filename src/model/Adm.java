@@ -30,8 +30,8 @@ public class Adm extends Usuario {
      * A inserção é feita chamando o construtor da Superclasse.
      * O tipo de usuário é definido a depender do usuário em questão.
      *
-     * @param nome nome do Administrador
-     * @param senha senha do Administrador
+     * @param nome nome do administrador
+     * @param senha senha do administrador
      */
 
     public Adm(String nome, String senha){
@@ -461,7 +461,8 @@ public class Adm extends Usuario {
      *
      * Caso o livro não seja encontrado ou esteja emprestado
      * ele não poderá ter sua disponibilidade alterada.
-     * Caso tudo esteja correto, é removido todas as reservas e prazos do livro
+     * Caso tudo esteja correto, e o parâmetro recebido for false,
+     * é removido todas as reservas e prazos do livro
      * e sua disponibilidade é atualizada.
      *
      * ps: não altera disponibilidade do livro caso ele esteja emprestado

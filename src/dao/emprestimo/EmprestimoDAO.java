@@ -7,7 +7,7 @@ import model.Emprestimo;
 import java.util.List;
 
 /**
- * Interface para as implementações de armazenamento dos objetos da classe Emprestimo. É uma
+ * Interface para as implementações de armazenamento dos objetos da classe Empréstimo. É uma
  * extensão da interface CRUD.
  *
  * @author Lucas Gabriel.

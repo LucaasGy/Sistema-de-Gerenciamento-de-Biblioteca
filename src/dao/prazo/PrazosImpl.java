@@ -12,7 +12,6 @@ import java.util.List;
  * @author Lucas Gabriel.
  */
 
-
 public class PrazosImpl implements PrazosDAO {
 
     private List<Prazos> listaPrazos;
@@ -28,7 +27,7 @@ public class PrazosImpl implements PrazosDAO {
     /**
      * Método para adicionar um objeto do tipo Prazos na lista de armazenamento.
      *
-     * @param obj Prazo que deve ser armazenado
+     * @param obj prazo que deve ser armazenado
      * @return retorna objeto prazo criado
      */
 

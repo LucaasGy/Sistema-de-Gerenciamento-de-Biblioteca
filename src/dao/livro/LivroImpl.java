@@ -9,7 +9,6 @@ import java.util.Random;
 /**
  * É responsável por armazenar todos os livros do sistema, e estruturar os métodos
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface LivroDAO.
- * Contém uma lista estática para armazenar ISBN já gerados.
  *
  * @author Lucas Gabriel.
  */
@@ -61,7 +60,7 @@ public class LivroImpl implements LivroDAO {
      * Método para adicionar um Livro na lista de armazenamento. O ISBN é inserido nos dados do livro
      * antes de adicioná-lo na lista.
      *
-     * @param obj Livro que deve ser armazenado
+     * @param obj livro que deve ser armazenado
      * @return retorna objeto livro criado
      */
 
@@ -92,6 +91,7 @@ public class LivroImpl implements LivroDAO {
 
     /**
      * Deleta todos os objetos do tipo Livro do banco de dados.
+     *
      * A lista de ISBN sorteados é limpa, apagando todos números sorteados.
      * ISBN inicial é sorteado novamente.
      */
@@ -116,6 +116,7 @@ public class LivroImpl implements LivroDAO {
 
     /**
      * Método que encontra objetos Livro por meio do titulo.
+     *
      * Objetos Livro que possuam o titulo informado, são adicionados numa
      * lista e retornados.
      *
@@ -137,8 +138,9 @@ public class LivroImpl implements LivroDAO {
 
     /**
      * Método que encontra objetos Livro por meio da categoria.
-     * Objetos Livro que possuam o autor informado, são adicionados numa
      *
+     * Objetos Livro que possuam o autor informado, são adicionados numa
+     * lista e retornados.
      *
      * @param autor o autor sobre os quais os livros devem ser encontrados
      * @return retorna lista de livros encontrados
@@ -158,6 +160,7 @@ public class LivroImpl implements LivroDAO {
 
     /**
      * Método que encontra objetos Livro por meio da categoria.
+     *
      * Objetos Livro que possuam a categoria informada, são adicionados numa
      * lista e retornados.
      *

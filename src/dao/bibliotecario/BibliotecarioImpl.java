@@ -28,10 +28,12 @@ public class BibliotecarioImpl implements BibliotecarioDAO {
     }
 
     /**
-     * Método para adicionar um Bibliotecario na lista de armazenamento. O ID é inserido nos dados do bibliotecario
-     * antes de adicioná-lo na lista. O valor 10 é somado no atributo id para o próximo bibliotecario.
+     * Método para adicionar um Bibliotecario na lista de armazenamento.
      *
-     * @param obj Bibliotecario que deve ser armazenado
+     * O ID é inserido nos dados do bibliotecario antes de adicioná-lo na lista.
+     * O valor 10 é somado no atributo id para o próximo bibliotecario.
+     *
+     * @param obj bibliotecario que deve ser armazenado
      * @return retorna objeto bibliotecario criado
      */
 
@@ -63,10 +65,11 @@ public class BibliotecarioImpl implements BibliotecarioDAO {
 
     /**
      * Método que encontra Bibliotecarios por meio de seus nomes.
+     *
      * Objetos Bibliotecarios que possuam o nome informado, são adicionados numa
      * lista e retornados.
      *
-     * @param nome o nome sobre os quais os Bibliotecarios devem ser encontrados
+     * @param nome o nome sobre os quais os bibliotecarios devem ser encontrados
      * @return retorna lista de bibliotecarios encontrados
      */
 
@@ -130,6 +133,7 @@ public class BibliotecarioImpl implements BibliotecarioDAO {
 
     /**
      * Deleta todos os objetos do tipo Bibliotecario do banco de dados.
+     *
      * A contagem de ID é resetada para o valor inicial.
      */
 

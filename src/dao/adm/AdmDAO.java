@@ -18,8 +18,8 @@ public interface AdmDAO extends CRUD<Adm> {
     /**
      * Método que encontra objetos Administrador por meio do nome.
      *
-     * @param nome o nome sobre os quais os Administradores devem ser encontrados
-     * @return retorna lista de Administradores encontrados
+     * @param nome o nome sobre os quais os administradores devem ser encontrados
+     * @return retorna lista de administradores encontrados
      */
     public List<Adm> encontrarPorNome(String nome);
 }

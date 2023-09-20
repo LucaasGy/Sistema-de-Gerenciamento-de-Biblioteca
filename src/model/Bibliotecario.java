@@ -70,7 +70,7 @@ public class Bibliotecario extends Usuario {
      * o não seja encontrado o leitor com o id informado, retorna uma exceção informando o ocorrido
      * @throws LeitorBloqueado caso o leitor esteja bloqueado,
      * retorna uma exceção informando o ocorrido
-     * @throws LeitorMultado caso o leitor esteja multado e a multa ainda não ter vencido,
+     * @throws LeitorMultado caso o leitor esteja multado,
      * retorna uma exceção informando o ocorrido
      * @throws LeitorTemEmprestimo caso o leitor já possua um empréstimo ativo,
      * retorna uma exceção informando o ocorrido

@@ -16,7 +16,7 @@ import dao.reserva.ReservaDAO;
 import dao.reserva.ReservaImpl;
 
 /**
- * Classe usada para acessar as extensões do DAO no projeto. Os dados armazenados são divididos em sete
+ * Classe usada para acessar as extensões do DAO no sistema. Os dados armazenados são divididos em sete
  * entidades, que são: administrador, biliotecario, leitor, livro, empréstimo, reserva e prazo.
  * Os atributos e métodos estão instanciados como static, pois um objeto não precisa ser instanciado para
  * acessar essas funções.

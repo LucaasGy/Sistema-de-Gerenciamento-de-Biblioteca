@@ -5,8 +5,7 @@ package model;
  *
  * É definida por informações básica como titulo, autor, editora,
  * identificação única ( ISBN ), ano de publicação e a categoria a qual ele pertence.
- * Possui também um atributo para verificar a disponibilidade do livro, ou seja, se ele
- * está emprestado ou não.
+ * Possui também um atributo para verificar a disponibilidade do livro.
  * Ademais possui um atributo para a cada vez que o livro for emprestado, somar 1,
  * informação útil para verificar livros mais populares.
  *

@@ -28,10 +28,12 @@ public class AdmImpl implements AdmDAO {
     }
 
     /**
-     * Método para adicionar um Administrador na lista de armazenamento. O ID é inserido nos dados do administrador
-     * antes de adicioná-lo na lista. O valor 10 é somado no atributo id para o próximo administrador.
+     * Método para adicionar um Administrador na lista de armazenamento.
      *
-     * @param obj Administrador que deve ser armazenado
+     * O ID é inserido nos dados do administrador antes de adicioná-lo na lista.
+     * O valor 10 é somado no atributo id para o próximo administrador.
+     *
+     * @param obj administrador que deve ser armazenado
      * @return retorna objeto administrador criado
      */
 
@@ -63,10 +65,11 @@ public class AdmImpl implements AdmDAO {
 
     /**
      * Método que encontra Administradores por meio de seus nomes.
+     *
      * Objetos Administradores que possuam o nome informado, são adicionados numa
      * lista e retornados.
      *
-     * @param nome o nome sobre os quais os Administradores devem ser encontrados
+     * @param nome o nome sobre os quais os administradores devem ser encontrados
      * @return retorna lista de administradores encontrados
      */
 
@@ -131,6 +134,7 @@ public class AdmImpl implements AdmDAO {
 
     /**
      * Deleta todos os objetos do tipo Administrador do banco de dados.
+     *
      * A contagem de ID é resetada para o valor inicial.
      */
 

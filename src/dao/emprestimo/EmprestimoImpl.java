@@ -12,7 +12,6 @@ import java.util.List;
  * @author Lucas Gabriel.
  */
 
-
 public class EmprestimoImpl implements EmprestimoDAO {
     private List<Emprestimo> listaEmprestimoTotal;
     private List<Emprestimo> listaEmprestimoAtual;
@@ -32,7 +31,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
      * Método para adicionar um objeto do tipo Emprestimo na lista de armazenamento de empréstimos ativos
      * e a de todos os empréstimo já feitos.
      *
-     * @param obj Empréstimo que deve ser armazenado
+     * @param obj empréstimo que deve ser armazenado
      * @return retorna objeto empréstimo criado
      */
 
@@ -47,7 +46,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
     /**
      * Método para remover determinado Empréstimo da estrutura de armazenamento de Empréstimos Ativos.
      *
-     * @param id identificação do Leitor que realizou o Emprestimo a ser deletado
+     * @param id identificação do leitor que realizou o emprestimo a ser deletado
      */
 
     @Override
@@ -107,7 +106,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
     /**
      * Método de retorno do Emprestimo através da busca por ID.
      *
-     * @param id identificação do Leitor que realizou o Emprestimo a ser encontrado
+     * @param id identificação do leitor que realizou o emprestimo a ser encontrado
      * @return retorna objeto emprestimo encontrado
      */
 
@@ -210,7 +209,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
      * Antes de deletar todos os empréstimos, a quantidade de empréstimos
      * feitos de cada livro é resetado para 0.
      * Os livros com empréstimos ativos tem sua disponibilidade alterada,
-     * visto que seus empréstimos serao deletados.
+     * visto que seus empréstimos serão deletados.
      * Os limites de renovações dos leitores também são resetados para 0.
      *
      * É deletado os empréstimos ativos e todos os empréstimos já feitos.
@@ -227,8 +226,6 @@ public class EmprestimoImpl implements EmprestimoDAO {
             if(emp.getLeitor().getLimiteRenova()==1)
                 emp.getLeitor().setLimiteRenova(0);
         }
-
-
 
         this.listaEmprestimoAtual.clear();
         this.listaEmprestimoTotal.clear();
