@@ -60,14 +60,14 @@ class EmprestimoImplTest {
 
     @Test
     void remover() {
+        assertNotNull(DAO.getEmprestimo().encontrarPorId(1000));
+        assertNotNull(DAO.getEmprestimo().encontrarPorId(1200));
+
         DAO.getEmprestimo().remover(1000);
         DAO.getEmprestimo().remover(1200);
 
-        Emprestimo acharEmprestimo1 = DAO.getEmprestimo().encontrarPorId(1000);
-        Emprestimo acharEmprestimo3 = DAO.getEmprestimo().encontrarPorId(1200);
-
-        assertNull(acharEmprestimo1);
-        assertNull(acharEmprestimo3);
+        assertNull(DAO.getEmprestimo().encontrarPorId(1000));
+        assertNull(DAO.getEmprestimo().encontrarPorId(1200));
 
         assertEquals(1,DAO.getEmprestimo().encontrarTodosAtuais().size());
     }

@@ -73,14 +73,14 @@ class LeitorImplTest {
 
     @Test
     void remover() {
+        assertNotNull(DAO.getLeitor().encontrarPorId(1013));
+        assertNotNull(DAO.getLeitor().encontrarPorId(1023));
+
         DAO.getLeitor().remover(1013);
         DAO.getLeitor().remover(1023);
 
-        Leitor acharAna = DAO.getLeitor().encontrarPorId(1013);
-        Leitor acharGabriel = DAO.getLeitor().encontrarPorId(1023);
-
-        assertNull(acharAna);
-        assertNull(acharGabriel);
+        assertNull(DAO.getLeitor().encontrarPorId(1013));
+        assertNull(DAO.getLeitor().encontrarPorId(1023));
 
         assertEquals(1,DAO.getLeitor().encontrarTodos().size());
     }

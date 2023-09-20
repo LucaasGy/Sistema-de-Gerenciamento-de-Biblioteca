@@ -61,14 +61,14 @@ class AdmImplTest {
 
     @Test
     void remover() {
+        assertNotNull(DAO.getAdm().encontrarPorId(1011));
+        assertNotNull(DAO.getAdm().encontrarPorId(1031));
+
         DAO.getAdm().remover(1011);
         DAO.getAdm().remover(1031);
 
-        Adm acharAna = DAO.getAdm().encontrarPorId(1011);
-        Adm acharPaulo = DAO.getAdm().encontrarPorId(1031);
-
-        assertNull(acharAna);
-        assertNull(acharPaulo);
+        assertNull(DAO.getAdm().encontrarPorId(1011));
+        assertNull(DAO.getAdm().encontrarPorId(1031));
 
         assertEquals(3,DAO.getAdm().encontrarTodos().size());
     }

@@ -61,14 +61,14 @@ class BibliotecarioImplTest {
 
     @Test
     void remover() {
+        assertNotNull(DAO.getBibliotecario().encontrarPorId(1012));
+        assertNotNull(DAO.getBibliotecario().encontrarPorId(1032));
+
         DAO.getBibliotecario().remover(1012);
         DAO.getBibliotecario().remover(1032);
 
-        Bibliotecario acharAna = DAO.getBibliotecario().encontrarPorId(1012);
-        Bibliotecario acharPaulo = DAO.getBibliotecario().encontrarPorId(1032);
-
-        assertNull(acharAna);
-        assertNull(acharPaulo);
+        assertNull(DAO.getBibliotecario().encontrarPorId(1012));
+        assertNull(DAO.getBibliotecario().encontrarPorId(1032));
 
         assertEquals(3,DAO.getBibliotecario().encontrarTodos().size());
     }

@@ -47,17 +47,17 @@ class LivroImplTest {
         double isbn3 = livros.get(2).getISBN();
         double isbn5 = livros.get(4).getISBN();
 
+        assertNotNull(DAO.getLivro().encontrarPorISBN(isbn1));
+        assertNotNull(DAO.getLivro().encontrarPorISBN(isbn3));
+        assertNotNull(DAO.getLivro().encontrarPorISBN(isbn5));
+
         DAO.getLivro().removerPorISBN(isbn1);
         DAO.getLivro().removerPorISBN(isbn3);
         DAO.getLivro().removerPorISBN(isbn5);
 
-        Livro acharLivro1 = DAO.getLivro().encontrarPorISBN(isbn1);
-        Livro acharLivro3 = DAO.getLivro().encontrarPorISBN(isbn3);
-        Livro acharLivro5 = DAO.getLivro().encontrarPorISBN(isbn5);
-
-        assertNull(acharLivro1);
-        assertNull(acharLivro3);
-        assertNull(acharLivro5);
+        assertNull(DAO.getLivro().encontrarPorISBN(isbn1));
+        assertNull(DAO.getLivro().encontrarPorISBN(isbn3));
+        assertNull(DAO.getLivro().encontrarPorISBN(isbn5));
 
         assertEquals(2, DAO.getLivro().encontrarTodos().size());
     }
