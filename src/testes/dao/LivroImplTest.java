@@ -67,7 +67,7 @@ class LivroImplTest {
     void removerTodos() {
         DAO.getLivro().removerTodos();
 
-        assertEquals(0, DAO.getLivro().encontrarTodos().size());
+        assertTrue(DAO.getLivro().encontrarTodos().isEmpty());
     }
 
     @Test

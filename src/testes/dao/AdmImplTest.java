@@ -94,6 +94,6 @@ class AdmImplTest {
     void removerTodos() {
         DAO.getAdm().removerTodos();
 
-        assertEquals(0,DAO.getAdm().encontrarTodos().size());
+        assertTrue(DAO.getAdm().encontrarTodos().isEmpty());
     }
 }

@@ -43,7 +43,7 @@ class BibliotecarioTest {
     @Test
     void registrarLivro() {
         //não existe nenhum livro registrado
-        assertEquals(0,DAO.getLivro().encontrarTodos().size());
+        assertTrue(DAO.getLivro().encontrarTodos().isEmpty());
 
         Livro livro1 = new Livro("LIVRO1","AUTOR1","EDITORA1",2000,"CATEGORIA1");
         DAO.getLivro().criar(livro1);
@@ -118,8 +118,8 @@ class BibliotecarioTest {
         //tudo correto, leitor possui reserva ativa do livro que ta tentando fazer o empréstimo
         this.bibliotecario1.fazerEmprestimo(1003,10);
 
-        assertEquals(0, DAO.getReserva().encontrarTodos().size());
-        assertEquals(0, DAO.getPrazos().encontrarTodos().size());
+        assertTrue(DAO.getReserva().encontrarTodos().isEmpty());
+        assertTrue(DAO.getPrazos().encontrarTodos().isEmpty());
         assertEquals(leitor1, DAO.getEmprestimo().encontrarTodos().get(0).getLeitor());
     }
 
@@ -149,7 +149,7 @@ class BibliotecarioTest {
         assertNull(leitor1.getDataMulta());
         assertFalse(DAO.getLivro().encontrarTodos().get(0).getDisponivel());
         assertEquals(1,DAO.getLivro().encontrarTodos().get(0).getQtdEmprestimo());
-        assertEquals(0,DAO.getPrazos().encontrarTodos().size());
+        assertTrue(DAO.getPrazos().encontrarTodos().isEmpty());
         assertEquals(1, DAO.getEmprestimo().encontrarTodos().size());
 
         //tudo correto, leitor atrasou a devolução do livro
@@ -159,7 +159,7 @@ class BibliotecarioTest {
         assertTrue(DAO.getLivro().encontrarTodos().get(0).getDisponivel());
         assertEquals(0,DAO.getLeitor().encontrarTodos().get(0).getLimiteRenova());
         assertEquals(1,DAO.getPrazos().encontrarTodos().size());
-        assertEquals(0, DAO.getEmprestimo().encontrarTodosAtuais().size());
+        assertTrue(DAO.getEmprestimo().encontrarTodosAtuais().isEmpty());
         assertEquals(1, DAO.getEmprestimo().encontrarTodos().size());
     }
 }

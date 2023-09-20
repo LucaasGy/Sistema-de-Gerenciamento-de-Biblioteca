@@ -163,7 +163,7 @@ class ReservaImplTest {
     void removerTodos() {
         DAO.getReserva().removerTodos();
 
-        assertEquals(0, DAO.getReserva().encontrarTodos().size());
+        assertTrue(DAO.getReserva().encontrarTodos().isEmpty());
     }
 
     @Test

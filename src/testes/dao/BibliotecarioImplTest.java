@@ -94,6 +94,6 @@ class BibliotecarioImplTest {
     void removerTodos() {
         DAO.getBibliotecario().removerTodos();
 
-        assertEquals(0,DAO.getBibliotecario().encontrarTodos().size());
+        assertTrue(DAO.getBibliotecario().encontrarTodos().isEmpty());
     }
 }

@@ -181,7 +181,7 @@ class SistemaTest {
         Sistema.adicionarPrazoParaTop2reserva(this.leitor1.getID());
 
         //leitor 2 não possui mais prazos ativos
-        assertEquals(0, DAO.getPrazos().prazosDeUmLeitor(this.leitor1.getID()).size());
+        assertTrue(DAO.getPrazos().prazosDeUmLeitor(this.leitor1.getID()).isEmpty());
         //leitor 3, antigo top2 da fila de reserva do livro 1, agora tem um prazo de 2 dias para realizar
         //o empréstimo do livro 1
         assertEquals(LocalDate.now().plusDays(2),DAO.getPrazos().encontrarPorId(this.leitor3.getID()).getDataLimite());

@@ -193,7 +193,7 @@ class EmprestimoImplTest {
 
         DAO.getEmprestimo().removerTodos();
 
-        assertEquals(0, DAO.getEmprestimo().encontrarTodos().size());
+        assertTrue(DAO.getEmprestimo().encontrarTodos().isEmpty());
         assertEquals(0,this.emprestimo1.getLivro().getQtdEmprestimo());
         assertEquals(0,this.emprestimo2.getLivro().getQtdEmprestimo());
         assertTrue(this.emprestimo1.getLivro().getDisponivel());

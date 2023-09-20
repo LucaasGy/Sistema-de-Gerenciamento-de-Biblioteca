@@ -87,7 +87,7 @@ class PrazosImplTest {
     void removerTodos() {
         DAO.getPrazos().removerTodos();
 
-        assertEquals(0, DAO.getPrazos().encontrarTodos().size());
+        assertTrue(DAO.getPrazos().encontrarTodos().isEmpty());
     }
 
     @Test

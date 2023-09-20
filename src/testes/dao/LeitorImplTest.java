@@ -107,6 +107,6 @@ class LeitorImplTest {
     void removerTodos() {
         DAO.getLeitor().removerTodos();
 
-        assertEquals(0,DAO.getLeitor().encontrarTodos().size());
+        assertTrue(DAO.getLeitor().encontrarTodos().isEmpty());
     }
 }

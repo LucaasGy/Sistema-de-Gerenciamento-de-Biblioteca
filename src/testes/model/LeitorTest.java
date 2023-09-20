@@ -174,14 +174,14 @@ class LeitorTest {
         DAO.getReserva().criar(new Reserva(this.guerrasmedias,novo));
 
         //top 2 da fila de reserva não possui prazo e top1 da fila ( vai retirar a reserva ) possui prazo
-        assertEquals(0,DAO.getPrazos().prazosDeUmLeitor(novo.getID()).size());
+        assertTrue(DAO.getPrazos().prazosDeUmLeitor(novo.getID()).isEmpty());
         assertEquals(this.lucas, DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor());
 
         //tudo correto
         this.lucas.retirarReserva(this.guerrasmedias.getISBN());
 
         //antigo top 1 da fila de reserva não possui mais prazo ativo e antigo top 2 agora possui um prazo ativo
-        assertEquals(0,DAO.getPrazos().prazosDeUmLeitor(this.lucas.getID()).size());
+        assertTrue(DAO.getPrazos().prazosDeUmLeitor(this.lucas.getID()).isEmpty());
         assertEquals(novo, DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor());
     }
 }

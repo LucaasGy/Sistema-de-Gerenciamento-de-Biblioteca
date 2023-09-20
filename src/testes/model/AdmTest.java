@@ -93,7 +93,7 @@ class AdmTest {
         this.adm1.removerLeitor(1003);
 
         assertNull(DAO.getLeitor().encontrarPorId(1003));
-        assertEquals(0, DAO.getReserva().encontrarReservasLeitor(1003).size());
+        assertTrue(DAO.getReserva().encontrarReservasLeitor(1003).isEmpty());
     }
 
     @Test
@@ -202,7 +202,7 @@ class AdmTest {
 
         this.adm1.bloquearLeitor(1003);
 
-        assertEquals(0, DAO.getReserva().encontrarReservasLeitor(1003).size());
+        assertTrue(DAO.getReserva().encontrarReservasLeitor(1003).isEmpty());
         assertTrue(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
     }
 
@@ -242,7 +242,7 @@ class AdmTest {
         this.adm1.removerUmLivro(this.livro1.getISBN());
 
         assertNull(DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()));
-        assertEquals(0, DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).size());
+        assertTrue(DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).isEmpty());
     }
 
     @Test
@@ -293,7 +293,7 @@ class AdmTest {
 
         this.adm1.atualizarDisponibilidadeLivro(this.livro1.getISBN(),false);
 
-        assertEquals(0, DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).size());
+        assertTrue(DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).isEmpty());
         assertFalse(this.livro1.getDisponivel());
     }
 
