@@ -33,11 +33,11 @@ class BibliotecarioTest {
     @AfterEach
     void tearDown() {
         DAO.getBibliotecario().removerTodos();
-        DAO.getLeitor().removerTodos();
-        DAO.getLivro().removerTodos();
         DAO.getEmprestimo().removerTodos();
         DAO.getReserva().removerTodos();
         DAO.getPrazos().removerTodos();
+        DAO.getLeitor().removerTodos();
+        DAO.getLivro().removerTodos();
     }
 
     @Test
@@ -81,8 +81,8 @@ class BibliotecarioTest {
 
         //livro nao ta disponivel porque está emprestado a outro leitor
         livro1.setDisponivel(false);
-        Leitor leitor2 = new Leitor("LEITOR2", "RUA ALAMEDA2","74999128840","SENHA2");
-        Emprestimo emp1 = new Emprestimo(livro1,leitor2);
+        Leitor leitor2 = DAO.getLeitor().criar(new Leitor("LEITOR2", "RUA ALAMEDA2","74999128840","SENHA2"));
+        Emprestimo emp1 = new Emprestimo(livro1.getISBN(),leitor2.getID());
         DAO.getEmprestimo().criar(emp1);
         assertThrows(LivroEmprestado.class, ()-> this.bibliotecario1.fazerEmprestimo(1003,10));
 
@@ -96,21 +96,21 @@ class BibliotecarioTest {
         Livro livro2 = new Livro("LIVRO2","AUTOR2","EDITORA2",2000,"CATEGORIA2");
         DAO.getLivro().criar(livro2);
         DAO.getLivro().encontrarTodos().get(1).setISBN(20);
-        Emprestimo emp2 = new Emprestimo(livro2,leitor1);
+        Emprestimo emp2 = new Emprestimo(livro2.getISBN(),leitor1.getID());
         DAO.getEmprestimo().criar(emp2);
         assertThrows(LeitorTemEmprestimo.class, ()-> this.bibliotecario1.fazerEmprestimo(1003,10));
         DAO.getEmprestimo().removerTodos();
 
         //livro possui uma reserva ativa e o top 1 da reserva não é o leitor que tá tentando realizar o emprestimo
-        Reserva reserva1 = new Reserva(livro1,leitor2);
+        Reserva reserva1 = new Reserva(livro1.getISBN(),leitor2.getID());
         DAO.getReserva().criar(reserva1);
         assertThrows(LivroReservado.class, ()-> this.bibliotecario1.fazerEmprestimo(1003,10));
         DAO.getReserva().removerTodos();
 
         ////livro possui uma reserva ativa e o top 1 da reserva é o leitor que tá tentando realizar o emprestimo
-        Reserva reserva2 = new Reserva(livro1,leitor1);
+        Reserva reserva2 = new Reserva(livro1.getISBN(),leitor1.getID());
         DAO.getReserva().criar(reserva2);
-        Prazos prazo1 = new Prazos(leitor1,livro1);
+        Prazos prazo1 = new Prazos(leitor1.getID(),livro1.getISBN());
         DAO.getPrazos().criar(prazo1);
         assertEquals(1, DAO.getReserva().encontrarTodos().size());
         assertEquals(1, DAO.getPrazos().encontrarTodos().size());
@@ -120,7 +120,8 @@ class BibliotecarioTest {
 
         assertTrue(DAO.getReserva().encontrarTodos().isEmpty());
         assertTrue(DAO.getPrazos().encontrarTodos().isEmpty());
-        assertEquals(leitor1, DAO.getEmprestimo().encontrarTodos().get(0).getLeitor());
+
+        assertEquals(leitor1, DAO.getLeitor().encontrarPorId(DAO.getEmprestimo().encontrarTodos().get(0).getLeitor()));
     }
 
     @Test
@@ -137,13 +138,13 @@ class BibliotecarioTest {
         //leitor atrasou a devolução do livro
         Livro livro1 = new Livro("LIVRO1","AUTOR1","EDITORA1",2000,"CATEGORIA1");
         DAO.getLivro().criar(livro1);
-        Emprestimo emp1 = new Emprestimo(livro1,leitor1);
+        Emprestimo emp1 = new Emprestimo(livro1.getISBN(),leitor1.getID());
         DAO.getEmprestimo().criar(emp1);
         emp1.setdataPrevista(LocalDate.now().minusDays(1));
 
         //livro devolvido tem reserva
         Leitor leitor2 = new Leitor("LEITOR2", "RUA ALAMEDA2","74999128840","SENHA2");
-        Reserva reserva1 = new Reserva(livro1,leitor2);
+        Reserva reserva1 = new Reserva(livro1.getISBN(),leitor2.getID());
         DAO.getReserva().criar(reserva1);
 
         assertNull(leitor1.getDataMulta());

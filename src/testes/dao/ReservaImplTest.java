@@ -48,13 +48,13 @@ class ReservaImplTest {
         leitor6.setID(1500);
         leitor7.setID(1600);
 
-        reserva1 = DAO.getReserva().criar(new Reserva(livro1,leitor1));
-        reserva2 = DAO.getReserva().criar(new Reserva(livro2,leitor2));
-        reserva3 = DAO.getReserva().criar(new Reserva(livro3,leitor3));
-        reserva4 = DAO.getReserva().criar(new Reserva(livro4,leitor4));
-        reserva5 = DAO.getReserva().criar(new Reserva(livro5,leitor5));
-        reserva6 = DAO.getReserva().criar(new Reserva(livro6,leitor6));
-        reserva7 = DAO.getReserva().criar(new Reserva(livro7,leitor7));
+        reserva1 = DAO.getReserva().criar(new Reserva(10.00000,1000));
+        reserva2 = DAO.getReserva().criar(new Reserva(11.00000,1100));
+        reserva3 = DAO.getReserva().criar(new Reserva(12.00000,1200));
+        reserva4 = DAO.getReserva().criar(new Reserva(13.00000,1300));
+        reserva5 = DAO.getReserva().criar(new Reserva(14.00000,1400));
+        reserva6 = DAO.getReserva().criar(new Reserva(15.00000,1500));
+        reserva7 = DAO.getReserva().criar(new Reserva(16.00000,1600));
     }
 
     @AfterEach
@@ -70,7 +70,7 @@ class ReservaImplTest {
         Leitor leitorEsperado = new Leitor("Joaquim","Rua banana","01010101","sapato");
         leitorEsperado.setID(1300);
 
-        Reserva reservaEsperada = new Reserva(livroEsperado,leitorEsperado);
+        Reserva reservaEsperada = new Reserva(13.00000,1300);
 
         Reserva atual =  DAO.getReserva().criar(reservaEsperada);
 
@@ -102,8 +102,8 @@ class ReservaImplTest {
         Livro livro3 = new Livro("As peripecias","Cristiano","Sua alegria",2020,"Suspense");
         livro3.setISBN(12.00000);
 
-        DAO.getReserva().criar(new Reserva(livro7,leitor1));
-        DAO.getReserva().criar(new Reserva(livro3,leitor1));
+        DAO.getReserva().criar(new Reserva(16.00000,1000));
+        DAO.getReserva().criar(new Reserva(12.00000,1000));
 
         assertEquals(3, DAO.getReserva().encontrarReservasLeitor(1000).size());
 
@@ -123,8 +123,8 @@ class ReservaImplTest {
         Leitor leitor2 = new Leitor("Ana", "Avenida Central", "12345678", "senha123");
         leitor2.setID(1100);
 
-        DAO.getReserva().criar(new Reserva(livro7,leitor1));
-        DAO.getReserva().criar(new Reserva(livro7,leitor2));
+        DAO.getReserva().criar(new Reserva(16.00000,1000));
+        DAO.getReserva().criar(new Reserva(16.00000,1100));
 
         assertEquals(3, DAO.getReserva().encontrarReservasLivro(16.00000).size());
 
@@ -143,10 +143,10 @@ class ReservaImplTest {
         leitor1.setID(1000);
         leitor2.setID(1100);
 
-        Reserva novaReservaDoLivro1600000 = new Reserva(livro7,leitor2);
+        Reserva novaReservaDoLivro1600000 = new Reserva(16.00000,1100);
 
         DAO.getReserva().criar(novaReservaDoLivro1600000);
-        DAO.getReserva().criar(new Reserva(livro7,leitor1));
+        DAO.getReserva().criar(new Reserva(16.00000,1000));
 
         Reserva procurarReservaASerRemovida = DAO.getReserva().top1Reserva(16.00000);
 
@@ -184,8 +184,8 @@ class ReservaImplTest {
 
         assertEquals(1, DAO.getReserva().encontrarReservasLeitor(1000).size());
 
-        DAO.getReserva().criar(new Reserva(livro7,leitor1));
-        DAO.getReserva().criar(new Reserva(livro3,leitor1));
+        DAO.getReserva().criar(new Reserva(16.00000,1000));
+        DAO.getReserva().criar(new Reserva(12.00000,1000));
 
         assertEquals(3, DAO.getReserva().encontrarReservasLeitor(1000).size());
     }
@@ -202,8 +202,8 @@ class ReservaImplTest {
 
         assertEquals(1, DAO.getReserva().encontrarReservasLivro(16.00000).size());
 
-        DAO.getReserva().criar(new Reserva(livro7,leitor2));
-        DAO.getReserva().criar(new Reserva(livro7,leitor1));
+        DAO.getReserva().criar(new Reserva(16.00000,1100));
+        DAO.getReserva().criar(new Reserva(16.00000,1000));
 
         assertEquals(3, DAO.getReserva().encontrarReservasLivro(16.00000).size());
     }
@@ -235,9 +235,9 @@ class ReservaImplTest {
         Leitor leitor1 = new Leitor("Lucas", "Rua Alameda", "75757575", "batata");
         leitor1.setID(1000);
 
-        Reserva reserva1 = new Reserva(livro7,leitor1);
-        Reserva reserva2 = new Reserva(livro2,leitor1);
-        Reserva reserva3 = new Reserva(livro7,leitor1);
+        Reserva reserva1 = new Reserva(16.00000,1000);
+        Reserva reserva2 = new Reserva(11.00000,1000);
+        Reserva reserva3 = new Reserva(16.00000,1000);
 
         DAO.getReserva().criar(reserva1);
         DAO.getReserva().criar(reserva2);

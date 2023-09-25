@@ -1,16 +1,13 @@
 package testes.dao;
 
 import dao.DAO;
-
 import model.Leitor;
 import model.Livro;
 import model.Prazos;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,13 +51,13 @@ class PrazosImplTest {
         leitor6.setID(1500);
         leitor7.setID(1600);
 
-        prazo1 = DAO.getPrazos().criar(new Prazos(leitor1,livro1));
-        prazo2 = DAO.getPrazos().criar(new Prazos(leitor2,livro2));
-        prazo3 = DAO.getPrazos().criar(new Prazos(leitor3,livro3));
-        prazo4 = DAO.getPrazos().criar(new Prazos(leitor4,livro4));
-        prazo5 = DAO.getPrazos().criar(new Prazos(leitor5,livro5));
-        prazo6 = DAO.getPrazos().criar(new Prazos(leitor6,livro6));
-        prazo7 = DAO.getPrazos().criar(new Prazos(leitor7,livro7));
+        prazo1 = DAO.getPrazos().criar(new Prazos(1000,10.00000));
+        prazo2 = DAO.getPrazos().criar(new Prazos(1100,11.00000));
+        prazo3 = DAO.getPrazos().criar(new Prazos(1200,12.00000));
+        prazo4 = DAO.getPrazos().criar(new Prazos(1300,13.00000));
+        prazo5 = DAO.getPrazos().criar(new Prazos(1400,14.00000));
+        prazo6 = DAO.getPrazos().criar(new Prazos(1500,15.00000));
+        prazo7 = DAO.getPrazos().criar(new Prazos(1600,16.00000));
     }
 
     @AfterEach
@@ -76,7 +73,7 @@ class PrazosImplTest {
         Leitor leitorEsperado = new Leitor("Joaquim","Rua banana","01010101","sapato");
         leitorEsperado.setID(1300);
 
-        Prazos prazoEsperado = new Prazos(leitorEsperado,livroEsperado);
+        Prazos prazoEsperado = new Prazos(1300,13.00000);
 
         Prazos atual =  DAO.getPrazos().criar(prazoEsperado);
 
@@ -114,8 +111,8 @@ class PrazosImplTest {
         livro8.setISBN(17.00000);
         livro9.setISBN(18.00000);
 
-        DAO.getPrazos().criar(new Prazos(leitor1,livro8));
-        DAO.getPrazos().criar(new Prazos(leitor1,livro9));
+        DAO.getPrazos().criar(new Prazos(1000,17.00000));
+        DAO.getPrazos().criar(new Prazos(1000,18.00000));
 
         assertEquals(3,DAO.getPrazos().prazosDeUmLeitor(1000).size());
     }
@@ -153,8 +150,8 @@ class PrazosImplTest {
         livro8.setISBN(17.00000);
         livro9.setISBN(18.00000);
 
-        DAO.getPrazos().criar(new Prazos(leitor1,livro8));
-        DAO.getPrazos().criar(new Prazos(leitor1,livro9));
+        DAO.getPrazos().criar(new Prazos(1000,17.00000));
+        DAO.getPrazos().criar(new Prazos(1000,18.00000));
 
         assertEquals(9, DAO.getPrazos().encontrarTodos().size());
 
@@ -175,8 +172,8 @@ class PrazosImplTest {
         leitor1.setID(1000);
         leitor2.setID(1100);
 
-        Prazos novoPrazo1 = new Prazos(leitor1, livro2);
-        Prazos novoPrazo2 = new Prazos(leitor2, livro1);
+        Prazos novoPrazo1 = new Prazos(1000, 11.00000);
+        Prazos novoPrazo2 = new Prazos(1100, 10.00000);
 
         List<Prazos> novosPrazos = new ArrayList<Prazos>();
         novosPrazos.add(novoPrazo1);
