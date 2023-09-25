@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * É responsável por armazenar todos os prazos para realizar empréstimo de livros do sistema, e estruturar os métodos
+ * É responsável por armazenar todos os prazos para realizar empréstimo de livros do sistema em uma lista, e estruturar os métodos
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface PrazosDAO.
  *
  * @author Lucas Gabriel.
@@ -67,7 +67,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public Prazos encontrarPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro().getISBN()==isbn){
+            if(prazo.getLivro() == isbn){
                 return prazo;
             }
         }
@@ -87,7 +87,7 @@ public class PrazosImpl implements PrazosDAO {
         List<Prazos> listaPrazosLeitor = new ArrayList<Prazos>();
 
         for(Prazos prazos : this.listaPrazos){
-            if(prazos.getLeitor().getID()==id)
+            if(prazos.getLeitor() == id)
                 listaPrazosLeitor.add(prazos);
         }
 
@@ -104,7 +104,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public Prazos encontrarPorId(int id) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLeitor().getID()==id){
+            if(prazo.getLeitor() == id){
                 return prazo;
             }
         }
@@ -121,7 +121,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public void removerPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro().getISBN()==isbn){
+            if(prazo.getLivro() == isbn){
                 this.listaPrazos.remove(prazo);
                 return;
             }
@@ -142,7 +142,7 @@ public class PrazosImpl implements PrazosDAO {
         List<Prazos> prazosARemover = new ArrayList<>();
 
         for(Prazos prazos : this.listaPrazos){
-            if (prazos.getLeitor().getID()==id)
+            if (prazos.getLeitor() == id)
                 prazosARemover.add(prazos);
         }
 

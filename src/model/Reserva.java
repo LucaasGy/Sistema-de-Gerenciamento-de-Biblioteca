@@ -3,42 +3,42 @@ package model;
 /**
  * Classe Reserva que representa uma Reserva de um Livro por um Leitor.
  *
- * É definida pelo objeto Leitor e Livro, contendo todos os dados de ambos.
+ * É definida pelo ID do Leitor e ISBN do Livro, contendo todos os dados de ambos.
  *
  * @author Lucas Gabriel.
  */
 
 public class Reserva {
-    private Livro livro;
-    private Leitor leitor;
+    private double ISBNlivro;
+    private int IDleitor;
 
     /**
      * Construtor de uma Reserva de um Livro.
      *
-     * Recebe como parâmetro os dados do leitor e livro para inseri-los diretamente.
+     * Recebe como parâmetro o ID do leitor e o ISBN do livro para inseri-los diretamente.
      *
-     * @param livro o livro a ser reservado
-     * @param leitor o leitor que está reservando o livro
+     * @param ISBNlivro o livro a ser reservado
+     * @param IDleitor o leitor que está reservando o livro
      */
 
-    public Reserva(Livro livro, Leitor leitor) {
-        this.livro = livro;
-        this.leitor = leitor;
+    public Reserva(double ISBNlivro, int IDleitor) {
+        this.ISBNlivro = ISBNlivro;
+        this.IDleitor = IDleitor;
     }
 
-    public Livro getLivro() {
-        return livro;
+    public double getLivro() {
+        return ISBNlivro;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    public void setLivro(double ISBNlivro) {
+        this.ISBNlivro = ISBNlivro;
     }
 
-    public Leitor getLeitor() {
-        return leitor;
+    public int getLeitor() {
+        return IDleitor;
     }
 
-    public void setLeitor(Leitor leitor) {
-        this.leitor = leitor;
+    public void setLeitor(int IDleitor) {
+        this.IDleitor = IDleitor;
     }
 }

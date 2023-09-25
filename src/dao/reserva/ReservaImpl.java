@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * É responsável por armazenar todas as reservas de livros do sistema,
+ * É responsável por armazenar todas as reservas de livros do sistema em uma lista,
  * e estruturar os métodos necessários para inserir, consultar, alterar ou remover.
  * Implementa a interface ReservaDAO.
  *
@@ -49,7 +49,7 @@ public class ReservaImpl implements ReservaDAO {
 
     public void removerUmaReserva(int id, double isbn){
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLeitor().getID()==id && reserva.getLivro().getISBN()==isbn) {
+            if(reserva.getLeitor() == id && reserva.getLivro() == isbn) {
                 this.listaReserva.remove(reserva);
                 return;
             }
@@ -70,7 +70,7 @@ public class ReservaImpl implements ReservaDAO {
         List<Reserva> reservasARemover = new ArrayList<>();
 
         for (Reserva reserva : this.listaReserva) {
-            if (reserva.getLeitor().getID() == id)
+            if (reserva.getLeitor() == id)
                 reservasARemover.add(reserva);
         }
 
@@ -91,7 +91,7 @@ public class ReservaImpl implements ReservaDAO {
         List<Reserva> reservasARemover = new ArrayList<>();
 
         for (Reserva reserva : this.listaReserva) {
-            if (reserva.getLivro().getISBN() == isbn)
+            if (reserva.getLivro() == isbn)
                 reservasARemover.add(reserva);
         }
 
@@ -133,7 +133,7 @@ public class ReservaImpl implements ReservaDAO {
         List<Reserva> listaReservaLeitor = new ArrayList<Reserva>();
 
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro().getISBN()==isbn)
+            if(reserva.getLivro() == isbn)
                 listaReservaLeitor.add(reserva);
         }
 
@@ -155,7 +155,7 @@ public class ReservaImpl implements ReservaDAO {
         List<Reserva> listaReservaLivro = new ArrayList<Reserva>();
 
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLeitor().getID()==id)
+            if(reserva.getLeitor() == id)
                 listaReservaLivro.add(reserva);
         }
 
@@ -173,7 +173,7 @@ public class ReservaImpl implements ReservaDAO {
     @Override
     public boolean leitorJaReservouEsseLivro(int id, double isbn){
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLeitor().getID()==id && reserva.getLivro().getISBN()==isbn)
+            if(reserva.getLeitor() == id && reserva.getLivro() == isbn)
                 return true;
         }
 
@@ -190,7 +190,7 @@ public class ReservaImpl implements ReservaDAO {
     @Override
     public boolean livroTemReserva(double isbn){
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro().getISBN()==isbn)
+            if(reserva.getLivro() == isbn)
                 return true;
         }
 
@@ -207,7 +207,7 @@ public class ReservaImpl implements ReservaDAO {
     @Override
     public Reserva top1Reserva(double isbn){
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro().getISBN()==isbn)
+            if(reserva.getLivro() == isbn)
                 return reserva;
         }
 
@@ -223,7 +223,7 @@ public class ReservaImpl implements ReservaDAO {
     @Override
     public void removeTop1(double isbn){
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro().getISBN()==isbn){
+            if(reserva.getLivro() == isbn){
                 this.listaReserva.remove(reserva);
                 return;
             }
