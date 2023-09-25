@@ -109,14 +109,14 @@ public class Bibliotecario extends Usuario {
             throw new LeitorTemEmprestimo();
 
         else if(DAO.getReserva().livroTemReserva(isbn)){
-            if (DAO.getReserva().top1Reserva(isbn).getLeitor().getID() != id)
+            if (DAO.getReserva().top1Reserva(isbn).getLeitor() != id)
                 throw new LivroReservado();
 
             DAO.getPrazos().removerPrazoDeUmLivro(isbn);
             DAO.getReserva().removeTop1(isbn);
         }
 
-        Emprestimo novo = new Emprestimo(livro,leitor);
+        Emprestimo novo = new Emprestimo(isbn,id);
         DAO.getEmprestimo().criar(novo);
     }
 
@@ -154,15 +154,15 @@ public class Bibliotecario extends Usuario {
 
         Sistema.aplicarMulta(emprestimoLeitor);
 
-        if(DAO.getReserva().livroTemReserva(emprestimoLeitor.getLivro().getISBN())){
-            Reserva reservaTop1 = DAO.getReserva().top1Reserva(emprestimoLeitor.getLivro().getISBN());
+        if(DAO.getReserva().livroTemReserva(emprestimoLeitor.getLivro())){
+            Reserva reservaTop1 = DAO.getReserva().top1Reserva(emprestimoLeitor.getLivro());
             Prazos novo = new Prazos(reservaTop1.getLeitor(),reservaTop1.getLivro());
 
             DAO.getPrazos().criar(novo);
         }
 
-        emprestimoLeitor.getLivro().setDisponivel(true);
-        emprestimoLeitor.getLeitor().setLimiteRenova(0);
+        DAO.getLivro().encontrarPorISBN(emprestimoLeitor.getLivro()).setDisponivel(true);
+        DAO.getLeitor().encontrarPorId(emprestimoLeitor.getLeitor()).setLimiteRenova(0);
 
         DAO.getEmprestimo().remover(id);
     }

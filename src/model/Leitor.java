@@ -138,7 +138,7 @@ public class Leitor extends Usuario {
         else if(emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
 
-        else if(DAO.getReserva().livroTemReserva(emprestimoDoLeitor.getLivro().getISBN()))
+        else if(DAO.getReserva().livroTemReserva(emprestimoDoLeitor.getLivro()))
             throw new LivroReservado();
 
         else if(this.getLimiteRenova()==1)
@@ -210,7 +210,7 @@ public class Leitor extends Usuario {
         else if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
             throw new LivroNaoDisponivel();
 
-        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null && DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor().getID()==this.getID())
+        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null && DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor() == this.getID())
             throw new LeitorReservarLivroEmMaos();
 
         else if(DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
@@ -225,7 +225,7 @@ public class Leitor extends Usuario {
         else if(DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && !DAO.getReserva().livroTemReserva(isbn))
             throw new LivroNaoPossuiEmprestimoNemReserva();
 
-        Reserva reserva = new Reserva(DAO.getLivro().encontrarPorISBN(isbn) , DAO.getLeitor().encontrarPorId(this.getID()));
+        Reserva reserva = new Reserva(isbn , this.getID());
 
         DAO.getReserva().criar(reserva);
     }
@@ -254,7 +254,7 @@ public class Leitor extends Usuario {
 
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);
 
-        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn)!=null && DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor().getID()==this.getID()) {
+        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn)!=null && DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor() == this.getID()) {
             DAO.getPrazos().removerPrazoDeUmLivro(isbn);
 
             Reserva reservaTop1 = DAO.getReserva().top1Reserva(isbn);

@@ -519,13 +519,13 @@ public class Adm extends Usuario {
      */
 
     public List<Livro> livrosEmprestados(){
-        List<Livro> livros = new ArrayList<Livro>();
+        List<Livro> livrosEmprestados = new ArrayList<Livro>();
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
-            livros.add(emp.getLivro());
+            livrosEmprestados.add(DAO.getLivro().encontrarPorISBN(emp.getLivro()));
         }
 
-        return livros;
+        return livrosEmprestados;
     }
 
     /**
@@ -539,7 +539,7 @@ public class Adm extends Usuario {
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
             if(emp.getdataPrevista().isBefore(LocalDate.now())){
-                livrosAtrasados.add(emp.getLivro());
+                livrosAtrasados.add(DAO.getLivro().encontrarPorISBN(emp.getLivro()));
             }
         }
 
@@ -553,14 +553,14 @@ public class Adm extends Usuario {
      */
 
     public List<Livro> livrosReservados(){
-        List<Livro> livros = new ArrayList<Livro>();
+        List<Livro> livrosReservados = new ArrayList<Livro>();
 
         for(Reserva reserva : DAO.getReserva().encontrarTodos()){
-            if(!livros.contains(reserva.getLivro()))
-                livros.add(reserva.getLivro());
+            if(!livrosReservados.contains(DAO.getLivro().encontrarPorISBN(reserva.getLivro())))
+                livrosReservados.add(DAO.getLivro().encontrarPorISBN(reserva.getLivro()));
         }
 
-        return livros;
+        return livrosReservados;
     }
 
     /**
