@@ -1,7 +1,6 @@
 package model;
 
 import dao.DAO;
-
 import erros.leitor.*;
 import erros.livro.LivroLimiteDeReservas;
 import erros.livro.LivroNaoDisponivel;

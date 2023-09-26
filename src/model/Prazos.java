@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -14,7 +15,7 @@ import java.time.LocalDate;
  * @author Lucas Gabriel.
  */
 
-public class Prazos {
+public class Prazos implements Serializable {
     private int IDleitor;
     private double ISBNlivro;
     private LocalDate dataLimite;

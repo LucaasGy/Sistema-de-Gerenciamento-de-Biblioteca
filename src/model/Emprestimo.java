@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalDate;
  * @author Lucas Gabriel.
  */
 
-public class Emprestimo {
+public class Emprestimo implements Serializable {
     private double ISBNlivro;
     private int IDleitor;
     private LocalDate dataPegou;

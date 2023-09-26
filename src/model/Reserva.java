@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Classe Reserva que representa uma Reserva de um Livro por um Leitor.
  *
@@ -8,7 +10,7 @@ package model;
  * @author Lucas Gabriel.
  */
 
-public class Reserva {
+public class Reserva implements Serializable {
     private double ISBNlivro;
     private int IDleitor;
 

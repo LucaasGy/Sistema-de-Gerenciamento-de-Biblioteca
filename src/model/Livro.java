@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Classe Livro que representa um Livro do sistema.
  *
@@ -12,7 +14,7 @@ package model;
  * @author Lucas Gabriel.
  */
 
-public class Livro {
+public class Livro implements Serializable {
     private String titulo;
     private String autor;
     private String editora;
