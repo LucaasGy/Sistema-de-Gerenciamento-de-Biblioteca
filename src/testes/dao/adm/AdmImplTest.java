@@ -1,4 +1,4 @@
-package testes.dao;
+package testes.dao.adm;
 
 import dao.DAO;
 
@@ -18,11 +18,11 @@ class AdmImplTest {
 
     @BeforeEach
     void setUp() {
-        lucas = DAO.getAdm().criar(new Adm("Lucas","batata"));
-        ana = DAO.getAdm().criar(new Adm("Ana","alface"));
-        gabriel = DAO.getAdm().criar(new Adm("Gabriel","cenoura"));
-        paulo = DAO.getAdm().criar(new Adm("Paulo","beterraba"));
-        fernanda = DAO.getAdm().criar(new Adm("Fernanda","chuchu"));
+        this.lucas = DAO.getAdm().criar(new Adm("Lucas","batata"));
+        this.ana = DAO.getAdm().criar(new Adm("Ana","alface"));
+        this.gabriel = DAO.getAdm().criar(new Adm("Gabriel","cenoura"));
+        this.paulo = DAO.getAdm().criar(new Adm("Paulo","beterraba"));
+        this.fernanda = DAO.getAdm().criar(new Adm("Fernanda","chuchu"));
     }
 
     @AfterEach

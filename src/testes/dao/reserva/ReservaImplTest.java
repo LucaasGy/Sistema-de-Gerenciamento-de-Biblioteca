@@ -1,4 +1,4 @@
-package testes.dao;
+package testes.dao.reserva;
 
 import dao.DAO;
 

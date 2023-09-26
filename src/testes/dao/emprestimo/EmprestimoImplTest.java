@@ -1,4 +1,4 @@
-package testes.dao;
+package testes.dao.emprestimo;
 
 import dao.DAO;
 
@@ -26,9 +26,9 @@ class EmprestimoImplTest {
         Leitor leitor2 = DAO.getLeitor().criar(new Leitor("Gabriel","Rua Pitanga","86868686","cenoura"));
         Leitor leitor3 = DAO.getLeitor().criar(new Leitor("Jose","Rua Maca","97979797","chuchu"));
 
-        emprestimo1 = DAO.getEmprestimo().criar(new Emprestimo(livro1.getISBN(),leitor1.getID()));
-        emprestimo2 = DAO.getEmprestimo().criar(new Emprestimo(livro2.getISBN(),leitor2.getID()));
-        emprestimo3 = DAO.getEmprestimo().criar(new Emprestimo(livro3.getISBN(),leitor3.getID()));
+        this.emprestimo1 = DAO.getEmprestimo().criar(new Emprestimo(livro1.getISBN(),leitor1.getID()));
+        this.emprestimo2 = DAO.getEmprestimo().criar(new Emprestimo(livro2.getISBN(),leitor2.getID()));
+        this.emprestimo3 = DAO.getEmprestimo().criar(new Emprestimo(livro3.getISBN(),leitor3.getID()));
     }
 
     @AfterEach

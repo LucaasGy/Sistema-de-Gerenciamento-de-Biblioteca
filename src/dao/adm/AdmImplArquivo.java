@@ -19,6 +19,7 @@ public class AdmImplArquivo implements AdmDAO{
 
     private List<Adm> listaAdm;
     private String nomeArquivo;
+    private String nomePasta;
     private int nextID;
 
     /**
@@ -32,7 +33,8 @@ public class AdmImplArquivo implements AdmDAO{
 
     public AdmImplArquivo() {
         this.nomeArquivo = "adm.dat";
-        this.listaAdm = ArmazenamentoArquivo.resgatar(this.nomeArquivo);
+        this.nomePasta = "Adm";
+        this.listaAdm = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
 
         if(this.listaAdm.isEmpty())
             this.nextID = 1001;
@@ -56,7 +58,7 @@ public class AdmImplArquivo implements AdmDAO{
         this.nextID += 10;
         this.listaAdm.add(obj);
 
-        ArmazenamentoArquivo.guardar(this.listaAdm,this.nomeArquivo);
+        ArmazenamentoArquivo.guardar(this.listaAdm,this.nomeArquivo,this.nomePasta);
         return obj;
     }
 
@@ -100,7 +102,7 @@ public class AdmImplArquivo implements AdmDAO{
         for(Adm adm : this.listaAdm){
             if(adm.getID()==obj.getID()){
                 this.listaAdm.set(listaAdm.indexOf(adm), obj);
-                ArmazenamentoArquivo.guardar(this.listaAdm,nomeArquivo);
+                ArmazenamentoArquivo.guardar(this.listaAdm,this.nomeArquivo,this.nomePasta);
                 return obj;
             }
         }
@@ -141,7 +143,7 @@ public class AdmImplArquivo implements AdmDAO{
         for(Adm adm : this.listaAdm){
             if(adm.getID()==id) {
                 this.listaAdm.remove(adm);
-                ArmazenamentoArquivo.guardar(this.listaAdm,nomeArquivo);
+                ArmazenamentoArquivo.guardar(this.listaAdm,this.nomeArquivo,this.nomePasta);
                 return;
             }
         }
@@ -157,6 +159,6 @@ public class AdmImplArquivo implements AdmDAO{
     public void removerTodos() {
         this.listaAdm.clear();
         this.nextID=1001;
-        ArmazenamentoArquivo.guardar(this.listaAdm,nomeArquivo);
+        ArmazenamentoArquivo.guardar(this.listaAdm,this.nomeArquivo,this.nomePasta);
     }
 }

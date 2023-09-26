@@ -1,36 +1,33 @@
+import model.Adm;
+import utils.ArmazenamentoArquivo;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Main{
 
     public static void main(String[] args) {
 
-        List<Integer> sla = new ArrayList<>();
-        sla.add(2);
-        sla.add(1);
-        sla.add(5);
-        sla.add(2);
-        sla.add(18);
-        sla.add(2);
+        Adm adm = new Adm("adm1","senha1");
+        Adm adm2 = new Adm("adm2","senha2");
+        Adm adm3= new Adm("adm3","senha3");
+        Adm adm4= new Adm("adm4","senha4");
+        Adm adm5 = new Adm("adm5","senha5");
 
-        for(Integer kk : sla){
-            System.out.println(kk);
+        List<Adm> lista = new ArrayList<Adm>();
+
+        lista.add(adm);
+        lista.add(adm2);
+        lista.add(adm3);
+        lista.add(adm4);
+        lista.add(adm5);
+
+        ArmazenamentoArquivo.guardar(lista,"adms.dat","Adm");
+
+        List<Adm> resgata = new ArrayList<>(ArmazenamentoArquivo.resgatar("adms.dat","Adm"));
+
+        for(Adm adms : resgata){
+            System.out.println(adms.getNome());
         }
-
-        for(int i=0; i<sla.size(); i++){
-            if(sla.get(i)==2) {
-                sla.add(6);
-                sla.remove(sla.get(i));
-            }
-        }
-
-        System.out.println("-------------------------------");
-
-        for(Integer kk : sla){
-            System.out.println(kk);
-        }
-
-
     }
 }

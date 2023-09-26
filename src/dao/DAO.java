@@ -1,7 +1,7 @@
 package dao;
 
 import dao.adm.AdmDAO;
-import dao.adm.AdmImpl;
+import dao.adm.AdmImplArquivo;
 import dao.bibliotecario.BibliotecarioDAO;
 import dao.bibliotecario.BibliotecarioImpl;
 import dao.emprestimo.EmprestimoDAO;
@@ -43,7 +43,7 @@ public class DAO {
     public static AdmDAO getAdm() {
 
         if (admDAO == null) {
-            admDAO = new AdmImpl();
+            admDAO = new AdmImplArquivo();
         }
 
         return admDAO;

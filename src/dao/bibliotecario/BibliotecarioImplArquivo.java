@@ -18,6 +18,7 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
 
     private List<Bibliotecario> listaBibliotecario;
     private String nomeArquivo;
+    private String nomePasta;
     private int nextID;
 
     /**
@@ -31,7 +32,8 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
 
     public BibliotecarioImplArquivo() {
         this.nomeArquivo = "bibliotecario.dat";
-        this.listaBibliotecario = ArmazenamentoArquivo.resgatar(this.nomeArquivo);
+        this.nomePasta = "Bibliotecario";
+        this.listaBibliotecario = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
 
         if(this.listaBibliotecario.isEmpty())
             this.nextID = 1002;
@@ -55,7 +57,7 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
         this.nextID += 10;
         this.listaBibliotecario.add(obj);
 
-        ArmazenamentoArquivo.guardar(this.listaBibliotecario,this.nomeArquivo);
+        ArmazenamentoArquivo.guardar(this.listaBibliotecario,this.nomeArquivo,this.nomePasta);
         return obj;
     }
 
@@ -70,7 +72,7 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
         for(Bibliotecario bibliotecario : this.listaBibliotecario){
             if(bibliotecario.getID()==id) {
                 this.listaBibliotecario.remove(bibliotecario);
-                ArmazenamentoArquivo.guardar(this.listaBibliotecario,nomeArquivo);
+                ArmazenamentoArquivo.guardar(this.listaBibliotecario,this.nomeArquivo,this.nomePasta);
                 return;
             }
         }
@@ -86,7 +88,7 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
     public void removerTodos() {
         this.listaBibliotecario.clear();
         this.nextID=1002;
-        ArmazenamentoArquivo.guardar(this.listaBibliotecario,nomeArquivo);
+        ArmazenamentoArquivo.guardar(this.listaBibliotecario,this.nomeArquivo,this.nomePasta);
     }
 
     /**
@@ -129,7 +131,7 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
         for(Bibliotecario bibliotecario : this.listaBibliotecario){
             if(bibliotecario.getID()==obj.getID()){
                 this.listaBibliotecario.set(listaBibliotecario.indexOf(bibliotecario), obj);
-                ArmazenamentoArquivo.guardar(this.listaBibliotecario,nomeArquivo);
+                ArmazenamentoArquivo.guardar(this.listaBibliotecario,this.nomeArquivo,this.nomePasta);
                 return obj;
             }
         }

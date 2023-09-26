@@ -18,6 +18,7 @@ public class LeitorImplArquivo implements LeitorDAO{
 
     private List<Leitor> listaLeitor;
     private String nomeArquivo;
+    private String nomePasta;
     private int nextID;
 
     /**
@@ -31,7 +32,8 @@ public class LeitorImplArquivo implements LeitorDAO{
 
     public LeitorImplArquivo() {
         this.nomeArquivo = "leitor.dat";
-        this.listaLeitor = ArmazenamentoArquivo.resgatar(this.nomeArquivo);
+        this.nomePasta = "Leitor";
+        this.listaLeitor = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
 
         if(this.listaLeitor.isEmpty())
             this.nextID = 1003;
@@ -55,7 +57,7 @@ public class LeitorImplArquivo implements LeitorDAO{
         this.nextID += 10;
         this.listaLeitor.add(obj);
 
-        ArmazenamentoArquivo.guardar(this.listaLeitor,this.nomeArquivo);
+        ArmazenamentoArquivo.guardar(this.listaLeitor,this.nomeArquivo,this.nomePasta);
         return obj;
     }
 
@@ -70,7 +72,7 @@ public class LeitorImplArquivo implements LeitorDAO{
         for(Leitor leitor : this.listaLeitor){
             if(leitor.getID()==id) {
                 this.listaLeitor.remove(leitor);
-                ArmazenamentoArquivo.guardar(this.listaLeitor,nomeArquivo);
+                ArmazenamentoArquivo.guardar(this.listaLeitor,this.nomeArquivo,this.nomePasta);
                 return;
             }
         }
@@ -86,7 +88,7 @@ public class LeitorImplArquivo implements LeitorDAO{
     public void removerTodos() {
         this.listaLeitor.clear();
         this.nextID=1003;
-        ArmazenamentoArquivo.guardar(this.listaLeitor,nomeArquivo);
+        ArmazenamentoArquivo.guardar(this.listaLeitor,this.nomeArquivo,this.nomePasta);
     }
 
     /**
@@ -129,7 +131,7 @@ public class LeitorImplArquivo implements LeitorDAO{
         for(Leitor leitor : this.listaLeitor){
             if(leitor.getID()==obj.getID()){
                 this.listaLeitor.set(listaLeitor.indexOf(leitor), obj);
-                ArmazenamentoArquivo.guardar(this.listaLeitor,nomeArquivo);
+                ArmazenamentoArquivo.guardar(this.listaLeitor,this.nomeArquivo,this.nomePasta);
                 return obj;
             }
         }

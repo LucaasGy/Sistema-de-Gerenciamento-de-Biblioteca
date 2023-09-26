@@ -19,25 +19,26 @@ public class ArmazenamentoArquivo {
      * Método responsável por guardar as informações do sistema em um arquivo binário.
      *
      * @param listaT lista de determinados tipos de objetos
+     * @param nomePasta nome da pasta onde arquivo vai ser guardado
      * @param nomeArquivo nome do arquivo a ser guardado
      * @param <T> tipo do objeto a ser guardado
      */
 
-    public static <T> void guardar(List<T> listaT, String nomeArquivo){
+    public static <T> void guardar(List<T> listaT, String nomeArquivo, String nomePasta){
         try {
-            FileOutputStream novoArquivo = new FileOutputStream(nomeArquivo);
-            ObjectOutputStream novoObjeto = new ObjectOutputStream(novoArquivo);
+            File pasta = new File("dadosArquivo/" + nomePasta);
+            pasta.mkdirs();
+
+            File arquivo = new File(pasta.getAbsolutePath(), nomeArquivo);
+
+            ObjectOutputStream novoObjeto = new ObjectOutputStream(new FileOutputStream(arquivo,false));
 
             novoObjeto.writeObject(listaT);
 
             novoObjeto.close();
-            novoArquivo.close();
         }
-        catch ( java.io.FileNotFoundException e) {
-            throw new RuntimeException("Arquivo não encontrado");
-        }
-        catch ( java.io.IOException e) {
-            throw new RuntimeException("Erro ao acessar dados");
+        catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -45,27 +46,27 @@ public class ArmazenamentoArquivo {
      * Método responsável por resgatar as informações do sistema em um arquivo binário.
      *
      * @param nomeArquivo nome do arquivo a ser resgatado
+     * @param nomePasta nome da pasta onde arquivo esta armazenado
      * @param <T> tipo do objeto a ser resgatado
      * @return retorna lista de objetos guardados no arquivo
      */
 
-    public static <T> ArrayList<T> resgatar(String nomeArquivo){
+    public static <T> ArrayList<T> resgatar(String nomeArquivo, String nomePasta){
         try {
-            File arquivo = new File(nomeArquivo);
+            File pasta = new File("dadosArquivo/" + nomePasta);
+            File arquivo = new File(pasta.getAbsolutePath(), nomeArquivo);
 
             if (!arquivo.exists()) {
                 return new ArrayList<T>();
             }
 
-            FileInputStream novoArquivo = new FileInputStream(arquivo);
-            ObjectInputStream novoObjeto = new ObjectInputStream(novoArquivo);
+            ObjectInputStream novoObjeto = new ObjectInputStream(new FileInputStream(arquivo));
 
-            ArrayList<T> lista = (ArrayList<T>) novoObjeto.readObject();
+            List<T> lista = (ArrayList<T>) novoObjeto.readObject();
 
-            novoArquivo.close();
             novoObjeto.close();
 
-            return lista;
+            return (ArrayList<T>) lista;
         }
         catch ( java.io.IOException e) {
             return new ArrayList<T>();

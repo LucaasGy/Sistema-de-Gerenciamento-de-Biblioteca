@@ -1,4 +1,4 @@
-package testes.dao;
+package testes.dao.prazos;
 
 import dao.DAO;
 import model.Leitor;
@@ -51,13 +51,13 @@ class PrazosImplTest {
         leitor6.setID(1500);
         leitor7.setID(1600);
 
-        prazo1 = DAO.getPrazos().criar(new Prazos(1000,10.00000));
-        prazo2 = DAO.getPrazos().criar(new Prazos(1100,11.00000));
-        prazo3 = DAO.getPrazos().criar(new Prazos(1200,12.00000));
-        prazo4 = DAO.getPrazos().criar(new Prazos(1300,13.00000));
-        prazo5 = DAO.getPrazos().criar(new Prazos(1400,14.00000));
-        prazo6 = DAO.getPrazos().criar(new Prazos(1500,15.00000));
-        prazo7 = DAO.getPrazos().criar(new Prazos(1600,16.00000));
+        this.prazo1 = DAO.getPrazos().criar(new Prazos(1000,10.00000));
+        this.prazo2 = DAO.getPrazos().criar(new Prazos(1100,11.00000));
+        this.prazo3 = DAO.getPrazos().criar(new Prazos(1200,12.00000));
+        this.prazo4 = DAO.getPrazos().criar(new Prazos(1300,13.00000));
+        this.prazo5 = DAO.getPrazos().criar(new Prazos(1400,14.00000));
+        this.prazo6 = DAO.getPrazos().criar(new Prazos(1500,15.00000));
+        this.prazo7 = DAO.getPrazos().criar(new Prazos(1600,16.00000));
     }
 
     @AfterEach

@@ -1,7 +1,6 @@
 package model;
 
 import dao.DAO;
-
 import erros.leitor.LeitorBloqueado;
 import erros.leitor.LeitorMultado;
 import erros.leitor.LeitorNaoPossuiEmprestimo;

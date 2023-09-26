@@ -1,4 +1,4 @@
-package testes.dao;
+package testes.dao.leitor;
 
 import dao.DAO;
 
@@ -19,9 +19,9 @@ class LeitorImplTest {
 
     @BeforeEach
     void setUp() {
-        lucas = DAO.getLeitor().criar(new Leitor("Lucas","Rua Eldorado","7577772222","batata"));
-        ana = DAO.getLeitor().criar(new Leitor("Ana","Rua Ofensa","7511115555","cenura"));
-        gabriel = DAO.getLeitor().criar(new Leitor("Lucas","Rua Coca-Cola","7599993333","beterraba"));
+        this.lucas = DAO.getLeitor().criar(new Leitor("Lucas","Rua Eldorado","7577772222","batata"));
+        this.ana = DAO.getLeitor().criar(new Leitor("Ana","Rua Ofensa","7511115555","cenura"));
+        this.gabriel = DAO.getLeitor().criar(new Leitor("Lucas","Rua Coca-Cola","7599993333","beterraba"));
     }
 
     @AfterEach

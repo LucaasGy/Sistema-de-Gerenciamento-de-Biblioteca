@@ -1,4 +1,4 @@
-package testes.dao;
+package testes.dao.bibliotecario;
 
 import dao.DAO;
 
@@ -18,11 +18,11 @@ class BibliotecarioImplTest {
 
     @BeforeEach
     void setUp() {
-        lucas = DAO.getBibliotecario().criar(new Bibliotecario("Lucas","batata"));
-        ana = DAO.getBibliotecario().criar(new Bibliotecario("Ana","alface"));
-        gabriel = DAO.getBibliotecario().criar(new Bibliotecario("Gabriel","cenoura"));
-        paulo = DAO.getBibliotecario().criar(new Bibliotecario("Paulo","beterraba"));
-        fernanda = DAO.getBibliotecario().criar(new Bibliotecario("Fernanda","chuchu"));
+        this.lucas = DAO.getBibliotecario().criar(new Bibliotecario("Lucas","batata"));
+        this.ana = DAO.getBibliotecario().criar(new Bibliotecario("Ana","alface"));
+        this.gabriel = DAO.getBibliotecario().criar(new Bibliotecario("Gabriel","cenoura"));
+        this.paulo = DAO.getBibliotecario().criar(new Bibliotecario("Paulo","beterraba"));
+        this.fernanda = DAO.getBibliotecario().criar(new Bibliotecario("Fernanda","chuchu"));
     }
 
     @AfterEach

@@ -1,7 +1,6 @@
 package model;
 
 import dao.DAO;
-
 import erros.leitor.LeitorTemEmprestimo;
 import erros.livro.LivroEmprestado;
 import erros.objetos.ObjetoInvalido;
