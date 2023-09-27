@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -158,6 +159,16 @@ class PrazosImplTest {
         DAO.getPrazos().remover(1000);
 
         assertEquals(6, DAO.getPrazos().encontrarTodos().size());
+    }
+
+    @Test
+    void atualizar() {
+        this.prazo1.setDataLimite(LocalDate.now().plusDays(9));
+        Prazos esperado = this.prazo1;
+
+        Prazos atual = DAO.getPrazos().atualizar(this.prazo1);
+
+        assertEquals(esperado,atual);
     }
 
     @Test
