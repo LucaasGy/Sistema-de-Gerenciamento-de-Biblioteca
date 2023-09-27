@@ -68,6 +68,8 @@ class LivroImplTest {
         DAO.getLivro().removerTodos();
 
         assertTrue(DAO.getLivro().encontrarTodos().isEmpty());
+        //apagou todos os isbn, sorteou um e adicionou na lista
+        assertEquals(1,DAO.getLivro().checarListaISBN().size());
     }
 
     @Test

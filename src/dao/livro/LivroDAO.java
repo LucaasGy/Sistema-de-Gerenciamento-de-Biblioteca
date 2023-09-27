@@ -58,4 +58,12 @@ public interface LivroDAO extends CRUD<Livro> {
      */
 
     public void removerPorISBN(double isbn);
+
+    /**
+     * Método de retorno de todos os ISBN de livros sorteados do banco de dados.
+     *
+     * @return retorna todos os ISBN de livros sorteados
+     */
+
+    public List<Double> checarListaISBN();
 }
