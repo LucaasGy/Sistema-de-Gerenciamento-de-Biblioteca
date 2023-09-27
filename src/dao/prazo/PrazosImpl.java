@@ -113,7 +113,7 @@ public class PrazosImpl implements PrazosDAO {
     }
 
     /**
-     * Método que remove o prazo ativo de um livro.
+     * Método que remove o prazo ativo de um livro da estrutura de armazenamento.
      *
      * @param isbn isbn do livro que recebe o prazo a ser deletado
      */
@@ -129,7 +129,7 @@ public class PrazosImpl implements PrazosDAO {
     }
 
     /**
-     * Método que remove todos os prazos ativos de um leitor.
+     * Método que remove todos os prazos ativos de um leitor da estrutura de armazenamento.
      *
      * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
      * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
