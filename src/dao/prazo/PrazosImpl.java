@@ -164,8 +164,22 @@ public class PrazosImpl implements PrazosDAO {
         this.listaPrazos.addAll(adinionaPrazos);
     }
 
+    /**
+     * Método que atualiza um objeto do tipo Prazos.
+     *
+     * @param obj prazo a ser atualizado
+     * @return retorna prazo que foi atualizado
+     */
+
     @Override
     public Prazos atualizar(Prazos obj) {
+        for(Prazos prazo : this.listaPrazos){
+            if(prazo.getLivro()==obj.getLivro()){
+                this.listaPrazos.set(this.listaPrazos.indexOf(prazo), obj);
+                return obj;
+            }
+        }
+
         return null;
     }
 }
