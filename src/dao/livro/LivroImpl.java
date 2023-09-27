@@ -216,6 +216,17 @@ public class LivroImpl implements LivroDAO {
         return null;
     }
 
+    /**
+     * Método de retorno de todos os ISBN de livros sorteados do banco de dados.
+     *
+     * @return retorna todos os ISBN de livros sorteados
+     */
+
+    @Override
+    public List<Double> checarListaISBN(){
+        return this.isbnCadastrado;
+    }
+
     @Override
     public void remover(int id) {
     }
