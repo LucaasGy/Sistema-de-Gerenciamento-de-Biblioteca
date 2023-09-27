@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * É responsável por armazenar todos os livros do sistema em uma lista, e estruturar os métodos
+ * É responsável por armazenar todos os livros do sistema em um arquivo binário, e estruturar os métodos
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface LivroDAO.
  *
  * @author Lucas Gabriel.
@@ -84,6 +84,7 @@ public class LivroImpl implements LivroDAO {
         for(Livro livro : this.listaLivro) {
             if (livro.getISBN() == isbn) {
                 this.listaLivro.remove(livro);
+                this.isbnCadastrado.remove(isbn);
                 return;
             }
         }
