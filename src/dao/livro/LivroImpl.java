@@ -84,6 +84,7 @@ public class LivroImpl implements LivroDAO {
         for(Livro livro : this.listaLivro) {
             if (livro.getISBN() == isbn) {
                 this.listaLivro.remove(livro);
+                this.isbnCadastrado.remove(isbn);
                 return;
             }
         }
