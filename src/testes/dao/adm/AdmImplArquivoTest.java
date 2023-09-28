@@ -56,6 +56,7 @@ class AdmImplArquivoTest {
         assertEquals(this.adm3, DAO.getAdm().encontrarTodos().get(2));
         assertEquals(this.adm4, DAO.getAdm().encontrarTodos().get(3));
         assertEquals(this.adm5, DAO.getAdm().encontrarTodos().get(4));
+        assertEquals(5,ArmazenamentoArquivo.resgatar("adm.dat","Adm").size());
     }
 
     @Test
@@ -94,6 +95,7 @@ class AdmImplArquivoTest {
         assertNull(DAO.getAdm().encontrarPorId(1031));
 
         assertEquals(3,DAO.getAdm().encontrarTodos().size());
+        assertEquals(3,ArmazenamentoArquivo.resgatar("adm.dat","Adm").size());
     }
 
     @Test
