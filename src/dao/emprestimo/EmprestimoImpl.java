@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * É responsável por armazenar todos os empréstimos do sistema em uma lista, e estruturar os métodos
+ * É responsável por armazenar todos os empréstimos do sistema em um arquivo binário, e estruturar os métodos
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface EmprestimoDAO.
  *
  * @author Lucas Gabriel.
@@ -67,7 +67,8 @@ public class EmprestimoImpl implements EmprestimoDAO {
     }
 
     /**
-     * Método que remove todos os empréstimos já feitos de um livro deletado do sistema.
+     * Método que remove da estrutura de armazenamento,
+     * todos os empréstimos já feitos de um livro deletado do sistema.
      *
      * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
      * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
@@ -76,7 +77,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
      */
 
     public void removerTodosEmprestimosDeUmLivro(double isbn) {
-        List<Emprestimo> emprestimosARemover = new ArrayList<>();
+        List<Emprestimo> emprestimosARemover = new ArrayList<Emprestimo>();
 
         for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
             if (emprestimo.getLivro() == isbn) {
@@ -89,7 +90,8 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
 
     /**
-     * Método que remove todos os empréstimos já feitos de um leitor deletado do sistema.
+     * Método que remove todos os empréstimos da estrutura de armazenamento,
+     * já feitos de um leitor deletado do sistema.
      *
      * Esta forma de remoção em sequência, evita problemas de deslocamento de índice que podem
      * ocorrer ao remover elementos de um ArrayList enquanto o percorremos.
@@ -99,7 +101,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
     @Override
     public void removerTodosEmprestimoDeUmLeitor(int id){
-        List<Emprestimo> emprestimosARemover = new ArrayList<>();
+        List<Emprestimo> emprestimosARemover = new ArrayList<Emprestimo>();
 
         for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
             if (emprestimo.getLeitor() == id) {
@@ -224,7 +226,6 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
     @Override
     public void removerTodos(){
-
         for(Emprestimo emp : this.listaEmprestimoTotal){
             DAO.getLivro().encontrarPorISBN(emp.getLivro()).setQtdEmprestimo(0);
         }

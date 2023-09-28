@@ -58,7 +58,7 @@ public class PrazosImplArquivo implements PrazosDAO{
 
     @Override
     public void remover(int id) {
-        List<Prazos> prazosARemover = new ArrayList<>();
+        List<Prazos> prazosARemover = new ArrayList<Prazos>();
 
         for(Prazos prazos : this.listaPrazos){
             if (prazos.getLeitor() == id)
