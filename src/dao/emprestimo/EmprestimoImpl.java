@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * É responsável por armazenar todos os empréstimos do sistema em um arquivo binário, e estruturar os métodos
+ * É responsável por armazenar todos os empréstimos do sistema em uma lista, e estruturar os métodos
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface EmprestimoDAO.
  *
  * @author Lucas Gabriel.
