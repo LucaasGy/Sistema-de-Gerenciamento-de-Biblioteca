@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * É responsável por armazenar todas as reservas de livros do sistema,
+ * É responsável por armazenar todas as reservas de livros do sistema  em uma lista,
  * e estruturar os métodos necessários para inserir, consultar, alterar ou remover.
  * Implementa a interface ReservaDAO.
  *

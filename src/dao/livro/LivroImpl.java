@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * É responsável por armazenar todos os livros do sistema, e estruturar os métodos
+ * É responsável por armazenar todos os livros do sistema em uma lista, e estruturar os métodos
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface LivroDAO.
  *
  * @author Lucas Gabriel.

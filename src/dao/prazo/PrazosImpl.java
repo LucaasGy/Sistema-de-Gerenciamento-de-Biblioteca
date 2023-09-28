@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * É responsável por armazenar todos os prazos para realizar empréstimo de livros do sistema, e estruturar os métodos
- * necessários para inserir, consultar, alterar ou remover. Implementa a interface PrazosDAO.
+ * É responsável por armazenar  em uma lista, todos os prazos para realizar empréstimo de livros do sistema,
+ * e estruturar os métodos necessários para inserir, consultar, alterar ou remover.
+ * Implementa a interface PrazosDAO.
  *
  * @author Lucas Gabriel.
  */

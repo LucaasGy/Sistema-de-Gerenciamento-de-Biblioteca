@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * É responsável por armazenar todos os bibliotecarios do sistema, e estruturar os métodos
+ * É responsável por armazenar todos os bibliotecarios do sistema em uma lista, e estruturar os métodos
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface BibliotecarioDAO.
  *
  * @author Lucas Gabriel.
