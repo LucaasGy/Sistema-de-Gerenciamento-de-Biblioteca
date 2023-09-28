@@ -21,7 +21,7 @@ class LeitorImplTest {
     void setUp() {
         lucas = DAO.getLeitor().criar(new Leitor("Lucas","Rua Eldorado","7577772222","batata"));
         ana = DAO.getLeitor().criar(new Leitor("Ana","Rua Ofensa","7511115555","cenura"));
-        gabriel = DAO.getLeitor().criar(new Leitor("Lucas","Rua Coca-Cola","7599993333","beterraba"));
+        gabriel = DAO.getLeitor().criar(new Leitor("Gabriel","Rua Coca-Cola","7599993333","beterraba"));
     }
 
     @AfterEach

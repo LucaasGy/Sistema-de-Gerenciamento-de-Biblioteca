@@ -70,6 +70,9 @@ class LivroImplTest {
         assertTrue(DAO.getLivro().encontrarTodos().isEmpty());
         //apagou todos os isbn, sorteou um e adicionou na lista
         assertEquals(1,DAO.getLivro().checarListaISBN().size());
+
+        DAO.getLivro().criar(new Livro("A origem","Ana","Seu medo",1994,"Suspense"));
+        assertEquals(2,DAO.getLivro().checarListaISBN().size());
     }
 
     @Test
@@ -79,8 +82,7 @@ class LivroImplTest {
 
     @Test
     void encontrarPorTitulo() {
-        Livro esperado = this.livro4;
-        Livro esperado2 = DAO.getLivro().criar(new Livro("LIVRO4","AUTOR4.6","EDITORA4.6",2004,"CATEGORIA4.6"));
+        DAO.getLivro().criar(new Livro("LIVRO4","AUTOR4.6","EDITORA4.6",2004,"CATEGORIA4.6"));
 
         List<Livro> atual = DAO.getLivro().encontrarPorTitulo("livro4");
 
@@ -89,8 +91,7 @@ class LivroImplTest {
 
     @Test
     void encontrarPorAutor() {
-        Livro esperado = this.livro1;
-        Livro esperado2 = DAO.getLivro().criar(new Livro("LIVRO1.2","AUTOR1","EDITORA1.2",2001,"CATEGORIA1.2"));
+        DAO.getLivro().criar(new Livro("LIVRO1.2","AUTOR1","EDITORA1.2",2001,"CATEGORIA1.2"));
 
         List<Livro> atual = DAO.getLivro().encontrarPorAutor("autor1");
 
@@ -99,8 +100,7 @@ class LivroImplTest {
 
     @Test
     void encontrarPorCategoria() {
-        Livro esperado = this.livro2;
-        Livro esperado2 = DAO.getLivro().criar(new Livro("LIVRO2.1","AUTOR2.1","EDITORA2.1",2002,"CATEGORIA2"));
+        DAO.getLivro().criar(new Livro("LIVRO2.1","AUTOR2.1","EDITORA2.1",2002,"CATEGORIA2"));
 
         List<Livro> atual = DAO.getLivro().encontrarPorCategoria("categoria2");
 
@@ -127,5 +127,10 @@ class LivroImplTest {
         Livro atual = DAO.getLivro().atualizar(this.livro4);
 
         assertEquals(esperado,atual);
+    }
+
+    @Test
+    void checarListaISBN() {
+        assertEquals(6,DAO.getLivro().checarListaISBN().size());
     }
 }
