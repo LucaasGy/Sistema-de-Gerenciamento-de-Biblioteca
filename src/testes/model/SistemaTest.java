@@ -136,7 +136,7 @@ class SistemaTest {
 
         //ps: trocar a data por um dia posterior à data da realização do teste
         assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 20));
-        //ps: trocar a data por um dia/dois anterior à data da realização do teste
+        //ps: trocar a data por dois/tres dias anterior à data da realização do teste
         assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 17));
         assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 16));
 
