@@ -25,17 +25,13 @@ public class ArmazenamentoArquivo {
      */
 
     public static <T> void guardar(List<T> listaT, String nomeArquivo, String nomePasta){
-        try {
-            File pasta = new File("dadosArquivo/" + nomePasta);
-            pasta.mkdirs();
+        File pasta = new File("dadosArquivo/" + nomePasta);
+        pasta.mkdirs();
 
-            File arquivo = new File(pasta.getAbsolutePath(), nomeArquivo);
+        File arquivo = new File(pasta.getAbsolutePath(), nomeArquivo);
 
-            ObjectOutputStream novoObjeto = new ObjectOutputStream(new FileOutputStream(arquivo,false));
-
+        try (ObjectOutputStream novoObjeto = new ObjectOutputStream(new FileOutputStream(arquivo))) {
             novoObjeto.writeObject(listaT);
-
-            novoObjeto.close();
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -52,26 +48,20 @@ public class ArmazenamentoArquivo {
      */
 
     public static <T> ArrayList<T> resgatar(String nomeArquivo, String nomePasta){
-        try {
-            File pasta = new File("dadosArquivo/" + nomePasta);
-            File arquivo = new File(pasta.getAbsolutePath(), nomeArquivo);
+        File pasta = new File("dadosArquivo/" + nomePasta);
+        File arquivo = new File(pasta.getAbsolutePath(), nomeArquivo);
 
-            if (!arquivo.exists()) {
-                return new ArrayList<T>();
-            }
+        if (!arquivo.exists())
+            return new ArrayList<T>();
 
-            ObjectInputStream novoObjeto = new ObjectInputStream(new FileInputStream(arquivo));
-
+        try(ObjectInputStream novoObjeto = new ObjectInputStream(new FileInputStream(arquivo))) {
             List<T> lista = (ArrayList<T>) novoObjeto.readObject();
-
-            novoObjeto.close();
-
             return (ArrayList<T>) lista;
         }
-        catch ( java.io.IOException e) {
+        catch (IOException e) {
             return new ArrayList<T>();
         }
-        catch ( java.lang.ClassNotFoundException e) {
+        catch (ClassNotFoundException e) {
             throw new RuntimeException("Classe não encontrada");
         }
     }
