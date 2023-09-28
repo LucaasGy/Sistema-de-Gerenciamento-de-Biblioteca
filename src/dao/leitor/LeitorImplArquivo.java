@@ -176,7 +176,7 @@ public class LeitorImplArquivo implements LeitorDAO{
         List<Leitor> listaTelefone = new ArrayList<Leitor>();
 
         for(Leitor leitor : this.listaLeitor){
-            if(leitor.getNome().equals(telefone.toLowerCase()))
+            if(leitor.getTelefone().equals(telefone.toLowerCase()))
                 listaTelefone.add(leitor);
         }
 
