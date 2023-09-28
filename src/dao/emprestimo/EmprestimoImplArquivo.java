@@ -3,6 +3,8 @@ package dao.emprestimo;
 import dao.DAO;
 
 import model.Emprestimo;
+import model.Leitor;
+import model.Livro;
 
 import utils.ArmazenamentoArquivo;
 
@@ -51,8 +53,10 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
 
     @Override
     public Emprestimo criar(Emprestimo obj) {
-        DAO.getLivro().encontrarPorISBN(obj.getLivro()).setDisponivel(false);
-        DAO.getLivro().encontrarPorISBN(obj.getLivro()).setQtdEmprestimo(+1);
+        Livro altera = DAO.getLivro().encontrarPorISBN(obj.getLivro());
+        altera.setDisponivel(false);
+        altera.setQtdEmprestimo(altera.getQtdEmprestimo()+1);
+        DAO.getLivro().atualizar(altera);
 
         this.listaEmprestimoTotal.add(obj);
         this.listaEmprestimoAtual.add(obj);
@@ -95,14 +99,21 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
     @Override
     public void removerTodos() {
         for(Emprestimo emp : this.listaEmprestimoTotal){
-            DAO.getLivro().encontrarPorISBN(emp.getLivro()).setQtdEmprestimo(0);
+            Livro altera = DAO.getLivro().encontrarPorISBN(emp.getLivro());
+            altera.setQtdEmprestimo(0);
+            DAO.getLivro().atualizar(altera);
         }
 
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            DAO.getLivro().encontrarPorISBN(emp.getLivro()).setDisponivel(true);
+            Livro altera = DAO.getLivro().encontrarPorISBN(emp.getLivro());
+            altera.setDisponivel(true);
+            DAO.getLivro().atualizar(altera);
 
-            if(DAO.getLeitor().encontrarPorId(emp.getLeitor()).getLimiteRenova()==1)
-                DAO.getLeitor().encontrarPorId(emp.getLeitor()).setLimiteRenova(0);
+            Leitor alteraLeitor = DAO.getLeitor().encontrarPorId(emp.getLeitor());
+            if(alteraLeitor.getLimiteRenova()==1) {
+                alteraLeitor.setLimiteRenova(0);
+                DAO.getLeitor().atualizar(alteraLeitor);
+            }
         }
 
         this.listaEmprestimoAtual.clear();

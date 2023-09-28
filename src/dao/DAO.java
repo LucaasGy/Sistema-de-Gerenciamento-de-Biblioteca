@@ -3,17 +3,17 @@ package dao;
 import dao.adm.AdmDAO;
 import dao.adm.AdmImplArquivo;
 import dao.bibliotecario.BibliotecarioDAO;
-import dao.bibliotecario.BibliotecarioImpl;
+import dao.bibliotecario.BibliotecarioImplArquivo;
 import dao.emprestimo.EmprestimoDAO;
-import dao.emprestimo.EmprestimoImpl;
+import dao.emprestimo.EmprestimoImplArquivo;
 import dao.leitor.LeitorDAO;
-import dao.leitor.LeitorImpl;
+import dao.leitor.LeitorImplArquivo;
 import dao.livro.LivroDAO;
-import dao.livro.LivroImpl;
+import dao.livro.LivroImplArquivo;
 import dao.prazo.PrazosDAO;
-import dao.prazo.PrazosImpl;
+import dao.prazo.PrazosImplArquivo;
 import dao.reserva.ReservaDAO;
-import dao.reserva.ReservaImpl;
+import dao.reserva.ReservaImplArquivo;
 
 /**
  * Classe usada para acessar as extensões do DAO no sistema. Os dados armazenados são divididos em sete
@@ -59,7 +59,7 @@ public class DAO {
     public static BibliotecarioDAO getBibliotecario() {
 
         if (bibliotecarioDAO == null) {
-            bibliotecarioDAO = new BibliotecarioImpl();
+            bibliotecarioDAO = new BibliotecarioImplArquivo();
         }
 
         return bibliotecarioDAO;
@@ -75,7 +75,7 @@ public class DAO {
     public static LeitorDAO getLeitor() {
 
         if (leitorDAO == null) {
-            leitorDAO = new LeitorImpl();
+            leitorDAO = new LeitorImplArquivo();
         }
 
         return leitorDAO;
@@ -91,7 +91,7 @@ public class DAO {
     public static LivroDAO getLivro() {
 
         if (livroDAO == null) {
-            livroDAO = new LivroImpl();
+            livroDAO = new LivroImplArquivo();
         }
 
         return livroDAO;
@@ -107,7 +107,7 @@ public class DAO {
     public static EmprestimoDAO getEmprestimo() {
 
         if (emprestimoDAO == null) {
-            emprestimoDAO = new EmprestimoImpl();
+            emprestimoDAO = new EmprestimoImplArquivo();
         }
 
         return emprestimoDAO;
@@ -123,7 +123,7 @@ public class DAO {
     public static ReservaDAO getReserva() {
 
         if (reservaDAO == null) {
-            reservaDAO = new ReservaImpl();
+            reservaDAO = new ReservaImplArquivo();
         }
 
         return reservaDAO;
@@ -139,7 +139,7 @@ public class DAO {
     public static PrazosDAO getPrazos() {
 
         if (prazosDAO == null) {
-            prazosDAO = new PrazosImpl();
+            prazosDAO = new PrazosImplArquivo();
         }
 
         return prazosDAO;
