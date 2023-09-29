@@ -157,8 +157,8 @@ public class Sistema {
      */
 
     public static void verificarPrazosEReservas(){
-        List<Prazos> prazosARemover = new ArrayList<>();
-        List<Prazos> prazosAAdicionar = new ArrayList<>();
+        List<Prazos> prazosARemover = new ArrayList<Prazos>();
+        List<Prazos> prazosAAdicionar = new ArrayList<Prazos>();
 
         for(Prazos prazo : DAO.getPrazos().encontrarTodos()){
             if(prazo.getDataLimite().isBefore(LocalDate.now())){
