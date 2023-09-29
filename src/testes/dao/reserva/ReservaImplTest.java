@@ -18,6 +18,8 @@ class ReservaImplTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getReserva().alteraParaPastaTeste();
+
         Livro livro1 = new Livro("As cronicas","Jorge","Sua paz",2000,"Fantasia");
         Livro livro2 = new Livro("As aventuras","Leall","Sua guerra",2010,"Aventura");
         Livro livro3 = new Livro("As peripecias","Cristiano","Sua alegria",2020,"Suspense");
@@ -60,6 +62,8 @@ class ReservaImplTest {
     @AfterEach
     void tearDown() {
         DAO.getReserva().removerTodos();
+
+        DAO.getReserva().alteraParaPastaPrincipal();
     }
 
     @Test

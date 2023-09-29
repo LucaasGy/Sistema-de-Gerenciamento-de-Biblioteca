@@ -18,6 +18,8 @@ class AdmImplTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getAdm().alteraParaPastaTeste();
+
         this.lucas = DAO.getAdm().criar(new Adm("Lucas","batata"));
         this.ana = DAO.getAdm().criar(new Adm("Ana","alface"));
         this.gabriel = DAO.getAdm().criar(new Adm("Gabriel","cenoura"));
@@ -28,6 +30,8 @@ class AdmImplTest {
     @AfterEach
     void tearDown() {
         DAO.getAdm().removerTodos();
+
+        DAO.getAdm().alteraParaPastaPrincipal();
     }
 
     @Test

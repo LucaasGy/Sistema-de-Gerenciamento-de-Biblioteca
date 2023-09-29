@@ -20,6 +20,8 @@ class AdmImplArquivoTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getAdm().alteraParaPastaTeste();
+
         this.adm1 = DAO.getAdm().criar(new Adm("adm1","senha1"));
         this.adm2 = DAO.getAdm().criar(new Adm("adm2","senha2"));
         this.adm3 = DAO.getAdm().criar(new Adm("adm3","senha3"));
@@ -30,6 +32,8 @@ class AdmImplArquivoTest {
     @AfterEach
     void tearDown() {
         DAO.getAdm().removerTodos();
+
+        DAO.getAdm().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -56,7 +60,7 @@ class AdmImplArquivoTest {
         assertEquals(this.adm3, DAO.getAdm().encontrarTodos().get(2));
         assertEquals(this.adm4, DAO.getAdm().encontrarTodos().get(3));
         assertEquals(this.adm5, DAO.getAdm().encontrarTodos().get(4));
-        assertEquals(5,ArmazenamentoArquivo.resgatar("adm.dat","Adm").size());
+        assertEquals(5,ArmazenamentoArquivo.resgatar("admTeste.dat","Adm Teste").size());
     }
 
     @Test
@@ -95,7 +99,7 @@ class AdmImplArquivoTest {
         assertNull(DAO.getAdm().encontrarPorId(1031));
 
         assertEquals(3,DAO.getAdm().encontrarTodos().size());
-        assertEquals(3,ArmazenamentoArquivo.resgatar("adm.dat","Adm").size());
+        assertEquals(3,ArmazenamentoArquivo.resgatar("admTeste.dat","Adm Teste").size());
     }
 
     @Test
@@ -103,7 +107,7 @@ class AdmImplArquivoTest {
         DAO.getAdm().removerTodos();
 
         assertTrue(DAO.getAdm().encontrarTodos().isEmpty());
-        assertTrue(ArmazenamentoArquivo.resgatar("adm.dat","Adm").isEmpty());
+        assertTrue(ArmazenamentoArquivo.resgatar("admTeste.dat","Adm Teste").isEmpty());
         assertEquals(1001,DAO.getAdm().criar(new Adm("adm1","senha1")).getID());
     }
 }

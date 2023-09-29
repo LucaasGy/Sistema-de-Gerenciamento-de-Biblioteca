@@ -27,6 +27,13 @@ class BibliotecarioTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getBibliotecario().alteraParaPastaTeste();
+        DAO.getEmprestimo().alteraParaPastaTeste();
+        DAO.getReserva().alteraParaPastaTeste();
+        DAO.getPrazos().alteraParaPastaTeste();
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+
         bibliotecario1 = DAO.getBibliotecario().criar(new Bibliotecario("BIBLIOTECARIO1","SENHABIB1"));
     }
 
@@ -38,6 +45,13 @@ class BibliotecarioTest {
         DAO.getPrazos().removerTodos();
         DAO.getLeitor().removerTodos();
         DAO.getLivro().removerTodos();
+
+        DAO.getBibliotecario().alteraParaPastaPrincipal();
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
+        DAO.getReserva().alteraParaPastaPrincipal();
+        DAO.getPrazos().alteraParaPastaPrincipal();
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
     }
 
     @Test

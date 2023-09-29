@@ -18,6 +18,8 @@ class LivroImplTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getLivro().alteraParaPastaTeste();
+
         this.livro1 = DAO.getLivro().criar(new Livro("LIVRO1","AUTOR1","EDITORA1",2001,"CATEGORIA1"));
         this.livro2 = DAO.getLivro().criar(new Livro("LIVRO2","AUTOR2","EDITORA2",2002,"CATEGORIA2"));
         this.livro3 = DAO.getLivro().criar(new Livro("LIVRO3","AUTOR3","EDITORA3",2003,"CATEGORIA3"));
@@ -28,6 +30,8 @@ class LivroImplTest {
     @AfterEach
     void tearDown() {
         DAO.getLivro().removerTodos();
+
+        DAO.getLivro().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -68,10 +72,10 @@ class LivroImplTest {
         DAO.getLivro().removerTodos();
 
         assertTrue(DAO.getLivro().encontrarTodos().isEmpty());
-        //apagou todos os isbn, sorteou um e adicionou na lista
-        assertEquals(1,DAO.getLivro().checarListaISBN().size());
+        //apagou todos os isbn
+        assertEquals(0,DAO.getLivro().checarListaISBN().size());
         DAO.getLivro().criar(new Livro("A origem","Ana","Seu medo",1994,"Suspense"));
-        assertEquals(2,DAO.getLivro().checarListaISBN().size());
+        assertEquals(1,DAO.getLivro().checarListaISBN().size());
     }
 
     @Test
@@ -131,6 +135,6 @@ class LivroImplTest {
 
     @Test
     void checarListaISBN() {
-        assertEquals(6,DAO.getLivro().checarListaISBN().size());
+        assertEquals(5,DAO.getLivro().checarListaISBN().size());
     }
 }

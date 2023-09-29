@@ -26,6 +26,14 @@ class SistemaTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getAdm().alteraParaPastaTeste();
+        DAO.getBibliotecario().alteraParaPastaTeste();
+        DAO.getReserva().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+        DAO.getPrazos().alteraParaPastaTeste();
+        DAO.getEmprestimo().alteraParaPastaTeste();
+
         adm1 = DAO.getAdm().criar(new Adm("Admin1", "SenhaAdm1"));
         adm2 = DAO.getAdm().criar(new Adm("Admin2", "SenhaAdm2"));
         adm3 = DAO.getAdm().criar(new Adm("Admin3", "SenhaAdm3"));
@@ -69,6 +77,14 @@ class SistemaTest {
         DAO.getReserva().removerTodos();
         DAO.getLivro().removerTodos();
         DAO.getPrazos().removerTodos();
+
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getAdm().alteraParaPastaPrincipal();
+        DAO.getBibliotecario().alteraParaPastaPrincipal();
+        DAO.getReserva().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getPrazos().alteraParaPastaPrincipal();
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -135,10 +151,10 @@ class SistemaTest {
         this.leitor3.setDataMulta(LocalDate.now().minusDays(3));
 
         //ps: trocar a data por um dia posterior à data da realização do teste
-        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 26));
+        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 29));
         //ps: trocar a data por dois/três dias anterior à data da realização do teste
-        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 23));
-        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 22));
+        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 26));
+        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 25));
 
         //checa quais leitores possuem multas ativas
         Sistema.verificarMultasLeitores();

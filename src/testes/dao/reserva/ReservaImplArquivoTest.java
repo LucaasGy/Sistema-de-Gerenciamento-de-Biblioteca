@@ -1,12 +1,15 @@
 package testes.dao.reserva;
 
 import dao.DAO;
+
 import model.Leitor;
 import model.Livro;
 import model.Reserva;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import utils.ArmazenamentoArquivo;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +20,8 @@ class ReservaImplArquivoTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getReserva().alteraParaPastaTeste();
+
         Livro livro1 = new Livro("As cronicas","Jorge","Sua paz",2000,"Fantasia");
         Livro livro2 = new Livro("As aventuras","Leall","Sua guerra",2010,"Aventura");
         Livro livro3 = new Livro("As peripecias","Cristiano","Sua alegria",2020,"Suspense");
@@ -59,6 +64,8 @@ class ReservaImplArquivoTest {
     @AfterEach
     void tearDown() {
         DAO.getReserva().removerTodos();
+
+        DAO.getReserva().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -95,7 +102,7 @@ class ReservaImplArquivoTest {
         DAO.getReserva().remover(1000);
 
         assertEquals(6, DAO.getReserva().encontrarTodos().size());
-        assertEquals(6, ArmazenamentoArquivo.resgatar("reserva.dat","Reserva").size());
+        assertEquals(6, ArmazenamentoArquivo.resgatar("reservaTeste.dat","Reserva Teste").size());
     }
 
     @Test
@@ -103,13 +110,13 @@ class ReservaImplArquivoTest {
         DAO.getReserva().removerTodos();
 
         assertTrue(DAO.getReserva().encontrarTodos().isEmpty());
-        assertTrue(ArmazenamentoArquivo.resgatar("reserva.dat","Reserva").isEmpty());
+        assertTrue(ArmazenamentoArquivo.resgatar("reservaTeste.dat","Reserva Teste").isEmpty());
     }
 
     @Test
     void encontrarTodos() {
         assertEquals(7, DAO.getReserva().encontrarTodos().size());
-        assertEquals(7, ArmazenamentoArquivo.resgatar("reserva.dat","Reserva").size());
+        assertEquals(7, ArmazenamentoArquivo.resgatar("reservaTeste.dat","Reserva Teste").size());
     }
 
     @Test
@@ -168,7 +175,7 @@ class ReservaImplArquivoTest {
         DAO.getReserva().removerReservasDeUmLivro(16.00000);
 
         assertEquals(6, DAO.getReserva().encontrarTodos().size());
-        assertEquals(6, ArmazenamentoArquivo.resgatar("reserva.dat","Reserva").size());
+        assertEquals(6, ArmazenamentoArquivo.resgatar("reservaTeste.dat","Reserva Teste").size());
     }
 
     @Test
@@ -183,7 +190,7 @@ class ReservaImplArquivoTest {
         assertNull(procurarReservaLeitor1100);
 
         assertEquals(5, DAO.getReserva().encontrarTodos().size());
-        assertEquals(5, ArmazenamentoArquivo.resgatar("reserva.dat","Reserva").size());
+        assertEquals(5, ArmazenamentoArquivo.resgatar("reservaTeste.dat","Reserva Teste").size());
     }
 
     @Test

@@ -20,6 +20,9 @@ class UsuarioTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getLivro().alteraParaPastaTeste();
+        DAO.getLeitor().alteraParaPastaTeste();
+
         livro1 = DAO.getLivro().criar(new Livro("LIVRO1","AUTOR1","EDITORA1",2001,"CATEGORIA1"));
         livro2 = DAO.getLivro().criar(new Livro("LIVRO2","AUTOR2","EDITORA2",2002,"CATEGORIA2"));
         livro3 = DAO.getLivro().criar(new Livro("LIVRO3","AUTOR3","EDITORA3",2003,"CATEGORIA3"));
@@ -32,6 +35,10 @@ class UsuarioTest {
     @AfterEach
     void tearDown() {
         DAO.getLivro().removerTodos();
+        DAO.getLeitor().removerTodos();
+
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getLeitor().alteraParaPastaPrincipal();
     }
 
     @Test

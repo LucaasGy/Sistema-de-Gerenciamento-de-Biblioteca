@@ -18,6 +18,10 @@ class EmprestimoImplTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getEmprestimo().alteraParaPastaTeste();
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+
         Livro livro1 = DAO.getLivro().criar(new Livro("As cronicas","Jorge","Sua paz",2000,"Fantasia"));
         Livro livro2 = DAO.getLivro().criar(new Livro("As aventuras","Leall","Sua guerra",2010,"Aventura"));
         Livro livro3 = DAO.getLivro().criar(new Livro("As peripecias","Cristiano","Sua alegria",2020,"Suspense"));
@@ -36,6 +40,10 @@ class EmprestimoImplTest {
         DAO.getEmprestimo().removerTodos();
         DAO.getLeitor().removerTodos();
         DAO.getLivro().removerTodos();
+
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
     }
 
     @Test

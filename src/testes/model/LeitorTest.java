@@ -26,6 +26,12 @@ class LeitorTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+        DAO.getPrazos().alteraParaPastaTeste();
+        DAO.getReserva().alteraParaPastaTeste();
+        DAO.getEmprestimo().alteraParaPastaTeste();
+
         lucas = DAO.getLeitor().criar(new Leitor("lucas","Rua Coronel","75999128840","feijao"));
         guerrasmedias = DAO.getLivro().criar(new Livro("Guerras medias", "Joao Pedro","Sua paz",2000,"Açao"));
     }
@@ -36,10 +42,18 @@ class LeitorTest {
         DAO.getLivro().removerTodos();
         DAO.getPrazos().removerTodos();
         DAO.getReserva().removerTodos();
+
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getPrazos().alteraParaPastaPrincipal();
+        DAO.getReserva().alteraParaPastaPrincipal();
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
     }
 
     @Test
     void renovarEmprestimo() throws LeitorNaoPossuiEmprestimo, LeitorBloqueado,LeitorLimiteDeRenovacao,LivroReservado,LeitorTemEmprestimoEmAtraso{
+        DAO.getEmprestimo().alteraParaPastaTeste();
+
         //leitor bloqueado
         this.lucas.setBloqueado(true);
         assertThrows(LeitorBloqueado.class, ()-> this.lucas.renovarEmprestimo());
@@ -69,9 +83,9 @@ class LeitorTest {
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(2));
 
         //ps: alterar a data para 5 dias antes da data atual do teste
-        assertEquals(LocalDate.of(2023,9,20), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
+        assertEquals(LocalDate.of(2023,9,23), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
         //ps: alterar a data para 2 dias depois da data atual do teste
-        assertEquals(LocalDate.of(2023,9,27), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        assertEquals(LocalDate.of(2023,9,30), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
 
         //tudo correto
         this.lucas.renovarEmprestimo();
@@ -99,10 +113,9 @@ class LeitorTest {
         assertThrows(ObjetoInvalido.class, ()-> this.lucas.reservarLivro(333));
 
         //leitor possui um empréstimo ativo em atraso
-        Livro livro2 = new Livro("LIVRO2","AUTOR2","EDITORA2",2000,"CATEGORIA2");
-        DAO.getLivro().criar(livro2);
-        DAO.getLivro().encontrarTodos().get(1).setISBN(20);
-        Emprestimo emp1 = new Emprestimo(livro2.getISBN(),this.lucas.getID());
+        Livro livro2 = DAO.getLivro().criar(new Livro("LIVRO2","AUTOR2","EDITORA2",2000,"CATEGORIA2"));
+        livro2.setISBN(20);
+        Emprestimo emp1 = new Emprestimo(DAO.getLivro().atualizar(livro2).getISBN(),this.lucas.getID());
         DAO.getEmprestimo().criar(emp1);
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().minusDays(1));
         assertThrows(LeitorTemEmprestimoEmAtraso.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));

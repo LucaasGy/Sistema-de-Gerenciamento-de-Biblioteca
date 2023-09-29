@@ -18,6 +18,8 @@ class BibliotecarioImplTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getBibliotecario().alteraParaPastaTeste();
+
         this.lucas = DAO.getBibliotecario().criar(new Bibliotecario("Lucas","batata"));
         this.ana = DAO.getBibliotecario().criar(new Bibliotecario("Ana","alface"));
         this.gabriel = DAO.getBibliotecario().criar(new Bibliotecario("Gabriel","cenoura"));
@@ -28,6 +30,8 @@ class BibliotecarioImplTest {
     @AfterEach
     void tearDown() {
         DAO.getBibliotecario().removerTodos();
+
+        DAO.getBibliotecario().alteraParaPastaPrincipal();
     }
 
     @Test

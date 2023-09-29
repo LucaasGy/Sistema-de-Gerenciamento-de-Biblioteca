@@ -20,6 +20,10 @@ class EmprestimoImplArquivoTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getEmprestimo().alteraParaPastaTeste();
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+
         Livro livro1 = DAO.getLivro().criar(new Livro("As cronicas","Jorge","Sua paz",2000,"Fantasia"));
         Livro livro2 = DAO.getLivro().criar(new Livro("As aventuras","Leall","Sua guerra",2010,"Aventura"));
         Livro livro3 = DAO.getLivro().criar(new Livro("As peripecias","Cristiano","Sua alegria",2020,"Suspense"));
@@ -38,6 +42,10 @@ class EmprestimoImplArquivoTest {
         DAO.getEmprestimo().removerTodos();
         DAO.getLeitor().removerTodos();
         DAO.getLivro().removerTodos();
+
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getLeitor().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -71,7 +79,7 @@ class EmprestimoImplArquivoTest {
         assertNull(DAO.getEmprestimo().encontrarPorId(1013));
 
         assertEquals(1,DAO.getEmprestimo().encontrarTodosAtuais().size());
-        assertEquals(1,ArmazenamentoArquivo.resgatar("emprestimoAtual.dat","Emprestimo").size());
+        assertEquals(1,ArmazenamentoArquivo.resgatar("emprestimoAtualTeste.dat","Emprestimo Teste").size());
     }
 
     @Test
@@ -85,7 +93,7 @@ class EmprestimoImplArquivoTest {
         DAO.getEmprestimo().removerTodos();
 
         assertTrue(DAO.getEmprestimo().encontrarTodos().isEmpty());
-        assertTrue(ArmazenamentoArquivo.resgatar("emprestimoTotal.dat","Emprestimo").isEmpty());
+        assertTrue(ArmazenamentoArquivo.resgatar("emprestimoTotalTeste.dat","Emprestimo Teste").isEmpty());
 
         assertEquals(0,DAO.getLivro().encontrarPorISBN(this.emprestimo1.getLivro()).getQtdEmprestimo());
         assertEquals(0,DAO.getLivro().encontrarPorISBN(this.emprestimo2.getLivro()).getQtdEmprestimo());
@@ -105,7 +113,7 @@ class EmprestimoImplArquivoTest {
     @Test
     void encontrarTodos() {
         assertEquals(3, DAO.getEmprestimo().encontrarTodos().size());
-        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotal.dat","Emprestimo").size());
+        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotalTeste.dat","Emprestimo Teste").size());
     }
 
     @Test
@@ -114,8 +122,8 @@ class EmprestimoImplArquivoTest {
 
         assertEquals(2, DAO.getEmprestimo().encontrarTodosAtuais().size());
         assertEquals(3, DAO.getEmprestimo().encontrarTodos().size());
-        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotal.dat","Emprestimo").size());
-        assertEquals(2,ArmazenamentoArquivo.resgatar("emprestimoAtual.dat","Emprestimo").size());
+        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotalTeste.dat","Emprestimo Teste").size());
+        assertEquals(2,ArmazenamentoArquivo.resgatar("emprestimoAtualTeste.dat","Emprestimo Teste").size());
     }
 
     @Test
@@ -181,7 +189,7 @@ class EmprestimoImplArquivoTest {
         DAO.getEmprestimo().removerTodosEmprestimosDeUmLivro(11.00000);
 
         assertEquals(3, DAO.getEmprestimo().encontrarTodos().size());
-        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotal.dat","Emprestimo").size());
+        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotalTeste.dat","Emprestimo Teste").size());
     }
 
     @Test
@@ -203,6 +211,6 @@ class EmprestimoImplArquivoTest {
         DAO.getEmprestimo().removerTodosEmprestimoDeUmLeitor(1000);
 
         assertEquals(3, DAO.getEmprestimo().encontrarTodos().size());
-        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotal.dat","Emprestimo").size());
+        assertEquals(3,ArmazenamentoArquivo.resgatar("emprestimoTotalTeste.dat","Emprestimo Teste").size());
     }
 }

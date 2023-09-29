@@ -1,10 +1,13 @@
 package testes.dao.bibliotecario;
 
 import dao.DAO;
+
 import model.Bibliotecario;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import utils.ArmazenamentoArquivo;
 
 import java.util.List;
@@ -17,6 +20,8 @@ class BibliotecarioImplArquivoTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getBibliotecario().alteraParaPastaTeste();
+
         this.bibliotecario1 = DAO.getBibliotecario().criar(new Bibliotecario("biblio1","senha1"));
         this.bibliotecario2 = DAO.getBibliotecario().criar(new Bibliotecario("biblio2","senha2"));
         this.bibliotecario3 = DAO.getBibliotecario().criar(new Bibliotecario("biblio3","senha3"));
@@ -27,6 +32,8 @@ class BibliotecarioImplArquivoTest {
     @AfterEach
     void tearDown() {
         DAO.getBibliotecario().removerTodos();
+
+        DAO.getBibliotecario().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -51,7 +58,7 @@ class BibliotecarioImplArquivoTest {
         assertNull(DAO.getBibliotecario().encontrarPorId(1032));
 
         assertEquals(3,DAO.getBibliotecario().encontrarTodos().size());
-        assertEquals(3, ArmazenamentoArquivo.resgatar("bibliotecario.dat","Bibliotecario").size());
+        assertEquals(3, ArmazenamentoArquivo.resgatar("bibliotecarioTeste.dat","Bibliotecario Teste").size());
 
     }
 
@@ -60,7 +67,7 @@ class BibliotecarioImplArquivoTest {
         DAO.getBibliotecario().removerTodos();
 
         assertTrue(DAO.getBibliotecario().encontrarTodos().isEmpty());
-        assertTrue(ArmazenamentoArquivo.resgatar("bibliotecario.dat","Bibliotecario").isEmpty());
+        assertTrue(ArmazenamentoArquivo.resgatar("bibliotecarioTeste.dat","Bibliotecario Teste").isEmpty());
         assertEquals(1002,DAO.getBibliotecario().criar(new Bibliotecario("biblio1","senha1")).getID());
     }
 
@@ -78,7 +85,7 @@ class BibliotecarioImplArquivoTest {
         assertEquals(this.bibliotecario3, DAO.getBibliotecario().encontrarTodos().get(2));
         assertEquals(this.bibliotecario4, DAO.getBibliotecario().encontrarTodos().get(3));
         assertEquals(this.bibliotecario5, DAO.getBibliotecario().encontrarTodos().get(4));
-        assertEquals(5, ArmazenamentoArquivo.resgatar("bibliotecario.dat","Bibliotecario").size());
+        assertEquals(5, ArmazenamentoArquivo.resgatar("bibliotecarioTeste.dat","Bibliotecario Teste").size());
     }
 
     @Test

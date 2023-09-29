@@ -28,6 +28,14 @@ class AdmTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getAdm().alteraParaPastaTeste();
+        DAO.getEmprestimo().alteraParaPastaTeste();
+        DAO.getReserva().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getBibliotecario().alteraParaPastaTeste();
+        DAO.getPrazos().alteraParaPastaTeste();
+
         adm1 = DAO.getAdm().criar(new Adm("ADM1","SENHAADM1"));
 
         bibliotecario1 = DAO.getBibliotecario().criar(new Bibliotecario("BIBLIOTECARIO1","SENHABIB1"));
@@ -78,6 +86,14 @@ class AdmTest {
         DAO.getLivro().removerTodos();
         DAO.getLeitor().removerTodos();
         DAO.getBibliotecario().removerTodos();
+
+        DAO.getAdm().alteraParaPastaPrincipal();
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
+        DAO.getReserva().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getBibliotecario().alteraParaPastaPrincipal();
+        DAO.getPrazos().alteraParaPastaPrincipal();
     }
 
     @Test
