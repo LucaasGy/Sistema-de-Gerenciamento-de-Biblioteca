@@ -68,7 +68,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public Prazos encontrarPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro().getISBN()==isbn){
+            if(prazo.getLivro() == isbn){
                 return prazo;
             }
         }
@@ -88,7 +88,7 @@ public class PrazosImpl implements PrazosDAO {
         List<Prazos> listaPrazosLeitor = new ArrayList<Prazos>();
 
         for(Prazos prazos : this.listaPrazos){
-            if(prazos.getLeitor().getID()==id)
+            if(prazos.getLeitor() == id)
                 listaPrazosLeitor.add(prazos);
         }
 
@@ -105,7 +105,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public Prazos encontrarPorId(int id) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLeitor().getID()==id){
+            if(prazo.getLeitor() == id){
                 return prazo;
             }
         }
@@ -122,7 +122,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public void removerPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro().getISBN()==isbn){
+            if(prazo.getLivro() == isbn){
                 this.listaPrazos.remove(prazo);
                 return;
             }
@@ -143,7 +143,7 @@ public class PrazosImpl implements PrazosDAO {
         List<Prazos> prazosARemover = new ArrayList<>();
 
         for(Prazos prazos : this.listaPrazos){
-            if (prazos.getLeitor().getID()==id)
+            if (prazos.getLeitor() == id)
                 prazosARemover.add(prazos);
         }
 
@@ -182,5 +182,13 @@ public class PrazosImpl implements PrazosDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
     }
 }

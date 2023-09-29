@@ -4,6 +4,7 @@ import dao.DAO;
 
 import erros.objetos.ObjetoInvalido;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Lucas Gabriel.
  */
 
-public abstract class Usuario {
+public abstract class Usuario implements Serializable {
     private int ID;
     private String nome;
     private String senha;

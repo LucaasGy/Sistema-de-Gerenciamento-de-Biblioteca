@@ -54,4 +54,14 @@ public interface CRUD<T> {
      * @return retorna objeto que foi atualizado
      */
     T atualizar (T obj);
+
+    /**
+     * Método que altera o caminho do arquivo para realizar testes unitários e de integração.
+     */
+    void alteraParaPastaTeste();
+
+    /**
+     * Método que retorna o caminho do arquivo após realizar testes unitários e de integração.
+     */
+    void alteraParaPastaPrincipal();
 }

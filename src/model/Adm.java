@@ -1,7 +1,6 @@
 package model;
 
 import dao.DAO;
-
 import erros.leitor.LeitorTemEmprestimo;
 import erros.livro.LivroEmprestado;
 import erros.objetos.ObjetoInvalido;
@@ -109,6 +108,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setSenha(senha.toLowerCase());
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -127,6 +127,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setEndereco(endereco.toLowerCase());
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -145,6 +146,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setTelefone(telefone.toLowerCase());
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -200,6 +202,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
         bibliotecario.setSenha(senha.toLowerCase());
+        DAO.getBibliotecario().atualizar(bibliotecario);
     }
 
     /**
@@ -256,6 +259,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
         adm.setSenha(senha.toLowerCase());
+        DAO.getAdm().atualizar(adm);
     }
 
     /**
@@ -280,6 +284,7 @@ public class Adm extends Usuario {
         Sistema.adicionarPrazoParaTop2reserva(id);
 
         leitor.setBloqueado(true);
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -297,6 +302,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setBloqueado(false);
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -314,6 +320,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setDataMulta(null);
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -383,6 +390,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setTitulo(titulo.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -401,6 +409,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setAutor(autor.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -419,6 +428,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setEditora(editora.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -437,6 +447,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setAno(ano);
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -454,6 +465,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setCategoria(categoria.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -490,6 +502,7 @@ public class Adm extends Usuario {
         }
 
         livro.setDisponivel(FouT);
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -519,13 +532,13 @@ public class Adm extends Usuario {
      */
 
     public List<Livro> livrosEmprestados(){
-        List<Livro> livros = new ArrayList<Livro>();
+        List<Livro> livrosEmprestados = new ArrayList<Livro>();
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
-            livros.add(emp.getLivro());
+            livrosEmprestados.add(DAO.getLivro().encontrarPorISBN(emp.getLivro()));
         }
 
-        return livros;
+        return livrosEmprestados;
     }
 
     /**
@@ -539,7 +552,7 @@ public class Adm extends Usuario {
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
             if(emp.getdataPrevista().isBefore(LocalDate.now())){
-                livrosAtrasados.add(emp.getLivro());
+                livrosAtrasados.add(DAO.getLivro().encontrarPorISBN(emp.getLivro()));
             }
         }
 
@@ -553,14 +566,14 @@ public class Adm extends Usuario {
      */
 
     public List<Livro> livrosReservados(){
-        List<Livro> livros = new ArrayList<Livro>();
+        List<Livro> livrosReservados = new ArrayList<Livro>();
 
         for(Reserva reserva : DAO.getReserva().encontrarTodos()){
-            if(!livros.contains(reserva.getLivro()))
-                livros.add(reserva.getLivro());
+            if(!livrosReservados.contains(DAO.getLivro().encontrarPorISBN(reserva.getLivro())))
+                livrosReservados.add(DAO.getLivro().encontrarPorISBN(reserva.getLivro()));
         }
 
-        return livros;
+        return livrosReservados;
     }
 
     /**

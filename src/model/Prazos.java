@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -7,16 +8,16 @@ import java.time.LocalDate;
  * Classe criada pois um leitor pode realizar até 3 reservas ativas, logo pode precisar de 3 prazos ativos,
  * mesmo não podendo fazer empréstimo dos 3.
  *
- * É definida pelo objeto Leitor e Livro, contendo todos os dados de ambos,
+ * É definida pelo ID do Leitor e ISBN do Livro,
  * além de um atributo da classe LocalDate para armazenar a data limite para
  * o leitor ir realizar o empréstimo ( 2 dias após o livro ser devolvido ).
  *
  * @author Lucas Gabriel.
  */
 
-public class Prazos {
-    private Leitor leitor;
-    private Livro livro;
+public class Prazos implements Serializable {
+    private int IDleitor;
+    private double ISBNlivro;
     private LocalDate dataLimite;
 
     /**
@@ -26,23 +27,23 @@ public class Prazos {
      * A dataLimite é definida como a data atual da criação do prazo mais 2 dias,
      * referente o limite de dias para ir realizar o empréstimo do livro.
      *
-     * @param leitor o Leitor do prazo
-     * @param livro o Livro do prazo
+     * @param IDleitor o Leitor do prazo
+     * @param ISBNlivro o Livro do prazo
      */
 
-    public Prazos(Leitor leitor, Livro livro) {
+    public Prazos(int IDleitor, double ISBNlivro) {
 
-        this.leitor = leitor;
-        this.livro = livro;
+        this.IDleitor = IDleitor;
+        this.ISBNlivro = ISBNlivro;
         this.dataLimite = LocalDate.now().plusDays(2);
     }
 
-    public Livro getLivro() {
-        return livro;
+    public double getLivro() {
+        return ISBNlivro;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    public void setLivro(double ISBNlivro) {
+        this.ISBNlivro = ISBNlivro;
     }
 
     public LocalDate getDataLimite() {
@@ -53,11 +54,11 @@ public class Prazos {
         this.dataLimite = dataLimite;
     }
 
-    public Leitor getLeitor() {
-        return leitor;
+    public int getLeitor() {
+        return IDleitor;
     }
 
-    public void setLeitor(Leitor leitor) {
-        this.leitor = leitor;
+    public void setLeitor(int IDleitor) {
+        this.IDleitor = IDleitor;
     }
 }

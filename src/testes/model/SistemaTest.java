@@ -26,6 +26,14 @@ class SistemaTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getAdm().alteraParaPastaTeste();
+        DAO.getBibliotecario().alteraParaPastaTeste();
+        DAO.getReserva().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+        DAO.getPrazos().alteraParaPastaTeste();
+        DAO.getEmprestimo().alteraParaPastaTeste();
+
         adm1 = DAO.getAdm().criar(new Adm("Admin1", "SenhaAdm1"));
         adm2 = DAO.getAdm().criar(new Adm("Admin2", "SenhaAdm2"));
         adm3 = DAO.getAdm().criar(new Adm("Admin3", "SenhaAdm3"));
@@ -50,15 +58,15 @@ class SistemaTest {
         livro4 = DAO.getLivro().criar(new Livro("LIVRO4","AUTOR4","EDITORA4",2004,"CATEGORIA4"));
         livro5 = DAO.getLivro().criar(new Livro("LIVRO5","AUTOR5","EDITORA5",2005,"CATEGORIA5"));
 
-        reserva1 = DAO.getReserva().criar(new Reserva(livro1,leitor1));
-        reserva5 = DAO.getReserva().criar(new Reserva(livro1,leitor3));
-        reserva2 = DAO.getReserva().criar(new Reserva(livro2,leitor1));
-        reserva4 = DAO.getReserva().criar(new Reserva(livro2,leitor2));
-        reserva3 = DAO.getReserva().criar(new Reserva(livro4,leitor2));
+        reserva1 = DAO.getReserva().criar(new Reserva(livro1.getISBN(),leitor1.getID()));
+        reserva5 = DAO.getReserva().criar(new Reserva(livro1.getISBN(),leitor3.getID()));
+        reserva2 = DAO.getReserva().criar(new Reserva(livro2.getISBN(),leitor1.getID()));
+        reserva4 = DAO.getReserva().criar(new Reserva(livro2.getISBN(),leitor2.getID()));
+        reserva3 = DAO.getReserva().criar(new Reserva(livro4.getISBN(),leitor2.getID()));
 
-        prazo1 = DAO.getPrazos().criar(new Prazos(leitor1, livro1));
-        prazo2 = DAO.getPrazos().criar(new Prazos(leitor1, livro2));
-        prazo3 = DAO.getPrazos().criar(new Prazos(leitor2, livro4));
+        prazo1 = DAO.getPrazos().criar(new Prazos(leitor1.getID(), livro1.getISBN()));
+        prazo2 = DAO.getPrazos().criar(new Prazos(leitor1.getID(), livro2.getISBN()));
+        prazo3 = DAO.getPrazos().criar(new Prazos(leitor2.getID(), livro4.getISBN()));
     }
 
     @AfterEach
@@ -66,10 +74,17 @@ class SistemaTest {
         DAO.getLeitor().removerTodos();
         DAO.getAdm().removerTodos();
         DAO.getBibliotecario().removerTodos();
-        DAO.getEmprestimo().removerTodos();
         DAO.getReserva().removerTodos();
         DAO.getLivro().removerTodos();
         DAO.getPrazos().removerTodos();
+
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getAdm().alteraParaPastaPrincipal();
+        DAO.getBibliotecario().alteraParaPastaPrincipal();
+        DAO.getReserva().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getPrazos().alteraParaPastaPrincipal();
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -101,9 +116,9 @@ class SistemaTest {
 
     @Test
     void aplicarMulta() {
-        Emprestimo emp1 = new Emprestimo(this.livro1,this.leitor1);
-        Emprestimo emp2 = new Emprestimo(this.livro2,this.leitor2);
-        Emprestimo emp3 = new Emprestimo(this.livro3,this.leitor3);
+        Emprestimo emp1 = new Emprestimo(this.livro1.getISBN(),this.leitor1.getID());
+        Emprestimo emp2 = new Emprestimo(this.livro2.getISBN(),this.leitor2.getID());
+        Emprestimo emp3 = new Emprestimo(this.livro3.getISBN(),this.leitor3.getID());
         emp1.setdataPrevista(LocalDate.now());
         emp2.setdataPrevista(LocalDate.now().minusDays(2));
         emp3.setdataPrevista(LocalDate.now().minusDays(3));
@@ -125,6 +140,7 @@ class SistemaTest {
         assertNull(this.leitor1.getDataMulta());
         assertEquals(this.leitor2.getDataMulta(), LocalDate.now().plusDays(4));
         assertEquals(this.leitor3.getDataMulta(), LocalDate.now().plusDays(6));
+        DAO.getEmprestimo().removerTodos();
     }
 
     @Test

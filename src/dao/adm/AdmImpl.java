@@ -143,4 +143,12 @@ public class AdmImpl implements AdmDAO {
         this.listaAdm.clear();
         this.nextID = 1001;
     }
+
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+    }
 }

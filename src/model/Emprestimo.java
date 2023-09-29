@@ -1,37 +1,38 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Classe Empréstimo que representa um empréstimo de um Livro por um Leitor.
- * É definida pelo objeto Leitor e Livro, contendo todos os dados de ambos,
+ * É definida pelo ID do Leitor e ISBN do Livro,
  * dois atributos da classe LocalDate para armazenar a data que foi realizada
  * o empréstimo e a data prevista para devolução ( 7 dias ).
  *
  * @author Lucas Gabriel.
  */
 
-public class Emprestimo {
-    private Livro livro;
-    private Leitor leitor;
+public class Emprestimo implements Serializable {
+    private double ISBNlivro;
+    private int IDleitor;
     private LocalDate dataPegou;
     private LocalDate dataPrevista;
 
     /**
      * Construtor de um Empréstimo de Livro.
      *
-     * Recebe como parâmetro os dados do leitor e livro para inseri-los diretamente.
+     * Recebe como parâmetro o ID do leitor e o ISBN do livro para inseri-los diretamente.
      * A data que pegou e a data prevista para devolução são inseridas automaticamente
      * na criação do empréstimo.
      * dataPegou é inicializada com a data atual da criação do empréstimo.
      * dataPrevista é inicializada com a data atual da criação do empréstimo adicionando 7 dias.
      *
-     * @param livro o livro que está sendo emprestado
-     * @param leitor o leitor que está fazendo o empréstimo
+     * @param ISBNlivro o livro que está sendo emprestado
+     * @param IDleitor o leitor que está fazendo o empréstimo
      */
-    public Emprestimo(Livro livro, Leitor leitor) {
-        this.livro = livro;
-        this.leitor = leitor;
+    public Emprestimo(double ISBNlivro, int IDleitor) {
+        this.ISBNlivro = ISBNlivro;
+        this.IDleitor = IDleitor;
 
         this.dataPegou = LocalDate.now();
         this.dataPrevista = this.dataPegou.plusDays(7);
@@ -53,19 +54,19 @@ public class Emprestimo {
         this.dataPrevista = dataPrevista;
     }
 
-    public Livro getLivro() {
-        return livro;
+    public double getLivro() {
+        return ISBNlivro;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    public void setLivro(double ISBNlivro) {
+        this.ISBNlivro = ISBNlivro;
     }
 
-    public Leitor getLeitor() {
-        return leitor;
+    public int getLeitor() {
+        return IDleitor;
     }
 
-    public void setLeitor(Leitor leitor) {
-        this.leitor = leitor;
+    public void setLeitor(int IDleitor) {
+        this.IDleitor = IDleitor;
     }
 }

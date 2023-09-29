@@ -26,6 +26,12 @@ class LeitorTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+        DAO.getPrazos().alteraParaPastaTeste();
+        DAO.getReserva().alteraParaPastaTeste();
+        DAO.getEmprestimo().alteraParaPastaTeste();
+
         lucas = DAO.getLeitor().criar(new Leitor("lucas","Rua Coronel","75999128840","feijao"));
         guerrasmedias = DAO.getLivro().criar(new Livro("Guerras medias", "Joao Pedro","Sua paz",2000,"Açao"));
     }
@@ -34,13 +40,20 @@ class LeitorTest {
     void tearDown() {
         DAO.getLeitor().removerTodos();
         DAO.getLivro().removerTodos();
-        DAO.getEmprestimo().removerTodos();
         DAO.getPrazos().removerTodos();
         DAO.getReserva().removerTodos();
+
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getPrazos().alteraParaPastaPrincipal();
+        DAO.getReserva().alteraParaPastaPrincipal();
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
     }
 
     @Test
     void renovarEmprestimo() throws LeitorNaoPossuiEmprestimo, LeitorBloqueado,LeitorLimiteDeRenovacao,LivroReservado,LeitorTemEmprestimoEmAtraso{
+        DAO.getEmprestimo().alteraParaPastaTeste();
+
         //leitor bloqueado
         this.lucas.setBloqueado(true);
         assertThrows(LeitorBloqueado.class, ()-> this.lucas.renovarEmprestimo());
@@ -50,13 +63,13 @@ class LeitorTest {
         assertThrows(LeitorNaoPossuiEmprestimo.class, ()-> this.lucas.renovarEmprestimo());
 
         //leitor tem empréstimo ativo mas está atrasado
-        DAO.getEmprestimo().criar(new Emprestimo(this.guerrasmedias,this.lucas));
+        DAO.getEmprestimo().criar(new Emprestimo(this.guerrasmedias.getISBN(),this.lucas.getID()));
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().minusDays(9));
         assertThrows(LeitorTemEmprestimoEmAtraso.class, ()-> this.lucas.renovarEmprestimo());
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(9));
 
         //livro possui reserva ativa
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,this.lucas));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),this.lucas.getID()));
         assertThrows(LivroReservado.class, ()-> this.lucas.renovarEmprestimo());
         DAO.getReserva().removerTodos();
 
@@ -81,6 +94,7 @@ class LeitorTest {
         assertNotNull(DAO.getEmprestimo().encontrarPorId(this.lucas.getID()));
         assertEquals(LocalDate.now(), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
         assertEquals(LocalDate.now().plusDays(7), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        DAO.getEmprestimo().removerTodos();
     }
 
     @Test
@@ -99,10 +113,9 @@ class LeitorTest {
         assertThrows(ObjetoInvalido.class, ()-> this.lucas.reservarLivro(333));
 
         //leitor possui um empréstimo ativo em atraso
-        Livro livro2 = new Livro("LIVRO2","AUTOR2","EDITORA2",2000,"CATEGORIA2");
-        DAO.getLivro().criar(livro2);
-        DAO.getLivro().encontrarTodos().get(1).setISBN(20);
-        Emprestimo emp1 = new Emprestimo(livro2,this.lucas);
+        Livro livro2 = DAO.getLivro().criar(new Livro("LIVRO2","AUTOR2","EDITORA2",2000,"CATEGORIA2"));
+        livro2.setISBN(20);
+        Emprestimo emp1 = new Emprestimo(DAO.getLivro().atualizar(livro2).getISBN(),this.lucas.getID());
         DAO.getEmprestimo().criar(emp1);
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().minusDays(1));
         assertThrows(LeitorTemEmprestimoEmAtraso.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));
@@ -114,13 +127,13 @@ class LeitorTest {
         this.guerrasmedias.setDisponivel(true);
 
         //leitor tentando reservar livro que ele ta em mãos
-        Emprestimo emp2 = new Emprestimo(this.guerrasmedias,this.lucas);
+        Emprestimo emp2 = new Emprestimo(this.guerrasmedias.getISBN(),this.lucas.getID());
         DAO.getEmprestimo().criar(emp2);
         assertThrows(LeitorReservarLivroEmMaos.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));
         DAO.getEmprestimo().removerTodos();
 
         //leitor tentando reservar livro que ele já possui reserva ativa
-        Reserva reserva1 = new Reserva(this.guerrasmedias,this.lucas);
+        Reserva reserva1 = new Reserva(this.guerrasmedias.getISBN(),this.lucas.getID());
         DAO.getReserva().criar(reserva1);
         assertThrows(LeitorPossuiReservaDesseLivro.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));
         DAO.getReserva().removerTodos();
@@ -130,10 +143,10 @@ class LeitorTest {
         Leitor leitor3 = new Leitor("Ana", "Avenida Central", "12345678", "senha123");
         Leitor leitor4 = new Leitor("Pedro", "Rua das Flores", "98765432", "abcd1234");
         Leitor leitor5 = new Leitor("Mariana", "Avenida Principal", "55555555", "senhamariana");
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,leitor2));
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,leitor3));
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,leitor4));
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,leitor5));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),leitor2.getID()));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),leitor3.getID()));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),leitor4.getID()));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),leitor5.getID()));
         assertThrows(LivroLimiteDeReservas.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));
         DAO.getReserva().removerTodos();
 
@@ -141,9 +154,9 @@ class LeitorTest {
         Livro livro3 = new Livro("As cronicas","Jorge","Sua paz",2000,"Fantasia");
         Livro livro4 = new Livro("As aventuras","Leall","Sua guerra",2010,"Aventura");
         Livro livro5 = new Livro("As peripecias","Cristiano","Sua alegria",2020,"Suspense");
-        DAO.getReserva().criar(new Reserva(livro3,this.lucas));
-        DAO.getReserva().criar(new Reserva(livro4,this.lucas));
-        DAO.getReserva().criar(new Reserva(livro5,this.lucas));
+        DAO.getReserva().criar(new Reserva(livro3.getISBN(),this.lucas.getID()));
+        DAO.getReserva().criar(new Reserva(livro4.getISBN(),this.lucas.getID()));
+        DAO.getReserva().criar(new Reserva(livro5.getISBN(),this.lucas.getID()));
         assertThrows(LeitorLimiteDeReservas.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));
         DAO.getReserva().removerTodos();
 
@@ -151,12 +164,13 @@ class LeitorTest {
         assertThrows(LivroNaoPossuiEmprestimoNemReserva.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));
 
         //livro possui uma reserva ativa, tudo correto
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,leitor2));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),leitor2.getID()));
         this.lucas.reservarLivro(this.guerrasmedias.getISBN());
 
         //nova reserva criada
         assertEquals(2,DAO.getReserva().encontrarTodos().size());
-        assertEquals(this.lucas,DAO.getReserva().encontrarReservasLeitor(this.lucas.getID()).get(0).getLeitor());
+        assertEquals(this.lucas,DAO.getLeitor().encontrarPorId(DAO.getReserva().encontrarReservasLeitor(this.lucas.getID()).get(0).getLeitor()));
+        DAO.getEmprestimo().removerTodos();
     }
 
     @Test
@@ -168,20 +182,20 @@ class LeitorTest {
         assertThrows(LeitorNaoPossuiReservaDesseLivro.class, ()-> this.lucas.retirarReserva(this.guerrasmedias.getISBN()));
 
         //reserva criada do leitor com o livro e ele é o top 1 da fila de reservas, logo possui prazo ativo
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,this.lucas));
-        DAO.getPrazos().criar(new Prazos(this.lucas,this.guerrasmedias));
-        Leitor novo = new Leitor("novo","33","333","ss");
-        DAO.getReserva().criar(new Reserva(this.guerrasmedias,novo));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),this.lucas.getID()));
+        DAO.getPrazos().criar(new Prazos(this.lucas.getID(),this.guerrasmedias.getISBN()));
+        Leitor novo = DAO.getLeitor().criar(new Leitor("novo","33","333","ss"));
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),novo.getID()));
 
         //top 2 da fila de reserva não possui prazo e top1 da fila ( vai retirar a reserva ) possui prazo
         assertTrue(DAO.getPrazos().prazosDeUmLeitor(novo.getID()).isEmpty());
-        assertEquals(this.lucas, DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor());
+        assertEquals(this.lucas, DAO.getLeitor().encontrarPorId(DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor()));
 
         //tudo correto
         this.lucas.retirarReserva(this.guerrasmedias.getISBN());
 
         //antigo top 1 da fila de reserva não possui mais prazo ativo e antigo top 2 agora possui um prazo ativo
         assertTrue(DAO.getPrazos().prazosDeUmLeitor(this.lucas.getID()).isEmpty());
-        assertEquals(novo, DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor());
+        assertEquals(novo, DAO.getLeitor().encontrarPorId(DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor()));
     }
 }

@@ -64,5 +64,6 @@ public interface LivroDAO extends CRUD<Livro> {
      *
      * @return retorna todos os ISBN de livros sorteados
      */
+
     public List<Double> checarListaISBN();
 }

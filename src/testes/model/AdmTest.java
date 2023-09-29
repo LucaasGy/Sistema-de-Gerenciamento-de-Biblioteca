@@ -28,6 +28,14 @@ class AdmTest {
 
     @BeforeEach
     void setUp() {
+        DAO.getAdm().alteraParaPastaTeste();
+        DAO.getEmprestimo().alteraParaPastaTeste();
+        DAO.getReserva().alteraParaPastaTeste();
+        DAO.getLivro().alteraParaPastaTeste();
+        DAO.getLeitor().alteraParaPastaTeste();
+        DAO.getBibliotecario().alteraParaPastaTeste();
+        DAO.getPrazos().alteraParaPastaTeste();
+
         adm1 = DAO.getAdm().criar(new Adm("ADM1","SENHAADM1"));
 
         bibliotecario1 = DAO.getBibliotecario().criar(new Bibliotecario("BIBLIOTECARIO1","SENHABIB1"));
@@ -54,31 +62,39 @@ class AdmTest {
         leitor4 = DAO.getLeitor().criar(new Leitor("Leitor4","Rua Banana","75987654321","SenhaLeitor4"));
         leitor5 = DAO.getLeitor().criar(new Leitor("Leitor5","Rua Laranja","75955555555","SenhaLeitor5"));
 
-        emp1 = DAO.getEmprestimo().criar(new Emprestimo(this.livro1, leitor1));
-        emp2 = DAO.getEmprestimo().criar(new Emprestimo(this.livro2, leitor1));
-        emp3 = DAO.getEmprestimo().criar(new Emprestimo(this.livro3, leitor5));
-        emp4 = DAO.getEmprestimo().criar(new Emprestimo(this.livro4, leitor1));
-        emp5 = DAO.getEmprestimo().criar(new Emprestimo(this.livro5, leitor1));
-        emp6 = DAO.getEmprestimo().criar(new Emprestimo(this.livro6, leitor2));
-        emp7 = DAO.getEmprestimo().criar(new Emprestimo(this.livro7, leitor1));
-        emp8 = DAO.getEmprestimo().criar(new Emprestimo(this.livro8, leitor1));
+        emp1 = DAO.getEmprestimo().criar(new Emprestimo(this.livro1.getISBN(), this.leitor1.getID()));
+        emp2 = DAO.getEmprestimo().criar(new Emprestimo(this.livro2.getISBN(), this.leitor1.getID()));
+        emp3 = DAO.getEmprestimo().criar(new Emprestimo(this.livro3.getISBN(), this.leitor5.getID()));
+        emp4 = DAO.getEmprestimo().criar(new Emprestimo(this.livro4.getISBN(), this.leitor1.getID()));
+        emp5 = DAO.getEmprestimo().criar(new Emprestimo(this.livro5.getISBN(), this.leitor1.getID()));
+        emp6 = DAO.getEmprestimo().criar(new Emprestimo(this.livro6.getISBN(), this.leitor2.getID()));
+        emp7 = DAO.getEmprestimo().criar(new Emprestimo(this.livro7.getISBN(), this.leitor1.getID()));
+        emp8 = DAO.getEmprestimo().criar(new Emprestimo(this.livro8.getISBN(), this.leitor1.getID()));
 
-        reserva1 = DAO.getReserva().criar(new Reserva(livro1,leitor1));
-        reserva2 = DAO.getReserva().criar(new Reserva(livro1,leitor2));
-        reserva3 = DAO.getReserva().criar(new Reserva(livro2,leitor3));
-        reserva4 = DAO.getReserva().criar(new Reserva(livro3,leitor4));
-        reserva5 = DAO.getReserva().criar(new Reserva(livro4,leitor5));
+        reserva1 = DAO.getReserva().criar(new Reserva(livro1.getISBN(),leitor1.getID()));
+        reserva2 = DAO.getReserva().criar(new Reserva(livro1.getISBN(),leitor2.getID()));
+        reserva3 = DAO.getReserva().criar(new Reserva(livro2.getISBN(),leitor3.getID()));
+        reserva4 = DAO.getReserva().criar(new Reserva(livro3.getISBN(),leitor4.getID()));
+        reserva5 = DAO.getReserva().criar(new Reserva(livro4.getISBN(),leitor5.getID()));
     }
 
     @AfterEach
     void tearDown() {
         DAO.getAdm().removerTodos();
-        DAO.getLivro().removerTodos();
         DAO.getEmprestimo().removerTodos();
-        DAO.getLeitor().removerTodos();
         DAO.getReserva().removerTodos();
+        DAO.getLivro().removerTodos();
+        DAO.getLeitor().removerTodos();
         DAO.getBibliotecario().removerTodos();
         DAO.getPrazos().removerTodos();
+
+        DAO.getAdm().alteraParaPastaPrincipal();
+        DAO.getEmprestimo().alteraParaPastaPrincipal();
+        DAO.getReserva().alteraParaPastaPrincipal();
+        DAO.getLivro().alteraParaPastaPrincipal();
+        DAO.getLeitor().alteraParaPastaPrincipal();
+        DAO.getBibliotecario().alteraParaPastaPrincipal();
+        DAO.getPrazos().alteraParaPastaPrincipal();
     }
 
     @Test
@@ -330,9 +346,12 @@ class AdmTest {
         assertThrows(ObjetoInvalido.class, ()->this.adm1.historicoEmprestimoDeUmLeitor(666));
 
         assertEquals(6, this.adm1.historicoEmprestimoDeUmLeitor(1003).size());
-        assertEquals(this.leitor1, this.adm1.historicoEmprestimoDeUmLeitor(1003).get(0).getLeitor());
-        assertEquals(this.leitor1, this.adm1.historicoEmprestimoDeUmLeitor(1003).get(2).getLeitor());
-        assertEquals(this.leitor1, this.adm1.historicoEmprestimoDeUmLeitor(1003).get(4).getLeitor());
+        Leitor teste = DAO.getLeitor().encontrarPorId(this.adm1.historicoEmprestimoDeUmLeitor(1003).get(0).getLeitor());
+        Leitor teste2 = DAO.getLeitor().encontrarPorId(this.adm1.historicoEmprestimoDeUmLeitor(1003).get(2).getLeitor());
+        Leitor teste3 = DAO.getLeitor().encontrarPorId(this.adm1.historicoEmprestimoDeUmLeitor(1003).get(4).getLeitor());
+        assertEquals(this.leitor1, teste);
+        assertEquals(this.leitor1, teste2);
+        assertEquals(this.leitor1, teste3);
     }
 
     @Test
