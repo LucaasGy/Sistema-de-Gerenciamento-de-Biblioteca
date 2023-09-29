@@ -25,13 +25,14 @@ public class LivroImpl implements LivroDAO {
      * recebe um número aleatório sorteado no intervalo de 10 a 99, seguido por 5 casas decimais.
      * A cada sorteio, é verificado se o número já foi sorteado, caso não tenha sido sorteado, o número
      * é guardado na lista de isbnCadastrado, impedindo assim ISBN iguais.
+     * O primeiro livro cadastrado recebe ISBN inicial 10.00000
      */
 
     public LivroImpl() {
         this.listaLivro = new ArrayList<Livro>();
         this.isbnCadastrado = new ArrayList<Double>();
 
-        this.isbn = isbnAleatorio();
+        this.isbn = 10.00000;
     }
 
     /**
@@ -50,7 +51,7 @@ public class LivroImpl implements LivroDAO {
         do{
             chute = 10.0 + r.nextDouble() * 90;
             chute = Math.round(chute * 100000.0) / 100000.0;
-        } while (this.isbnCadastrado.contains(chute));
+        } while (this.isbnCadastrado.contains(chute) || chute==10.00000);
 
         this.isbnCadastrado.add(chute);
         return chute;
@@ -94,14 +95,14 @@ public class LivroImpl implements LivroDAO {
      * Deleta todos os objetos do tipo Livro do banco de dados.
      *
      * A lista de ISBN sorteados é limpa, apagando todos números sorteados.
-     * ISBN inicial é sorteado novamente.
+     * ISBN inicial é resetado para 10.00000
      */
 
     @Override
     public void removerTodos() {
         this.listaLivro.clear();
         this.isbnCadastrado.clear();
-        this.isbn = isbnAleatorio();
+        this.isbn = 10.00000;
     }
 
     /**
