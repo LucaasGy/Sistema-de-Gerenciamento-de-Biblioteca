@@ -160,8 +160,12 @@ public class Bibliotecario extends Usuario {
             DAO.getPrazos().criar(novo);
         }
 
-        DAO.getLivro().encontrarPorISBN(emprestimoLeitor.getLivro()).setDisponivel(true);
-        DAO.getLeitor().encontrarPorId(emprestimoLeitor.getLeitor()).setLimiteRenova(0);
+        Livro alteraLivro = DAO.getLivro().encontrarPorISBN(emprestimoLeitor.getLivro());
+        Leitor alteraLeitor = DAO.getLeitor().encontrarPorId(emprestimoLeitor.getLeitor());
+        alteraLivro.setDisponivel(true);
+        alteraLeitor.setLimiteRenova(0);
+        DAO.getLivro().atualizar(alteraLivro);
+        DAO.getLeitor().atualizar(alteraLeitor);
 
         DAO.getEmprestimo().remover(id);
     }

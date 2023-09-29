@@ -148,7 +148,9 @@ public class Leitor extends Usuario {
         emprestimoDoLeitor.setdataPegou(LocalDate.now());
         emprestimoDoLeitor.setdataPrevista(emprestimoDoLeitor.getdataPegou().plusDays(7));
 
-        this.setLimiteRenova(1);
+        Leitor altera = DAO.getLeitor().encontrarPorId(this.getID());
+        altera.setLimiteRenova(1);
+        DAO.getLeitor().atualizar(altera);
 
         DAO.getEmprestimo().criar(emprestimoDoLeitor);
     }

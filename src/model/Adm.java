@@ -108,6 +108,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setSenha(senha.toLowerCase());
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -126,6 +127,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setEndereco(endereco.toLowerCase());
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -144,6 +146,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setTelefone(telefone.toLowerCase());
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -199,6 +202,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
         bibliotecario.setSenha(senha.toLowerCase());
+        DAO.getBibliotecario().atualizar(bibliotecario);
     }
 
     /**
@@ -255,6 +259,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
         adm.setSenha(senha.toLowerCase());
+        DAO.getAdm().atualizar(adm);
     }
 
     /**
@@ -279,6 +284,7 @@ public class Adm extends Usuario {
         Sistema.adicionarPrazoParaTop2reserva(id);
 
         leitor.setBloqueado(true);
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -296,6 +302,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setBloqueado(false);
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -313,6 +320,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         leitor.setDataMulta(null);
+        DAO.getLeitor().atualizar(leitor);
     }
 
     /**
@@ -382,6 +390,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setTitulo(titulo.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -400,6 +409,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setAutor(autor.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -418,6 +428,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setEditora(editora.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -436,6 +447,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setAno(ano);
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -453,6 +465,7 @@ public class Adm extends Usuario {
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
         livro.setCategoria(categoria.toLowerCase());
+        DAO.getLivro().atualizar(livro);
     }
 
     /**
@@ -489,6 +502,7 @@ public class Adm extends Usuario {
         }
 
         livro.setDisponivel(FouT);
+        DAO.getLivro().atualizar(livro);
     }
 
     /**

@@ -123,7 +123,9 @@ public class Sistema {
         long diasDeAtraso = ChronoUnit.DAYS.between(emprestimo.getdataPrevista(),dataDevolvendo);
 
         if(diasDeAtraso>0) {
-            DAO.getLeitor().encontrarPorId(emprestimo.getLeitor()).setDataMulta(dataDevolvendo.plusDays(diasDeAtraso*2));
+            Leitor altera = DAO.getLeitor().encontrarPorId(emprestimo.getLeitor());
+            altera.setDataMulta(dataDevolvendo.plusDays(diasDeAtraso*2));
+            DAO.getLeitor().atualizar(altera);
 
             adicionarPrazoParaTop2reserva(emprestimo.getLeitor());
         }
@@ -140,8 +142,10 @@ public class Sistema {
     public static void verificarMultasLeitores(){
         for(Leitor leitor : DAO.getLeitor().encontrarTodos()){
             if(leitor.getDataMulta()!=null) {
-                if (leitor.getDataMulta().isBefore(LocalDate.now()))
+                if (leitor.getDataMulta().isBefore(LocalDate.now())) {
                     leitor.setDataMulta(null);
+                    DAO.getLeitor().atualizar(leitor);
+                }
             }
         }
     }
@@ -157,8 +161,8 @@ public class Sistema {
      */
 
     public static void verificarPrazosEReservas(){
-        List<Prazos> prazosARemover = new ArrayList<>();
-        List<Prazos> prazosAAdicionar = new ArrayList<>();
+        List<Prazos> prazosARemover = new ArrayList<Prazos>();
+        List<Prazos> prazosAAdicionar = new ArrayList<Prazos>();
 
         for(Prazos prazo : DAO.getPrazos().encontrarTodos()){
             if(prazo.getDataLimite().isBefore(LocalDate.now())){
