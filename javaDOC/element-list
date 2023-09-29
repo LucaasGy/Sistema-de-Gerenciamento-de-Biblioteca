@@ -1,0 +1,13 @@
+unnamed package
+dao
+dao.adm
+dao.bibliotecario
+dao.emprestimo
+dao.leitor
+dao.livro
+dao.prazo
+dao.reserva
+erros.leitor
+erros.livro
+erros.objetos
+model
