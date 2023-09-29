@@ -70,9 +70,9 @@ class LeitorTest {
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(2));
 
         //ps: alterar a data para 5 dias antes da data atual do teste
-        assertEquals(LocalDate.of(2023,9,13), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
+        assertEquals(LocalDate.of(2023,9,24), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
         //ps: alterar a data para 2 dias depois da data atual do teste
-        assertEquals(LocalDate.of(2023,9,20), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        assertEquals(LocalDate.of(2023,10,1), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
 
         //tudo correto
         this.lucas.renovarEmprestimo();

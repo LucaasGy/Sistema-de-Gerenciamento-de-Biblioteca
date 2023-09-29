@@ -68,11 +68,11 @@ class LivroImplTest {
         DAO.getLivro().removerTodos();
 
         assertTrue(DAO.getLivro().encontrarTodos().isEmpty());
-        //apagou todos os isbn, sorteou um e adicionou na lista
-        assertEquals(1,DAO.getLivro().checarListaISBN().size());
+        //apagou todos os isbn
+        assertEquals(0,DAO.getLivro().checarListaISBN().size());
 
         DAO.getLivro().criar(new Livro("A origem","Ana","Seu medo",1994,"Suspense"));
-        assertEquals(2,DAO.getLivro().checarListaISBN().size());
+        assertEquals(1,DAO.getLivro().checarListaISBN().size());
     }
 
     @Test
@@ -131,6 +131,6 @@ class LivroImplTest {
 
     @Test
     void checarListaISBN() {
-        assertEquals(6,DAO.getLivro().checarListaISBN().size());
+        assertEquals(5,DAO.getLivro().checarListaISBN().size());
     }
 }
