@@ -59,6 +59,7 @@ O projeto foi dividido nas seguintes etapas de desenvolvimento:
 <blockquote> Atualizar dados</blockquote>
 <blockquote> Consultar dados por número de ISBN</blockquote>
 <blockquote> Procurar livros por titulo, categoria ou autor</blockquote>
+<blockquote> Relatórios com livros atrasados, emprestados e reservados<blockquote>
 <blockquote> Retornar toda a lista de cadastros do armazenamento</blockquote>
 <blockquote> Alterar disponibilidade manualmente caso não esteja emprestado (reparo ou manutenção)</blockquote>
 <blockquote> Deletar cadastro por número de ISBN</blockquote>
@@ -66,6 +67,7 @@ O projeto foi dividido nas seguintes etapas de desenvolvimento:
 
 - Gerenciamento de empréstimos, reservas e prazos:
 <blockquote> Criar</blockquote>
+<blockquote> Retirar</blockquote>
 <blockquote> Leitor pode ter por vez: 1 empréstimo ativo, 3 reservas ativas e no máximo 3 prazos ativos</blockquote>
 <blockquote> Livro pode ter por vez: 1 empréstimo ativo, 4 reservas ativas e no máximo 1 prazo ativo</blockquote>
 <blockquote> Registrar um prazo para o primeiro leitor da fila de reserva de um livro ir realizar o empréstimo</blockquote>
