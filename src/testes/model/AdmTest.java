@@ -78,6 +78,7 @@ class AdmTest {
         DAO.getLeitor().removerTodos();
         DAO.getReserva().removerTodos();
         DAO.getBibliotecario().removerTodos();
+        DAO.getPrazos().removerTodos();
     }
 
     @Test

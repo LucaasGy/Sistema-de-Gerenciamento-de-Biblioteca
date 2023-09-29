@@ -54,9 +54,14 @@ class EmprestimoImplTest {
 
         Emprestimo emprestimoEsperado = new Emprestimo(livroEsperado,leitorEsperado);
 
+        assertEquals(0, livroEsperado.getQtdEmprestimo());
+        assertTrue(livroEsperado.getDisponivel());
+
         Emprestimo atual =  DAO.getEmprestimo().criar(emprestimoEsperado);
 
         assertEquals(emprestimoEsperado, atual);
+        assertEquals(1, livroEsperado.getQtdEmprestimo());
+        assertFalse(livroEsperado.getDisponivel());
     }
 
     @Test
