@@ -66,6 +66,8 @@ O projeto foi dividido nas seguintes etapas de desenvolvimento:
 
 - Gerenciamento de empréstimos, reservas e prazos:
 <blockquote> Criar</blockquote>
+<blockquote> Leitor pode ter por vez: 1 empréstimo ativo, 3 reservas ativas e no máximo 3 prazos ativos</blockquote>
+<blockquote> Livro pode ter por vez: 1 empréstimo ativo, 4 reservas ativas e no máximo 1 prazo ativo</blockquote>
 <blockquote> Registrar um prazo para o primeiro leitor da fila de reserva de um livro ir realizar o empréstimo</blockquote>
 <blockquote> Atribuir automazticamente prazo para o segundo leitor da fila de reserva caso o primeiro fique inoperante (bloqueado,
 multado ou removido)</blockquote>
