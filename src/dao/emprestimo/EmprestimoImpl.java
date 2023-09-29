@@ -31,12 +31,19 @@ public class EmprestimoImpl implements EmprestimoDAO {
      * Método para adicionar um objeto do tipo Emprestimo na lista de armazenamento de empréstimos ativos
      * e a de todos os empréstimo já feitos.
      *
+     * Ao criar um empréstimo, o livro automaticamente fica indisponível.
+     * Cada empréstimo criado de um livro é somado um a quantidade de vezes que o livro
+     * foi emprestado.
+     *
      * @param obj empréstimo que deve ser armazenado
      * @return retorna objeto empréstimo criado
      */
 
     @Override
     public Emprestimo criar(Emprestimo obj) {
+        obj.getLivro().setDisponivel(false);
+        obj.getLivro().setQtdEmprestimo(obj.getLivro().getQtdEmprestimo()+1);
+
         this.listaEmprestimoTotal.add(obj);
         this.listaEmprestimoAtual.add(obj);
 
