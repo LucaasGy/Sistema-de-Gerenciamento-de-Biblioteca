@@ -245,4 +245,12 @@ public class EmprestimoImpl implements EmprestimoDAO {
     public Emprestimo atualizar(Emprestimo obj) {
         return null;
     }
+
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+    }
 }

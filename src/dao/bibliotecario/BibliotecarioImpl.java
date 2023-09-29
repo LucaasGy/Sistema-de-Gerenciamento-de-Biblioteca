@@ -142,4 +142,12 @@ public class BibliotecarioImpl implements BibliotecarioDAO {
         this.listaBibliotecario.clear();
         this.nextID = 1002;
     }
+
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+    }
 }

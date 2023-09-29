@@ -236,4 +236,12 @@ public class LivroImpl implements LivroDAO {
     public Livro encontrarPorId(int id) {
         return null;
     }
+
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+    }
 }

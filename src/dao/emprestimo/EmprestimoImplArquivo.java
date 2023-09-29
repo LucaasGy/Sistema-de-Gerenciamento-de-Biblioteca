@@ -274,4 +274,24 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
     public Emprestimo atualizar(Emprestimo obj) {
         return null;
     }
+
+    /**
+     * Método que altera o caminho do arquivo Empréstimo para realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaTeste() {
+        this.nomePasta = "Emprestimo Teste";
+        this.nomeArquivoEmprestimoAtual = "emprestimoAtualTeste.dat";
+        this.nomeArquivoEmprestimoTotal = "emprestimoTotalTeste.dat";
+    }
+
+    /**
+     * Método que retorna o caminho do arquivo Empréstimo após realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaPrincipal() {
+        this.nomePasta = "Emprestimo";
+        this.nomeArquivoEmprestimoAtual = "emprestimoAtual.dat";
+        this.nomeArquivoEmprestimoTotal = "emprestimoTotal.dat";
+    }
 }

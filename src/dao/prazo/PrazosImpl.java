@@ -182,4 +182,12 @@ public class PrazosImpl implements PrazosDAO {
 
         return null;
     }
+
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+    }
 }

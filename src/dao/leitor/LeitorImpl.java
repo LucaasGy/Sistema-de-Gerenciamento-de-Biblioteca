@@ -162,4 +162,12 @@ public class LeitorImpl implements LeitorDAO {
         this.listaLeitor.clear();
         this.nextID=1003;
     }
+
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+    }
 }

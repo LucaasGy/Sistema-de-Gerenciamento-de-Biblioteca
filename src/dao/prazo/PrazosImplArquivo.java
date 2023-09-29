@@ -198,4 +198,22 @@ public class PrazosImplArquivo implements PrazosDAO{
         this.listaPrazos.addAll(adinionaPrazos);
         ArmazenamentoArquivo.guardar(this.listaPrazos,this.nomeArquivo,this.nomePasta);
     }
+
+    /**
+     * Método que altera o caminho do arquivo Prazos para realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaTeste() {
+        this.nomePasta = "Prazos Teste";
+        this.nomeArquivo = "prazosTeste.dat";
+    }
+
+    /**
+     * Método que retorna o caminho do arquivo Prazos após realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaPrincipal() {
+        this.nomePasta = "Prazos";
+        this.nomeArquivo = "prazos.dat";
+    }
 }

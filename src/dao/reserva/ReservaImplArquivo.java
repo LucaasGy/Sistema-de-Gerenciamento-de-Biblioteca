@@ -266,4 +266,22 @@ public class ReservaImplArquivo implements ReservaDAO{
     public Reserva atualizar(Reserva obj) {
         return null;
     }
+
+    /**
+     * Método que altera o caminho do arquivo Reserva para realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaTeste() {
+        this.nomePasta = "Reserva Teste";
+        this.nomeArquivo = "reservaTeste.dat";
+    }
+
+    /**
+     * Método que retorna o caminho do arquivo Reserva após realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaPrincipal() {
+        this.nomePasta = "Reserva";
+        this.nomeArquivo = "reserva.dat";
+    }
 }

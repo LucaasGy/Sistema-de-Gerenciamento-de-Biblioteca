@@ -253,4 +253,11 @@ public class ReservaImpl implements ReservaDAO {
         return null;
     }
 
+    @Override
+    public void alteraParaPastaTeste() {
+    }
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+    }
 }

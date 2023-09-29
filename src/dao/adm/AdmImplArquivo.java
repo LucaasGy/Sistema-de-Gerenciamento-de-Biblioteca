@@ -161,4 +161,24 @@ public class AdmImplArquivo implements AdmDAO{
         this.nextID=1001;
         ArmazenamentoArquivo.guardar(this.listaAdm,this.nomeArquivo,this.nomePasta);
     }
+
+    /**
+     * Método que altera o caminho do arquivo Adm para realizar testes unitários e de integração.
+     */
+
+    @Override
+    public void alteraParaPastaTeste() {
+        this.nomePasta = "Adm Teste";
+        this.nomeArquivo = "admTeste.dat";
+    }
+
+    /**
+     * Método que retorna o caminho do arquivo Adm após realizar testes unitários e de integração.
+     */
+
+    @Override
+    public void alteraParaPastaPrincipal() {
+        this.nomePasta = "Adm";
+        this.nomeArquivo = "adm.dat";
+    }
 }

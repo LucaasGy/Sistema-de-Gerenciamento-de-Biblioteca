@@ -182,4 +182,22 @@ public class LeitorImplArquivo implements LeitorDAO{
 
         return listaTelefone;
     }
+
+    /**
+     * Método que altera o caminho do arquivo Leitor para realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaTeste() {
+        this.nomePasta = "Leitor Teste";
+        this.nomeArquivo = "leitorTeste.dat";
+    }
+
+    /**
+     * Método que retorna o caminho do arquivo Leitor após realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaPrincipal() {
+        this.nomePasta = "Leitor";
+        this.nomeArquivo = "leitor.dat";
+    }
 }

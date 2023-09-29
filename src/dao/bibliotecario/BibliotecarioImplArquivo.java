@@ -160,4 +160,22 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
 
         return listaNome;
     }
+
+    /**
+     * Método que altera o caminho do arquivo Bibliotecario para realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaTeste() {
+        this.nomePasta = "Bibliotecario Teste";
+        this.nomeArquivo = "bibliotecarioTeste.dat";
+    }
+
+    /**
+     * Método que retorna o caminho do arquivo Bibliotecario após realizar testes unitários e de integração.
+     */
+    @Override
+    public void alteraParaPastaPrincipal() {
+        this.nomePasta = "Bibliotecario";
+        this.nomeArquivo = "bibliotecario.dat";
+    }
 }
