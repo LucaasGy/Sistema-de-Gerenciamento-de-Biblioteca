@@ -73,8 +73,8 @@ class AdmTest {
     @AfterEach
     void tearDown() {
         DAO.getAdm().removerTodos();
-        DAO.getLivro().removerTodos();
         DAO.getEmprestimo().removerTodos();
+        DAO.getLivro().removerTodos();
         DAO.getLeitor().removerTodos();
         DAO.getReserva().removerTodos();
         DAO.getBibliotecario().removerTodos();

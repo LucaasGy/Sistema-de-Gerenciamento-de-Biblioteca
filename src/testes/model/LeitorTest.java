@@ -34,7 +34,6 @@ class LeitorTest {
     void tearDown() {
         DAO.getLeitor().removerTodos();
         DAO.getLivro().removerTodos();
-        DAO.getEmprestimo().removerTodos();
         DAO.getPrazos().removerTodos();
         DAO.getReserva().removerTodos();
     }
@@ -70,9 +69,9 @@ class LeitorTest {
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(2));
 
         //ps: alterar a data para 5 dias antes da data atual do teste
-        assertEquals(LocalDate.of(2023,9,24), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
+        assertEquals(LocalDate.of(2023,9,27), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
         //ps: alterar a data para 2 dias depois da data atual do teste
-        assertEquals(LocalDate.of(2023,10,1), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        assertEquals(LocalDate.of(2023,10,4), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
 
         //tudo correto
         this.lucas.renovarEmprestimo();
@@ -81,6 +80,7 @@ class LeitorTest {
         assertNotNull(DAO.getEmprestimo().encontrarPorId(this.lucas.getID()));
         assertEquals(LocalDate.now(), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
         assertEquals(LocalDate.now().plusDays(7), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        DAO.getEmprestimo().removerTodos();
     }
 
     @Test
@@ -157,6 +157,7 @@ class LeitorTest {
         //nova reserva criada
         assertEquals(2,DAO.getReserva().encontrarTodos().size());
         assertEquals(this.lucas,DAO.getReserva().encontrarReservasLeitor(this.lucas.getID()).get(0).getLeitor());
+        DAO.getEmprestimo().removerTodos();
     }
 
     @Test

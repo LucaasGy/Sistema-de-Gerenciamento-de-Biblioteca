@@ -64,11 +64,10 @@ class SistemaTest {
     @AfterEach
     void tearDown() {
         DAO.getLeitor().removerTodos();
+        DAO.getLivro().removerTodos();
         DAO.getAdm().removerTodos();
         DAO.getBibliotecario().removerTodos();
-        DAO.getEmprestimo().removerTodos();
         DAO.getReserva().removerTodos();
-        DAO.getLivro().removerTodos();
         DAO.getPrazos().removerTodos();
     }
 
@@ -125,6 +124,7 @@ class SistemaTest {
         assertNull(this.leitor1.getDataMulta());
         assertEquals(this.leitor2.getDataMulta(), LocalDate.now().plusDays(4));
         assertEquals(this.leitor3.getDataMulta(), LocalDate.now().plusDays(6));
+        DAO.getEmprestimo().removerTodos();
     }
 
     @Test
@@ -135,10 +135,10 @@ class SistemaTest {
         this.leitor3.setDataMulta(LocalDate.now().minusDays(3));
 
         //ps: trocar a data por um dia posterior à data da realização do teste
-        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 30));
+        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 10, 3));
         //ps: trocar a data por dois/tres dias anterior à data da realização do teste
-        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 27));
-        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 26));
+        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 30));
+        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 29));
 
         //checa quais leitores possuem multas ativas
         Sistema.verificarMultasLeitores();

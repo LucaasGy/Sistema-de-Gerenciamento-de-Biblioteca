@@ -33,9 +33,9 @@ class BibliotecarioTest {
     @AfterEach
     void tearDown() {
         DAO.getBibliotecario().removerTodos();
+        DAO.getEmprestimo().removerTodos();
         DAO.getLeitor().removerTodos();
         DAO.getLivro().removerTodos();
-        DAO.getEmprestimo().removerTodos();
         DAO.getReserva().removerTodos();
         DAO.getPrazos().removerTodos();
     }
