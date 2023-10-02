@@ -59,7 +59,7 @@ O projeto foi dividido nas seguintes etapas de desenvolvimento:
 <blockquote> Atualizar dados</blockquote>
 <blockquote> Consultar dados por número de ISBN</blockquote>
 <blockquote> Procurar livros por titulo, categoria ou autor</blockquote>
-<blockquote> Relatórios com livros atrasados, emprestados e reservados<blockquote>
+<blockquote> Relatórios com livros atrasados, emprestados e reservados</blockquote>
 <blockquote> Retornar toda a lista de cadastros do armazenamento</blockquote>
 <blockquote> Alterar disponibilidade manualmente caso não esteja emprestado (reparo ou manutenção)</blockquote>
 <blockquote> Deletar cadastro por número de ISBN</blockquote>
