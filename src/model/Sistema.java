@@ -141,11 +141,9 @@ public class Sistema {
 
     public static void verificarMultasLeitores(){
         for(Leitor leitor : DAO.getLeitor().encontrarTodos()){
-            if(leitor.getDataMulta()!=null) {
-                if (leitor.getDataMulta().isBefore(LocalDate.now())) {
-                    leitor.setDataMulta(null);
-                    DAO.getLeitor().atualizar(leitor);
-                }
+            if(leitor.getDataMulta()!=null && leitor.getDataMulta().isBefore(LocalDate.now())) {
+                leitor.setDataMulta(null);
+                DAO.getLeitor().atualizar(leitor);
             }
         }
     }
