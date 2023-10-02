@@ -123,7 +123,9 @@ public class Sistema {
         long diasDeAtraso = ChronoUnit.DAYS.between(emprestimo.getdataPrevista(),dataDevolvendo);
 
         if(diasDeAtraso>0) {
-            emprestimo.getLeitor().setDataMulta(dataDevolvendo.plusDays(diasDeAtraso*2));
+            Leitor altera = DAO.getLeitor().encontrarPorId(emprestimo.getLeitor().getID());
+            altera.setDataMulta(dataDevolvendo.plusDays(diasDeAtraso*2));
+            DAO.getLeitor().atualizar(altera);
 
             adicionarPrazoParaTop2reserva(emprestimo.getLeitor().getID());
         }
