@@ -45,7 +45,7 @@ public class Sistema {
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
         else if (!adm.getSenha().equals(senha.toLowerCase()))
-                throw new UsuarioSenhaIncorreta();
+            throw new UsuarioSenhaIncorreta();
 
         return adm;
     }
@@ -73,7 +73,7 @@ public class Sistema {
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
         else if(!bibliotecario.getSenha().equals(senha.toLowerCase()))
-                throw new UsuarioSenhaIncorreta();
+            throw new UsuarioSenhaIncorreta();
 
         return bibliotecario;
     }
