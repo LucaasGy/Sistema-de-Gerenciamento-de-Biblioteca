@@ -110,7 +110,6 @@ public class AdmImpl implements AdmDAO {
 
     @Override
     public List<Adm> encontrarTodos() {
-
         return this.listaAdm;
     }
 

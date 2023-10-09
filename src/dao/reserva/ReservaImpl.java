@@ -36,7 +36,6 @@ public class ReservaImpl implements ReservaDAO {
     @Override
     public Reserva criar(Reserva obj) {
         this.listaReserva.add(obj);
-
         return obj;
     }
 

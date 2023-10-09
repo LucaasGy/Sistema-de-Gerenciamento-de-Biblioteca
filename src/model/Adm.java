@@ -45,7 +45,6 @@ public class Adm extends Usuario {
      */
 
     public void criarLeitor(Leitor leitor){
-
         DAO.getLeitor().criar(leitor);
     }
 

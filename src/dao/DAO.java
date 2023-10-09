@@ -42,7 +42,6 @@ public class DAO {
      */
 
     public static AdmDAO getAdm() {
-
         if (admDAO == null) {
             admDAO = new AdmImplArquivo();
         }
@@ -58,7 +57,6 @@ public class DAO {
      */
 
     public static BibliotecarioDAO getBibliotecario() {
-
         if (bibliotecarioDAO == null) {
             bibliotecarioDAO = new BibliotecarioImplArquivo();
         }
@@ -74,7 +72,6 @@ public class DAO {
      */
 
     public static LeitorDAO getLeitor() {
-
         if (leitorDAO == null) {
             leitorDAO = new LeitorImplArquivo();
         }
@@ -90,7 +87,6 @@ public class DAO {
      */
 
     public static LivroDAO getLivro() {
-
         if (livroDAO == null) {
             livroDAO = new LivroImplArquivo();
         }
@@ -106,7 +102,6 @@ public class DAO {
      */
 
     public static EmprestimoDAO getEmprestimo() {
-
         if (emprestimoDAO == null) {
             emprestimoDAO = new EmprestimoImplArquivo();
         }
@@ -122,7 +117,6 @@ public class DAO {
      */
 
     public static ReservaDAO getReserva() {
-
         if (reservaDAO == null) {
             reservaDAO = new ReservaImplArquivo();
         }
@@ -138,7 +132,6 @@ public class DAO {
      */
 
     public static PrazosDAO getPrazos() {
-
         if (prazosDAO == null) {
             prazosDAO = new PrazosImplArquivo();
         }
