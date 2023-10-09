@@ -10,6 +10,7 @@ import java.util.List;
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface AdmDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class AdmImpl implements AdmDAO {

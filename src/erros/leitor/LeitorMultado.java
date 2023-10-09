@@ -4,6 +4,7 @@ package erros.leitor;
  * Exceção lançada quando um leitor estiver multado.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorMultado extends Exception{

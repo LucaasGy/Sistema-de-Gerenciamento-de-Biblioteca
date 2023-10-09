@@ -4,6 +4,7 @@ package erros.livro;
  * Exceção lançada quando um livro possuir o máximo de reservas (4).
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LivroLimiteDeReservas extends Exception{

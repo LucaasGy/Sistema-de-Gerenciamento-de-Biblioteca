@@ -10,8 +10,8 @@ import java.util.List;
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface LeitorDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
-
 
 public class LeitorImpl implements LeitorDAO {
     private List<Leitor> listaLeitor;

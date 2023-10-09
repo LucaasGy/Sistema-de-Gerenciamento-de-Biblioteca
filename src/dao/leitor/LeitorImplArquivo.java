@@ -12,6 +12,7 @@ import java.util.List;
  * Implementa a interface LeitorDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorImplArquivo implements LeitorDAO{

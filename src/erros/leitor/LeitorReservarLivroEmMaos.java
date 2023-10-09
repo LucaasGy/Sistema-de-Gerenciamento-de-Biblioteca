@@ -4,6 +4,7 @@ package erros.leitor;
  * Exceção lançada quando um leitor tentar reservar um livro que ele está em mãos.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorReservarLivroEmMaos extends Exception{

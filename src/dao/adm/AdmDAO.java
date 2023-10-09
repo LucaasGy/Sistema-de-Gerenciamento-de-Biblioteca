@@ -11,6 +11,7 @@ import java.util.List;
  * extensão da interface CRUD.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public interface AdmDAO extends CRUD<Adm> {

@@ -4,6 +4,7 @@ package erros.leitor;
  * Exceção lançada quando um leitor estiver com um livro em mãos.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorTemEmprestimo extends Exception{

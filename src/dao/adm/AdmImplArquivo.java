@@ -13,6 +13,7 @@ import java.util.List;
  * Implementa a interface AdmDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class AdmImplArquivo implements AdmDAO{

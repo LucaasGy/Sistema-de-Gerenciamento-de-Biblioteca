@@ -16,6 +16,7 @@ import java.util.List;
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface EmprestimoDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class EmprestimoImplArquivo implements EmprestimoDAO{

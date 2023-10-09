@@ -18,6 +18,7 @@ import java.time.LocalDate;
  * também pesquisa de livros herdado da Superclasse Usuário.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Leitor extends Usuario {

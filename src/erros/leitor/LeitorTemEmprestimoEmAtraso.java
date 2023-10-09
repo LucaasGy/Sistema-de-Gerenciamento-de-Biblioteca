@@ -6,6 +6,7 @@ package erros.leitor;
  * possuir um empréstimo ativo em atraso e não estar multado.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorTemEmprestimoEmAtraso extends Exception{

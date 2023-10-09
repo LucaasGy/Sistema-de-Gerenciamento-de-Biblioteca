@@ -4,6 +4,7 @@ package erros.livro;
  * Exceção lançada quando um livro estiver emprestado.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LivroEmprestado extends Exception{

@@ -4,6 +4,7 @@ package erros.objetos;
  * Exceção lançada quando um objeto do sistema não for encontrado.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class ObjetoInvalido extends Exception{

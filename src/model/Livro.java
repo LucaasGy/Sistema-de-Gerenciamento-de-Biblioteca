@@ -12,6 +12,7 @@ import java.io.Serializable;
  * informação útil para verificar livros mais populares.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Livro implements Serializable {

@@ -18,6 +18,7 @@ import java.util.List;
  * gerenciamento de multas e também pesquisa de livros herdado da Superclasse Usuário.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Adm extends Usuario {

@@ -13,6 +13,7 @@ import java.time.LocalDate;
  * o leitor ir realizar o empréstimo ( 2 dias após o livro ser devolvido ).
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Prazos implements Serializable {

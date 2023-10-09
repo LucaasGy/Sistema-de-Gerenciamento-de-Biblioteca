@@ -11,8 +11,8 @@ import java.util.List;
  * Implementa a interface ReservaDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
-
 
 public class ReservaImpl implements ReservaDAO {
 

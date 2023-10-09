@@ -11,6 +11,7 @@ import java.util.List;
  * e evitando a perda de dados.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class ArmazenamentoArquivo {

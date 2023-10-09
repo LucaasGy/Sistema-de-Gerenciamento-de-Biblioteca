@@ -17,6 +17,7 @@ import java.util.List;
  * entre outros.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Sistema {

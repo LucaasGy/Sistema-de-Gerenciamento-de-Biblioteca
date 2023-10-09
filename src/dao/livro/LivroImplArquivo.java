@@ -12,6 +12,7 @@ import java.util.Random;
  * necessários para inserir, consultar, alterar ou remover. Implementa a interface LivroDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LivroImplArquivo implements LivroDAO{

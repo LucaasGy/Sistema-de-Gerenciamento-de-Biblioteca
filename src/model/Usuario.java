@@ -14,6 +14,7 @@ import java.util.List;
  * pesquisa de livros, os métodos para pesquisa foram implementados aqui.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public abstract class Usuario implements Serializable {

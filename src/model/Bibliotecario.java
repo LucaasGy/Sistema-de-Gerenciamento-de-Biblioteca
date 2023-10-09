@@ -18,6 +18,7 @@ import erros.objetos.ObjetoInvalido;
  * também pesquisa de livros herdado da Superclasse Usuário.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Bibliotecario extends Usuario {

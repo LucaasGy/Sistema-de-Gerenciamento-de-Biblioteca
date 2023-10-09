@@ -10,6 +10,7 @@ import java.time.LocalDate;
  * o empréstimo e a data prevista para devolução ( 7 dias ).
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Emprestimo implements Serializable {

@@ -4,6 +4,7 @@ package erros.leitor;
  * Exceção lançada quando um leitor estiver bloqueado.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorBloqueado extends Exception{

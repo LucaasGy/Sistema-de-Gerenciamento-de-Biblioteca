@@ -4,6 +4,7 @@ package model;
  * Enumeração que representa os tipos de usuários do sistema.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public enum TipoUsuario {

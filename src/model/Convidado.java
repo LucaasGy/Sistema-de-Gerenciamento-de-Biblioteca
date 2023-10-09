@@ -14,6 +14,7 @@ import java.util.List;
  * também foram implementados na classe.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Convidado {

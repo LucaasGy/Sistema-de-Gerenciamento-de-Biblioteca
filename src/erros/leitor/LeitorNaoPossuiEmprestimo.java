@@ -4,6 +4,7 @@ package erros.leitor;
  * Exceção lançada quando um leitor não possuir um empréstimo ativo (impossibilita renovações).
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorNaoPossuiEmprestimo extends Exception{

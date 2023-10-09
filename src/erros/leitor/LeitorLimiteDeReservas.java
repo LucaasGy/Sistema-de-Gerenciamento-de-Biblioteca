@@ -4,6 +4,7 @@ package erros.leitor;
  * Exceção lançada quando um leitor possuir o máximo de reservas (3).
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorLimiteDeReservas extends Exception{

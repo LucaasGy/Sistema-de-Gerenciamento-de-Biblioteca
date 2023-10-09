@@ -22,6 +22,7 @@ import dao.reserva.ReservaImplArquivo;
  * acessar essas funções.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class DAO {

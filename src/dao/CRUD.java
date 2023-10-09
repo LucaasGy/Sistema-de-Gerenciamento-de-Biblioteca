@@ -8,6 +8,7 @@ import java.util.List;
  * @param <T> o tipo de objeto que será salvo
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public interface CRUD<T> {

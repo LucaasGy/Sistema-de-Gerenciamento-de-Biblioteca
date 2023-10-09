@@ -4,6 +4,7 @@ package erros.leitor;
  * Exceção lançada quando um leitor atingir o máximo de limite de renovações de empréstimos (1).
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LeitorLimiteDeRenovacao extends Exception{

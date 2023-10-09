@@ -8,6 +8,7 @@ import java.io.Serializable;
  * É definida pelo ID do Leitor e ISBN do Livro, contendo todos os dados de ambos.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class Reserva implements Serializable {

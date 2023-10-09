@@ -4,6 +4,7 @@ package erros.livro;
  * Exceção lançada quando um livro não tiver um empréstimo e reserva ativa, e um leitor tentar reservá-lo.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class LivroNaoPossuiEmprestimoNemReserva extends Exception{

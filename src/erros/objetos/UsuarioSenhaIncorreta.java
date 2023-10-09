@@ -4,6 +4,7 @@ package erros.objetos;
  * Exceção lançada quando um usuário informar senha incorreta.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class UsuarioSenhaIncorreta extends Exception{

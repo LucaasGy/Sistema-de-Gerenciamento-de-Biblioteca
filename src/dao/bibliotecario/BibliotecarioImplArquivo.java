@@ -12,6 +12,7 @@ import java.util.List;
  * Implementa a interface BibliotecarioDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class BibliotecarioImplArquivo implements BibliotecarioDAO{

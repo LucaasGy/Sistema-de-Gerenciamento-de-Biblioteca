@@ -11,6 +11,7 @@ import java.util.List;
  * Implementa a interface PrazosDAO.
  *
  * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
  */
 
 public class PrazosImpl implements PrazosDAO {
