@@ -129,16 +129,6 @@ class AdmTest {
     }
 
     @Test
-    void atualizarSenhaLeitor() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarSenhaLeitor("senhanova",666));
-
-        assertEquals("senhaleitor1", this.leitor1.getSenha());
-
-        this.adm1.atualizarSenhaLeitor("senhanova",1003);
-        assertEquals("senhanova", this.leitor1.getSenha());
-    }
-
-    @Test
     void removerBibliotecario() throws ObjetoInvalido {
         assertThrows(ObjetoInvalido.class, ()->this.adm1.removerBibliotecario(666));
 
@@ -165,16 +155,6 @@ class AdmTest {
     }
 
     @Test
-    void atualizarSenhaBibliotecario() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarSenhaBibliotecario("senhanova",666));
-
-        assertEquals("senhabib1", this.bibliotecario1.getSenha());
-
-        this.adm1.atualizarSenhaBibliotecario("senhanova",1002);
-        assertEquals("senhanova", this.bibliotecario1.getSenha());
-    }
-
-    @Test
     void removerAdm() throws ObjetoInvalido {
         assertThrows(ObjetoInvalido.class, ()->this.adm1.removerAdm(666));
 
@@ -198,16 +178,6 @@ class AdmTest {
         this.adm1.atualizarDadosAdministrador(adm2);
 
         assertEquals("adm2", DAO.getAdm().encontrarPorId(1001).getNome());
-    }
-
-    @Test
-    void atualizarSenhaAdm()  throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarSenhaAdm("senhanova",666));
-
-        assertEquals("senhaadm1", this.adm1.getSenha());
-
-        this.adm1.atualizarSenhaAdm("senhanova",1001);
-        assertEquals("senhanova", this.adm1.getSenha());
     }
 
     @Test
@@ -263,55 +233,28 @@ class AdmTest {
     }
 
     @Test
-    void atualizarDadosLivro() throws ObjetoInvalido {
+    void atualizarDadosLivro() throws ObjetoInvalido, LivroEmprestado {
         Livro livro20 = new Livro("LIVRO20","AUTOR20","EDITORA20",2020,"CATEGORIA20");
 
+        //livro nao existe
         assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarDadosLivro(livro20));
 
         livro20.setISBN(this.livro1.getISBN());
 
-        assertEquals("livro1", DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()).getTitulo());
-
-        this.adm1.atualizarDadosLivro(livro20);
-
-        assertEquals("livro20", DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()).getTitulo());
-    }
-
-    @Test
-    void atualizarAnoLivro() throws ObjetoInvalido{
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarAnoLivro(1999,666));
-
-        assertEquals(2000, this.livro1.getAno());
-
-        this.adm1.atualizarAnoLivro(1999,this.livro1.getISBN());
-        assertEquals(1999, this.livro1.getAno());
-    }
-
-    @Test
-    void atualizarCategoriaLivro() throws ObjetoInvalido{
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarCategoriaLivro("Terror",666));
-
-        assertEquals("categoria1", this.livro1.getCategoria());
-
-        this.adm1.atualizarCategoriaLivro("Terror",this.livro1.getISBN());
-        assertEquals("terror", this.livro1.getCategoria());
-    }
-
-    @Test
-    void atualizarDisponibilidadeLivro() throws ObjetoInvalido, LivroEmprestado {
-        //livro nao existe
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarDisponibilidadeLivro(666,false));
         //livro ta emprestado
-        assertThrows(LivroEmprestado.class, ()->this.adm1.atualizarDisponibilidadeLivro(this.livro1.getISBN(),false));
+        assertThrows(LivroEmprestado.class, ()->this.adm1.atualizarDadosLivro(livro20));
 
         DAO.getEmprestimo().removerTodos();
         assertEquals(2, DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).size());
-        assertTrue(this.livro1.getDisponivel());
+        assertTrue(DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()).getDisponivel());
+        livro20.setDisponivel(false);
 
-        this.adm1.atualizarDisponibilidadeLivro(this.livro1.getISBN(),false);
+        this.adm1.atualizarDadosLivro(livro20);
 
         assertTrue(DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).isEmpty());
-        assertFalse(this.livro1.getDisponivel());
+        assertFalse(DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()).getDisponivel());
+
+        assertEquals("livro20", DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()).getTitulo());
     }
 
     @Test
