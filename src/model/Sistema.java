@@ -107,6 +107,16 @@ public class Sistema {
     }
 
     /**
+     * Método que retorna login de um convidado.
+     *
+     * @return retorna objeto convidado.
+     */
+
+    public static Convidado loginConvidado(){
+        return new Convidado();
+    }
+
+    /**
      * Método que verifica se o Leitor recebe uma multa.
      *
      * Ao devolver o livro, sistema verifica se houve atraso na devolução,
