@@ -93,63 +93,6 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que atualiza a Senha de um Leitor.
-     *
-     * @param senha nova senha do leitor
-     * @param id identificação do leitor
-     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarSenhaLeitor(String senha, int id) throws ObjetoInvalido {
-        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
-
-        if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
-
-        leitor.setSenha(senha.toLowerCase());
-        DAO.getLeitor().atualizar(leitor);
-    }
-
-    /**
-     * Método que atualiza o Endereço de um Leitor.
-     *
-     * @param endereco novo endereço
-     * @param id identificação do leitor
-     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarEnderecoLeitor(String endereco, int id) throws ObjetoInvalido {
-        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
-
-        if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
-
-        leitor.setEndereco(endereco.toLowerCase());
-        DAO.getLeitor().atualizar(leitor);
-    }
-
-    /**
-     * Método que atualiza o Telefone de um Leitor.
-     *
-     * @param telefone novo telefone
-     * @param id identicação do leitor
-     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarTelefoneLeitor(String telefone, int id) throws ObjetoInvalido {
-        Leitor leitor = DAO.getLeitor().encontrarPorId(id);
-
-        if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
-
-        leitor.setTelefone(telefone.toLowerCase());
-        DAO.getLeitor().atualizar(leitor);
-    }
-
-    /**
      * Método que cria um novo usuário do tipo Bibliotecario e o adiciona no sistema.
      *
      * @param bibliotecario objeto bibliotecario contendo todas as informações pré definidas
@@ -184,25 +127,6 @@ public class Adm extends Usuario {
     public void atualizarDadosBibliotecario(Bibliotecario bibliotecario) throws ObjetoInvalido {
         if(DAO.getBibliotecario().atualizar(bibliotecario)==null)
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
-    }
-
-    /**
-     * Método que atualiza Senha de um Bibliotecario.
-     *
-     * @param senha nova senha
-     * @param id identificação do bibliotecario
-     * @throws ObjetoInvalido caso não seja encontrado o bibliotecario com o id informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarSenhaBibliotecario(String senha, int id) throws ObjetoInvalido {
-        Bibliotecario bibliotecario = DAO.getBibliotecario().encontrarPorId(id);
-
-        if(bibliotecario==null)
-            throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
-
-        bibliotecario.setSenha(senha.toLowerCase());
-        DAO.getBibliotecario().atualizar(bibliotecario);
     }
 
     /**
@@ -241,25 +165,6 @@ public class Adm extends Usuario {
     public void atualizarDadosAdministrador(Adm administrador) throws ObjetoInvalido {
         if(DAO.getAdm().atualizar(administrador)==null)
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
-    }
-
-    /**
-     * Método que atualiza Senha de um Administrador.
-     *
-     * @param senha nova senha
-     * @param id identicação do administrador
-     * @throws ObjetoInvalido caso não seja encontrado o administrador com o id informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarSenhaAdm(String senha, int id) throws ObjetoInvalido {
-        Adm adm = DAO.getAdm().encontrarPorId(id);
-
-        if(adm==null)
-            throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
-
-        adm.setSenha(senha.toLowerCase());
-        DAO.getAdm().atualizar(adm);
     }
 
     /**
@@ -364,144 +269,35 @@ public class Adm extends Usuario {
     /**
      * Método que atualiza os dados de um Livro.
      *
+     * Caso o livro não seja encontrado ou esteja emprestado
+     * ele não poderá ter seus dados alterado.
+     * Caso tudo esteja correto, e a disponibilidade do livro recebido for false,
+     * é removido todas as reservas e prazos do livro
+     * e seus dados são atualizados.
+     *
+     * ps: não altera dados do livro caso ele esteja emprestado
+     *
      * @param livro objeto livro que será atualizado
      * @throws ObjetoInvalido caso não seja encontrado o livro com o objeto informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarDadosLivro(Livro livro) throws ObjetoInvalido {
-        if(DAO.getLivro().atualizar(livro)==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-    }
-
-    /**
-     * Método que atualiza Titulo de um Livro.
-     *
-     * @param titulo novo titulo
-     * @param isbn isbn do livro
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarTituloLivro(String titulo, double isbn) throws ObjetoInvalido {
-        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
-
-        if(livro==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        livro.setTitulo(titulo.toLowerCase());
-        DAO.getLivro().atualizar(livro);
-    }
-
-    /**
-     * Método que atualiza Autor de um Livro.
-     *
-     * @param autor novo autor
-     * @param isbn isbn do livro
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarAutorLivro(String autor, double isbn) throws ObjetoInvalido {
-        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
-
-        if(livro==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        livro.setAutor(autor.toLowerCase());
-        DAO.getLivro().atualizar(livro);
-    }
-
-    /**
-     * Método que atualiza Editora de um Livro.
-     *
-     * @param editora nova editora
-     * @param isbn isbn do livro
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarEditoraLivro(String editora, double isbn) throws ObjetoInvalido {
-        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
-
-        if(livro==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        livro.setEditora(editora.toLowerCase());
-        DAO.getLivro().atualizar(livro);
-    }
-
-    /**
-     * Método que atualiza Ano de um Livro.
-     *
-     * @param ano novo ano
-     * @param isbn isbn do livro
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
-     * retorna uma exceção informando o ocorrido
-     */
-
-    public void atualizarAnoLivro(int ano, double isbn) throws ObjetoInvalido {
-        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
-
-        if(livro==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        livro.setAno(ano);
-        DAO.getLivro().atualizar(livro);
-    }
-
-    /**
-     * Método que atualiza Categoria de um Livro.
-     *
-     * @param categoria nova categoria
-     * @param isbn isbn do livro
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
-     * retorna uma exceção informando o ocorrido
-     */
-    public void atualizarCategoriaLivro(String categoria, double isbn) throws ObjetoInvalido {
-        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
-
-        if(livro==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        livro.setCategoria(categoria.toLowerCase());
-        DAO.getLivro().atualizar(livro);
-    }
-
-    /**
-     * Método que atualiza Disponibilidade de um Livro.
-     *
-     * Caso o livro não seja encontrado ou esteja emprestado
-     * ele não poderá ter sua disponibilidade alterada.
-     * Caso tudo esteja correto, e o parâmetro recebido for false,
-     * é removido todas as reservas e prazos do livro
-     * e sua disponibilidade é atualizada.
-     *
-     * ps: não altera disponibilidade do livro caso ele esteja emprestado
-     *
-     * @param isbn isbn do livro
-     * @param FouT booleano true ou false
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
      * retorna uma exceção informando o ocorrido
      * @throws LivroEmprestado caso o livro esteja emprestado por algum leitor,
      * retorna uma exceção informando o ocorrido
      */
 
-    public void atualizarDisponibilidadeLivro(double isbn, boolean FouT) throws ObjetoInvalido, LivroEmprestado {
-        Livro livro = DAO.getLivro().encontrarPorISBN(isbn);
+    public void atualizarDadosLivro(Livro livro) throws ObjetoInvalido, LivroEmprestado {
+        Livro livroDAO = DAO.getLivro().encontrarPorISBN(livro.getISBN());
 
-        if(livro==null)
+        if(livroDAO==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
-        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
+        else if(DAO.getEmprestimo().encontrarPorISBN(livroDAO.getISBN())!=null)
             throw new LivroEmprestado();
 
-        if(!FouT){
-            DAO.getReserva().removerReservasDeUmLivro(isbn);
-            DAO.getPrazos().removerPrazoDeUmLivro(isbn);
+        if(!livro.getDisponivel()){
+            DAO.getReserva().removerReservasDeUmLivro(livro.getISBN());
+            DAO.getPrazos().removerPrazoDeUmLivro(livro.getISBN());
         }
 
-        livro.setDisponivel(FouT);
         DAO.getLivro().atualizar(livro);
     }
 
@@ -551,9 +347,8 @@ public class Adm extends Usuario {
         List<Livro> livrosAtrasados = new ArrayList<Livro>();
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
-            if(emp.getdataPrevista().isBefore(LocalDate.now())){
+            if(emp.getdataPrevista().isBefore(LocalDate.now()))
                 livrosAtrasados.add(DAO.getLivro().encontrarPorISBN(emp.getLivro()));
-            }
         }
 
         return livrosAtrasados;
