@@ -18,12 +18,12 @@ public class StageController {
         stage.setResizable(false);
         stage.setTitle("Sistema de Gerenciamento de Biblioteca");
         stage.centerOnScreen();
-        stage.show();
+
         return loader;
     }
 
     public static Stage getStage(ActionEvent event){
-        Node source = (Node)  event.getSource();
+        Node source = (Node) event.getSource();
         return (Stage) source.getScene().getWindow();
     }
 }
