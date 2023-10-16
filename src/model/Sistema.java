@@ -172,22 +172,25 @@ public class Sistema {
     public static void verificarPrazosEReservas(){
         List<Prazos> prazosARemover = new ArrayList<Prazos>();
         List<Prazos> prazosAAdicionar = new ArrayList<Prazos>();
+        List<Prazos> prazos = DAO.getPrazos().encontrarTodos();
 
-        for(Prazos prazo : DAO.getPrazos().encontrarTodos()){
-            if(prazo.getDataLimite().isBefore(LocalDate.now())){
-                DAO.getReserva().removeTop1(prazo.getLivro());
+        if(!prazos.isEmpty()) {
+            for (Prazos prazo : prazos) {
+                if (prazo.getDataLimite().isBefore(LocalDate.now())) {
+                    DAO.getReserva().removeTop1(prazo.getLivro());
 
-                if(DAO.getReserva().livroTemReserva(prazo.getLivro())){
-                    Reserva reserva1 = DAO.getReserva().top1Reserva(prazo.getLivro());
-                    Prazos prazotop1 = new Prazos(reserva1.getLeitor(),reserva1.getLivro());
-                    prazosAAdicionar.add(prazotop1);
+                    if (DAO.getReserva().livroTemReserva(prazo.getLivro())) {
+                        Reserva reserva1 = DAO.getReserva().top1Reserva(prazo.getLivro());
+                        Prazos prazotop1 = new Prazos(reserva1.getLeitor(), reserva1.getLivro());
+                        prazosAAdicionar.add(prazotop1);
+                    }
+
+                    prazosARemover.add(prazo);
                 }
-
-                prazosARemover.add(prazo);
             }
-        }
 
-        DAO.getPrazos().atualizarPrazos(prazosARemover, prazosAAdicionar);
+            DAO.getPrazos().atualizarPrazos(prazosARemover, prazosAAdicionar);
+        }
     }
 
 
