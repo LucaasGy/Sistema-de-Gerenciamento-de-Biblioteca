@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
 import utils.StageController;
@@ -23,9 +20,8 @@ public class TelaLoginController{
 
     @FXML
     private TextField digitaID;
-
     @FXML
-    private TextField digitaSenha;
+    private PasswordField digitaSenha;
 
     @FXML
     private Label mensagemDeErro;
@@ -45,7 +41,9 @@ public class TelaLoginController{
 
         else{
             if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Convidado){
-                this.retornaControlador(event).setConvidado(Sistema.loginConvidado());
+                TelaInicialController controller = this.retornaControlador(event);
+                controller.setConvidado(Sistema.loginConvidado());
+                controller.telaLeitorEConvidado();
             }
 
             else{
@@ -58,8 +56,10 @@ public class TelaLoginController{
                 else{
                     if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Administrador){
                         try{
-                            Adm adm = Sistema.checarLoginADM(Integer.parseInt(this.digitaID.getText()),this.digitaSenha.getText());
-                            this.retornaControlador(event).setAdm(adm);
+                            Adm adm = Sistema.checarLoginADM(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
+                            TelaInicialController controller = this.retornaControlador(event);
+                            controller.setAdm(adm);
+                            controller.listaFuncionalidadesAdm();
 
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
@@ -68,8 +68,10 @@ public class TelaLoginController{
 
                     else if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Bibliotecario){
                         try{
-                            Bibliotecario bibliotecario = Sistema.checarLoginBibliotecario(Integer.parseInt(this.digitaID.getText()),this.digitaSenha.getText());
-                            this.retornaControlador(event).setBibliotecario(bibliotecario);
+                            Bibliotecario bibliotecario = Sistema.checarLoginBibliotecario(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
+                            TelaInicialController controller = this.retornaControlador(event);
+                            controller.setBibliotecario(bibliotecario);
+                            controller.telaBibliotecario();
 
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
@@ -78,8 +80,11 @@ public class TelaLoginController{
 
                     else if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Leitor){
                         try{
-                            Leitor leitor = Sistema.checarLoginLeitor(Integer.parseInt(this.digitaID.getText()),this.digitaSenha.getText());
-                            this.retornaControlador(event).setLeitor(leitor);
+                            Leitor leitor = Sistema.checarLoginLeitor(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
+                            TelaInicialController controller = this.retornaControlador(event);
+                            controller.setLeitor(leitor);
+                            controller.telaLeitorEConvidado();
+                            controller.listaFuncionalidadesLeitor();
 
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
