@@ -1,8 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaInicialController">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaInicialController">
+   <children>
+      <HBox prefHeight="25.0" prefWidth="700.0">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="632.0">
+              <menus>
+                <Menu fx:id="gerirAdministrador" mnemonicParsing="false" text="Gerir Admistrador">
+                  <items>
+                    <MenuItem fx:id="criarAdm" mnemonicParsing="false" text="Criar" />
+                        <MenuItem fx:id="editarExcluirAdm" mnemonicParsing="false" text="Editar/Excluir" />
+                  </items>
+                </Menu>
+                <Menu fx:id="gerirBibliotecario" mnemonicParsing="false" text="Gerir Bibliotecario">
+                  <items>
+                    <MenuItem fx:id="criarBibliotecario" mnemonicParsing="false" text="Criar" />
+                        <MenuItem fx:id="editarExcluirBibliotecario" mnemonicParsing="false" text="Editar/Excluir" />
+                  </items>
+                </Menu>
+                <Menu fx:id="gerirLeitor" mnemonicParsing="false" text="Gerir Leitor">
+                  <items>
+                    <MenuItem fx:id="criarLeitor" mnemonicParsing="false" text="Criar" />
+                        <MenuItem fx:id="editarExcluirLeitor" mnemonicParsing="false" text="Editar/Excluir" />
+                        <MenuItem fx:id="bloquearDesbloquearLeitor" mnemonicParsing="false" text="Bloquear/Desbloquear" />
+                        <MenuItem fx:id="tirarMultaLeitor" mnemonicParsing="false" text="Tirar multa" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="gerirLivro" mnemonicParsing="false" text="Gerir Livro">
+                     <items>
+                        <MenuItem fx:id="criarLivro" mnemonicParsing="false" text="Criar" />
+                        <MenuItem fx:id="editarExcluirLivro" mnemonicParsing="false" text="Editar/Excluir" />
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <Button fx:id="botaoSair" mnemonicParsing="false" onAction="#sairDaConta" prefHeight="25.0" prefWidth="70.0" text="LogOut" textAlignment="CENTER">
+               <effect>
+                  <SepiaTone />
+               </effect>
+            </Button>
+         </children>
+      </HBox>
+      <ListView fx:id="listaFuncionalidades" layoutX="173.0" layoutY="173.0" prefHeight="230.0" prefWidth="356.0" />
+      <Button fx:id="botaoConfirmar" layoutX="317.0" layoutY="430.0" mnemonicParsing="false" text="Confirmar" />
+      <Label fx:id="mensagemBemVindo" alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="109.0" prefHeight="20.0" prefWidth="312.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

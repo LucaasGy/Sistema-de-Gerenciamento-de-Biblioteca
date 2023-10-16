@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -19,11 +20,6 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="digitaSenha" layoutX="264.0" layoutY="196.0" promptText="Senha">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
       <Button fx:id="botaoFazerLogin" layoutX="310.0" layoutY="340.0" mnemonicParsing="false" onAction="#confirmaLogin" text="Confirmar">
          <font>
             <Font size="14.0" />
@@ -35,5 +31,6 @@
          </font>
       </Label>
       <ComboBox fx:id="selecionaTipo" layoutX="264.0" layoutY="250.0" prefHeight="30.0" prefWidth="173.0" promptText="Selecione o tipo..." />
+      <PasswordField fx:id="digitaSenha" layoutX="264.0" layoutY="198.0" prefHeight="30.0" prefWidth="173.0" promptText="Senha" />
    </children>
 </AnchorPane>
