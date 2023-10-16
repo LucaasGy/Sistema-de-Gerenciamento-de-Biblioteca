@@ -2,13 +2,10 @@ package controller;
 
 import erros.objetos.ObjetoInvalido;
 import erros.objetos.UsuarioSenhaIncorreta;
-import view.MainApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -48,16 +45,7 @@ public class TelaLoginController{
 
         else{
             if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Convidado){
-                FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("TelaInicial.fxml"));
-                Scene scene = new Scene(loader.load());
-                Stage stage = StageController.getStage(event);
-                stage.setScene(scene);
-                stage.setTitle("Sistema de Gerenciamento de Biblioteca");
-                stage.setResizable(false);
-                stage.centerOnScreen();
-
-                TelaInicialController controller = loader.getController();
-                controller.setConvidado(Sistema.loginConvidado());
+                this.retornaControlador(event).setConvidado(Sistema.loginConvidado());
             }
 
             else{
@@ -71,17 +59,8 @@ public class TelaLoginController{
                     if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Administrador){
                         try{
                             Adm adm = Sistema.checarLoginADM(Integer.parseInt(this.digitaID.getText()),this.digitaSenha.getText());
+                            this.retornaControlador(event).setAdm(adm);
 
-                            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("TelaInicial.fxml"));
-                            Scene scene = new Scene(loader.load());
-                            Stage stage = StageController.getStage(event);
-                            stage.setScene(scene);
-                            stage.setTitle("Sistema de Gerenciamento de Biblioteca");
-                            stage.setResizable(false);
-                            stage.centerOnScreen();
-
-                            TelaInicialController controller = loader.getController();
-                            controller.setAdm(adm);
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
                         }
@@ -90,17 +69,8 @@ public class TelaLoginController{
                     else if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Bibliotecario){
                         try{
                             Bibliotecario bibliotecario = Sistema.checarLoginBibliotecario(Integer.parseInt(this.digitaID.getText()),this.digitaSenha.getText());
+                            this.retornaControlador(event).setBibliotecario(bibliotecario);
 
-                            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("TelaInicial.fxml"));
-                            Scene scene = new Scene(loader.load());
-                            Stage stage = StageController.getStage(event);
-                            stage.setScene(scene);
-                            stage.setTitle("Sistema de Gerenciamento de Biblioteca");
-                            stage.setResizable(false);
-                            stage.centerOnScreen();
-
-                            TelaInicialController controller = loader.getController();
-                            controller.setBibliotecario(bibliotecario);
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
                         }
@@ -109,17 +79,8 @@ public class TelaLoginController{
                     else if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Leitor){
                         try{
                             Leitor leitor = Sistema.checarLoginLeitor(Integer.parseInt(this.digitaID.getText()),this.digitaSenha.getText());
+                            this.retornaControlador(event).setLeitor(leitor);
 
-                            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("TelaInicial.fxml"));
-                            Scene scene = new Scene(loader.load());
-                            Stage stage = StageController.getStage(event);
-                            stage.setScene(scene);
-                            stage.setTitle("Sistema de Gerenciamento de Biblioteca");
-                            stage.setResizable(false);
-                            stage.centerOnScreen();
-
-                            TelaInicialController controller = loader.getController();
-                            controller.setLeitor(leitor);
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
                         }
@@ -137,6 +98,14 @@ public class TelaLoginController{
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public TelaInicialController retornaControlador(ActionEvent event) throws IOException {
+        Stage stage = StageController.getStage(event);
+
+        TelaInicialController controller = StageController.criaStage(stage,"TelaInicial.fxml").getController();
+
+        return controller;
     }
 
     public void carregarTipos(){
