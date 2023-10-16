@@ -12,7 +12,7 @@ public enum TipoUsuario {
     /**
      * Tipo do usuário Administrador.
      */
-    ADM,
+    Administrador,
 
     /**
      * Tipo do usuário Bibliotecario.

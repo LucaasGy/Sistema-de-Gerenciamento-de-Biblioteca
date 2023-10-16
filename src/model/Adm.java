@@ -35,7 +35,7 @@ public class Adm extends Usuario {
      */
 
     public Adm(String nome, String senha){
-        super(nome, senha, TipoUsuario.ADM);
+        super(nome, senha, TipoUsuario.Administrador);
     }
 
     /**
