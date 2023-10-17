@@ -3,8 +3,8 @@ package controller;
 import erros.objetos.ObjetoInvalido;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import model.*;
 import utils.StageController;
 
@@ -24,41 +24,10 @@ public class TelaPesquisaLivroController  {
 
     @FXML
     private Label mensagemErro;
-    private Bibliotecario bibliotecario;
-    private Adm adm;
-    private Leitor leitor;
-    private Convidado convidado;
+    private TelaInicialController telaInicialController;
 
-    public Bibliotecario getBibliotecario() {
-        return bibliotecario;
-    }
-
-    public void setBibliotecario(Bibliotecario bibliotecario) {
-        this.bibliotecario = bibliotecario;
-    }
-
-    public Adm getAdm() {
-        return adm;
-    }
-
-    public void setAdm(Adm adm) {
-        this.adm = adm;
-    }
-
-    public Leitor getLeitor() {
-        return leitor;
-    }
-
-    public void setLeitor(Leitor leitor) {
-        this.leitor = leitor;
-    }
-
-    public Convidado getConvidado() {
-        return convidado;
-    }
-
-    public void setConvidado(Convidado convidado) {
-        this.convidado = convidado;
+    public void setTelaInicialController(TelaInicialController telaInicialController) {
+        this.telaInicialController = telaInicialController;
     }
 
     @FXML
@@ -81,24 +50,26 @@ public class TelaPesquisaLivroController  {
             if (escolha.equals("Titulo")) {
                 try {
                     List<Livro> livros = Sistema.pesquisarLivroPorTitulo(dado);
-                    TelaLivrosPesquisadosController controller = this.retornaControlador(event);
+
+                    FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                    StageController.criaStage(StageController.getStage(event), loader);
+                    TelaLivrosPesquisadosController controller = loader.getController();
+
                     controller.carregaTableLivroLista(livros);
-                    if(this.getAdm()!=null) {
+
+                    if(this.telaInicialController.getAdm()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
 
-                    else if(this.getBibliotecario()!=null) {
+                    else if(this.telaInicialController.getBibliotecario()!=null)
                         controller.telaBibliotecario();
-                    }
 
-                    else if(this.getLeitor()!=null) {
-                        controller.setLeitor(this.getLeitor());
+                    else if(this.telaInicialController.getLeitor()!=null) {
+                        controller.setTelaInicialController(this.telaInicialController);
                         controller.telaLeitor();
                     }
 
-                    else if(this.getConvidado()!=null) {
+                    else if(this.telaInicialController.getConvidado()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
                 } catch (ObjetoInvalido e) {
                     this.mensagemErro.setText(e.getMessage());
                 }
@@ -107,24 +78,26 @@ public class TelaPesquisaLivroController  {
             else if (escolha.equals("ISBN")) {
                 try {
                     Livro livro = Sistema.pesquisarLivroPorISBN(Double.parseDouble(dado));
-                    TelaLivrosPesquisadosController controller = this.retornaControlador(event);
+
+                    FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                    StageController.criaStage(StageController.getStage(event), loader);
+                    TelaLivrosPesquisadosController controller = loader.getController();
+
                     controller.carregaTableLivroISBN(livro);
-                    if(this.getAdm()!=null) {
+
+                    if(this.telaInicialController.getAdm()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
 
-                    else if(this.getBibliotecario()!=null) {
+                    else if(this.telaInicialController.getBibliotecario()!=null)
                         controller.telaBibliotecario();
-                    }
 
-                    else if(this.getLeitor()!=null) {
-                        controller.setLeitor(this.getLeitor());
+                    else if(this.telaInicialController.getLeitor()!=null) {
+                        controller.setTelaInicialController(this.telaInicialController);
                         controller.telaLeitor();
                     }
 
-                    else if(this.getConvidado()!=null) {
+                    else if(this.telaInicialController.getConvidado()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
                 }catch (ObjetoInvalido e) {
                     this.mensagemErro.setText(e.getMessage());
                 }
@@ -133,24 +106,26 @@ public class TelaPesquisaLivroController  {
             else if (escolha.equals("Categoria")) {
                 try {
                     List<Livro> livros = Sistema.pesquisarLivroPorCategoria(dado);
-                    TelaLivrosPesquisadosController controller = this.retornaControlador(event);
+
+                    FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                    StageController.criaStage(StageController.getStage(event), loader);
+                    TelaLivrosPesquisadosController controller = loader.getController();
+
                     controller.carregaTableLivroLista(livros);
-                    if(this.getAdm()!=null) {
+
+                    if(this.telaInicialController.getAdm()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
 
-                    else if(this.getBibliotecario()!=null) {
+                    else if(this.telaInicialController.getBibliotecario()!=null)
                         controller.telaBibliotecario();
-                    }
 
-                    else if(this.getLeitor()!=null) {
-                        controller.setLeitor(this.getLeitor());
+                    else if(this.telaInicialController.getLeitor()!=null) {
+                        controller.setTelaInicialController(this.telaInicialController);
                         controller.telaLeitor();
                     }
 
-                    else if(this.getConvidado()!=null) {
+                    else if(this.telaInicialController.getConvidado()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
                 } catch (ObjetoInvalido e) {
                     this.mensagemErro.setText(e.getMessage());
                 }
@@ -159,24 +134,26 @@ public class TelaPesquisaLivroController  {
             else if (escolha.equals("Autor")) {
                 try{
                     List<Livro> livros = Sistema.pesquisarLivroPorAutor(dado);
-                    TelaLivrosPesquisadosController controller = this.retornaControlador(event);
+
+                    FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                    StageController.criaStage(StageController.getStage(event), loader);
+                    TelaLivrosPesquisadosController controller = loader.getController();
+
                     controller.carregaTableLivroLista(livros);
-                    if(this.getAdm()!=null) {
+
+                    if(this.telaInicialController.getAdm()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
 
-                    else if(this.getBibliotecario()!=null) {
+                    else if(this.telaInicialController.getBibliotecario()!=null)
                         controller.telaBibliotecario();
-                    }
 
-                    else if(this.getLeitor()!=null) {
-                        controller.setLeitor(this.getLeitor());
+                    else if(this.telaInicialController.getLeitor()!=null) {
+                        controller.setTelaInicialController(this.telaInicialController);
                         controller.telaLeitor();
                     }
 
-                    else if(this.getConvidado()!=null) {
+                    else if(this.telaInicialController.getConvidado()!=null)
                         controller.telaAdministradorEConvidado();
-                    }
                 } catch (ObjetoInvalido e) {
                     this.mensagemErro.setText(e.getMessage());
                 }
@@ -193,13 +170,4 @@ public class TelaPesquisaLivroController  {
             return false;
         }
     }
-
-    public TelaLivrosPesquisadosController retornaControlador(ActionEvent event) throws IOException {
-        Stage stage = StageController.getStage(event);
-
-        TelaLivrosPesquisadosController controller = StageController.criaStage(stage,"TelaLivrosPesquisados.fxml").getController();
-
-        return controller;
-    }
-
 }
