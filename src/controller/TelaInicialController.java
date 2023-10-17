@@ -4,8 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -15,7 +13,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
 import utils.StageController;
-import view.MainApplication;
 
 import java.io.IOException;
 
@@ -93,12 +90,24 @@ public class TelaInicialController {
     }
 
     @FXML
-    void selecionaFuncionalidade(ActionEvent event) throws IOException {
-        if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Pesquisar livros")){
+    void selecionaFuncionalidade() throws IOException {
+        if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Pesquisar livros")) {
             Stage stage = new Stage();
-            StageController.criaStage(stage,"TelaPesquisaLivro.fxml");
-            stage.initModality(Modality.APPLICATION_MODAL);
+            TelaPesquisaLivroController controller = StageController.criaStage(stage, "TelaPesquisaLivro.fxml").getController();
 
+            if (this.getAdm() != null)
+                controller.setAdm(this.getAdm());
+
+            else if (this.getBibliotecario() != null)
+                controller.setBibliotecario(this.getBibliotecario());
+
+            else if (this.getLeitor() != null)
+                controller.setLeitor(this.getLeitor());
+
+            else if (this.getConvidado() != null)
+                controller.setConvidado(this.getConvidado());
+
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         }
     }
@@ -150,5 +159,21 @@ public class TelaInicialController {
     public void setConvidado(Convidado convidado) {
         this.convidado = convidado;
         this.mensagemBemVindo.setText("Bem-vindo, Convidado");
+    }
+
+    public Adm getAdm() {
+        return adm;
+    }
+
+    public Bibliotecario getBibliotecario() {
+        return bibliotecario;
+    }
+
+    public Leitor getLeitor() {
+        return leitor;
+    }
+
+    public Convidado getConvidado() {
+        return convidado;
     }
 }
