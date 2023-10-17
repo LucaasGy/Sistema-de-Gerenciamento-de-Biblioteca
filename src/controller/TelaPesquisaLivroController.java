@@ -74,7 +74,7 @@ public class TelaPesquisaLivroController  {
             String escolha = radio.getText();
 
             if (escolha.equals("ISBN") && !tryParseDouble(dado)) {
-                this.mensagemErro.setText("");
+                this.mensagemErro.setText("ISBN é composto apenas por números");
                 return;
             }
 
