@@ -202,4 +202,31 @@ class SistemaTest {
         //o empréstimo do livro 1
         assertEquals(LocalDate.now().plusDays(2),DAO.getPrazos().encontrarPorId(this.leitor3.getID()).getDataLimite());
     }
+
+    @Test
+    void pesquisarLivroPorTitulo() throws ObjetoInvalido {
+        assertThrows(ObjetoInvalido.class, ()-> Sistema.pesquisarLivroPorTitulo("naoexiste"));
+        assertEquals(1, Sistema.pesquisarLivroPorTitulo("livro1").size());
+    }
+
+    @Test
+    void pesquisarLivroPorAutor() throws ObjetoInvalido {
+        assertThrows(ObjetoInvalido.class, ()-> Sistema.pesquisarLivroPorAutor("naoexiste"));
+        assertEquals(1, Sistema.pesquisarLivroPorAutor("autor3").size());
+    }
+
+    @Test
+    void pesquisarLivroPorCategoria() throws ObjetoInvalido {
+        assertThrows(ObjetoInvalido.class, ()-> Sistema.pesquisarLivroPorCategoria("naoexiste"));
+        assertEquals(1, Sistema.pesquisarLivroPorCategoria("categoria5").size());
+    }
+
+    @Test
+    void pesquisarLivroPorISBN() throws ObjetoInvalido {
+        double isbn5 = DAO.getLivro().encontrarTodos().get(4).getISBN();
+        Livro esperado = this.livro5;
+
+        assertThrows(ObjetoInvalido.class, ()-> Sistema.pesquisarLivroPorISBN(99999999));
+        assertEquals(esperado, Sistema.pesquisarLivroPorISBN(isbn5));
+    }
 }
