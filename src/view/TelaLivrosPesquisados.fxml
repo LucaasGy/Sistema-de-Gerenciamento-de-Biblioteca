@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="425.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaLivrosPesquisadosController">
    <children>
       <SplitPane dividerPositions="0.45484949832775917" layoutX="69.0" layoutY="50.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -70,14 +69,14 @@
                   </GridPane>
                   <Group layoutX="94.0" layoutY="379.0">
                      <children>
-                        <Button fx:id="botaoReservar" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Reservar" />
-                        <Button fx:id="botaoEmprestimo" layoutX="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Empréstimo" />
-                        <Button fx:id="botaoDevolucao" layoutX="190.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Devolução" />
+                        <Button fx:id="botaoReservar" mnemonicParsing="false" onAction="#fazerReserva" prefHeight="25.0" prefWidth="80.0" text="Reservar" />
+                        <Button fx:id="botaoEmprestimo" layoutX="95.0" mnemonicParsing="false" onAction="#fazerEmprestimo" prefHeight="25.0" prefWidth="80.0" text="Empréstimo" />
+                        <Button fx:id="botaoDevolucao" layoutX="190.0" mnemonicParsing="false" onAction="#fazerDevolucao" prefHeight="25.0" prefWidth="80.0" text="Devolução" />
                      </children>
                   </Group>
-                  <Label fx:id="mensagemErro" alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="405.0" prefHeight="17.0" prefWidth="278.0" textAlignment="CENTER">
+                  <Label fx:id="mensagemErro" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="339.0" prefHeight="17.0" prefWidth="340.0" textAlignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="11.0" />
                      </font>
                   </Label>
                   <Button fx:id="botaoMenu" layoutX="14.0" layoutY="379.0" mnemonicParsing="false" onAction="#voltarMenu" prefHeight="26.0" prefWidth="56.0" text="Menu" />
