@@ -6,8 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import model.*;
 import utils.StageController;
 
@@ -42,7 +42,10 @@ public class TelaLoginController{
 
         else{
             if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Convidado){
-                TelaInicialController controller = this.retornaControlador(event);
+                FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                StageController.criaStage(StageController.getStage(event), loader);
+                TelaInicialController controller = loader.getController();
+
                 controller.setConvidado(Sistema.loginConvidado());
                 controller.telaLeitorEConvidado();
             }
@@ -58,10 +61,13 @@ public class TelaLoginController{
                     if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Administrador){
                         try{
                             Adm adm = Sistema.checarLoginADM(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
-                            TelaInicialController controller = this.retornaControlador(event);
+
+                            FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaInicialController controller = loader.getController();
+
                             controller.setAdm(adm);
                             controller.listaFuncionalidadesAdm();
-
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
                         }
@@ -70,10 +76,13 @@ public class TelaLoginController{
                     else if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Bibliotecario){
                         try{
                             Bibliotecario bibliotecario = Sistema.checarLoginBibliotecario(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
-                            TelaInicialController controller = this.retornaControlador(event);
+
+                            FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaInicialController controller = loader.getController();
+
                             controller.setBibliotecario(bibliotecario);
                             controller.telaBibliotecario();
-
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
                         }
@@ -82,11 +91,14 @@ public class TelaLoginController{
                     else if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Leitor){
                         try{
                             Leitor leitor = Sistema.checarLoginLeitor(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
-                            TelaInicialController controller = this.retornaControlador(event);
+
+                            FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaInicialController controller = loader.getController();
+
                             controller.setLeitor(leitor);
                             controller.telaLeitorEConvidado();
                             controller.listaFuncionalidadesLeitor();
-
                         } catch (ObjetoInvalido | UsuarioSenhaIncorreta e){
                             this.mensagemDeErro.setText(e.getMessage());
                         }
@@ -104,14 +116,6 @@ public class TelaLoginController{
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-    public TelaInicialController retornaControlador(ActionEvent event) throws IOException {
-        Stage stage = StageController.getStage(event);
-
-        TelaInicialController controller = StageController.criaStage(stage,"TelaInicial.fxml").getController();
-
-        return controller;
     }
 
     public void carregarTipos(){

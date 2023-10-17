@@ -28,7 +28,7 @@ public class MainApplication extends Application {
         System.out.println(DAO.getBibliotecario().encontrarTodos().get(0).getID());
         System.out.println(DAO.getLeitor().encontrarTodos().get(0).getID());
 
-        StageController.criaStage(stage,"TelaLogin.fxml");
+        StageController.criaStage(stage,StageController.retornaLoader("TelaLogin.fxml"));
         stage.show();
     }
 
