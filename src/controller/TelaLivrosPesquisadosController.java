@@ -1,5 +1,9 @@
 package controller;
 
+import dao.DAO;
+import erros.leitor.*;
+import erros.livro.*;
+import erros.objetos.ObjetoInvalido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,8 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Livro;
+import model.*;
 import utils.StageController;
 
 import java.io.IOException;
@@ -62,6 +67,11 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     private Label tituloLivro;
+    private Leitor leitor;
+
+    public void setLeitor(Leitor leitor) {
+        this.leitor = leitor;
+    }
 
     @FXML
     void initialize(){
@@ -70,12 +80,66 @@ public class TelaLivrosPesquisadosController {
     }
 
     @FXML
-    void voltarMenu(ActionEvent event) throws IOException {
+    void voltarMenu(ActionEvent event){
         Stage stage = StageController.getStage(event);
         stage.close();
     }
 
+    @FXML
+    void fazerReserva(){
+        try{
+            this.leitor.reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+            this.mensagemErro.setText("Reserva feita com sucesso");
+            this.mensagemErro.setStyle("-fx-text-fill: green;");
+        }catch(LeitorBloqueado | LivroLimiteDeReservas | LivroNaoDisponivel | LeitorTemEmprestimoEmAtraso | LivroNaoPossuiEmprestimoNemReserva |
+                LeitorMultado | LeitorReservarLivroEmMaos | LeitorLimiteDeReservas | ObjetoInvalido | LeitorPossuiReservaDesseLivro e){
+            this.mensagemErro.setText(e.getMessage());
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
+        }
+    }
+
+    @FXML
+    void fazerDevolucao(){
+        try {
+            Sistema.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+            this.mensagemErro.setText("Devolução feita com sucesso");
+            this.mensagemErro.setStyle("-fx-text-fill: green;");
+        }catch (LivroNaoPossuiEmprestimo e){
+            this.mensagemErro.setText(e.getMessage());
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
+        }
+    }
+
+    @FXML
+    void fazerEmprestimo(ActionEvent event) throws IOException {
+        Livro livro = this.tabelaLivros.getSelectionModel().getSelectedItem();
+
+        if(!livro.getDisponivel()) {
+            if(DAO.getEmprestimo().encontrarPorISBN(livro.getISBN())!=null) {
+                LivroEmprestado e = new LivroEmprestado();
+                this.mensagemErro.setText(e.getMessage());
+                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                return;
+            }
+            LivroNaoDisponivel e = new LivroNaoDisponivel();
+            this.mensagemErro.setText(e.getMessage());
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
+        }
+
+        else {
+            this.mensagemErro.setText("");
+            Stage stage = new Stage();
+            TelaDigiteIDController controller = StageController.criaStage(stage, "TelaDigiteID.fxml").getController();
+            controller.setQualOperacao("emprestimo");
+            controller.setLivro(this.tabelaLivros.getSelectionModel().getSelectedItem());
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
+    }
+
     public void selecionarLivroTabela(Livro livro){
+        this.mensagemErro.setText("");
         this.tituloLivro.setText(livro.getTitulo());
         this.isbnLivro.setText(Double.toString(livro.getISBN()));
         this.autorLivro.setText(livro.getAutor());
@@ -106,5 +170,20 @@ public class TelaLivrosPesquisadosController {
         setaColunas();
         ObservableList<Livro> listaLivros = FXCollections.observableArrayList(livros);
         this.tabelaLivros.setItems(listaLivros);
+    }
+
+    public void telaAdministradorEConvidado(){
+        this.botaoEmprestimo.setDisable(true);
+        this.botaoDevolucao.setDisable(true);
+        this.botaoReservar.setDisable(true);
+    }
+
+    public void telaLeitor(){
+        this.botaoDevolucao.setDisable(true);
+        this.botaoEmprestimo.setDisable(true);
+    }
+
+    public void telaBibliotecario(){
+        this.botaoReservar.setDisable(true);
     }
 }
