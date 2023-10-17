@@ -2,10 +2,7 @@ package controller;
 
 import erros.leitor.LeitorBloqueado;
 import erros.leitor.LeitorMultado;
-import erros.leitor.LeitorNaoPossuiEmprestimo;
 import erros.leitor.LeitorTemEmprestimo;
-import erros.livro.LivroEmprestado;
-import erros.livro.LivroNaoDisponivel;
 import erros.livro.LivroReservado;
 import erros.objetos.ObjetoInvalido;
 import javafx.fxml.FXML;

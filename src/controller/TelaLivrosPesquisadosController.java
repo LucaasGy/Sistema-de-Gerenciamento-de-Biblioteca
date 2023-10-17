@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -67,10 +68,10 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     private Label tituloLivro;
-    private Leitor leitor;
+    private TelaInicialController telaInicialController;
 
-    public void setLeitor(Leitor leitor) {
-        this.leitor = leitor;
+    public void setTelaInicialController(TelaInicialController telaInicialController) {
+        this.telaInicialController = telaInicialController;
     }
 
     @FXML
@@ -88,7 +89,7 @@ public class TelaLivrosPesquisadosController {
     @FXML
     void fazerReserva(){
         try{
-            this.leitor.reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+            this.telaInicialController.getLeitor().reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
             this.mensagemErro.setText("Reserva feita com sucesso");
             this.mensagemErro.setStyle("-fx-text-fill: green;");
         }catch(LeitorBloqueado | LivroLimiteDeReservas | LivroNaoDisponivel | LeitorTemEmprestimoEmAtraso | LivroNaoPossuiEmprestimoNemReserva |
@@ -128,8 +129,12 @@ public class TelaLivrosPesquisadosController {
 
         else {
             this.mensagemErro.setText("");
+
             Stage stage = new Stage();
-            TelaDigiteIDController controller = StageController.criaStage(stage, "TelaDigiteID.fxml").getController();
+            FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
+            StageController.criaStage(stage, loader);
+            TelaDigiteIDController controller = loader.getController();
+
             controller.setQualOperacao("emprestimo");
             controller.setLivro(this.tabelaLivros.getSelectionModel().getSelectedItem());
 

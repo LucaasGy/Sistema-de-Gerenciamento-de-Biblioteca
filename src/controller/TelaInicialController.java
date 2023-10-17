@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -71,7 +72,6 @@ public class TelaInicialController {
 
     @FXML
     private MenuItem tirarMultaLeitor;
-
     private ObservableList<String> funcionalidades;
     private Adm adm;
     private Bibliotecario bibliotecario;
@@ -85,27 +85,23 @@ public class TelaInicialController {
 
     @FXML
     void sairDaConta(ActionEvent event) throws IOException {
-        Stage stage = StageController.getStage(event);
-        StageController.criaStage(stage,"TelaLogin.fxml");
+        this.adm = null;
+        this.bibliotecario = null;
+        this.leitor = null;
+        this.convidado = null;
+        FXMLLoader loader = StageController.retornaLoader("TelaLogin.fxml");
+        StageController.criaStage(StageController.getStage(event), loader);
     }
 
     @FXML
     void selecionaFuncionalidade() throws IOException {
         if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Pesquisar livros")) {
+            FXMLLoader loader = StageController.retornaLoader("TelaPesquisaLivro.fxml");
             Stage stage = new Stage();
-            TelaPesquisaLivroController controller = StageController.criaStage(stage, "TelaPesquisaLivro.fxml").getController();
+            StageController.criaStage(stage, loader);
+            TelaPesquisaLivroController controller = loader.getController();
 
-            if (this.getAdm() != null)
-                controller.setAdm(this.getAdm());
-
-            else if (this.getBibliotecario() != null)
-                controller.setBibliotecario(this.getBibliotecario());
-
-            else if (this.getLeitor() != null)
-                controller.setLeitor(this.getLeitor());
-
-            else if (this.getConvidado() != null)
-                controller.setConvidado(this.getConvidado());
+            controller.setTelaInicialController(this);
 
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
