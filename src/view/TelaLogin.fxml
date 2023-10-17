@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaLoginController">
    <children>
-      <Label layoutX="293.0" layoutY="64.0" text="Bem-vindo!" textAlignment="CENTER">
+      <Label layoutX="284.0" layoutY="64.0" text="Bem-vindo!" textAlignment="CENTER">
          <font>
-            <Font name="Marlett" size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <TextField fx:id="digitaID" layoutX="264.0" layoutY="141.0" promptText="ID">
@@ -27,7 +27,7 @@
       </Button>
       <Label fx:id="mensagemDeErro" alignment="CENTER" contentDisplay="CENTER" layoutX="216.0" layoutY="300.0" prefHeight="20.0" prefWidth="268.0" textAlignment="CENTER" textFill="#ff1500">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
       <ComboBox fx:id="selecionaTipo" layoutX="264.0" layoutY="250.0" prefHeight="30.0" prefWidth="173.0" promptText="Selecione o tipo..." />

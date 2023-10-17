@@ -20,6 +20,7 @@ public class TelaLoginController{
 
     @FXML
     private TextField digitaID;
+
     @FXML
     private PasswordField digitaSenha;
 

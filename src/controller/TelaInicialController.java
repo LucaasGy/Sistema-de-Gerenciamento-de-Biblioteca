@@ -4,14 +4,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
 import utils.StageController;
+import view.MainApplication;
 
 import java.io.IOException;
 
@@ -86,6 +90,17 @@ public class TelaInicialController {
     void sairDaConta(ActionEvent event) throws IOException {
         Stage stage = StageController.getStage(event);
         StageController.criaStage(stage,"TelaLogin.fxml");
+    }
+
+    @FXML
+    void selecionaFuncionalidade(ActionEvent event) throws IOException {
+        if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Pesquisar livros")){
+            Stage stage = new Stage();
+            StageController.criaStage(stage,"TelaPesquisaLivro.fxml");
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            stage.showAndWait();
+        }
     }
 
     public void carregarLista(){

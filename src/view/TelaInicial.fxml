@@ -53,10 +53,13 @@
          </children>
       </HBox>
       <ListView fx:id="listaFuncionalidades" layoutX="173.0" layoutY="173.0" prefHeight="230.0" prefWidth="356.0" />
-      <Button fx:id="botaoConfirmar" layoutX="317.0" layoutY="430.0" mnemonicParsing="false" text="Confirmar" />
-      <Label fx:id="mensagemBemVindo" alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="109.0" prefHeight="20.0" prefWidth="312.0">
+      <Button fx:id="botaoConfirmar" layoutX="310.0" layoutY="429.0" mnemonicParsing="false" onAction="#selecionaFuncionalidade" prefHeight="34.0" prefWidth="81.0" text="Confirmar">
          <font>
             <Font size="14.0" />
+         </font></Button>
+      <Label fx:id="mensagemBemVindo" alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="109.0" prefHeight="20.0" prefWidth="312.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
    </children>
