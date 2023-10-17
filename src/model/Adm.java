@@ -15,7 +15,7 @@ import java.util.List;
  *
  * Representa um Administrador do sistema, podendo realizar CRUD dos livros e usuários,
  * solicitar relatórios e estatísticas do sistema, bloqueio e desbloqueio de Leitores,
- * gerenciamento de multas e também pesquisa de livros herdado da Superclasse Usuário.
+ * gerenciamento de multas e também pesquisa de livros.
  *
  * @author Lucas Gabriel.
  * @author Rodrigo Nazareth.

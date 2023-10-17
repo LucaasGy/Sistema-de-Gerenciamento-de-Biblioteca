@@ -15,7 +15,7 @@ import erros.objetos.ObjetoInvalido;
  *
  * Representa um Bibliotecario do sistema, podendo registrar novos dos livros,
  * fazer empréstimos e devoluções para determinado leitor e
- * também pesquisa de livros herdado da Superclasse Usuário.
+ * também pesquisa de livros.
  *
  * @author Lucas Gabriel.
  * @author Rodrigo Nazareth.

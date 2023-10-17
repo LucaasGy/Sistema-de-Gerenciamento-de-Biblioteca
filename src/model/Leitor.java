@@ -15,7 +15,7 @@ import java.time.LocalDate;
  *
  * Representa um Leitor do sistema, podendo fazer reservas de livros,
  * renovações de empréstimos ativos, retirar reservas feitas e
- * também pesquisa de livros herdado da Superclasse Usuário.
+ * também pesquisa de livros.
  *
  * @author Lucas Gabriel.
  * @author Rodrigo Nazareth.
