@@ -138,6 +138,14 @@ public class TelaInicialController {
             }
 
         }
+
+        else if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Relatórios")){
+            FXMLLoader loader = StageController.retornaLoader("TelaRelatorios.fxml");
+            Stage stage = new Stage();
+            StageController.criaStage(stage, loader);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }
     }
 
     public void carregarLista(){

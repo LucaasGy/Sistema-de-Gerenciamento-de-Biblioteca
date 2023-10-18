@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import model.*;
 import utils.StageController;
 
@@ -15,6 +16,9 @@ public class TelaPesquisaLivroController  {
 
     @FXML
     private Button botaoConfirmar;
+
+    @FXML
+    private Button botaoVoltar;
 
     @FXML
     private TextField digitaEscolha;
@@ -31,10 +35,15 @@ public class TelaPesquisaLivroController  {
     }
 
     @FXML
+    void voltar(ActionEvent event){
+        Stage stage = StageController.getStage(event);
+        stage.close();
+    }
+
+    @FXML
     void confirmarEscolha(ActionEvent event) throws IOException {
-        if(digitaEscolha.getText().isEmpty()){
+        if(digitaEscolha.getText().isEmpty())
             this.mensagemErro.setText("Insira dado do livro");
-        }
 
         else {
             String dado = digitaEscolha.getText();
@@ -42,7 +51,7 @@ public class TelaPesquisaLivroController  {
             RadioButton radio = (RadioButton) grupo.getSelectedToggle();
             String escolha = radio.getText();
 
-            if (escolha.equals("ISBN") && !tryParseDouble(dado)) {
+            if (escolha.equals("ISBN") && !StageController.tryParseDouble(dado)) {
                 this.mensagemErro.setText("ISBN é composto apenas por números");
                 return;
             }
@@ -158,16 +167,6 @@ public class TelaPesquisaLivroController  {
                     this.mensagemErro.setText(e.getMessage());
                 }
             }
-        }
-    }
-
-    //Método para verificar se é um número double
-    public static boolean tryParseDouble(String isbn) {
-        try {
-            Double.parseDouble(isbn);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 }
