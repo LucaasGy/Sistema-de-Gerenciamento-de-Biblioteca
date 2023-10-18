@@ -49,7 +49,7 @@ public class TelaDigiteIDController {
             this.mensagemErro.setStyle("-fx-text-fill: red;");
         }
 
-        else if(!tryParseInt(this.digitaID.getText())){
+        else if(!StageController.tryParseInt(this.digitaID.getText())){
             this.mensagemErro.setText("ID é composto apenas por números");
             this.mensagemErro.setStyle("-fx-text-fill: red;");
         }
@@ -74,15 +74,4 @@ public class TelaDigiteIDController {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
-
-    //Método para verificar se é um número inteiro
-    public static boolean tryParseInt(String id) {
-        try {
-            Integer.parseInt(id);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
 }

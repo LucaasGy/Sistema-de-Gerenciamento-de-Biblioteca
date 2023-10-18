@@ -20,7 +20,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="botaoFazerLogin" layoutX="310.0" layoutY="340.0" mnemonicParsing="false" onAction="#confirmaLogin" text="Confirmar">
+      <Button fx:id="botaoFazerLogin" layoutX="310.0" layoutY="338.0" mnemonicParsing="false" onAction="#confirmaLogin" prefHeight="30.0" prefWidth="80.0" text="Login">
          <font>
             <Font size="14.0" />
          </font>

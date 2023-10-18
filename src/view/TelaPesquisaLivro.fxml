@@ -24,11 +24,12 @@
       <RadioButton layoutX="192.0" layoutY="82.0" mnemonicParsing="false" text="Categoria" toggleGroup="$grupo" />
       <RadioButton layoutX="274.0" layoutY="82.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="58.0" text="Autor" toggleGroup="$grupo" />
       <TextField fx:id="digitaEscolha" layoutX="126.0" layoutY="120.0" promptText="Insira aqui..." />
-      <Button fx:id="botaoConfirmar" layoutX="166.0" layoutY="187.0" mnemonicParsing="false" onAction="#confirmarEscolha" text="Confirmar" />
+      <Button fx:id="botaoConfirmar" layoutX="248.0" layoutY="187.0" mnemonicParsing="false" onAction="#confirmarEscolha" prefHeight="25.0" prefWidth="73.0" text="Confirmar" />
       <Label fx:id="mensagemErro" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="158.0" prefHeight="17.0" prefWidth="328.0" textFill="#ff0202">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="botaoVoltar" layoutX="68.0" layoutY="187.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="69.0" text="Voltar" />
    </children>
 </AnchorPane>

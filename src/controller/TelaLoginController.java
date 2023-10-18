@@ -54,7 +54,7 @@ public class TelaLoginController{
                 if(this.digitaID.getText().isEmpty() || this.digitaSenha.getText().isEmpty())
                     this.mensagemDeErro.setText("ID e Senha não podem ser vazios");
 
-                else if(!tryParseInt(this.digitaID.getText()))
+                else if(!StageController.tryParseInt(this.digitaID.getText()))
                     this.mensagemDeErro.setText("ID é composto apenas por números");
 
                 else{
@@ -105,16 +105,6 @@ public class TelaLoginController{
                     }
                 }
             }
-        }
-    }
-
-    //Método para verificar se é um número inteiro
-    public static boolean tryParseInt(String id) {
-        try {
-            Integer.parseInt(id);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 

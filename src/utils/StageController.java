@@ -37,4 +37,24 @@ public class StageController {
         alert.setContentText(conteudo);
         alert.showAndWait();
     }
+
+    //Método para verificar se é um número inteiro
+    public static boolean tryParseInt(String id) {
+        try {
+            Integer.parseInt(id);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    //Método para verificar se é um número double
+    public static boolean tryParseDouble(String isbn) {
+        try {
+            Double.parseDouble(isbn);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
