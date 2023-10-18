@@ -1,5 +1,7 @@
 package controller;
 
+import dao.DAO;
+import erros.leitor.LeitorNaoPossuiReservas;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,6 +106,27 @@ public class TelaInicialController {
 
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+        }
+
+        else if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Minhas reservas")){
+            if(DAO.getReserva().encontrarReservasLeitor(this.leitor.getID()).isEmpty()) {
+                LeitorNaoPossuiReservas e = new LeitorNaoPossuiReservas();
+                StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar uma funcionalidade", e.getMessage());
+            }
+
+            else{
+                FXMLLoader loader = StageController.retornaLoader("TelaMinhasReservas.fxml");
+                Stage stage = new Stage();
+                StageController.criaStage(stage, loader);
+                TelaMinhasReservasController controller = loader.getController();
+
+                controller.setTelaInicialController(this);
+                controller.carregaTabela();
+
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            }
+
         }
     }
 

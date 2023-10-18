@@ -170,7 +170,6 @@ public class TelaLivrosPesquisadosController {
 
         else
             this.disponibilidadeLivro.setText("Não");
-
     }
 
     public void setaColunas(){

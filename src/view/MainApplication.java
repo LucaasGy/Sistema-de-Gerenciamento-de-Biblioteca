@@ -21,6 +21,7 @@ public class MainApplication extends Application {
         //DAO.getLivro().criar(new Livro("lucas","lucas","lucas",2018,"lucas"));
         //DAO.getLivro().criar(new Livro("lucas","lucas","lucas",2018,"lucas"));
         //DAO.getEmprestimo().criar(new Emprestimo(10.0000,1013));
+        //DAO.getReserva().criar(new Reserva(10.000,1003));
         //DAO.getReserva().removerTodos();
         //System.out.println(DAO.getLivro().encontrarTodos().get(0).getISBN());
         //System.out.println(DAO.getLivro().encontrarTodos().get(1).getISBN());
