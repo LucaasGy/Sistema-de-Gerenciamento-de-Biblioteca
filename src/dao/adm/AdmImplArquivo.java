@@ -171,6 +171,7 @@ public class AdmImplArquivo implements AdmDAO{
     public void alteraParaPastaTeste() {
         this.nomePasta = "Adm Teste";
         this.nomeArquivo = "admTeste.dat";
+        this.listaAdm = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 
     /**
@@ -181,5 +182,6 @@ public class AdmImplArquivo implements AdmDAO{
     public void alteraParaPastaPrincipal() {
         this.nomePasta = "Adm";
         this.nomeArquivo = "adm.dat";
+        this.listaAdm = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 }

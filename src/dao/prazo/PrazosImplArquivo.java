@@ -207,6 +207,7 @@ public class PrazosImplArquivo implements PrazosDAO{
     public void alteraParaPastaTeste() {
         this.nomePasta = "Prazos Teste";
         this.nomeArquivo = "prazosTeste.dat";
+        this.listaPrazos = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 
     /**
@@ -216,5 +217,6 @@ public class PrazosImplArquivo implements PrazosDAO{
     public void alteraParaPastaPrincipal() {
         this.nomePasta = "Prazos";
         this.nomeArquivo = "prazos.dat";
+        this.listaPrazos = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 }
