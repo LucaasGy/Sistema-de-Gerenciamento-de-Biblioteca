@@ -199,7 +199,7 @@ public class Leitor extends Usuario {
             throw new LeitorBloqueado();
 
         else if(getDataMulta()!=null)
-            throw new LeitorMultado("LEITOR MULTADO\n A MULTA VENCERÁ EM: " + getDataMulta());
+            throw new LeitorMultado("LEITOR MULTADO. A MULTA VENCERÁ EM: " + getDataMulta());
 
         else if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");

@@ -44,7 +44,7 @@ public class Adm extends Usuario {
      * @param leitor objeto leitor contendo todas as informações pré definidas
      */
 
-    public void criarLeitor(Leitor leitor){
+    public static void criarLeitor(Leitor leitor){
         DAO.getLeitor().criar(leitor);
     }
 
@@ -65,7 +65,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void removerLeitor(int id) throws ObjetoInvalido, LeitorTemEmprestimo {
+    public static void removerLeitor(int id) throws ObjetoInvalido, LeitorTemEmprestimo {
         if(DAO.getLeitor().encontrarPorId(id)==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
@@ -87,7 +87,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void atualizarDadosLeitor(Leitor leitor) throws ObjetoInvalido {
+    public static void atualizarDadosLeitor(Leitor leitor) throws ObjetoInvalido {
         if(DAO.getLeitor().atualizar(leitor)==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
     }
@@ -98,7 +98,7 @@ public class Adm extends Usuario {
      * @param bibliotecario objeto bibliotecario contendo todas as informações pré definidas
      */
 
-    public void criarBibliotecario(Bibliotecario bibliotecario){
+    public static void criarBibliotecario(Bibliotecario bibliotecario){
         DAO.getBibliotecario().criar(bibliotecario);
     }
 
@@ -109,7 +109,8 @@ public class Adm extends Usuario {
      * @throws ObjetoInvalido caso não seja encontrado o bibliotecario com o id informado,
      * retorna uma exceção informando o ocorrido
      */
-    public void removerBibliotecario(int id) throws ObjetoInvalido {
+
+    public static void removerBibliotecario(int id) throws ObjetoInvalido {
         if(DAO.getBibliotecario().encontrarPorId(id)==null)
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
 
@@ -124,7 +125,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void atualizarDadosBibliotecario(Bibliotecario bibliotecario) throws ObjetoInvalido {
+    public static void atualizarDadosBibliotecario(Bibliotecario bibliotecario) throws ObjetoInvalido {
         if(DAO.getBibliotecario().atualizar(bibliotecario)==null)
             throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
     }
@@ -135,7 +136,7 @@ public class Adm extends Usuario {
      * @param adm objeto adm contendo todas as informações pré definidas
      */
 
-    public void criarAdm(Adm adm){
+    public static void criarAdm(Adm adm){
         DAO.getAdm().criar(adm);
     }
 
@@ -147,7 +148,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void removerAdm(int id) throws ObjetoInvalido {
+    public static void removerAdm(int id) throws ObjetoInvalido {
         if(DAO.getAdm().encontrarPorId(id)==null)
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
 
@@ -162,7 +163,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void atualizarDadosAdministrador(Adm administrador) throws ObjetoInvalido {
+    public static void atualizarDadosAdministrador(Adm administrador) throws ObjetoInvalido {
         if(DAO.getAdm().atualizar(administrador)==null)
             throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
     }
@@ -180,7 +181,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void bloquearLeitor(int id) throws ObjetoInvalido {
+    public static void bloquearLeitor(int id) throws ObjetoInvalido {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
@@ -200,7 +201,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void desbloquearLeitor(int id) throws ObjetoInvalido {
+    public static void desbloquearLeitor(int id) throws ObjetoInvalido {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
@@ -218,7 +219,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void tirarMulta(int id) throws ObjetoInvalido {
+    public static void tirarMulta(int id) throws ObjetoInvalido {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
@@ -226,15 +227,6 @@ public class Adm extends Usuario {
 
         leitor.setDataMulta(null);
         DAO.getLeitor().atualizar(leitor);
-    }
-
-    /**
-     * Método que cria um novo Livro e o adiciona no sistema.
-     *
-     * @param livro objeto livro contendo todas as informações pré definidas
-     */
-    public void registrarLivro(Livro livro){
-        DAO.getLivro().criar(livro);
     }
 
     /**
@@ -252,7 +244,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void removerUmLivro(double isbn) throws ObjetoInvalido, LivroEmprestado {
+    public static void removerUmLivro(double isbn) throws ObjetoInvalido, LivroEmprestado {
         if(DAO.getLivro().encontrarPorISBN(isbn)==null)
             throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
 
@@ -284,7 +276,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void atualizarDadosLivro(Livro livro) throws ObjetoInvalido, LivroEmprestado {
+    public static void atualizarDadosLivro(Livro livro) throws ObjetoInvalido, LivroEmprestado {
         Livro livroDAO = DAO.getLivro().encontrarPorISBN(livro.getISBN());
 
         if(livroDAO==null)
@@ -307,7 +299,7 @@ public class Adm extends Usuario {
      * @return retorna uma lista de livros armazenados
      */
 
-    public List<Livro> estoque(){
+    public static List<Livro> estoque(){
         return DAO.getLivro().encontrarTodos();
     }
 
@@ -317,7 +309,7 @@ public class Adm extends Usuario {
      * @return retorna tamanho da lista de livro armazenados
      */
 
-    public int numeroLivrosEstoque(){
+    public static int numeroLivrosEstoque(){
         return estoque().size();
     }
 
@@ -327,7 +319,7 @@ public class Adm extends Usuario {
      * @return retorna uma lista de livros emprestados
      */
 
-    public List<Livro> livrosEmprestados(){
+    public static List<Livro> livrosEmprestados(){
         List<Livro> livrosEmprestados = new ArrayList<Livro>();
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
@@ -343,7 +335,7 @@ public class Adm extends Usuario {
      * @return retorna uma lista de livros atrasados
      */
 
-    public List<Livro> livrosAtrasados(){
+    public static List<Livro> livrosAtrasados(){
         List<Livro> livrosAtrasados = new ArrayList<Livro>();
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
@@ -360,7 +352,7 @@ public class Adm extends Usuario {
      * @return retorna uma lista de livros reservados
      */
 
-    public List<Livro> livrosReservados(){
+    public static List<Livro> livrosReservados(){
         List<Livro> livrosReservados = new ArrayList<Livro>();
 
         for(Reserva reserva : DAO.getReserva().encontrarTodos()){
@@ -377,7 +369,7 @@ public class Adm extends Usuario {
      * @return retorna tamanho da lista de livros emprestados atualmente
      */
 
-    public int numeroLivrosEmprestados(){
+    public static int numeroLivrosEmprestados(){
         return livrosEmprestados().size();
     }
 
@@ -387,7 +379,7 @@ public class Adm extends Usuario {
      * @return retorna tamanho da lista de livros atrasados atualmente
      */
 
-    public int numeroLivrosAtrasados(){
+    public static int numeroLivrosAtrasados(){
         return livrosAtrasados().size();
     }
 
@@ -397,7 +389,7 @@ public class Adm extends Usuario {
      * @return retorna tamanho da lista de livros reservados atualmente
      */
 
-    public int numeroLivrosReservados(){
+    public static int numeroLivrosReservados(){
         return livrosReservados().size();
     }
 
@@ -410,7 +402,7 @@ public class Adm extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public List<Emprestimo> historicoEmprestimoDeUmLeitor(int id) throws ObjetoInvalido {
+    public static List<Emprestimo> historicoEmprestimoDeUmLeitor(int id) throws ObjetoInvalido {
         if(DAO.getLeitor().encontrarPorId(id)==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
@@ -427,7 +419,7 @@ public class Adm extends Usuario {
      * @return retorna lista dos 10 livros mais populares
      */
 
-    public List<Livro> livrosMaisPopulares() {
+    public static List<Livro> livrosMaisPopulares() {
         List<Livro> livrosPopulares = DAO.getLivro().encontrarTodos();
 
         Comparator<Livro> comparador = Comparator.comparingInt(Livro::getQtdEmprestimo).reversed();
