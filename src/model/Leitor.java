@@ -237,16 +237,12 @@ public class Leitor extends Usuario {
     /**
      * Método que retira uma Reserva feita pelo Leitor.
      *
-     * Caso tudo esteja correto, remove uma reserva específica do sistema e caso exista,
+     * Remove uma reserva específica do sistema e caso exista,
      * remove também o prazo para aquela reserva. Caso o livro ainda possua reserva,
      * é criado também um novo prazo para o novo top1 da fila de reserva ir efetuar o
      * empréstimo.
      *
      * @param isbn isbn do livro
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
-     * retorna uma exceção informando o ocorrido
-     * @throws LeitorNaoPossuiReservaDesseLivro caso não seja encontrada a reserva do leitor do livro,
-     * retorna uma exceção informando o ocorrido
      */
 
     public void retirarReserva(double isbn){
