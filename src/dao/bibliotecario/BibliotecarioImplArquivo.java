@@ -170,6 +170,11 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
         this.nomePasta = "Bibliotecario Teste";
         this.nomeArquivo = "bibliotecarioTeste.dat";
         this.listaBibliotecario = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
+
+        if(this.listaBibliotecario.isEmpty())
+            this.nextID = 1002;
+        else
+            this.nextID = this.listaBibliotecario.get(this.listaBibliotecario.size()-1).getID() + 10;
     }
 
     /**
@@ -180,5 +185,10 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
         this.nomePasta = "Bibliotecario";
         this.nomeArquivo = "bibliotecario.dat";
         this.listaBibliotecario = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
+
+        if(this.listaBibliotecario.isEmpty())
+            this.nextID = 1002;
+        else
+            this.nextID = this.listaBibliotecario.get(this.listaBibliotecario.size()-1).getID() + 10;
     }
 }

@@ -172,6 +172,11 @@ public class AdmImplArquivo implements AdmDAO{
         this.nomePasta = "Adm Teste";
         this.nomeArquivo = "admTeste.dat";
         this.listaAdm = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
+
+        if(this.listaAdm.isEmpty())
+            this.nextID = 1001;
+        else
+            this.nextID = this.listaAdm.get(this.listaAdm.size()-1).getID() + 10;
     }
 
     /**
@@ -183,5 +188,10 @@ public class AdmImplArquivo implements AdmDAO{
         this.nomePasta = "Adm";
         this.nomeArquivo = "adm.dat";
         this.listaAdm = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
+
+        if(this.listaAdm.isEmpty())
+            this.nextID = 1001;
+        else
+            this.nextID = this.listaAdm.get(this.listaAdm.size()-1).getID() + 10;
     }
 }
