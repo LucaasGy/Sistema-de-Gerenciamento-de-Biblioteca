@@ -14,6 +14,6 @@ public class LeitorLimiteDeRenovacao extends Exception{
      */
 
     public LeitorLimiteDeRenovacao( ) {
-        super("LEITOR ATINGIU LIMITE DE RENOVACAO -> (1)");
+        super("LEITOR ATINGIU LIMITE DE RENOVAÇÃO -> (1)");
     }
 }

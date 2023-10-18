@@ -14,6 +14,6 @@ public class LeitorNaoPossuiEmprestimo extends Exception{
      */
 
     public LeitorNaoPossuiEmprestimo() {
-        super("LEITOR NÃO POSSUI EMPRESTIMO ATIVO");
+        super("LEITOR NÃO POSSUI EMPRÉSTIMO ATIVO");
     }
 }
