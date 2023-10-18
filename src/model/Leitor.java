@@ -9,6 +9,7 @@ import erros.livro.LivroReservado;
 import erros.objetos.ObjetoInvalido;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -248,13 +249,7 @@ public class Leitor extends Usuario {
      * retorna uma exceção informando o ocorrido
      */
 
-    public void retirarReserva(double isbn) throws ObjetoInvalido, LeitorNaoPossuiReservaDesseLivro {
-        if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        else if(!DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
-            throw new LeitorNaoPossuiReservaDesseLivro();
-
+    public void retirarReserva(double isbn){
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);
 
         if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn)!=null && DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor() == this.getID()) {
@@ -269,19 +264,22 @@ public class Leitor extends Usuario {
     }
 
     /**
-     * Método que retorna as reservas ativas de um Leitor.
+     * Método que retorna os livros das reservas ativas de um Leitor.
      *
-     * @return retorna lista com as reservas ativas do leitor
-     * @throws LeitorNaoPossuiReservas caso não seja encontrada reservas ativas do leitor,
-     * retorna uma exceção informando o ocorrido
+     * @return retorna lista com os livros das reservas ativas do leitor
      */
 
-    public List<Reserva> minhasReservas() throws LeitorNaoPossuiReservas {
+    public List<Livro> minhasReservas(){
         List<Reserva> reservas = DAO.getReserva().encontrarReservasLeitor(this.getID());
 
-        if(reservas.isEmpty())
-            throw new LeitorNaoPossuiReservas();
+        //if(reservas.isEmpty())
+            //throw new LeitorNaoPossuiReservas();
 
-        return reservas;
+        List<Livro> livros = new ArrayList<Livro>();
+        for(Reserva reserva : reservas){
+            livros.add(DAO.getLivro().encontrarPorISBN(reserva.getLivro()));
+        }
+
+        return livros;
     }
 }

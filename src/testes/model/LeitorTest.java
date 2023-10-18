@@ -176,13 +176,7 @@ class LeitorTest {
     }
 
     @Test
-    void retirarReserva() throws ObjetoInvalido, LeitorNaoPossuiReservaDesseLivro {
-        //livro nao existe
-        assertThrows(ObjetoInvalido.class, ()-> this.lucas.retirarReserva(889));
-
-        //leitor nao reservou o livro
-        assertThrows(LeitorNaoPossuiReservaDesseLivro.class, ()-> this.lucas.retirarReserva(this.guerrasmedias.getISBN()));
-
+    void retirarReserva(){
         //reserva criada do leitor com o livro e ele é o top 1 da fila de reservas, logo possui prazo ativo
         DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),this.lucas.getID()));
         DAO.getPrazos().criar(new Prazos(this.lucas.getID(),this.guerrasmedias.getISBN()));
@@ -202,9 +196,7 @@ class LeitorTest {
     }
 
     @Test
-    void minhasReservas() throws LeitorNaoPossuiReservas {
-        assertThrows(LeitorNaoPossuiReservas.class, ()-> this.lucas.minhasReservas());
-
+    void minhasReservas(){
         DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),this.lucas.getID()));
 
         assertEquals(1, this.lucas.minhasReservas().size());
