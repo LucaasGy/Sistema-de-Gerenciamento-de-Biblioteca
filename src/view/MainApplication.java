@@ -22,11 +22,12 @@ public class MainApplication extends Application {
         //DAO.getLivro().criar(new Livro("lucas","lucas","lucas",2018,"lucas"));
         //DAO.getEmprestimo().criar(new Emprestimo(10.0000,1013));
         //DAO.getReserva().removerTodos();
-        System.out.println(DAO.getLivro().encontrarTodos().get(0).getISBN());
-        System.out.println(DAO.getLivro().encontrarTodos().get(1).getISBN());
-        System.out.println(DAO.getAdm().encontrarTodos().get(0).getID());
-        System.out.println(DAO.getBibliotecario().encontrarTodos().get(0).getID());
-        System.out.println(DAO.getLeitor().encontrarTodos().get(0).getID());
+        //System.out.println(DAO.getLivro().encontrarTodos().get(0).getISBN());
+        //System.out.println(DAO.getLivro().encontrarTodos().get(1).getISBN());
+        //System.out.println(DAO.getLivro().encontrarTodos().get(2).getISBN());
+        //System.out.println(DAO.getAdm().encontrarTodos().get(0).getID());
+        //System.out.println(DAO.getBibliotecario().encontrarTodos().get(0).getID());
+        //System.out.println(DAO.getLeitor().encontrarTodos().get(0).getID());
 
         StageController.criaStage(stage,StageController.retornaLoader("TelaLogin.fxml"));
         stage.show();
