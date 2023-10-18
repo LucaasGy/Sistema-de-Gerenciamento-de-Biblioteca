@@ -1,7 +1,8 @@
 package controller;
 
 import dao.DAO;
-import erros.leitor.LeitorNaoPossuiReservas;
+import erros.leitor.*;
+import erros.livro.LivroReservado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -106,6 +107,15 @@ public class TelaInicialController {
 
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+        }
+
+        else if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Renovar empréstimo")){
+            try{
+                this.leitor.renovarEmprestimo();
+                StageController.criaAlert(Alert.AlertType.INFORMATION,"Operação bem-sucedida","Renovação de empréstimo realizado com sucesso","Seu empréstimo foi renovado");
+            }catch (LeitorNaoPossuiEmprestimo | LeitorBloqueado | LivroReservado | LeitorLimiteDeRenovacao | LeitorTemEmprestimoEmAtraso e){
+                StageController.criaAlert(Alert.AlertType.WARNING,"ERROR","Erro ao confirmar uma funcionalidade",e.getMessage());
+            }
         }
 
         else if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Minhas reservas")){
