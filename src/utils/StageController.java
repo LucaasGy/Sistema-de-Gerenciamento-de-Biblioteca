@@ -1,10 +1,10 @@
 package utils;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import view.MainApplication;
 
@@ -28,5 +28,13 @@ public class StageController {
     public static FXMLLoader retornaLoader(String nomeTela){
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(nomeTela));
         return loader;
+    }
+
+    public static void criaAlert(Alert.AlertType tipo, String titulo, String cabeca, String conteudo){
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(cabeca);
+        alert.setContentText(conteudo);
+        alert.showAndWait();
     }
 }

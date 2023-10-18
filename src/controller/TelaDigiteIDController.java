@@ -10,8 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Bibliotecario;
 import model.Livro;
-import model.Sistema;
 import utils.StageController;
 
 import javafx.event.ActionEvent;
@@ -57,10 +57,10 @@ public class TelaDigiteIDController {
         else {
             if (this.qualOperacao.equals("emprestimo")) {
                 try{
-                    Sistema.fazerEmprestimo(Integer.parseInt(this.digitaID.getText()),this.livro.getISBN());
+                    Bibliotecario.fazerEmprestimo(Integer.parseInt(this.digitaID.getText()),this.livro.getISBN());
                     this.mensagemErro.setText("Emprétimo feito com sucesso");
                     this.mensagemErro.setStyle("-fx-text-fill: green;");
-                }catch ( LeitorBloqueado | LivroReservado | LeitorMultado | LeitorTemEmprestimo |  ObjetoInvalido e){
+                }catch ( LeitorBloqueado | LivroReservado | LeitorMultado | LeitorTemEmprestimo | ObjetoInvalido e){
                     this.mensagemErro.setText(e.getMessage());
                     this.mensagemErro.setStyle("-fx-text-fill: red;");
                 }
