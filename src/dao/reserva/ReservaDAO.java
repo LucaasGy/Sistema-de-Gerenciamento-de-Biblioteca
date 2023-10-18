@@ -86,5 +86,4 @@ public interface ReservaDAO extends CRUD<Reserva> {
      */
 
     public Reserva top1Reserva(double isbn);
-
 }
