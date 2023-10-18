@@ -198,6 +198,7 @@ class AdmTest {
         assertThrows(ObjetoInvalido.class, ()->this.adm1.desbloquearLeitor(666));
 
         this.leitor1.setBloqueado(true);
+        DAO.getLeitor().atualizar(this.leitor1);
         assertTrue(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
 
         this.adm1.desbloquearLeitor(1003);
@@ -209,6 +210,7 @@ class AdmTest {
         assertThrows(ObjetoInvalido.class, ()->this.adm1.tirarMulta(666));
 
         this.leitor1.setDataMulta(LocalDate.now());
+        DAO.getLeitor().atualizar(this.leitor1);
         assertNotNull(DAO.getLeitor().encontrarPorId(1003).getDataMulta());
 
         this.adm1.tirarMulta(1003);

@@ -149,12 +149,15 @@ class SistemaTest {
         this.leitor1.setDataMulta(LocalDate.now().plusDays(1));
         this.leitor2.setDataMulta(LocalDate.now().minusDays(2));
         this.leitor3.setDataMulta(LocalDate.now().minusDays(3));
+        DAO.getLeitor().atualizar(this.leitor1);
+        DAO.getLeitor().atualizar(this.leitor2);
+        DAO.getLeitor().atualizar(this.leitor3);
 
         //ps: trocar a data por um dia posterior à data da realização do teste
-        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 9, 30));
+        assertEquals(this.leitor1.getDataMulta(), LocalDate.of(2023, 10, 18));
         //ps: trocar a data por dois/tres dias anterior à data da realização do teste
-        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 9, 27));
-        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 9, 26));
+        assertEquals(this.leitor2.getDataMulta(), LocalDate.of(2023, 10, 15));
+        assertEquals(this.leitor3.getDataMulta(), LocalDate.of(2023, 10, 14));
 
         //checa quais leitores possuem multas ativas
         Sistema.verificarMultasLeitores();
@@ -174,6 +177,9 @@ class SistemaTest {
         this.prazo1.setDataLimite(LocalDate.now().minusDays(1));
         this.prazo2.setDataLimite(LocalDate.now().minusDays(1));
         this.prazo3.setDataLimite(LocalDate.now().minusDays(1));
+        DAO.getPrazos().atualizar(this.prazo1);
+        DAO.getPrazos().atualizar(this.prazo2);
+        DAO.getPrazos().atualizar(this.prazo3);
 
         //checa prazos vencidos
         Sistema.verificarPrazosEReservas();
