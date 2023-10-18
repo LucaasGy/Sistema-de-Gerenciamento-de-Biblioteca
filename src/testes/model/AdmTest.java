@@ -21,7 +21,7 @@ class AdmTest {
     private Adm adm1;
     private Bibliotecario bibliotecario1;
     private Livro livro1, livro2, livro3, livro4, livro5, livro6, livro7, livro8,
-    livro9, livro10, livro11, livro12, livro13, livro14, livro15;
+            livro9, livro10, livro11, livro12, livro13, livro14, livro15;
     private Leitor leitor1, leitor2, leitor3, leitor4, leitor5;
     private Emprestimo emp1, emp2, emp3, emp4, emp5, emp6, emp7, emp8;
     private Reserva reserva1,reserva2,reserva3,reserva4,reserva5;
@@ -99,15 +99,15 @@ class AdmTest {
 
     @Test
     void removerLeitor() throws ObjetoInvalido, LeitorTemEmprestimo {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.removerLeitor(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.removerLeitor(666));
 
-        assertThrows(LeitorTemEmprestimo.class, ()->this.adm1.removerLeitor(1003));
+        assertThrows(LeitorTemEmprestimo.class, ()->Adm.removerLeitor(1003));
         DAO.getEmprestimo().removerTodos();
 
         assertEquals(1, DAO.getReserva().encontrarReservasLeitor(1003).size());
         assertNotNull(DAO.getLeitor().encontrarPorId(1003));
 
-        this.adm1.removerLeitor(1003);
+        Adm.removerLeitor(1003);
 
         assertNull(DAO.getLeitor().encontrarPorId(1003));
         assertTrue(DAO.getReserva().encontrarReservasLeitor(1003).isEmpty());
@@ -117,24 +117,24 @@ class AdmTest {
     void atualizarDadosLeitor() throws ObjetoInvalido {
         Leitor leitor10 = new Leitor("Leitor10","Rua Alameda10","759991288410","SenhaLeitor10");
 
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarDadosLeitor(leitor10));
+        assertThrows(ObjetoInvalido.class, ()->Adm.atualizarDadosLeitor(leitor10));
 
         leitor10.setID(1003);
 
         assertEquals("leitor1", DAO.getLeitor().encontrarPorId(1003).getNome());
 
-        this.adm1.atualizarDadosLeitor(leitor10);
+        Adm.atualizarDadosLeitor(leitor10);
 
         assertEquals("leitor10", DAO.getLeitor().encontrarPorId(1003).getNome());
     }
 
     @Test
     void removerBibliotecario() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.removerBibliotecario(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.removerBibliotecario(666));
 
         assertNotNull(DAO.getBibliotecario().encontrarPorId(1002));
 
-        this.adm1.removerBibliotecario(1002);
+        Adm.removerBibliotecario(1002);
 
         assertNull(DAO.getBibliotecario().encontrarPorId(1002));
     }
@@ -143,24 +143,24 @@ class AdmTest {
     void atualizarDadosBibliotecario() throws ObjetoInvalido {
         Bibliotecario bibliotecario2 = new Bibliotecario("BIBLIOTECARIO2","SENHABIB2");
 
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarDadosBibliotecario(bibliotecario2));
+        assertThrows(ObjetoInvalido.class, ()->Adm.atualizarDadosBibliotecario(bibliotecario2));
 
         bibliotecario2.setID(1002);
 
         assertEquals("bibliotecario1", DAO.getBibliotecario().encontrarPorId(1002).getNome());
 
-        this.adm1.atualizarDadosBibliotecario(bibliotecario2);
+        Adm.atualizarDadosBibliotecario(bibliotecario2);
 
         assertEquals("bibliotecario2", DAO.getBibliotecario().encontrarPorId(1002).getNome());
     }
 
     @Test
     void removerAdm() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.removerAdm(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.removerAdm(666));
 
         assertNotNull(DAO.getAdm().encontrarPorId(1001));
 
-        this.adm1.removerAdm(1001);
+        Adm.removerAdm(1001);
 
         assertNull(DAO.getAdm().encontrarPorId(1001));
     }
@@ -169,25 +169,25 @@ class AdmTest {
     void atualizarDadosAdministrador() throws ObjetoInvalido{
         Adm adm2 = new Adm("ADM2","SENHAADM2");
 
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarDadosAdministrador(adm2));
+        assertThrows(ObjetoInvalido.class, ()->Adm.atualizarDadosAdministrador(adm2));
 
         adm2.setID(1001);
 
         assertEquals("adm1", DAO.getAdm().encontrarPorId(1001).getNome());
 
-        this.adm1.atualizarDadosAdministrador(adm2);
+        Adm.atualizarDadosAdministrador(adm2);
 
         assertEquals("adm2", DAO.getAdm().encontrarPorId(1001).getNome());
     }
 
     @Test
     void bloquearLeitor() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.bloquearLeitor(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.bloquearLeitor(666));
 
         assertEquals(1, DAO.getReserva().encontrarReservasLeitor(1003).size());
         assertFalse(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
 
-        this.adm1.bloquearLeitor(1003);
+        Adm.bloquearLeitor(1003);
 
         assertTrue(DAO.getReserva().encontrarReservasLeitor(1003).isEmpty());
         assertTrue(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
@@ -195,38 +195,40 @@ class AdmTest {
 
     @Test
     void desbloquearLeitor()  throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.desbloquearLeitor(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.desbloquearLeitor(666));
 
         this.leitor1.setBloqueado(true);
+        DAO.getLeitor().atualizar(this.leitor1);
         assertTrue(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
 
-        this.adm1.desbloquearLeitor(1003);
+        Adm.desbloquearLeitor(1003);
         assertFalse(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
     }
 
     @Test
     void tirarMulta() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.tirarMulta(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.tirarMulta(666));
 
         this.leitor1.setDataMulta(LocalDate.now());
+        DAO.getLeitor().atualizar(this.leitor1);
         assertNotNull(DAO.getLeitor().encontrarPorId(1003).getDataMulta());
 
-        this.adm1.tirarMulta(1003);
+        Adm.tirarMulta(1003);
 
         assertNull(DAO.getLeitor().encontrarPorId(1003).getDataMulta());
     }
 
     @Test
     void removerUmLivro()  throws ObjetoInvalido, LivroEmprestado {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.removerUmLivro(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.removerUmLivro(666));
 
-        assertThrows(LivroEmprestado.class, ()->this.adm1.removerUmLivro(this.livro1.getISBN()));
+        assertThrows(LivroEmprestado.class, ()->Adm.removerUmLivro(this.livro1.getISBN()));
         DAO.getEmprestimo().removerTodos();
 
         assertNotNull(DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()));
         assertEquals(2, DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).size());
 
-        this.adm1.removerUmLivro(this.livro1.getISBN());
+        Adm.removerUmLivro(this.livro1.getISBN());
 
         assertNull(DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()));
         assertTrue(DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).isEmpty());
@@ -237,19 +239,19 @@ class AdmTest {
         Livro livro20 = new Livro("LIVRO20","AUTOR20","EDITORA20",2020,"CATEGORIA20");
 
         //livro nao existe
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.atualizarDadosLivro(livro20));
+        assertThrows(ObjetoInvalido.class, ()->Adm.atualizarDadosLivro(livro20));
 
         livro20.setISBN(this.livro1.getISBN());
 
         //livro ta emprestado
-        assertThrows(LivroEmprestado.class, ()->this.adm1.atualizarDadosLivro(livro20));
+        assertThrows(LivroEmprestado.class, ()->Adm.atualizarDadosLivro(livro20));
 
         DAO.getEmprestimo().removerTodos();
         assertEquals(2, DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).size());
         assertTrue(DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()).getDisponivel());
         livro20.setDisponivel(false);
 
-        this.adm1.atualizarDadosLivro(livro20);
+        Adm.atualizarDadosLivro(livro20);
 
         assertTrue(DAO.getReserva().encontrarReservasLivro(this.livro1.getISBN()).isEmpty());
         assertFalse(DAO.getLivro().encontrarPorISBN(this.livro1.getISBN()).getDisponivel());
@@ -259,12 +261,12 @@ class AdmTest {
 
     @Test
     void numeroLivrosEstoque() {
-        assertEquals(15, this.adm1.numeroLivrosEstoque());
+        assertEquals(15, Adm.numeroLivrosEstoque());
     }
 
     @Test
     void numeroLivrosEmprestados() {
-        assertEquals(8, this.adm1.numeroLivrosEmprestados());
+        assertEquals(8, Adm.numeroLivrosEmprestados());
     }
 
     @Test
@@ -274,24 +276,24 @@ class AdmTest {
         this.emp3.setdataPrevista(LocalDate.now().minusDays(1));
         this.emp4.setdataPrevista(LocalDate.now().minusDays(1));
 
-        assertEquals(4, this.adm1.numeroLivrosAtrasados());
+        assertEquals(4, Adm.numeroLivrosAtrasados());
     }
 
     @Test
     void numeroLivrosReservados() {
         //apesar de ter 5 reservas ativas, por 2 serem do mesmo livro, é contabilizada
         //somente uma
-        assertEquals(4, this.adm1.numeroLivrosReservados());
+        assertEquals(4, Adm.numeroLivrosReservados());
     }
 
     @Test
     void historicoEmprestimoDeUmLeitor() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->this.adm1.historicoEmprestimoDeUmLeitor(666));
+        assertThrows(ObjetoInvalido.class, ()->Adm.historicoEmprestimoDeUmLeitor(666));
 
-        assertEquals(6, this.adm1.historicoEmprestimoDeUmLeitor(1003).size());
-        Leitor teste = DAO.getLeitor().encontrarPorId(this.adm1.historicoEmprestimoDeUmLeitor(1003).get(0).getLeitor());
-        Leitor teste2 = DAO.getLeitor().encontrarPorId(this.adm1.historicoEmprestimoDeUmLeitor(1003).get(2).getLeitor());
-        Leitor teste3 = DAO.getLeitor().encontrarPorId(this.adm1.historicoEmprestimoDeUmLeitor(1003).get(4).getLeitor());
+        assertEquals(6, Adm.historicoEmprestimoDeUmLeitor(1003).size());
+        Leitor teste = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(0).getLeitor());
+        Leitor teste2 = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(2).getLeitor());
+        Leitor teste3 = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(4).getLeitor());
         assertEquals(this.leitor1, teste);
         assertEquals(this.leitor1, teste2);
         assertEquals(this.leitor1, teste3);
@@ -315,16 +317,16 @@ class AdmTest {
         livro7.setQtdEmprestimo(7);
         livro3.setQtdEmprestimo(6);
 
-        assertEquals(10,this.adm1.livrosMaisPopulares().size());
-        assertEquals(this.livro5,this.adm1.livrosMaisPopulares().get(0));
-        assertEquals(this.livro8,this.adm1.livrosMaisPopulares().get(1));
-        assertEquals(this.livro10,this.adm1.livrosMaisPopulares().get(2));
-        assertEquals(this.livro2,this.adm1.livrosMaisPopulares().get(3));
-        assertEquals(this.livro9,this.adm1.livrosMaisPopulares().get(4));
-        assertEquals(this.livro4,this.adm1.livrosMaisPopulares().get(5));
-        assertEquals(this.livro15,this.adm1.livrosMaisPopulares().get(6));
-        assertEquals(this.livro11,this.adm1.livrosMaisPopulares().get(7));
-        assertEquals(this.livro1,this.adm1.livrosMaisPopulares().get(8));
-        assertEquals(this.livro6,this.adm1.livrosMaisPopulares().get(9));
+        assertEquals(10,Adm.livrosMaisPopulares().size());
+        assertEquals(this.livro5,Adm.livrosMaisPopulares().get(0));
+        assertEquals(this.livro8,Adm.livrosMaisPopulares().get(1));
+        assertEquals(this.livro10,Adm.livrosMaisPopulares().get(2));
+        assertEquals(this.livro2,Adm.livrosMaisPopulares().get(3));
+        assertEquals(this.livro9,Adm.livrosMaisPopulares().get(4));
+        assertEquals(this.livro4,Adm.livrosMaisPopulares().get(5));
+        assertEquals(this.livro15,Adm.livrosMaisPopulares().get(6));
+        assertEquals(this.livro11,Adm.livrosMaisPopulares().get(7));
+        assertEquals(this.livro1,Adm.livrosMaisPopulares().get(8));
+        assertEquals(this.livro6,Adm.livrosMaisPopulares().get(9));
     }
 }

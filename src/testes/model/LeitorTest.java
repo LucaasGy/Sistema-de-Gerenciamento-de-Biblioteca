@@ -52,12 +52,12 @@ class LeitorTest {
 
     @Test
     void renovarEmprestimo() throws LeitorNaoPossuiEmprestimo, LeitorBloqueado,LeitorLimiteDeRenovacao,LivroReservado,LeitorTemEmprestimoEmAtraso{
-        DAO.getEmprestimo().alteraParaPastaTeste();
-
         //leitor bloqueado
         this.lucas.setBloqueado(true);
+        DAO.getLeitor().atualizar(this.lucas);
         assertThrows(LeitorBloqueado.class, ()-> this.lucas.renovarEmprestimo());
         this.lucas.setBloqueado(false);
+        DAO.getLeitor().atualizar(this.lucas);
 
         //não tem empréstimo ativo a ser renovado em nome do leitor
         assertThrows(LeitorNaoPossuiEmprestimo.class, ()-> this.lucas.renovarEmprestimo());
@@ -75,17 +75,19 @@ class LeitorTest {
 
         //leitor atingiu limite de renovação
         this.lucas.setLimiteRenova(1);
+        DAO.getLeitor().atualizar(this.lucas);
         assertThrows(LeitorLimiteDeRenovacao.class, ()-> this.lucas.renovarEmprestimo());
         this.lucas.setLimiteRenova(0);
+        DAO.getLeitor().atualizar(this.lucas);
 
         //data que pegou e data prevista do empréstimo alterada para provar renovação das mesmas
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPegou(LocalDate.now().minusDays(5));
         DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(2));
 
         //ps: alterar a data para 5 dias antes da data atual do teste
-        assertEquals(LocalDate.of(2023,9,24), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
+        assertEquals(LocalDate.of(2023,10,12), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
         //ps: alterar a data para 2 dias depois da data atual do teste
-        assertEquals(LocalDate.of(2023,10,1), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        assertEquals(LocalDate.of(2023,10,19), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
 
         //tudo correto
         this.lucas.renovarEmprestimo();
