@@ -9,10 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -88,6 +85,11 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     void fazerReserva(){
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null) {
+            StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar reserva", "Escolha um livro antes de confirmar");
+            return;
+        }
+
         try{
             this.telaInicialController.getLeitor().reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
             this.mensagemErro.setText("Reserva feita com sucesso");
@@ -101,10 +103,16 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     void fazerDevolucao(){
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null) {
+            StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar devolução", "Escolha um livro antes de confirmar");
+            return;
+        }
+
         try {
-            Sistema.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+            Bibliotecario.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
             this.mensagemErro.setText("Devolução feita com sucesso");
             this.mensagemErro.setStyle("-fx-text-fill: green;");
+
         }catch (LivroNaoPossuiEmprestimo e){
             this.mensagemErro.setText(e.getMessage());
             this.mensagemErro.setStyle("-fx-text-fill: red;");
@@ -112,7 +120,12 @@ public class TelaLivrosPesquisadosController {
     }
 
     @FXML
-    void fazerEmprestimo(ActionEvent event) throws IOException {
+    void fazerEmprestimo() throws IOException {
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null) {
+            StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar empréstimo", "Escolha um livro antes de confirmar");
+            return;
+        }
+
         Livro livro = this.tabelaLivros.getSelectionModel().getSelectedItem();
 
         if(!livro.getDisponivel()) {
