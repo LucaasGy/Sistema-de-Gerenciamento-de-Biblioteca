@@ -255,6 +255,8 @@ public class LivroImplArquivo implements LivroDAO{
         this.nomePasta = "Livro Teste";
         this.nomeArquivoLivro = "livroTeste.dat";
         this.nomeArquivoISBN = "ISBNTeste.dat";
+        this.listaLivro = ArmazenamentoArquivo.resgatar(this.nomeArquivoLivro,this.nomePasta);
+        this.isbnCadastrado = ArmazenamentoArquivo.resgatar(this.nomeArquivoISBN,this.nomePasta);
     }
 
     /**
@@ -265,6 +267,8 @@ public class LivroImplArquivo implements LivroDAO{
         this.nomePasta = "Livro";
         this.nomeArquivoLivro = "livro.dat";
         this.nomeArquivoISBN = "ISBN.dat";
+        this.listaLivro = ArmazenamentoArquivo.resgatar(this.nomeArquivoLivro,this.nomePasta);
+        this.isbnCadastrado = ArmazenamentoArquivo.resgatar(this.nomeArquivoISBN,this.nomePasta);
     }
 
     @Override

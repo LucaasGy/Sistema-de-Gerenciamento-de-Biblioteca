@@ -169,6 +169,7 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
     public void alteraParaPastaTeste() {
         this.nomePasta = "Bibliotecario Teste";
         this.nomeArquivo = "bibliotecarioTeste.dat";
+        this.listaBibliotecario = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 
     /**
@@ -178,5 +179,6 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
     public void alteraParaPastaPrincipal() {
         this.nomePasta = "Bibliotecario";
         this.nomeArquivo = "bibliotecario.dat";
+        this.listaBibliotecario = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 }

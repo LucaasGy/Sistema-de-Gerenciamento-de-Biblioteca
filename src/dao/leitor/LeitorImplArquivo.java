@@ -191,6 +191,7 @@ public class LeitorImplArquivo implements LeitorDAO{
     public void alteraParaPastaTeste() {
         this.nomePasta = "Leitor Teste";
         this.nomeArquivo = "leitorTeste.dat";
+        this.listaLeitor = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 
     /**
@@ -200,5 +201,6 @@ public class LeitorImplArquivo implements LeitorDAO{
     public void alteraParaPastaPrincipal() {
         this.nomePasta = "Leitor";
         this.nomeArquivo = "leitor.dat";
+        this.listaLeitor = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 }

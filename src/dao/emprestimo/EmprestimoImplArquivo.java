@@ -38,7 +38,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
         this.nomePasta = "Emprestimo";
 
         this.listaEmprestimoTotal = ArmazenamentoArquivo.resgatar(this.nomeArquivoEmprestimoTotal,this.nomePasta);
-        this.listaEmprestimoAtual = ArmazenamentoArquivo.resgatar(this.nomeArquivoEmprestimoAtual,this.nomePasta);;
+        this.listaEmprestimoAtual = ArmazenamentoArquivo.resgatar(this.nomeArquivoEmprestimoAtual,this.nomePasta);
     }
 
     /**
@@ -284,6 +284,8 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
         this.nomePasta = "Emprestimo Teste";
         this.nomeArquivoEmprestimoAtual = "emprestimoAtualTeste.dat";
         this.nomeArquivoEmprestimoTotal = "emprestimoTotalTeste.dat";
+        this.listaEmprestimoTotal = ArmazenamentoArquivo.resgatar(this.nomeArquivoEmprestimoTotal,this.nomePasta);
+        this.listaEmprestimoAtual = ArmazenamentoArquivo.resgatar(this.nomeArquivoEmprestimoAtual,this.nomePasta);
     }
 
     /**
@@ -294,5 +296,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
         this.nomePasta = "Emprestimo";
         this.nomeArquivoEmprestimoAtual = "emprestimoAtual.dat";
         this.nomeArquivoEmprestimoTotal = "emprestimoTotal.dat";
+        this.listaEmprestimoTotal = ArmazenamentoArquivo.resgatar(this.nomeArquivoEmprestimoTotal,this.nomePasta);
+        this.listaEmprestimoAtual = ArmazenamentoArquivo.resgatar(this.nomeArquivoEmprestimoAtual,this.nomePasta);
     }
 }

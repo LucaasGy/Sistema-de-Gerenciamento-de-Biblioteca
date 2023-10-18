@@ -275,6 +275,7 @@ public class ReservaImplArquivo implements ReservaDAO{
     public void alteraParaPastaTeste() {
         this.nomePasta = "Reserva Teste";
         this.nomeArquivo = "reservaTeste.dat";
+        this.listaReserva = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 
     /**
@@ -284,5 +285,6 @@ public class ReservaImplArquivo implements ReservaDAO{
     public void alteraParaPastaPrincipal() {
         this.nomePasta = "Reserva";
         this.nomeArquivo = "reserva.dat";
+        this.listaReserva = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
     }
 }
