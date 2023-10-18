@@ -41,7 +41,10 @@ public class LivroImplArquivo implements LivroDAO{
         this.listaLivro = ArmazenamentoArquivo.resgatar(this.nomeArquivoLivro,this.nomePasta);
         this.isbnCadastrado = ArmazenamentoArquivo.resgatar(this.nomeArquivoISBN,this.nomePasta);
 
-        this.isbn = 10.00000;
+        if(this.isbnCadastrado.isEmpty())
+            this.isbn = 10.00000;
+        else
+            this.isbn = isbnAleatorio();
     }
 
     /**
@@ -257,6 +260,10 @@ public class LivroImplArquivo implements LivroDAO{
         this.nomeArquivoISBN = "ISBNTeste.dat";
         this.listaLivro = ArmazenamentoArquivo.resgatar(this.nomeArquivoLivro,this.nomePasta);
         this.isbnCadastrado = ArmazenamentoArquivo.resgatar(this.nomeArquivoISBN,this.nomePasta);
+        if(this.isbnCadastrado.isEmpty())
+            this.isbn = 10.00000;
+        else
+            this.isbn = isbnAleatorio();
     }
 
     /**
@@ -269,6 +276,10 @@ public class LivroImplArquivo implements LivroDAO{
         this.nomeArquivoISBN = "ISBN.dat";
         this.listaLivro = ArmazenamentoArquivo.resgatar(this.nomeArquivoLivro,this.nomePasta);
         this.isbnCadastrado = ArmazenamentoArquivo.resgatar(this.nomeArquivoISBN,this.nomePasta);
+        if(this.isbnCadastrado.isEmpty())
+            this.isbn = 10.00000;
+        else
+            this.isbn = isbnAleatorio();
     }
 
     @Override

@@ -192,6 +192,10 @@ public class LeitorImplArquivo implements LeitorDAO{
         this.nomePasta = "Leitor Teste";
         this.nomeArquivo = "leitorTeste.dat";
         this.listaLeitor = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
+        if(this.listaLeitor.isEmpty())
+            this.nextID = 1003;
+        else
+            this.nextID = this.listaLeitor.get(this.listaLeitor.size()-1).getID() + 10;
     }
 
     /**
@@ -202,5 +206,9 @@ public class LeitorImplArquivo implements LeitorDAO{
         this.nomePasta = "Leitor";
         this.nomeArquivo = "leitor.dat";
         this.listaLeitor = ArmazenamentoArquivo.resgatar(this.nomeArquivo,this.nomePasta);
+        if(this.listaLeitor.isEmpty())
+            this.nextID = 1003;
+        else
+            this.nextID = this.listaLeitor.get(this.listaLeitor.size()-1).getID() + 10;
     }
 }
