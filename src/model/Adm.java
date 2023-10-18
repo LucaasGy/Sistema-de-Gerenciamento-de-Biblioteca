@@ -314,33 +314,27 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna todos os Livros emprestados atualmente.
+     * Método que retorna todos os empréstimos atuais.
      *
-     * @return retorna uma lista de livros emprestados
+     * @return retorna uma lista de empréstimos atuais
      */
 
-    public static List<Livro> livrosEmprestados(){
-        List<Livro> livrosEmprestados = new ArrayList<Livro>();
-
-        for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
-            livrosEmprestados.add(DAO.getLivro().encontrarPorISBN(emp.getLivro()));
-        }
-
-        return livrosEmprestados;
+    public static List<Emprestimo> livrosEmprestados(){
+        return DAO.getEmprestimo().encontrarTodosAtuais();
     }
 
     /**
-     * Método que retorna todos os Livros atrasados atualmente.
+     * Método que retorna todos os empréstimos atrasados atualmente.
      *
-     * @return retorna uma lista de livros atrasados
+     * @return retorna uma lista de empréstimos em atrasado
      */
 
-    public static List<Livro> livrosAtrasados(){
-        List<Livro> livrosAtrasados = new ArrayList<Livro>();
+    public static List<Emprestimo> livrosAtrasados(){
+        List<Emprestimo> livrosAtrasados = new ArrayList<Emprestimo>();
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
             if(emp.getdataPrevista().isBefore(LocalDate.now()))
-                livrosAtrasados.add(DAO.getLivro().encontrarPorISBN(emp.getLivro()));
+                livrosAtrasados.add(emp);
         }
 
         return livrosAtrasados;
