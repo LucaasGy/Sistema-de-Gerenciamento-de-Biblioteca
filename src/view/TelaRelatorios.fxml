@@ -34,6 +34,6 @@
       <RadioButton layoutX="225.0" layoutY="132.0" mnemonicParsing="false" text="Leitores bloqueados" toggleGroup="$grupo" />
       <Button fx:id="botaoConfirmar" layoutX="268.0" layoutY="267.0" mnemonicParsing="false" onAction="#confirmarEscolha" text="Confirmar" />
       <Button fx:id="botaoVoltar" layoutX="67.0" layoutY="267.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="69.0" text="Voltar" />
-      <Label fx:id="mensagemErro" alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="240.0" prefHeight="17.0" prefWidth="313.0" textAlignment="CENTER" textFill="#ff1500" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0" />
+      <Label fx:id="mensagemErro" alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="228.0" prefHeight="17.0" prefWidth="313.0" textAlignment="CENTER" textFill="#ff1500" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0" />
    </children>
 </AnchorPane>
