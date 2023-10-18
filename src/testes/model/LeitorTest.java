@@ -200,4 +200,13 @@ class LeitorTest {
         assertTrue(DAO.getPrazos().prazosDeUmLeitor(this.lucas.getID()).isEmpty());
         assertEquals(novo, DAO.getLeitor().encontrarPorId(DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor()));
     }
+
+    @Test
+    void minhasReservas() throws LeitorNaoPossuiReservas {
+        assertThrows(LeitorNaoPossuiReservas.class, ()-> this.lucas.minhasReservas());
+
+        DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),this.lucas.getID()));
+
+        assertEquals(1, this.lucas.minhasReservas().size());
+    }
 }

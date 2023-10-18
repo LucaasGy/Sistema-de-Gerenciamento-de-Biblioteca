@@ -9,13 +9,14 @@ import erros.livro.LivroReservado;
 import erros.objetos.ObjetoInvalido;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Subclasse Leitor que extende a Superclasse Usuário.
  *
  * Representa um Leitor do sistema, podendo fazer reservas de livros,
- * renovações de empréstimos ativos, retirar reservas feitas e
- * também pesquisa de livros.
+ * renovações de empréstimos ativos, retirar reservas feitas, obter as reservas ativas
+ * e também pesquisa de livros.
  *
  * @author Lucas Gabriel.
  * @author Rodrigo Nazareth.
@@ -265,5 +266,22 @@ public class Leitor extends Usuario {
                 DAO.getPrazos().criar(novoPrazoTop1);
             }
         }
+    }
+
+    /**
+     * Método que retorna as reservas ativas de um Leitor.
+     *
+     * @return retorna lista com as reservas ativas do leitor
+     * @throws LeitorNaoPossuiReservas caso não seja encontrada reservas ativas do leitor,
+     * retorna uma exceção informando o ocorrido
+     */
+
+    public List<Reserva> minhasReservas() throws LeitorNaoPossuiReservas {
+        List<Reserva> reservas = DAO.getReserva().encontrarReservasLeitor(this.getID());
+
+        if(reservas.isEmpty())
+            throw new LeitorNaoPossuiReservas();
+
+        return reservas;
     }
 }
