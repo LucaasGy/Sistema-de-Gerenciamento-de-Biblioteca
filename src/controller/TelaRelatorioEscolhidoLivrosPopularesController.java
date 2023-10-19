@@ -35,6 +35,9 @@ public class TelaRelatorioEscolhidoLivrosPopularesController {
     private Label categoriaLivro;
 
     @FXML
+    private Label totalEmpLivro;
+
+    @FXML
     private TableColumn<Livro, Double> colunaISBN;
 
     @FXML
@@ -95,6 +98,7 @@ public class TelaRelatorioEscolhidoLivrosPopularesController {
         this.editoraLivro.setText(livro.getEditora());
         this.anoLivro.setText(Integer.toString(livro.getAno()));
         this.categoriaLivro.setText(livro.getCategoria());
+        this.totalEmpLivro.setText(Integer.toString(livro.getQtdEmprestimo()));
 
         if(livro.getDisponivel())
             this.disponibilidadeLivro.setText("Sim");

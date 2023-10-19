@@ -96,6 +96,7 @@ public class TelaRelatoriosController {
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoEmprestimoController controller = loader.getController();
                 controller.carregarTabela(emprestimosAtrasados);
+                controller.mostraDiasEmAtraso();
 
                 String total = Integer.toString(emprestimosAtrasados.size());
                 controller.setMensagemTotal("Total de livros atrasados: "+total);
