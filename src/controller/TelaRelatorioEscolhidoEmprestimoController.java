@@ -62,13 +62,23 @@ public class TelaRelatorioEscolhidoEmprestimoController {
     private Label nomeLeitor;
 
     @FXML
+    private Label idLeitor;
+
+    @FXML
     private TableView<Emprestimo> tabelaLivros;
 
     @FXML
     private Label telefoneLeitor;
 
     @FXML
+    private Label mensagemTotal;
+
+    @FXML
     private Label tituloLivro;
+
+    public void setMensagemTotal(String mensagemTotal) {
+        this.mensagemTotal.setText(mensagemTotal);
+    }
 
     @FXML
     void initialize(){
@@ -112,6 +122,7 @@ public class TelaRelatorioEscolhidoEmprestimoController {
             this.disponibilidadeLivro.setText("Não");
 
         this.nomeLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getNome());
+        this.idLeitor.setText(Integer.toString(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getID()));
         this.telefoneLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getTelefone());
         this.enderecoLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getEndereco());
     }

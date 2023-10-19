@@ -33,7 +33,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <Label layoutX="148.0" layoutY="23.0" prefHeight="27.0" prefWidth="220.0" text="Detalhes do Empréstimo">
+                        <Label layoutX="148.0" layoutY="14.0" prefHeight="27.0" prefWidth="220.0" text="Detalhes do Empréstimo">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -72,23 +72,26 @@
                         <Group layoutX="94.0" layoutY="379.0" />
                         <Button fx:id="botaoMenu" layoutX="422.0" layoutY="380.0" mnemonicParsing="false" onAction="#menu" prefHeight="26.0" prefWidth="56.0" text="Menu" />
                         <Button fx:id="botaoVoltar" layoutX="49.0" layoutY="381.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="52.0" text="Voltar" />
-                        <GridPane gridLinesVisible="true" layoutX="280.0" layoutY="174.0" prefHeight="90.0" prefWidth="204.0">
+                        <GridPane gridLinesVisible="true" layoutX="281.0" layoutY="166.0" prefHeight="107.0" prefWidth="204.0">
                             <columnConstraints>
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="59.0" />
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="150.0" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label text="Nome" />
-                                <Label text="Telefone" GridPane.rowIndex="1" />
-                                <Label text="Endereço" GridPane.rowIndex="2" />
+                                <Label text="Telefone" GridPane.rowIndex="2" />
+                                <Label text="Endereço" GridPane.rowIndex="3" />
                                 <Label fx:id="nomeLeitor" GridPane.columnIndex="1" />
-                                <Label fx:id="telefoneLeitor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label fx:id="enderecoLeitor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label fx:id="telefoneLeitor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label fx:id="enderecoLeitor" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="ID" GridPane.rowIndex="1" />
+                        <Label fx:id="idLeitor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                         <Separator layoutX="255.0" layoutY="114.0" orientation="VERTICAL" prefHeight="210.0" prefWidth="1.0" />
@@ -97,11 +100,16 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <Label layoutX="322.0" layoutY="146.0" text="Datalhes do Leitor">
+                        <Label layoutX="323.0" layoutY="138.0" text="Datalhes do Leitor">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
+                  <Label fx:id="mensagemTotal" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="49.0" prefHeight="17.0" prefWidth="204.0" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
             </items>
