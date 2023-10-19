@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import model.Emprestimo;
 import model.Livro;
@@ -18,6 +19,7 @@ import utils.StageController;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class TelaRelatorioEscolhidoEmprestimoController {
@@ -76,6 +78,23 @@ public class TelaRelatorioEscolhidoEmprestimoController {
     @FXML
     private Label tituloLivro;
 
+    @FXML
+    private Label labelDiasEmAtraso;
+
+    @FXML
+    private Label labelNumeroDias;
+
+    @FXML
+    private RowConstraints linhaDiasEmAtraso;
+
+    public void mostraDiasEmAtraso(){
+        this.labelDiasEmAtraso.setVisible(true);
+        this.labelNumeroDias.setVisible((true));
+        this.linhaDiasEmAtraso.setMinHeight(10);
+        this.linhaDiasEmAtraso.setPrefHeight(40);
+        this.linhaDiasEmAtraso.setMaxHeight(95);
+    }
+
     public void setMensagemTotal(String mensagemTotal) {
         this.mensagemTotal.setText(mensagemTotal);
     }
@@ -125,5 +144,6 @@ public class TelaRelatorioEscolhidoEmprestimoController {
         this.idLeitor.setText(Integer.toString(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getID()));
         this.telefoneLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getTelefone());
         this.enderecoLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getEndereco());
+        this.labelNumeroDias.setText(Long.toString(ChronoUnit.DAYS.between(emprestimo.getDataPrevista(),LocalDate.now())));
     }
 }

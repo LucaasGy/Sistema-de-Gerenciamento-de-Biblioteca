@@ -72,16 +72,17 @@
                         <Group layoutX="94.0" layoutY="379.0" />
                         <Button fx:id="botaoMenu" layoutX="422.0" layoutY="380.0" mnemonicParsing="false" onAction="#menu" prefHeight="26.0" prefWidth="56.0" text="Menu" />
                         <Button fx:id="botaoVoltar" layoutX="49.0" layoutY="381.0" mnemonicParsing="false" onAction="#voltar" prefHeight="25.0" prefWidth="52.0" text="Voltar" />
-                        <GridPane gridLinesVisible="true" layoutX="281.0" layoutY="166.0" prefHeight="107.0" prefWidth="204.0">
+                        <GridPane gridLinesVisible="true" layoutX="274.0" layoutY="166.0" prefHeight="148.0" prefWidth="220.0">
                             <columnConstraints>
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="59.0" />
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="150.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="62.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="142.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                        <RowConstraints fx:id="linhaDiasEmAtraso" maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label text="Nome" />
@@ -92,6 +93,8 @@
                                 <Label fx:id="enderecoLeitor" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="ID" GridPane.rowIndex="1" />
                         <Label fx:id="idLeitor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelDiasEmAtraso" prefHeight="36.0" prefWidth="62.0" text="Dias em atraso" textAlignment="CENTER" visible="false" wrapText="true" GridPane.rowIndex="4" />
+                        <Label fx:id="labelNumeroDias" textAlignment="CENTER" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                         <Separator layoutX="255.0" layoutY="114.0" orientation="VERTICAL" prefHeight="210.0" prefWidth="1.0" />
