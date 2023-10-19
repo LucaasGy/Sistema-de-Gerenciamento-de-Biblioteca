@@ -1,5 +1,6 @@
 package controller;
 
+import dao.DAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Livro;
+import model.Prazos;
 import utils.StageController;
 
 public class TelaMinhasReservasController {
@@ -50,8 +52,10 @@ public class TelaMinhasReservasController {
 
     @FXML
     private Label tituloLivro;
-    private TelaInicialController telaInicialController;
 
+    @FXML
+    private Label prazoReserva;
+    private TelaInicialController telaInicialController;
 
     @FXML
     void voltarMenu(ActionEvent event){
@@ -105,6 +109,14 @@ public class TelaMinhasReservasController {
 
             else
                 this.disponibilidadeLivro.setText("Não");
+
+            Prazos prazo = DAO.getPrazos().encontrarPrazoDeUmLivro(livro.getISBN());
+
+            if(prazo!=null && prazo.getIDleitor()==this.telaInicialController.getLeitor().getID())
+                this.prazoReserva.setText(prazo.getDataLimite().toString());
+
+            else
+                this.prazoReserva.setText("Não tem");
         }
 
         else{
@@ -115,6 +127,7 @@ public class TelaMinhasReservasController {
             this.anoLivro.setText("");
             this.categoriaLivro.setText("");
             this.disponibilidadeLivro.setText("");
+            this.prazoReserva.setText("");
         }
     }
 
