@@ -1,13 +1,12 @@
 package controller;
 
+import erros.objetos.ObjetoInvalido;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Adm;
-import model.Emprestimo;
-import model.Livro;
+import model.*;
 import utils.StageController;
 
 import java.io.IOException;
@@ -61,29 +60,34 @@ public class TelaRelatoriosController {
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoEmprestimoController controller = loader.getController();
                 controller.carregarTabela(emprestimosAtuais);
+
+                String total = Integer.toString(emprestimosAtuais.size());
+                controller.setMensagemTotal("Total de livros emprestados: "+total);
             }
         }
 
-        /*else if(escolha.equals("Livros reservados")){
+        else if(escolha.equals("Livros reservados")){
             List<Livro> livros = Adm.livrosReservados();
 
             if(livros.isEmpty()){
-                this.mensagemErro.setText("Não há livros emprestados");
+                this.mensagemErro.setText("Não há livros reservados");
             }
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
+                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoReservados.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
-                TelaRelatorioEscolhidoController controller = loader.getController();
+                TelaRelatorioEscolhidoReservadosController controller = loader.getController();
                 controller.carregarTabela(livros);
-            }
 
-        }*/
+                String total = Integer.toString(livros.size());
+                controller.setMensagemTotal("Total de livros reservados: "+total);
+            }
+        }
 
         else if(escolha.equals("Livros atrasados")){
-            List<Emprestimo> emprestimosAtuais = Adm.livrosAtrasados();
+            List<Emprestimo> emprestimosAtrasados = Adm.livrosAtrasados();
 
-            if(emprestimosAtuais.isEmpty()){
+            if(emprestimosAtrasados.isEmpty()){
                 this.mensagemErro.setText("Não há livros atrasados");
             }
 
@@ -91,20 +95,62 @@ public class TelaRelatoriosController {
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoEmprestimoController controller = loader.getController();
-                controller.carregarTabela(emprestimosAtuais);
+                controller.carregarTabela(emprestimosAtrasados);
+
+                String total = Integer.toString(emprestimosAtrasados.size());
+                controller.setMensagemTotal("Total de livros atrasados: "+total);
             }
         }
 
         else if(escolha.equals("Livros mais populares")){
+            List<Livro> livrosPopulares = Adm.livrosMaisPopulares();
 
+            if(livrosPopulares.isEmpty()){
+                this.mensagemErro.setText("Não há livros no sistema");
+            }
+
+            else{
+                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
+                StageController.criaStage(StageController.getStage(event), loader);
+                TelaRelatorioEscolhidoLivrosPopularesController controller = loader.getController();
+                controller.carregarTabela(livrosPopulares);
+            }
         }
 
         else if(escolha.equals("Estoque")){
+            List<Livro> todosLivros = Adm.estoque();
 
+            if(todosLivros.isEmpty()){
+                this.mensagemErro.setText("Não há livros no sistema");
+            }
+
+            else{
+                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
+                StageController.criaStage(StageController.getStage(event), loader);
+                TelaRelatorioEscolhidoLivrosPopularesController controller = loader.getController();
+                controller.carregarTabela(todosLivros);
+
+                String total = Integer.toString(todosLivros.size());
+                controller.setMensagemTotal("Total de livros no estoque: "+total);
+            }
         }
 
         else if(escolha.equals("Leitores bloqueados")){
+            List<Leitor> leitoresBloqueados = Adm.leitoresBloqueados();
 
+            if(leitoresBloqueados.isEmpty()){
+                this.mensagemErro.setText("Não há leitores bloqueados no sistema");
+            }
+
+            else{
+                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLeitoresBloqueados.fxml");
+                StageController.criaStage(StageController.getStage(event), loader);
+                TelaRelatorioEscolhidoLeitoresBloqueadosController controller = loader.getController();
+                controller.carregarTabela(leitoresBloqueados);
+
+                String total = Integer.toString(leitoresBloqueados.size());
+                controller.setMensagemTotal("Total de leitores bloqueados: "+total);
+            }
         }
 
         else{
@@ -115,12 +161,33 @@ public class TelaRelatoriosController {
                 this.mensagemErro.setText("ID é composto apenas por números");
 
             else{
+                try{
+                    List<Emprestimo> historicoLeitor = Adm.historicoEmprestimoDeUmLeitor(Integer.parseInt(this.digiteID.getText()));
 
+                    if(historicoLeitor.isEmpty()){
+                        this.mensagemErro.setText("Não há empréstimos desse leitor");
+                    }
+
+                    else{
+                        FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
+                        StageController.criaStage(StageController.getStage(event), loader);
+                        TelaRelatorioEscolhidoEmprestimoController controller = loader.getController();
+                        controller.carregarTabela(historicoLeitor);
+
+                        String total = Integer.toString(historicoLeitor.size());
+                        controller.setMensagemTotal("Total de empréstimos do leitor: "+total);
+                    }
+
+                }catch (ObjetoInvalido e){
+                    this.mensagemErro.setText(e.getMessage());
+                }
             }
         }
     }
 
     public void visibilidadeID(RadioButton radio){
+        this.mensagemErro.setText("");
+
         if(radio.getText().equals("Histórico de empréstimos de um leitor")){
             this.mensagemDigiteID.setVisible(true);
             this.digiteID.setVisible(true);
@@ -131,5 +198,4 @@ public class TelaRelatoriosController {
             this.digiteID.setVisible(false);
         }
     }
-
 }
