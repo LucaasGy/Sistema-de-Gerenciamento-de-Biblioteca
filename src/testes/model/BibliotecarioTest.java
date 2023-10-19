@@ -120,7 +120,7 @@ class BibliotecarioTest {
         assertTrue(DAO.getReserva().encontrarTodos().isEmpty());
         assertTrue(DAO.getPrazos().encontrarTodos().isEmpty());
 
-        assertEquals(leitor1, DAO.getLeitor().encontrarPorId(DAO.getEmprestimo().encontrarTodos().get(0).getLeitor()));
+        assertEquals(leitor1, DAO.getLeitor().encontrarPorId(DAO.getEmprestimo().encontrarTodos().get(0).getIDleitor()));
     }
 
     @Test
@@ -135,7 +135,7 @@ class BibliotecarioTest {
         DAO.getLeitor().criar(leitor1);
         Emprestimo emp1 = new Emprestimo(livro1.getISBN(),leitor1.getID());
         DAO.getEmprestimo().criar(emp1);
-        emp1.setdataPrevista(LocalDate.now().minusDays(1));
+        emp1.setDataPrevista(LocalDate.now().minusDays(1));
 
         //livro devolvido tem reserva
         Leitor leitor2 = new Leitor("LEITOR2", "RUA ALAMEDA2","74999128840","SENHA2");

@@ -54,7 +54,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
 
     @Override
     public Emprestimo criar(Emprestimo obj) {
-        Livro altera = DAO.getLivro().encontrarPorISBN(obj.getLivro());
+        Livro altera = DAO.getLivro().encontrarPorISBN(obj.getISBNlivro());
         altera.setDisponivel(false);
         altera.setQtdEmprestimo(altera.getQtdEmprestimo()+1);
         DAO.getLivro().atualizar(altera);
@@ -77,7 +77,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
     @Override
     public void remover(int id) {
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            if(emp.getLeitor() == id){
+            if(emp.getIDleitor() == id){
                 this.listaEmprestimoAtual.remove(emp);
                 ArmazenamentoArquivo.guardar(this.listaEmprestimoAtual,this.nomeArquivoEmprestimoAtual,this.nomePasta);
                 return;
@@ -100,17 +100,17 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
     @Override
     public void removerTodos() {
         for(Emprestimo emp : this.listaEmprestimoTotal){
-            Livro altera = DAO.getLivro().encontrarPorISBN(emp.getLivro());
+            Livro altera = DAO.getLivro().encontrarPorISBN(emp.getISBNlivro());
             altera.setQtdEmprestimo(0);
             DAO.getLivro().atualizar(altera);
         }
 
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            Livro altera = DAO.getLivro().encontrarPorISBN(emp.getLivro());
+            Livro altera = DAO.getLivro().encontrarPorISBN(emp.getISBNlivro());
             altera.setDisponivel(true);
             DAO.getLivro().atualizar(altera);
 
-            Leitor alteraLeitor = DAO.getLeitor().encontrarPorId(emp.getLeitor());
+            Leitor alteraLeitor = DAO.getLeitor().encontrarPorId(emp.getIDleitor());
             if(alteraLeitor.getLimiteRenova()==1) {
                 alteraLeitor.setLimiteRenova(0);
                 DAO.getLeitor().atualizar(alteraLeitor);
@@ -133,7 +133,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
     @Override
     public Emprestimo encontrarPorId(int id) {
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            if(emp.getLeitor() == id)
+            if(emp.getIDleitor() == id)
                 return emp;
         }
 
@@ -177,7 +177,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
         List<Emprestimo> historicoDoID = new ArrayList<Emprestimo>();
 
         for(Emprestimo emp : this.listaEmprestimoTotal){
-            if(emp.getLeitor() == id)
+            if(emp.getIDleitor() == id)
                 historicoDoID.add(emp);
         }
 
@@ -199,7 +199,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
         List<Emprestimo> historicoDoISBN = new ArrayList<Emprestimo>();
 
         for(Emprestimo emp : this.listaEmprestimoTotal){
-            if(emp.getLivro() == isbn)
+            if(emp.getISBNlivro() == isbn)
                 historicoDoISBN.add(emp);
         }
 
@@ -216,7 +216,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
     @Override
     public Emprestimo encontrarPorISBN(double isbn) {
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            if(emp.getLivro() == isbn)
+            if(emp.getISBNlivro() == isbn)
                 return emp;
         }
 
@@ -238,7 +238,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
         List<Emprestimo> emprestimosARemover = new ArrayList<Emprestimo>();
 
         for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
-            if (emprestimo.getLivro() == isbn) {
+            if (emprestimo.getISBNlivro() == isbn) {
                 emprestimosARemover.add(emprestimo);
             }
         }
@@ -262,7 +262,7 @@ public class EmprestimoImplArquivo implements EmprestimoDAO{
         List<Emprestimo> emprestimosARemover = new ArrayList<Emprestimo>();
 
         for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
-            if (emprestimo.getLeitor() == id) {
+            if (emprestimo.getIDleitor() == id) {
                 emprestimosARemover.add(emprestimo);
             }
         }

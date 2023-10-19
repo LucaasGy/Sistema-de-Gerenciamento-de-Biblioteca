@@ -271,10 +271,10 @@ class AdmTest {
 
     @Test
     void numeroLivrosAtrasados() {
-        this.emp1.setdataPrevista(LocalDate.now().minusDays(1));
-        this.emp2.setdataPrevista(LocalDate.now().minusDays(1));
-        this.emp3.setdataPrevista(LocalDate.now().minusDays(1));
-        this.emp4.setdataPrevista(LocalDate.now().minusDays(1));
+        this.emp1.setDataPrevista(LocalDate.now().minusDays(1));
+        this.emp2.setDataPrevista(LocalDate.now().minusDays(1));
+        this.emp3.setDataPrevista(LocalDate.now().minusDays(1));
+        this.emp4.setDataPrevista(LocalDate.now().minusDays(1));
 
         assertEquals(4, Adm.numeroLivrosAtrasados());
     }
@@ -291,9 +291,9 @@ class AdmTest {
         assertThrows(ObjetoInvalido.class, ()->Adm.historicoEmprestimoDeUmLeitor(666));
 
         assertEquals(6, Adm.historicoEmprestimoDeUmLeitor(1003).size());
-        Leitor teste = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(0).getLeitor());
-        Leitor teste2 = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(2).getLeitor());
-        Leitor teste3 = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(4).getLeitor());
+        Leitor teste = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(0).getIDleitor());
+        Leitor teste2 = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(2).getIDleitor());
+        Leitor teste3 = DAO.getLeitor().encontrarPorId(Adm.historicoEmprestimoDeUmLeitor(1003).get(4).getIDleitor());
         assertEquals(this.leitor1, teste);
         assertEquals(this.leitor1, teste2);
         assertEquals(this.leitor1, teste3);

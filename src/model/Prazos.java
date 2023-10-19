@@ -39,11 +39,19 @@ public class Prazos implements Serializable {
         this.dataLimite = LocalDate.now().plusDays(2);
     }
 
-    public double getLivro() {
+    public int getIDleitor() {
+        return IDleitor;
+    }
+
+    public void setIDleitor(int IDleitor) {
+        this.IDleitor = IDleitor;
+    }
+
+    public double getISBNlivro() {
         return ISBNlivro;
     }
 
-    public void setLivro(double ISBNlivro) {
+    public void setISBNlivro(double ISBNlivro) {
         this.ISBNlivro = ISBNlivro;
     }
 
@@ -53,13 +61,5 @@ public class Prazos implements Serializable {
 
     public void setDataLimite(LocalDate dataLimite) {
         this.dataLimite = dataLimite;
-    }
-
-    public int getLeitor() {
-        return IDleitor;
-    }
-
-    public void setLeitor(int IDleitor) {
-        this.IDleitor = IDleitor;
     }
 }

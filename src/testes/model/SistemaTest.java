@@ -146,9 +146,9 @@ class SistemaTest {
         Emprestimo emp1 = new Emprestimo(this.livro1.getISBN(),this.leitor1.getID());
         Emprestimo emp2 = new Emprestimo(this.livro2.getISBN(),this.leitor2.getID());
         Emprestimo emp3 = new Emprestimo(this.livro3.getISBN(),this.leitor3.getID());
-        emp1.setdataPrevista(LocalDate.now());
-        emp2.setdataPrevista(LocalDate.now().minusDays(2));
-        emp3.setdataPrevista(LocalDate.now().minusDays(3));
+        emp1.setDataPrevista(LocalDate.now());
+        emp2.setDataPrevista(LocalDate.now().minusDays(2));
+        emp3.setDataPrevista(LocalDate.now().minusDays(3));
         DAO.getEmprestimo().criar(emp1);
         DAO.getEmprestimo().criar(emp2);
         DAO.getEmprestimo().criar(emp3);

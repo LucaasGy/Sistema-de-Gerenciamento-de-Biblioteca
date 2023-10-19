@@ -139,14 +139,14 @@ public class Sistema {
     public static void aplicarMulta(Emprestimo emprestimo){
         LocalDate dataDevolvendo = LocalDate.now();
 
-        long diasDeAtraso = ChronoUnit.DAYS.between(emprestimo.getdataPrevista(),dataDevolvendo);
+        long diasDeAtraso = ChronoUnit.DAYS.between(emprestimo.getDataPrevista(),dataDevolvendo);
 
         if(diasDeAtraso>0) {
-            Leitor altera = DAO.getLeitor().encontrarPorId(emprestimo.getLeitor());
+            Leitor altera = DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor());
             altera.setDataMulta(dataDevolvendo.plusDays(diasDeAtraso*2));
             DAO.getLeitor().atualizar(altera);
 
-            adicionarPrazoParaTop2reserva(emprestimo.getLeitor());
+            adicionarPrazoParaTop2reserva(emprestimo.getIDleitor());
         }
     }
 
@@ -185,11 +185,11 @@ public class Sistema {
         if(!prazos.isEmpty()) {
             for (Prazos prazo : prazos) {
                 if (prazo.getDataLimite().isBefore(LocalDate.now())) {
-                    DAO.getReserva().removeTop1(prazo.getLivro());
+                    DAO.getReserva().removeTop1(prazo.getISBNlivro());
 
-                    if (DAO.getReserva().livroTemReserva(prazo.getLivro())) {
-                        Reserva reserva1 = DAO.getReserva().top1Reserva(prazo.getLivro());
-                        Prazos prazotop1 = new Prazos(reserva1.getLeitor(), reserva1.getLivro());
+                    if (DAO.getReserva().livroTemReserva(prazo.getISBNlivro())) {
+                        Reserva reserva1 = DAO.getReserva().top1Reserva(prazo.getISBNlivro());
+                        Prazos prazotop1 = new Prazos(reserva1.getIDleitor(), reserva1.getISBNlivro());
                         prazosAAdicionar.add(prazotop1);
                     }
 
@@ -221,9 +221,9 @@ public class Sistema {
 
         if(listaPrazos!=null){
             for(Prazos prazo : listaPrazos){
-                Reserva reservaTop1 = DAO.getReserva().top1Reserva(prazo.getLivro());
+                Reserva reservaTop1 = DAO.getReserva().top1Reserva(prazo.getISBNlivro());
                 if(reservaTop1!=null){
-                    Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro());
+                    Prazos novoPrazoTop1 = new Prazos(reservaTop1.getIDleitor(), reservaTop1.getISBNlivro());
                     DAO.getPrazos().criar(novoPrazoTop1);
                 }
             }

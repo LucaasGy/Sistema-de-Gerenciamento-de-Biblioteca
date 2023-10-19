@@ -70,36 +70,4 @@ public class Emprestimo implements Serializable {
     public void setDataPrevista(LocalDate dataPrevista) {
         this.dataPrevista = dataPrevista;
     }
-
-    public LocalDate getdataPegou() {
-        return dataPegou;
-    }
-
-    public void setdataPegou(LocalDate dataPegou) {
-        this.dataPegou = dataPegou;
-    }
-
-    public LocalDate getdataPrevista() {
-        return dataPrevista;
-    }
-
-    public void setdataPrevista(LocalDate dataPrevista) {
-        this.dataPrevista = dataPrevista;
-    }
-
-    public double getLivro() {
-        return ISBNlivro;
-    }
-
-    public void setLivro(double ISBNlivro) {
-        this.ISBNlivro = ISBNlivro;
-    }
-
-    public int getLeitor() {
-        return IDleitor;
-    }
-
-    public void setLeitor(int IDleitor) {
-        this.IDleitor = IDleitor;
-    }
 }

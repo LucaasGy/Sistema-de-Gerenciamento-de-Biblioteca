@@ -45,7 +45,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
 
     @Override
     public Emprestimo criar(Emprestimo obj) {
-        Livro livro = DAO.getLivro().encontrarPorISBN(obj.getLivro());
+        Livro livro = DAO.getLivro().encontrarPorISBN(obj.getISBNlivro());
         livro.setQtdEmprestimo(livro.getQtdEmprestimo()+1);
         livro.setDisponivel(false);
         DAO.getLivro().atualizar(livro);
@@ -65,7 +65,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
     @Override
     public void remover(int id) {
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            if(emp.getLeitor() == id){
+            if(emp.getIDleitor() == id){
                 this.listaEmprestimoAtual.remove(emp);
                 return;
             }
@@ -86,7 +86,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
         List<Emprestimo> emprestimosARemover = new ArrayList<Emprestimo>();
 
         for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
-            if (emprestimo.getLivro() == isbn) {
+            if (emprestimo.getISBNlivro() == isbn) {
                 emprestimosARemover.add(emprestimo);
             }
         }
@@ -109,7 +109,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
         List<Emprestimo> emprestimosARemover = new ArrayList<Emprestimo>();
 
         for (Emprestimo emprestimo : this.listaEmprestimoTotal) {
-            if (emprestimo.getLeitor() == id) {
+            if (emprestimo.getIDleitor() == id) {
                 emprestimosARemover.add(emprestimo);
             }
         }
@@ -127,7 +127,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
     @Override
     public Emprestimo encontrarPorId(int id) {
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            if(emp.getLeitor() == id)
+            if(emp.getIDleitor() == id)
                 return emp;
         }
 
@@ -144,7 +144,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
     @Override
     public Emprestimo encontrarPorISBN(double isbn){
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            if(emp.getLivro() == isbn)
+            if(emp.getISBNlivro() == isbn)
                 return emp;
         }
 
@@ -188,7 +188,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
         List<Emprestimo> historicoDoID = new ArrayList<Emprestimo>();
 
         for(Emprestimo emp : this.listaEmprestimoTotal){
-            if(emp.getLeitor() == id)
+            if(emp.getIDleitor() == id)
                 historicoDoID.add(emp);
         }
 
@@ -210,7 +210,7 @@ public class EmprestimoImpl implements EmprestimoDAO {
         List<Emprestimo> historicoDoISBN = new ArrayList<Emprestimo>();
 
         for(Emprestimo emp : this.listaEmprestimoTotal){
-            if(emp.getLivro() == isbn)
+            if(emp.getISBNlivro() == isbn)
                 historicoDoISBN.add(emp);
         }
 
@@ -232,17 +232,17 @@ public class EmprestimoImpl implements EmprestimoDAO {
     @Override
     public void removerTodos(){
         for(Emprestimo emp : this.listaEmprestimoTotal){
-            Livro livro = DAO.getLivro().encontrarPorISBN(emp.getLivro());
+            Livro livro = DAO.getLivro().encontrarPorISBN(emp.getISBNlivro());
             livro.setQtdEmprestimo(0);
             DAO.getLivro().atualizar(livro);
         }
 
         for(Emprestimo emp : this.listaEmprestimoAtual){
-            Livro livro = DAO.getLivro().encontrarPorISBN(emp.getLivro());
+            Livro livro = DAO.getLivro().encontrarPorISBN(emp.getISBNlivro());
             livro.setDisponivel(true);
             DAO.getLivro().atualizar(livro);
 
-            Leitor leitor = DAO.getLeitor().encontrarPorId(emp.getLeitor());
+            Leitor leitor = DAO.getLeitor().encontrarPorId(emp.getIDleitor());
             if(leitor.getLimiteRenova()==1) {
                 leitor.setLimiteRenova(0);
                 DAO.getLeitor().atualizar(leitor);

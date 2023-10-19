@@ -69,7 +69,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public Prazos encontrarPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro() == isbn){
+            if(prazo.getISBNlivro() == isbn){
                 return prazo;
             }
         }
@@ -89,7 +89,7 @@ public class PrazosImpl implements PrazosDAO {
         List<Prazos> listaPrazosLeitor = new ArrayList<Prazos>();
 
         for(Prazos prazos : this.listaPrazos){
-            if(prazos.getLeitor() == id)
+            if(prazos.getIDleitor() == id)
                 listaPrazosLeitor.add(prazos);
         }
 
@@ -106,7 +106,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public Prazos encontrarPorId(int id) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLeitor() == id){
+            if(prazo.getIDleitor() == id){
                 return prazo;
             }
         }
@@ -123,7 +123,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public void removerPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro() == isbn){
+            if(prazo.getISBNlivro() == isbn){
                 this.listaPrazos.remove(prazo);
                 return;
             }
@@ -144,7 +144,7 @@ public class PrazosImpl implements PrazosDAO {
         List<Prazos> prazosARemover = new ArrayList<>();
 
         for(Prazos prazos : this.listaPrazos){
-            if (prazos.getLeitor() == id)
+            if (prazos.getIDleitor() == id)
                 prazosARemover.add(prazos);
         }
 
@@ -176,7 +176,7 @@ public class PrazosImpl implements PrazosDAO {
     @Override
     public Prazos atualizar(Prazos obj) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro()==obj.getLivro()){
+            if(prazo.getISBNlivro()==obj.getISBNlivro()){
                 this.listaPrazos.set(this.listaPrazos.indexOf(prazo), obj);
                 return obj;
             }

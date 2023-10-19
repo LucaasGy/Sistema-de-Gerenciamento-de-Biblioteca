@@ -137,10 +137,10 @@ public class Leitor extends Usuario {
         if(emprestimoDoLeitor==null)
             throw new LeitorNaoPossuiEmprestimo();
 
-        else if(emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
+        else if(emprestimoDoLeitor.getDataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
 
-        else if(DAO.getReserva().livroTemReserva(emprestimoDoLeitor.getLivro()))
+        else if(DAO.getReserva().livroTemReserva(emprestimoDoLeitor.getISBNlivro()))
             throw new LivroReservado();
 
         else if(this.getLimiteRenova()==1)
@@ -148,8 +148,8 @@ public class Leitor extends Usuario {
 
         DAO.getEmprestimo().remover(this.getID());
 
-        emprestimoDoLeitor.setdataPegou(LocalDate.now());
-        emprestimoDoLeitor.setdataPrevista(emprestimoDoLeitor.getdataPegou().plusDays(7));
+        emprestimoDoLeitor.setDataPegou(LocalDate.now());
+        emprestimoDoLeitor.setDataPrevista(emprestimoDoLeitor.getDataPegou().plusDays(7));
 
         Leitor altera = DAO.getLeitor().encontrarPorId(this.getID());
         altera.setLimiteRenova(1);
@@ -208,13 +208,13 @@ public class Leitor extends Usuario {
 
         Emprestimo emprestimoDoLeitor = DAO.getEmprestimo().encontrarPorId(this.getID());
 
-        if(emprestimoDoLeitor!=null && emprestimoDoLeitor.getdataPrevista().isBefore(LocalDate.now()))
+        if(emprestimoDoLeitor!=null && emprestimoDoLeitor.getDataPrevista().isBefore(LocalDate.now()))
             throw new LeitorTemEmprestimoEmAtraso();
 
         else if (!DAO.getLivro().encontrarPorISBN(isbn).getDisponivel() && DAO.getEmprestimo().encontrarPorISBN(isbn) == null)
             throw new LivroNaoDisponivel();
 
-        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null && DAO.getEmprestimo().encontrarPorISBN(isbn).getLeitor() == this.getID())
+        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null && DAO.getEmprestimo().encontrarPorISBN(isbn).getIDleitor() == this.getID())
             throw new LeitorReservarLivroEmMaos();
 
         else if(DAO.getReserva().leitorJaReservouEsseLivro(this.getID(), isbn))
@@ -248,12 +248,12 @@ public class Leitor extends Usuario {
     public void retirarReserva(double isbn){
         DAO.getReserva().removerUmaReserva(this.getID(),isbn);
 
-        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn)!=null && DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getLeitor() == this.getID()) {
+        if(DAO.getPrazos().encontrarPrazoDeUmLivro(isbn)!=null && DAO.getPrazos().encontrarPrazoDeUmLivro(isbn).getIDleitor() == this.getID()) {
             DAO.getPrazos().removerPrazoDeUmLivro(isbn);
 
             Reserva reservaTop1 = DAO.getReserva().top1Reserva(isbn);
             if(reservaTop1!=null){
-                Prazos novoPrazoTop1 = new Prazos(reservaTop1.getLeitor(), reservaTop1.getLivro());
+                Prazos novoPrazoTop1 = new Prazos(reservaTop1.getIDleitor(), reservaTop1.getISBNlivro());
                 DAO.getPrazos().criar(novoPrazoTop1);
             }
         }
@@ -273,7 +273,7 @@ public class Leitor extends Usuario {
 
         List<Livro> livros = new ArrayList<Livro>();
         for(Reserva reserva : reservas){
-            livros.add(DAO.getLivro().encontrarPorISBN(reserva.getLivro()));
+            livros.add(DAO.getLivro().encontrarPorISBN(reserva.getISBNlivro()));
         }
 
         return livros;

@@ -29,19 +29,19 @@ public class Reserva implements Serializable {
         this.IDleitor = IDleitor;
     }
 
-    public double getLivro() {
+    public double getISBNlivro() {
         return ISBNlivro;
     }
 
-    public void setLivro(double ISBNlivro) {
+    public void setISBNlivro(double ISBNlivro) {
         this.ISBNlivro = ISBNlivro;
     }
 
-    public int getLeitor() {
+    public int getIDleitor() {
         return IDleitor;
     }
 
-    public void setLeitor(int IDleitor) {
+    public void setIDleitor(int IDleitor) {
         this.IDleitor = IDleitor;
     }
 }

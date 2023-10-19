@@ -333,7 +333,7 @@ public class Adm extends Usuario {
         List<Emprestimo> livrosAtrasados = new ArrayList<Emprestimo>();
 
         for(Emprestimo emp : DAO.getEmprestimo().encontrarTodosAtuais()){
-            if(emp.getdataPrevista().isBefore(LocalDate.now()))
+            if(emp.getDataPrevista().isBefore(LocalDate.now()))
                 livrosAtrasados.add(emp);
         }
 
@@ -350,8 +350,8 @@ public class Adm extends Usuario {
         List<Livro> livrosReservados = new ArrayList<Livro>();
 
         for(Reserva reserva : DAO.getReserva().encontrarTodos()){
-            if(!livrosReservados.contains(DAO.getLivro().encontrarPorISBN(reserva.getLivro())))
-                livrosReservados.add(DAO.getLivro().encontrarPorISBN(reserva.getLivro()));
+            if(!livrosReservados.contains(DAO.getLivro().encontrarPorISBN(reserva.getISBNlivro())))
+                livrosReservados.add(DAO.getLivro().encontrarPorISBN(reserva.getISBNlivro()));
         }
 
         return livrosReservados;

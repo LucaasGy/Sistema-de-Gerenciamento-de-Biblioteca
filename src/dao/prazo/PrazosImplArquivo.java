@@ -62,7 +62,7 @@ public class PrazosImplArquivo implements PrazosDAO{
         List<Prazos> prazosARemover = new ArrayList<Prazos>();
 
         for(Prazos prazos : this.listaPrazos){
-            if (prazos.getLeitor() == id)
+            if (prazos.getIDleitor() == id)
                 prazosARemover.add(prazos);
         }
 
@@ -90,7 +90,7 @@ public class PrazosImplArquivo implements PrazosDAO{
     @Override
     public Prazos encontrarPorId(int id) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLeitor() == id){
+            if(prazo.getIDleitor() == id){
                 return prazo;
             }
         }
@@ -119,7 +119,7 @@ public class PrazosImplArquivo implements PrazosDAO{
     @Override
     public Prazos atualizar(Prazos obj) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro()==obj.getLivro()){
+            if(prazo.getISBNlivro()==obj.getISBNlivro()){
                 this.listaPrazos.set(this.listaPrazos.indexOf(prazo), obj);
                 ArmazenamentoArquivo.guardar(this.listaPrazos,this.nomeArquivo,this.nomePasta);
                 return obj;
@@ -139,7 +139,7 @@ public class PrazosImplArquivo implements PrazosDAO{
     @Override
     public Prazos encontrarPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro() == isbn){
+            if(prazo.getISBNlivro() == isbn){
                 return prazo;
             }
         }
@@ -156,7 +156,7 @@ public class PrazosImplArquivo implements PrazosDAO{
     @Override
     public void removerPrazoDeUmLivro(double isbn) {
         for(Prazos prazo : this.listaPrazos){
-            if(prazo.getLivro() == isbn){
+            if(prazo.getISBNlivro() == isbn){
                 this.listaPrazos.remove(prazo);
                 ArmazenamentoArquivo.guardar(this.listaPrazos,this.nomeArquivo,this.nomePasta);
                 return;
@@ -176,7 +176,7 @@ public class PrazosImplArquivo implements PrazosDAO{
         List<Prazos> listaPrazosLeitor = new ArrayList<Prazos>();
 
         for(Prazos prazos : this.listaPrazos){
-            if(prazos.getLeitor() == id)
+            if(prazos.getIDleitor() == id)
                 listaPrazosLeitor.add(prazos);
         }
 

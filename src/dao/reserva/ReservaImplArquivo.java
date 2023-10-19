@@ -63,7 +63,7 @@ public class ReservaImplArquivo implements ReservaDAO{
         List<Reserva> reservasARemover = new ArrayList<Reserva>();
 
         for (Reserva reserva : this.listaReserva) {
-            if (reserva.getLeitor() == id)
+            if (reserva.getIDleitor() == id)
                 reservasARemover.add(reserva);
         }
 
@@ -91,7 +91,7 @@ public class ReservaImplArquivo implements ReservaDAO{
     @Override
     public Reserva encontrarPorId(int id) {
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLeitor() == id){
+            if(reserva.getIDleitor() == id){
                 return reserva;
             }
         }
@@ -125,7 +125,7 @@ public class ReservaImplArquivo implements ReservaDAO{
         List<Reserva> listaReservaLeitor = new ArrayList<Reserva>();
 
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro() == isbn)
+            if(reserva.getISBNlivro() == isbn)
                 listaReservaLeitor.add(reserva);
         }
 
@@ -147,7 +147,7 @@ public class ReservaImplArquivo implements ReservaDAO{
         List<Reserva> listaReservaLivro = new ArrayList<Reserva>();
 
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLeitor() == id)
+            if(reserva.getIDleitor() == id)
                 listaReservaLivro.add(reserva);
         }
 
@@ -168,7 +168,7 @@ public class ReservaImplArquivo implements ReservaDAO{
         List<Reserva> reservasARemover = new ArrayList<Reserva>();
 
         for (Reserva reserva : this.listaReserva) {
-            if (reserva.getLivro() == isbn)
+            if (reserva.getISBNlivro() == isbn)
                 reservasARemover.add(reserva);
         }
 
@@ -186,7 +186,7 @@ public class ReservaImplArquivo implements ReservaDAO{
     @Override
     public void removerUmaReserva(int id, double isbn) {
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLeitor() == id && reserva.getLivro() == isbn) {
+            if(reserva.getIDleitor() == id && reserva.getISBNlivro() == isbn) {
                 this.listaReserva.remove(reserva);
                 ArmazenamentoArquivo.guardar(this.listaReserva,this.nomeArquivo,this.nomePasta);
                 return;
@@ -203,7 +203,7 @@ public class ReservaImplArquivo implements ReservaDAO{
     @Override
     public void removeTop1(double isbn) {
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro() == isbn){
+            if(reserva.getISBNlivro() == isbn){
                 this.listaReserva.remove(reserva);
                 ArmazenamentoArquivo.guardar(this.listaReserva,this.nomeArquivo,this.nomePasta);
                 return;
@@ -221,7 +221,7 @@ public class ReservaImplArquivo implements ReservaDAO{
     @Override
     public boolean livroTemReserva(double isbn) {
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro() == isbn)
+            if(reserva.getISBNlivro() == isbn)
                 return true;
         }
 
@@ -239,7 +239,7 @@ public class ReservaImplArquivo implements ReservaDAO{
     @Override
     public boolean leitorJaReservouEsseLivro(int id, double isbn) {
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLeitor() == id && reserva.getLivro() == isbn)
+            if(reserva.getIDleitor() == id && reserva.getISBNlivro() == isbn)
                 return true;
         }
 
@@ -256,7 +256,7 @@ public class ReservaImplArquivo implements ReservaDAO{
     @Override
     public Reserva top1Reserva(double isbn) {
         for(Reserva reserva : this.listaReserva){
-            if(reserva.getLivro() == isbn)
+            if(reserva.getISBNlivro() == isbn)
                 return reserva;
         }
 

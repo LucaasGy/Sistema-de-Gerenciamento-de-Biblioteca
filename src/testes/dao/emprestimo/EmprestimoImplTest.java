@@ -132,7 +132,7 @@ class EmprestimoImplTest {
     @Test
     void encontrarPorISBN() {
         Emprestimo esperado = this.emprestimo3;
-        Emprestimo atual = DAO.getEmprestimo().encontrarPorISBN(this.emprestimo3.getLivro());
+        Emprestimo atual = DAO.getEmprestimo().encontrarPorISBN(this.emprestimo3.getISBNlivro());
 
         assertEquals(esperado, atual);
     }
@@ -183,22 +183,22 @@ class EmprestimoImplTest {
         DAO.getEmprestimo().criar(new Emprestimo(11.00000,1400));
 
         assertEquals(3, DAO.getEmprestimo().encontrarHistoricoDeUmLivro(11.00000).size());
-        assertEquals(1, DAO.getEmprestimo().encontrarHistoricoDeUmLivro(this.emprestimo3.getLivro()).size());
+        assertEquals(1, DAO.getEmprestimo().encontrarHistoricoDeUmLivro(this.emprestimo3.getISBNlivro()).size());
     }
 
     @Test
     void removerTodos() {
-        assertEquals(1,DAO.getLivro().encontrarPorISBN(this.emprestimo1.getLivro()).getQtdEmprestimo());
-        assertEquals(1,DAO.getLivro().encontrarPorISBN(this.emprestimo2.getLivro()).getQtdEmprestimo());
-        assertFalse(DAO.getLivro().encontrarPorISBN(this.emprestimo1.getLivro()).getDisponivel());
-        assertFalse(DAO.getLivro().encontrarPorISBN(this.emprestimo2.getLivro()).getDisponivel());
+        assertEquals(1,DAO.getLivro().encontrarPorISBN(this.emprestimo1.getISBNlivro()).getQtdEmprestimo());
+        assertEquals(1,DAO.getLivro().encontrarPorISBN(this.emprestimo2.getISBNlivro()).getQtdEmprestimo());
+        assertFalse(DAO.getLivro().encontrarPorISBN(this.emprestimo1.getISBNlivro()).getDisponivel());
+        assertFalse(DAO.getLivro().encontrarPorISBN(this.emprestimo2.getISBNlivro()).getDisponivel());
 
         DAO.getEmprestimo().removerTodos();
 
         assertTrue(DAO.getEmprestimo().encontrarTodos().isEmpty());
-        assertEquals(0,DAO.getLivro().encontrarPorISBN(this.emprestimo1.getLivro()).getQtdEmprestimo());
-        assertEquals(0,DAO.getLivro().encontrarPorISBN(this.emprestimo2.getLivro()).getQtdEmprestimo());
-        assertTrue(DAO.getLivro().encontrarPorISBN(this.emprestimo1.getLivro()).getDisponivel());
-        assertTrue(DAO.getLivro().encontrarPorISBN(this.emprestimo2.getLivro()).getDisponivel());
+        assertEquals(0,DAO.getLivro().encontrarPorISBN(this.emprestimo1.getISBNlivro()).getQtdEmprestimo());
+        assertEquals(0,DAO.getLivro().encontrarPorISBN(this.emprestimo2.getISBNlivro()).getQtdEmprestimo());
+        assertTrue(DAO.getLivro().encontrarPorISBN(this.emprestimo1.getISBNlivro()).getDisponivel());
+        assertTrue(DAO.getLivro().encontrarPorISBN(this.emprestimo2.getISBNlivro()).getDisponivel());
     }
 }

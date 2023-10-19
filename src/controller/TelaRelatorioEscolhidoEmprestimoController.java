@@ -98,21 +98,21 @@ public class TelaRelatorioEscolhidoEmprestimoController {
     }
 
     public void selecionarLivroTabela(Emprestimo emprestimo){
-        this.tituloLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getLivro()).getTitulo());
-        this.isbnLivro.setText(Double.toString(DAO.getLivro().encontrarPorISBN(emprestimo.getLivro()).getISBN()));
-        this.autorLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getLivro()).getAutor());
-        this.editoraLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getLivro()).getEditora());
-        this.anoLivro.setText(Integer.toString(DAO.getLivro().encontrarPorISBN(emprestimo.getLivro()).getAno()));
-        this.categoriaLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getLivro()).getCategoria());
+        this.tituloLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getTitulo());
+        this.isbnLivro.setText(Double.toString(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getISBN()));
+        this.autorLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getAutor());
+        this.editoraLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getEditora());
+        this.anoLivro.setText(Integer.toString(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getAno()));
+        this.categoriaLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getCategoria());
 
-        if(DAO.getLivro().encontrarPorISBN(emprestimo.getLivro()).getDisponivel())
+        if(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getDisponivel())
             this.disponibilidadeLivro.setText("Sim");
 
         else
             this.disponibilidadeLivro.setText("Não");
 
-        this.nomeLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getLeitor()).getNome());
-        this.telefoneLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getLeitor()).getTelefone());
-        this.enderecoLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getLeitor()).getEndereco());
+        this.nomeLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getNome());
+        this.telefoneLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getTelefone());
+        this.enderecoLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getEndereco());
     }
 }

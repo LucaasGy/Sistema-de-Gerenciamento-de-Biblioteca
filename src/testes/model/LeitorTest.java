@@ -64,9 +64,9 @@ class LeitorTest {
 
         //leitor tem empréstimo ativo mas está atrasado
         DAO.getEmprestimo().criar(new Emprestimo(this.guerrasmedias.getISBN(),this.lucas.getID()));
-        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().minusDays(9));
+        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setDataPrevista(LocalDate.now().minusDays(9));
         assertThrows(LeitorTemEmprestimoEmAtraso.class, ()-> this.lucas.renovarEmprestimo());
-        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(9));
+        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setDataPrevista(LocalDate.now().plusDays(9));
 
         //livro possui reserva ativa
         DAO.getReserva().criar(new Reserva(this.guerrasmedias.getISBN(),this.lucas.getID()));
@@ -81,21 +81,21 @@ class LeitorTest {
         DAO.getLeitor().atualizar(this.lucas);
 
         //data que pegou e data prevista do empréstimo alterada para provar renovação das mesmas
-        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPegou(LocalDate.now().minusDays(5));
-        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().plusDays(2));
+        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setDataPegou(LocalDate.now().minusDays(5));
+        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setDataPrevista(LocalDate.now().plusDays(2));
 
         //ps: alterar a data para 5 dias antes da data atual do teste
-        assertEquals(LocalDate.of(2023,10,12), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
+        assertEquals(LocalDate.of(2023,10,12), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getDataPegou());
         //ps: alterar a data para 2 dias depois da data atual do teste
-        assertEquals(LocalDate.of(2023,10,19), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        assertEquals(LocalDate.of(2023,10,19), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getDataPrevista());
 
         //tudo correto
         this.lucas.renovarEmprestimo();
 
         assertEquals(1, this.lucas.getLimiteRenova());
         assertNotNull(DAO.getEmprestimo().encontrarPorId(this.lucas.getID()));
-        assertEquals(LocalDate.now(), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPegou());
-        assertEquals(LocalDate.now().plusDays(7), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getdataPrevista());
+        assertEquals(LocalDate.now(), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getDataPegou());
+        assertEquals(LocalDate.now().plusDays(7), DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).getDataPrevista());
         DAO.getEmprestimo().removerTodos();
     }
 
@@ -119,7 +119,7 @@ class LeitorTest {
         livro2.setISBN(20);
         Emprestimo emp1 = new Emprestimo(DAO.getLivro().atualizar(livro2).getISBN(),this.lucas.getID());
         DAO.getEmprestimo().criar(emp1);
-        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setdataPrevista(LocalDate.now().minusDays(1));
+        DAO.getEmprestimo().encontrarPorId(this.lucas.getID()).setDataPrevista(LocalDate.now().minusDays(1));
         assertThrows(LeitorTemEmprestimoEmAtraso.class, ()-> this.lucas.reservarLivro(this.guerrasmedias.getISBN()));
         DAO.getEmprestimo().removerTodos();
 
@@ -171,7 +171,7 @@ class LeitorTest {
 
         //nova reserva criada
         assertEquals(2,DAO.getReserva().encontrarTodos().size());
-        assertEquals(this.lucas,DAO.getLeitor().encontrarPorId(DAO.getReserva().encontrarReservasLeitor(this.lucas.getID()).get(0).getLeitor()));
+        assertEquals(this.lucas,DAO.getLeitor().encontrarPorId(DAO.getReserva().encontrarReservasLeitor(this.lucas.getID()).get(0).getIDleitor()));
         DAO.getEmprestimo().removerTodos();
     }
 
@@ -185,14 +185,14 @@ class LeitorTest {
 
         //top 2 da fila de reserva não possui prazo e top1 da fila ( vai retirar a reserva ) possui prazo
         assertTrue(DAO.getPrazos().prazosDeUmLeitor(novo.getID()).isEmpty());
-        assertEquals(this.lucas, DAO.getLeitor().encontrarPorId(DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor()));
+        assertEquals(this.lucas, DAO.getLeitor().encontrarPorId(DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getIDleitor()));
 
         //tudo correto
         this.lucas.retirarReserva(this.guerrasmedias.getISBN());
 
         //antigo top 1 da fila de reserva não possui mais prazo ativo e antigo top 2 agora possui um prazo ativo
         assertTrue(DAO.getPrazos().prazosDeUmLeitor(this.lucas.getID()).isEmpty());
-        assertEquals(novo, DAO.getLeitor().encontrarPorId(DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getLeitor()));
+        assertEquals(novo, DAO.getLeitor().encontrarPorId(DAO.getPrazos().encontrarPrazoDeUmLivro(this.guerrasmedias.getISBN()).getIDleitor()));
     }
 
     @Test
