@@ -304,16 +304,6 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna o total de número de Livros armazenados no sistema.
-     *
-     * @return retorna tamanho da lista de livro armazenados
-     */
-
-    public static int numeroLivrosEstoque(){
-        return estoque().size();
-    }
-
-    /**
      * Método que retorna todos os empréstimos atuais.
      *
      * @return retorna uma lista de empréstimos atuais
@@ -358,36 +348,6 @@ public class Adm extends Usuario {
     }
 
     /**
-     * Método que retorna o número de livros emprestados atualmente.
-     *
-     * @return retorna tamanho da lista de livros emprestados atualmente
-     */
-
-    public static int numeroLivrosEmprestados(){
-        return livrosEmprestados().size();
-    }
-
-    /**
-     * Método que retorna o número de livros atrasados atualmente.
-     *
-     * @return retorna tamanho da lista de livros atrasados atualmente
-     */
-
-    public static int numeroLivrosAtrasados(){
-        return livrosAtrasados().size();
-    }
-
-    /**
-     * Método que retorna o número de livros reservados atualmente.
-     *
-     * @return retorna tamanho da lista de livros reservados atualmente
-     */
-
-    public static int numeroLivrosReservados(){
-        return livrosReservados().size();
-    }
-
-    /**
      * Método que retorna todos os Empréstimos de um determinado Leitor.
      *
      * @param id identificação do leitor
@@ -428,5 +388,22 @@ public class Adm extends Usuario {
             top10livros.addAll(livrosPopulares);
 
         return top10livros;
+    }
+
+    /**
+     * Método que retorna leitores bloqueados atualmente.
+     *
+     * @return retorna leitores bloqueados no sistema
+     */
+
+    public static List<Leitor> leitoresBloqueados(){
+        List<Leitor> leitoresBloqueado = new ArrayList<Leitor>();
+
+        for(Leitor leitor : DAO.getLeitor().encontrarTodos()){
+            if(leitor.getBloqueado())
+                leitoresBloqueado.add(leitor);
+        }
+
+        return leitoresBloqueado;
     }
 }

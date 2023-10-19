@@ -1,6 +1,7 @@
 package view;
 
 import dao.DAO;
+import erros.objetos.ObjetoInvalido;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.*;
@@ -11,10 +12,13 @@ import java.io.IOException;
 public class MainApplication extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, ObjetoInvalido {
         Sistema.verificarMultasLeitores();
         Sistema.verificarPrazosEReservas();
-
+        System.out.println(DAO.getAdm().encontrarTodos().size());
+        System.out.println(DAO.getBibliotecario().encontrarTodos().size());
+        System.out.println(DAO.getLeitor().encontrarTodos().size());
+        System.out.println(DAO.getLivro().encontrarTodos().size());
         //DAO.getAdm().criar(new Adm("adm1","senha1"));
         //DAO.getBibliotecario().criar(new Bibliotecario("biblio1","senha2"));
         //DAO.getLeitor().criar(new Leitor("leitor1","rua1","telefone1","senha3"));

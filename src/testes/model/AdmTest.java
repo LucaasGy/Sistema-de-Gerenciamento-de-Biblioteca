@@ -260,33 +260,6 @@ class AdmTest {
     }
 
     @Test
-    void numeroLivrosEstoque() {
-        assertEquals(15, Adm.numeroLivrosEstoque());
-    }
-
-    @Test
-    void numeroLivrosEmprestados() {
-        assertEquals(8, Adm.numeroLivrosEmprestados());
-    }
-
-    @Test
-    void numeroLivrosAtrasados() {
-        this.emp1.setDataPrevista(LocalDate.now().minusDays(1));
-        this.emp2.setDataPrevista(LocalDate.now().minusDays(1));
-        this.emp3.setDataPrevista(LocalDate.now().minusDays(1));
-        this.emp4.setDataPrevista(LocalDate.now().minusDays(1));
-
-        assertEquals(4, Adm.numeroLivrosAtrasados());
-    }
-
-    @Test
-    void numeroLivrosReservados() {
-        //apesar de ter 5 reservas ativas, por 2 serem do mesmo livro, é contabilizada
-        //somente uma
-        assertEquals(4, Adm.numeroLivrosReservados());
-    }
-
-    @Test
     void historicoEmprestimoDeUmLeitor() throws ObjetoInvalido {
         assertThrows(ObjetoInvalido.class, ()->Adm.historicoEmprestimoDeUmLeitor(666));
 
@@ -328,5 +301,21 @@ class AdmTest {
         assertEquals(this.livro11,Adm.livrosMaisPopulares().get(7));
         assertEquals(this.livro1,Adm.livrosMaisPopulares().get(8));
         assertEquals(this.livro6,Adm.livrosMaisPopulares().get(9));
+    }
+
+    @Test
+    void leitoresBloqueados(){
+        assertTrue(Adm.leitoresBloqueados().isEmpty());
+
+        this.leitor1.setBloqueado(true);
+        this.leitor2.setBloqueado(true);
+        this.leitor3.setBloqueado(true);
+        this.leitor4.setBloqueado(true);
+        DAO.getLeitor().atualizar(this.leitor1);
+        DAO.getLeitor().atualizar(this.leitor2);
+        DAO.getLeitor().atualizar(this.leitor3);
+        DAO.getLeitor().atualizar(this.leitor4);
+
+        assertEquals(4,Adm.leitoresBloqueados().size());
     }
 }
