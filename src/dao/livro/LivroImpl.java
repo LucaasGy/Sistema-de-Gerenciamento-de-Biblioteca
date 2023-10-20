@@ -52,9 +52,8 @@ public class LivroImpl implements LivroDAO {
         do{
             chute = 10.0 + r.nextDouble() * 90;
             chute = Math.round(chute * 100000.0) / 100000.0;
-        } while (this.isbnCadastrado.contains(chute) || chute==10.00000);
+        } while (this.isbnCadastrado.contains(chute));
 
-        this.isbnCadastrado.add(chute);
         return chute;
     }
 
@@ -70,6 +69,7 @@ public class LivroImpl implements LivroDAO {
     @Override
     public Livro criar(Livro obj) {
         obj.setISBN(this.isbn);
+        this.isbnCadastrado.add(this.isbn);
         this.isbn = isbnAleatorio();
         this.listaLivro.add(obj);
 
