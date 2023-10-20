@@ -65,15 +65,15 @@ public class TelaMinhasReservasController {
 
     @FXML
     void retirarReserva(){
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null) {
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao retirar reserva", "Escolha um livro antes de retirar");
-            return;
-        }
 
-        this.telaInicialController.getLeitor().retirarReserva(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-        this.mensagemErro.setText("Reserva retirada com sucesso");
-        this.mensagemErro.setStyle("-fx-text-fill: green;");
-        carregaTabela();
+        else {
+            this.telaInicialController.getLeitor().retirarReserva(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+            this.mensagemErro.setText("Reserva retirada com sucesso");
+            this.mensagemErro.setStyle("-fx-text-fill: green;");
+            carregaTabela();
+        }
     }
 
     @FXML
@@ -88,6 +88,7 @@ public class TelaMinhasReservasController {
         ObservableList<Livro> listaLivros = FXCollections.observableArrayList(this.telaInicialController.getLeitor().minhasReservas());
         if(!listaLivros.isEmpty())
             this.tabelaLivros.setItems(listaLivros);
+
         else {
             this.tabelaLivros.getItems().clear();
             this.botaoRetirarReserva.setDisable(true);

@@ -85,74 +85,78 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     void fazerReserva(){
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null) {
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar reserva", "Escolha um livro antes de confirmar");
-            return;
-        }
 
-        try{
-            this.telaInicialController.getLeitor().reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-            this.mensagemErro.setText("Reserva feita com sucesso");
-            this.mensagemErro.setStyle("-fx-text-fill: green;");
-        }catch(LeitorBloqueado | LivroLimiteDeReservas | LivroNaoDisponivel | LeitorTemEmprestimoEmAtraso | LivroNaoPossuiEmprestimoNemReserva |
-                LeitorMultado | LeitorReservarLivroEmMaos | LeitorLimiteDeReservas | ObjetoInvalido | LeitorPossuiReservaDesseLivro e){
-            this.mensagemErro.setText(e.getMessage());
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+        else {
+            try {
+                this.telaInicialController.getLeitor().reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+                this.mensagemErro.setText("Reserva feita com sucesso");
+                this.mensagemErro.setStyle("-fx-text-fill: green;");
+            } catch (LeitorBloqueado | LivroLimiteDeReservas | LivroNaoDisponivel | LeitorTemEmprestimoEmAtraso |
+                     LivroNaoPossuiEmprestimoNemReserva |
+                     LeitorMultado | LeitorReservarLivroEmMaos | LeitorLimiteDeReservas | ObjetoInvalido |
+                     LeitorPossuiReservaDesseLivro e) {
+                this.mensagemErro.setText(e.getMessage());
+                this.mensagemErro.setStyle("-fx-text-fill: red;");
+            }
         }
     }
 
     @FXML
     void fazerDevolucao(){
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null) {
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar devolução", "Escolha um livro antes de confirmar");
-            return;
-        }
 
-        try {
-            Bibliotecario.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-            this.mensagemErro.setText("Devolução feita com sucesso");
-            this.mensagemErro.setStyle("-fx-text-fill: green;");
+        else {
+            try {
+                Bibliotecario.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+                this.mensagemErro.setText("Devolução feita com sucesso");
+                this.mensagemErro.setStyle("-fx-text-fill: green;");
 
-        }catch (LivroNaoPossuiEmprestimo e){
-            this.mensagemErro.setText(e.getMessage());
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            } catch (LivroNaoPossuiEmprestimo e) {
+                this.mensagemErro.setText(e.getMessage());
+                this.mensagemErro.setStyle("-fx-text-fill: red;");
+            }
         }
     }
 
     @FXML
     void fazerEmprestimo() throws IOException {
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null) {
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar empréstimo", "Escolha um livro antes de confirmar");
-            return;
-        }
-
-        Livro livro = this.tabelaLivros.getSelectionModel().getSelectedItem();
-
-        if(!livro.getDisponivel()) {
-            if(DAO.getEmprestimo().encontrarPorISBN(livro.getISBN())!=null) {
-                LivroEmprestado e = new LivroEmprestado();
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
-                return;
-            }
-            LivroNaoDisponivel e = new LivroNaoDisponivel();
-            this.mensagemErro.setText(e.getMessage());
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
-        }
 
         else {
-            this.mensagemErro.setText("");
+            Livro livro = this.tabelaLivros.getSelectionModel().getSelectedItem();
 
-            Stage stage = new Stage();
-            FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
-            StageController.criaStage(stage, loader);
-            TelaDigiteIDController controller = loader.getController();
+            if (!livro.getDisponivel()) {
+                if (DAO.getEmprestimo().encontrarPorISBN(livro.getISBN()) != null) {
+                    LivroEmprestado e = new LivroEmprestado();
+                    this.mensagemErro.setText(e.getMessage());
+                    this.mensagemErro.setStyle("-fx-text-fill: red;");
+                }
 
-            controller.setQualOperacao("emprestimo");
-            controller.setLivro(this.tabelaLivros.getSelectionModel().getSelectedItem());
+                else {
+                    LivroNaoDisponivel e = new LivroNaoDisponivel();
+                    this.mensagemErro.setText(e.getMessage());
+                    this.mensagemErro.setStyle("-fx-text-fill: red;");
+                }
+            }
 
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            else {
+                this.mensagemErro.setText("");
+
+                Stage stage = new Stage();
+                FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
+                StageController.criaStage(stage, loader);
+                TelaDigiteIDController controller = loader.getController();
+
+                controller.setQualOperacao("emprestimo");
+                controller.setLivro(this.tabelaLivros.getSelectionModel().getSelectedItem());
+
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            }
         }
     }
 

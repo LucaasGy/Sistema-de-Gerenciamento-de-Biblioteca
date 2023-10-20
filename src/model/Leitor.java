@@ -268,9 +268,6 @@ public class Leitor extends Usuario {
     public List<Livro> minhasReservas(){
         List<Reserva> reservas = DAO.getReserva().encontrarReservasLeitor(this.getID());
 
-        //if(reservas.isEmpty())
-            //throw new LeitorNaoPossuiReservas();
-
         List<Livro> livros = new ArrayList<Livro>();
         for(Reserva reserva : reservas){
             livros.add(DAO.getLivro().encontrarPorISBN(reserva.getISBNlivro()));
