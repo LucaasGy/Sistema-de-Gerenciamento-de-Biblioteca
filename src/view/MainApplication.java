@@ -20,7 +20,7 @@ public class MainApplication extends Application {
         System.out.println(DAO.getBibliotecario().encontrarTodos().size());
         System.out.println(DAO.getLeitor().encontrarTodos().size());
         System.out.println(DAO.getLivro().encontrarTodos().size());
-        //DAO.getEmprestimo().encontrarPorId(1003).setDataPrevista(LocalDate.now().plusDays(7));
+        //DAO.getEmprestimo().encontrarPorId(1003).setDataPrevista(LocalDate.now().minusDays(7));
         //DAO.getAdm().criar(new Adm("adm1","senha1"));
         //DAO.getBibliotecario().criar(new Bibliotecario("biblio1","senha2"));
         //DAO.getLeitor().criar(new Leitor("leitor1","rua1","telefone1","senha3"));
