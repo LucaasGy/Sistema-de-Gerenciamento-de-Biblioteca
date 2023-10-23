@@ -33,8 +33,8 @@
                   <items>
                     <MenuItem fx:id="criarLeitor" mnemonicParsing="false" onAction="#gerirLeitorCriar" text="Criar" />
                         <MenuItem fx:id="editarExcluirLeitor" mnemonicParsing="false" text="Editar/Excluir" />
-                        <MenuItem fx:id="bloquearDesbloquearLeitor" mnemonicParsing="false" text="Bloquear/Desbloquear" />
-                        <MenuItem fx:id="tirarMultaLeitor" mnemonicParsing="false" text="Tirar multa" />
+                        <MenuItem fx:id="bloquearDesbloquearLeitor" mnemonicParsing="false" onAction="#gerirLeitorBloquearDesbloquear" text="Bloquear/Desbloquear" />
+                        <MenuItem fx:id="tirarMultaLeitor" mnemonicParsing="false" onAction="#gerirLeitorTirarMulta" text="Tirar multa" />
                   </items>
                 </Menu>
                   <Menu fx:id="gerirLivro" mnemonicParsing="false" text="Gerir Livro">

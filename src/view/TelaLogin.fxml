@@ -27,7 +27,7 @@
       </Button>
       <Label fx:id="mensagemDeErro" alignment="CENTER" contentDisplay="CENTER" layoutX="216.0" layoutY="300.0" prefHeight="20.0" prefWidth="268.0" textAlignment="CENTER" textFill="#ff1500">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <ComboBox fx:id="selecionaTipo" layoutX="264.0" layoutY="250.0" prefHeight="30.0" prefWidth="173.0" promptText="Selecione o tipo..." />

@@ -71,7 +71,7 @@
                   </GridPane>
                   <Label fx:id="mensagemErro" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="341.0" prefHeight="17.0" prefWidth="340.0" textAlignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="11.0" />
                      </font>
                   </Label>
                   <Button fx:id="botaoMenu" layoutX="50.0" layoutY="378.0" mnemonicParsing="false" onAction="#voltarMenu" prefHeight="28.0" prefWidth="56.0" text="Menu" />

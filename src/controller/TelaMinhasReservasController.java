@@ -70,7 +70,7 @@ public class TelaMinhasReservasController {
 
         else {
             this.telaInicialController.getLeitor().retirarReserva(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-            this.mensagemErro.setText("Reserva retirada com sucesso");
+            this.mensagemErro.setText("RESERVA RETIRADA COM SUCESSO");
             this.mensagemErro.setStyle("-fx-text-fill: green;");
             carregaTabela();
         }

@@ -120,6 +120,34 @@ public class TelaInicialController {
     }
 
     @FXML
+    void gerirLeitorBloquearDesbloquear() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+
+        TelaDigiteIDController controller = loader.getController();
+
+        controller.setQualOperacao("Bloqueio/Desbloqueio");
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void gerirLeitorTirarMulta() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+
+        TelaDigiteIDController controller = loader.getController();
+
+        controller.setQualOperacao("Tirar multa");
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
     void gerirLivroCriar() throws IOException {
         FXMLLoader loader = StageController.retornaLoader("TelaCriarLivro.fxml");
         Stage stage = new Stage();
