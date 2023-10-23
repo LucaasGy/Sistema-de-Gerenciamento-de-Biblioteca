@@ -57,4 +57,14 @@ public class StageController {
             return false;
         }
     }
+
+    //Método para verificar se é um número long
+    public static boolean tryParseLong(String isbn) {
+        try {
+            Long.parseLong(isbn);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
