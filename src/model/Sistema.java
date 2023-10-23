@@ -11,6 +11,7 @@ import erros.livro.LivroNaoDisponivel;
 import erros.livro.LivroNaoPossuiEmprestimo;
 import erros.livro.LivroReservado;
 import erros.objetos.ObjetoInvalido;
+import erros.objetos.ObjetoNaoCriado;
 import erros.objetos.UsuarioSenhaIncorreta;
 
 import java.time.LocalDate;
@@ -300,8 +301,11 @@ public class Sistema {
      * Método que cria um novo Livro e o adiciona no acervo da biblioteca
      *
      * @param livro objeto livro contendo todas as informações pré definidas
+     * @throws ObjetoNaoCriado caso não seja criado um livro no sistema,
+     * retorna uma exceção informando o ocorrido
      */
-    public static void registrarLivro(Livro livro){
-        DAO.getLivro().criar(livro);
+    public static void registrarLivro(Livro livro) throws ObjetoNaoCriado{
+        if(DAO.getLivro().criar(livro)==null)
+            throw new ObjetoNaoCriado("LIVRO NÃO CRIADO");
     }
 }

@@ -4,6 +4,7 @@ import dao.DAO;
 import erros.leitor.LeitorTemEmprestimo;
 import erros.livro.LivroEmprestado;
 import erros.objetos.ObjetoInvalido;
+import erros.objetos.ObjetoNaoCriado;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,10 +43,13 @@ public class Adm extends Usuario {
      * Método que cria um novo usuário do tipo Leitor e o adiciona no sistema.
      *
      * @param leitor objeto leitor contendo todas as informações pré definidas
+     * @throws ObjetoNaoCriado caso não seja criado um leitor no sistema,
+     * retorna uma exceção informando o ocorrido
      */
 
-    public static void criarLeitor(Leitor leitor){
-        DAO.getLeitor().criar(leitor);
+    public static void criarLeitor(Leitor leitor) throws ObjetoNaoCriado {
+        if(DAO.getLeitor().criar(leitor)==null)
+            throw new ObjetoNaoCriado("LEITOR NÃO CRIADO");
     }
 
     /**
@@ -96,10 +100,13 @@ public class Adm extends Usuario {
      * Método que cria um novo usuário do tipo Bibliotecario e o adiciona no sistema.
      *
      * @param bibliotecario objeto bibliotecario contendo todas as informações pré definidas
+     * @throws ObjetoNaoCriado caso não seja criado um bibliotecario no sistema,
+     * retorna uma exceção informando o ocorrido
      */
 
-    public static void criarBibliotecario(Bibliotecario bibliotecario){
-        DAO.getBibliotecario().criar(bibliotecario);
+    public static void criarBibliotecario(Bibliotecario bibliotecario) throws ObjetoNaoCriado {
+        if(DAO.getBibliotecario().criar(bibliotecario)==null)
+            throw new ObjetoNaoCriado("BIBLIOTECARIO NÃO CRIADO");
     }
 
     /**
@@ -134,10 +141,13 @@ public class Adm extends Usuario {
      * Método que cria um novo usuário do tipo Administrador e o adiciona no sistema.
      *
      * @param adm objeto adm contendo todas as informações pré definidas
+     * @throws ObjetoNaoCriado caso não seja criado um administrador no sistema,
+     * retorna uma exceção informando o ocorrido
      */
 
-    public static void criarAdm(Adm adm){
-        DAO.getAdm().criar(adm);
+    public static void criarAdm(Adm adm) throws ObjetoNaoCriado{
+        if(DAO.getAdm().criar(adm)==null)
+            throw new ObjetoNaoCriado("ADMINISTRADOR NÃO CRIADO");
     }
 
     /**
