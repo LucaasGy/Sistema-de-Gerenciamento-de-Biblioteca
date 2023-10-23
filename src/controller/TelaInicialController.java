@@ -93,6 +93,42 @@ public class TelaInicialController {
     }
 
     @FXML
+    void gerirAdministradorCriar() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaCriarAdm.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void gerirBibliotecarioCriar() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaCriarBibliotecario.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void gerirLeitorCriar() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaCriarLeitor.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void gerirLivroCriar() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaCriarLivro.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
     void selecionaFuncionalidade() throws IOException {
         if(this.listaFuncionalidades.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING,"ERROR","Erro ao confirmar uma funcionalidade","Escolha uma funcionalidade antes de confirmar");

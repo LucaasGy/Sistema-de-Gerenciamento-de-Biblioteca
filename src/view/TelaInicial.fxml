@@ -19,19 +19,19 @@
               <menus>
                 <Menu fx:id="gerirAdministrador" mnemonicParsing="false" text="Gerir Admistrador">
                   <items>
-                    <MenuItem fx:id="criarAdm" mnemonicParsing="false" text="Criar" />
+                    <MenuItem fx:id="criarAdm" mnemonicParsing="false" onAction="#gerirAdministradorCriar" text="Criar" />
                         <MenuItem fx:id="editarExcluirAdm" mnemonicParsing="false" text="Editar/Excluir" />
                   </items>
                 </Menu>
                 <Menu fx:id="gerirBibliotecario" mnemonicParsing="false" text="Gerir Bibliotecario">
                   <items>
-                    <MenuItem fx:id="criarBibliotecario" mnemonicParsing="false" text="Criar" />
+                    <MenuItem fx:id="criarBibliotecario" mnemonicParsing="false" onAction="#gerirBibliotecarioCriar" text="Criar" />
                         <MenuItem fx:id="editarExcluirBibliotecario" mnemonicParsing="false" text="Editar/Excluir" />
                   </items>
                 </Menu>
                 <Menu fx:id="gerirLeitor" mnemonicParsing="false" text="Gerir Leitor">
                   <items>
-                    <MenuItem fx:id="criarLeitor" mnemonicParsing="false" text="Criar" />
+                    <MenuItem fx:id="criarLeitor" mnemonicParsing="false" onAction="#gerirLeitorCriar" text="Criar" />
                         <MenuItem fx:id="editarExcluirLeitor" mnemonicParsing="false" text="Editar/Excluir" />
                         <MenuItem fx:id="bloquearDesbloquearLeitor" mnemonicParsing="false" text="Bloquear/Desbloquear" />
                         <MenuItem fx:id="tirarMultaLeitor" mnemonicParsing="false" text="Tirar multa" />
@@ -39,7 +39,7 @@
                 </Menu>
                   <Menu fx:id="gerirLivro" mnemonicParsing="false" text="Gerir Livro">
                      <items>
-                        <MenuItem fx:id="criarLivro" mnemonicParsing="false" text="Criar" />
+                        <MenuItem fx:id="criarLivro" mnemonicParsing="false" onAction="#gerirLivroCriar" text="Criar" />
                         <MenuItem fx:id="editarExcluirLivro" mnemonicParsing="false" text="Editar/Excluir" />
                      </items>
                   </Menu>
