@@ -2,6 +2,7 @@ package testes.model;
 
 import dao.DAO;
 
+import erros.leitor.LeitorNaoMultado;
 import erros.leitor.LeitorTemEmprestimo;
 import erros.livro.LivroEmprestado;
 import erros.objetos.ObjetoInvalido;
@@ -206,8 +207,10 @@ class AdmTest {
     }
 
     @Test
-    void tirarMulta() throws ObjetoInvalido {
+    void tirarMulta() throws ObjetoInvalido, LeitorNaoMultado {
         assertThrows(ObjetoInvalido.class, ()->Adm.tirarMulta(666));
+
+        assertThrows(LeitorNaoMultado.class, ()->Adm.tirarMulta(1003));
 
         this.leitor1.setDataMulta(LocalDate.now());
         DAO.getLeitor().atualizar(this.leitor1);

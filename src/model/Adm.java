@@ -1,6 +1,7 @@
 package model;
 
 import dao.DAO;
+import erros.leitor.LeitorNaoMultado;
 import erros.leitor.LeitorTemEmprestimo;
 import erros.livro.LivroEmprestado;
 import erros.objetos.ObjetoInvalido;
@@ -181,21 +182,15 @@ public class Adm extends Usuario {
     /**
      * Método que bloqueia um Leitor no sistema.
      *
-     * Caso tudo esteja correto, é removido todas as reservas do leitor
-     * e ele é bloqueado no sistema.
+     * É removido todas as reservas do leitor e ele é bloqueado no sistema.
      * Caso ele possua prazos ativos, os prazos são deletados e são criados novos prazos
      * para o top2 da fila ( oque vem depois do leitor bloqueado ) ir realizar o empréstimo.
      *
      * @param id identificação do leitor
-     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
-     * retorna uma exceção informando o ocorrido
      */
 
-    public static void bloquearLeitor(int id) throws ObjetoInvalido {
+    public static void bloquearLeitor(int id){
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
-
-        if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
 
         Sistema.adicionarPrazoParaTop2reserva(id);
 
@@ -207,16 +202,10 @@ public class Adm extends Usuario {
      * Método que desbloqueia um Leitor no sistema.
      *
      * @param id identificação do leitor
-     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
-     * retorna uma exceção informando o ocorrido
      */
 
-    public static void desbloquearLeitor(int id) throws ObjetoInvalido {
+    public static void desbloquearLeitor(int id){
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
-
-        if(leitor==null)
-            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
-
         leitor.setBloqueado(false);
         DAO.getLeitor().atualizar(leitor);
     }
@@ -227,13 +216,20 @@ public class Adm extends Usuario {
      * @param id identicação do leitor
      * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
      * retorna uma exceção informando o ocorrido
+     * @throws LeitorNaoMultado caso o leitor não possua multa ativa,
+     * retorna uma exceção informando o ocorrido
      */
 
-    public static void tirarMulta(int id) throws ObjetoInvalido {
+    public static void tirarMulta(int id) throws ObjetoInvalido, LeitorNaoMultado {
         Leitor leitor = DAO.getLeitor().encontrarPorId(id);
 
         if(leitor==null)
             throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
+
+        else{
+            if(leitor.getDataMulta()==null)
+                throw new LeitorNaoMultado("LEITOR NÃO POSSUI MULTA ATIVA");
+        }
 
         leitor.setDataMulta(null);
         DAO.getLeitor().atualizar(leitor);
