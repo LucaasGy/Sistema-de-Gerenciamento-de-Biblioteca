@@ -43,7 +43,7 @@ public class TelaPesquisaLivroController  {
     @FXML
     void confirmarEscolha(ActionEvent event) throws IOException {
         if(digitaEscolha.getText().isEmpty())
-            this.mensagemErro.setText("Insira dado do livro");
+            this.mensagemErro.setText("INSIRA DADO DO LIVRO");
 
         else {
             String dado = digitaEscolha.getText();
@@ -52,7 +52,7 @@ public class TelaPesquisaLivroController  {
             String escolha = radio.getText();
 
             if (escolha.equals("ISBN") && !StageController.tryParseDouble(dado))
-                this.mensagemErro.setText("ISBN é composto apenas por números");
+                this.mensagemErro.setText("ISBN É COMPOSTO APENAS POR NÚMEROS");
 
             else {
                 if (escolha.equals("Titulo")) {

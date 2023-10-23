@@ -91,7 +91,7 @@ public class TelaLivrosPesquisadosController {
         else {
             try {
                 this.telaInicialController.getLeitor().reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-                this.mensagemErro.setText("Reserva feita com sucesso");
+                this.mensagemErro.setText("RESERVA FEITA COM SUCESSO");
                 this.mensagemErro.setStyle("-fx-text-fill: green;");
             } catch (LeitorBloqueado | LivroLimiteDeReservas | LivroNaoDisponivel | LeitorTemEmprestimoEmAtraso |
                      LivroNaoPossuiEmprestimoNemReserva |
@@ -111,7 +111,7 @@ public class TelaLivrosPesquisadosController {
         else {
             try {
                 Bibliotecario.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-                this.mensagemErro.setText("Devolução feita com sucesso");
+                this.mensagemErro.setText("DEVOLUÇÃO FEITA COM SUCESSO");
                 this.mensagemErro.setStyle("-fx-text-fill: green;");
 
             } catch (LivroNaoPossuiEmprestimo e) {

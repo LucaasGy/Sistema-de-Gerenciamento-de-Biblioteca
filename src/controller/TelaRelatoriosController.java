@@ -51,9 +51,8 @@ public class TelaRelatoriosController {
         if(escolha.equals("Livros emprestados")){
             List<Emprestimo> emprestimosAtuais = Adm.livrosEmprestados();
 
-            if(emprestimosAtuais.isEmpty()){
-                this.mensagemErro.setText("Não há livros emprestados");
-            }
+            if(emprestimosAtuais.isEmpty())
+                this.mensagemErro.setText("NÃO HÁ LIVROS EMPRESTADOS");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
@@ -69,9 +68,8 @@ public class TelaRelatoriosController {
         else if(escolha.equals("Livros reservados")){
             List<Livro> livros = Adm.livrosReservados();
 
-            if(livros.isEmpty()){
-                this.mensagemErro.setText("Não há livros reservados");
-            }
+            if(livros.isEmpty())
+                this.mensagemErro.setText("NÃO HÁ LIVROS RESERVADOS");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoReservados.fxml");
@@ -87,9 +85,8 @@ public class TelaRelatoriosController {
         else if(escolha.equals("Livros atrasados")){
             List<Emprestimo> emprestimosAtrasados = Adm.livrosAtrasados();
 
-            if(emprestimosAtrasados.isEmpty()){
-                this.mensagemErro.setText("Não há livros atrasados");
-            }
+            if(emprestimosAtrasados.isEmpty())
+                this.mensagemErro.setText("NÃO HÁ LIVROS ATRASADOS");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
@@ -106,9 +103,8 @@ public class TelaRelatoriosController {
         else if(escolha.equals("Livros mais populares")){
             List<Livro> livrosPopulares = Adm.livrosMaisPopulares();
 
-            if(livrosPopulares.isEmpty()){
-                this.mensagemErro.setText("Não há livros no sistema");
-            }
+            if(livrosPopulares.isEmpty())
+                this.mensagemErro.setText("NÃO HÁ LIVROS NO SISTEMA");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
@@ -121,9 +117,8 @@ public class TelaRelatoriosController {
         else if(escolha.equals("Estoque")){
             List<Livro> todosLivros = Adm.estoque();
 
-            if(todosLivros.isEmpty()){
-                this.mensagemErro.setText("Não há livros no sistema");
-            }
+            if(todosLivros.isEmpty())
+                this.mensagemErro.setText("NÃO HÁ LIVROS NO SISTEMA");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
@@ -139,9 +134,8 @@ public class TelaRelatoriosController {
         else if(escolha.equals("Leitores bloqueados")){
             List<Leitor> leitoresBloqueados = Adm.leitoresBloqueados();
 
-            if(leitoresBloqueados.isEmpty()){
-                this.mensagemErro.setText("Não há leitores bloqueados no sistema");
-            }
+            if(leitoresBloqueados.isEmpty())
+                this.mensagemErro.setText("NÃO HÁ LEITORES BLOQUEADOS NO SISTEMA");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLeitoresBloqueados.fxml");
@@ -156,18 +150,17 @@ public class TelaRelatoriosController {
 
         else{
             if(this.digiteID.getText().isEmpty())
-                this.mensagemErro.setText("Insira ID do leitor");
+                this.mensagemErro.setText("INSIRA ID DO LEITOR");
 
             else if(!StageController.tryParseInt(this.digiteID.getText()))
-                this.mensagemErro.setText("ID é composto apenas por números");
+                this.mensagemErro.setText("ID É COMPOSTO APENAS POR NÚMEROS");
 
             else{
                 try{
                     List<Emprestimo> historicoLeitor = Adm.historicoEmprestimoDeUmLeitor(Integer.parseInt(this.digiteID.getText()));
 
-                    if(historicoLeitor.isEmpty()){
-                        this.mensagemErro.setText("Não há empréstimos desse leitor");
-                    }
+                    if(historicoLeitor.isEmpty())
+                        this.mensagemErro.setText("NÃO HÁ EMPRÉSTIMOS DESSE LEITOR");
 
                     else{
                         FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");

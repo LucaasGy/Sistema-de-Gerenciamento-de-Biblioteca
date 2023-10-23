@@ -38,7 +38,7 @@ public class TelaLoginController{
     @FXML
     void confirmaLogin(ActionEvent event) throws IOException{
         if(this.selecionaTipo.getSelectionModel().getSelectedItem()==null)
-            this.mensagemDeErro.setText("Selecione um tipo de usuário");
+            this.mensagemDeErro.setText("SELECIONE UM TIPO DE USUÁRIO");
 
         else{
             if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Convidado){
@@ -52,10 +52,10 @@ public class TelaLoginController{
 
             else{
                 if(this.digitaID.getText().isEmpty() || this.digitaSenha.getText().isEmpty())
-                    this.mensagemDeErro.setText("ID e Senha não podem ser vazios");
+                    this.mensagemDeErro.setText("PREENCHA OS CAMPOS");
 
                 else if(!StageController.tryParseInt(this.digitaID.getText()))
-                    this.mensagemDeErro.setText("ID é composto apenas por números");
+                    this.mensagemDeErro.setText("ID É COMPOSTO APENAS POR NÚMEROS");
 
                 else{
                     if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Administrador){

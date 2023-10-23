@@ -65,7 +65,7 @@ public class TelaCriarAdmController {
     @FXML
     void criarAdm(){
         if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty()) {
-            this.mensagemErro.setText("Preencha os campos");
+            this.mensagemErro.setText("PREENCHA OS CAMPOS");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());

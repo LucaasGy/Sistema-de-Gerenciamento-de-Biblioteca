@@ -78,7 +78,7 @@ public class TelaCriarLeitorController {
     @FXML
     void criarLeitor(){
         if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty() || this.digitaEndereco.getText().isEmpty() || this.digitaTelefone.getText().isEmpty()) {
-            this.mensagemErro.setText("Preencha os campos");
+            this.mensagemErro.setText("PREENCHA OS CAMPOS");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -87,7 +87,7 @@ public class TelaCriarLeitorController {
         }
 
         else if (!StageController.tryParseLong(this.digitaTelefone.getText())) {
-            this.mensagemErro.setText("Telefone é composto apenas por números");
+            this.mensagemErro.setText("TELEFONE É COMPOSTO APENAS POR NÚMERO");
             this.alertaTelefone.setVisible(true);
             this.alertaNome.setVisible(false);
             this.alertaSenha.setVisible(false);

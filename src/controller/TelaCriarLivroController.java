@@ -84,7 +84,7 @@ public class TelaCriarLivroController {
     @FXML
     void criarLeitor(){
         if(this.digitaTitulo.getText().isEmpty() || this.digitaAutor.getText().isEmpty() || this.digitaEditora.getText().isEmpty() || this.digitaAno.getText().isEmpty() || this.digitaCategoria.getText().isEmpty()) {
-            this.mensagemErro.setText("Preencha os campos");
+            this.mensagemErro.setText("PREENCHA OS CAMPOS");
 
             this.alertaTitulo.setVisible(this.digitaTitulo.getText().isEmpty());
             this.alertaAutor.setVisible(this.digitaAutor.getText().isEmpty());
@@ -94,7 +94,7 @@ public class TelaCriarLivroController {
         }
 
         else if (!StageController.tryParseInt(this.digitaAno.getText())) {
-            this.mensagemErro.setText("Ano é composto apenas por números");
+            this.mensagemErro.setText("ANO É COMPOSTO APENAS POR NÚMEROS");
             this.alertaAno.setVisible(true);
             this.alertaTitulo.setVisible(false);
             this.alertaAutor.setVisible(false);
