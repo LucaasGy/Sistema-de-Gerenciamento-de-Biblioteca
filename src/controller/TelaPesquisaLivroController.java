@@ -42,12 +42,12 @@ public class TelaPesquisaLivroController  {
 
     @FXML
     void confirmarEscolha(ActionEvent event) throws IOException {
-        if(digitaEscolha.getText().isEmpty())
+        String dado = digitaEscolha.getText();
+
+        if(dado.isEmpty())
             this.mensagemErro.setText("INSIRA DADO DO LIVRO");
 
         else {
-            String dado = digitaEscolha.getText();
-
             RadioButton radio = (RadioButton) grupo.getSelectedToggle();
             String escolha = radio.getText();
 

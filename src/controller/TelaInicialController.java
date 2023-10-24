@@ -157,6 +157,60 @@ public class TelaInicialController {
     }
 
     @FXML
+    void gerirAdministradorEditarExcluir() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaProcurarUsuario.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+        TelaProcurarUsuarioController controller = loader.getController();
+
+        controller.setAdm(this.adm);
+        controller.setQualOperacao("Administrador");
+        controller.setTitulo("Procurar administrador por :");
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void gerirBibliotecarioEditarExcluir() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaProcurarUsuario.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+
+        TelaProcurarUsuarioController controller = loader.getController();
+
+        controller.setQualOperacao("Bibliotecario");
+        controller.setTitulo("Procurar bibliotecario por :");
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void gerirLeitorEditarExcluir() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaProcurarUsuario.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+
+        TelaProcurarUsuarioController controller = loader.getController();
+
+        controller.setQualOperacao("Leitor");
+        controller.setTitulo("Procurar leitor por :");
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void gerirLivroEditarExcluir() throws IOException {
+        FXMLLoader loader = StageController.retornaLoader("TelaProcurarLivro.fxml");
+        Stage stage = new Stage();
+        StageController.criaStage(stage, loader);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
+    @FXML
     void selecionaFuncionalidade() throws IOException {
         if(this.listaFuncionalidades.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING,"ERROR","Erro ao confirmar uma funcionalidade","Escolha uma funcionalidade antes de confirmar");
