@@ -135,6 +135,8 @@ public class LeitorImpl implements LeitorDAO {
         for(Leitor leitor : this.listaLeitor){
             if(leitor.getID()==id){
                 this.listaLeitor.remove(leitor);
+                if(this.listaLeitor.isEmpty())
+                    this.nextID=1003;
                 return;
             }
         }

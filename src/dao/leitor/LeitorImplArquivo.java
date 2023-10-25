@@ -73,6 +73,8 @@ public class LeitorImplArquivo implements LeitorDAO{
         for(Leitor leitor : this.listaLeitor){
             if(leitor.getID()==id) {
                 this.listaLeitor.remove(leitor);
+                if(this.listaLeitor.isEmpty())
+                    this.nextID=1003;
                 ArmazenamentoArquivo.guardar(this.listaLeitor,this.nomeArquivo,this.nomePasta);
                 return;
             }

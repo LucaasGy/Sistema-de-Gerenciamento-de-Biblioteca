@@ -116,6 +116,8 @@ public class BibliotecarioImpl implements BibliotecarioDAO {
         for(Bibliotecario biblio : this.listaBibliotecario){
             if(biblio.getID()==id) {
                 this.listaBibliotecario.remove(biblio);
+                if(this.listaBibliotecario.isEmpty())
+                    this.nextID=1002;
                 return;
             }
         }

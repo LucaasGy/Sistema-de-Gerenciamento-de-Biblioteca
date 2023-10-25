@@ -73,6 +73,8 @@ public class BibliotecarioImplArquivo implements BibliotecarioDAO{
         for(Bibliotecario bibliotecario : this.listaBibliotecario){
             if(bibliotecario.getID()==id) {
                 this.listaBibliotecario.remove(bibliotecario);
+                if(this.listaBibliotecario.isEmpty())
+                    this.nextID=1002;
                 ArmazenamentoArquivo.guardar(this.listaBibliotecario,this.nomeArquivo,this.nomePasta);
                 return;
             }

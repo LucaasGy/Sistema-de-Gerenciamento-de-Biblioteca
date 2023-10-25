@@ -102,6 +102,8 @@ public class LivroImplArquivo implements LivroDAO{
             if (livro.getISBN() == isbn) {
                 this.listaLivro.remove(livro);
                 this.isbnCadastrado.remove(isbn);
+                if(this.isbnCadastrado.isEmpty())
+                    this.isbn=10.00000;
                 ArmazenamentoArquivo.guardar(this.listaLivro,this.nomeArquivoLivro,this.nomePasta);
                 ArmazenamentoArquivo.guardar(this.isbnCadastrado,this.nomeArquivoISBN,this.nomePasta);
                 return;
