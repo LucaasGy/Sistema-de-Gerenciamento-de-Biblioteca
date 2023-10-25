@@ -3,10 +3,13 @@ package controller;
 import dao.DAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Adm;
 import utils.StageController;
+
+import java.io.IOException;
 
 public class TelaProcurarUsuarioController {
 
@@ -33,7 +36,7 @@ public class TelaProcurarUsuarioController {
     private String qualOperacao;
 
     @FXML
-    void confirmarEscolha(ActionEvent event) {
+    void confirmarEscolha(ActionEvent event) throws IOException {
         String dado = digitaEscolha.getText();
 
         if(dado.isEmpty()) {
@@ -61,7 +64,14 @@ public class TelaProcurarUsuarioController {
                             this.mensagemErro.setText("ADMINISTRADOR NÃO ENCONTRADO");
 
                         else{
-                            //carrego a tela
+                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirAdministrador.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaEditarExcluirAdministradorController controller = loader.getController();
+
+                            controller.setAdmLogado(this.adm);
+                            controller.setIdAdmAAlterar(Integer.parseInt(dado));
+                            controller.carregaTabelaID(Integer.parseInt(dado));
+                            controller.setQualTabelaCarregar("ID");
                         }
                     }
 
@@ -70,7 +80,14 @@ public class TelaProcurarUsuarioController {
                             this.mensagemErro.setText("ADMINISTRADOR NÃO ENCONTRADO");
 
                         else{
-                            //carrego a tela
+                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirAdministrador.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaEditarExcluirAdministradorController controller = loader.getController();
+
+                            controller.setAdmLogado(this.adm);
+                            controller.setNomeAdmAAlterar(dado);
+                            controller.carregaTabelaNome(dado);
+                            controller.setQualTabelaCarregar("Nome");
                         }
                     }
                 }
@@ -81,7 +98,13 @@ public class TelaProcurarUsuarioController {
                             this.mensagemErro.setText("BIBLIOTECARIO NÃO ENCONTRADO");
 
                         else{
-                            //carrego a tela
+                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirBibliotecario.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaEditarExcluirBibliotecarioController controller = loader.getController();
+
+                            controller.setIdBibliotecarioAAlterar(Integer.parseInt(dado));
+                            controller.carregaTabelaID(Integer.parseInt(dado));
+                            controller.setQualTabelaCarregar("ID");
                         }
                     }
 
@@ -90,7 +113,13 @@ public class TelaProcurarUsuarioController {
                             this.mensagemErro.setText("BIBLIOTECARIO NÃO ENCONTRADO");
 
                         else{
-                            //carrego a tela
+                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirBibliotecario.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaEditarExcluirBibliotecarioController controller = loader.getController();
+
+                            controller.setNomeBibliotecarioAAlterar(dado);
+                            controller.carregaTabelaNome(dado);
+                            controller.setQualTabelaCarregar("Nome");
                         }
                     }
                 }
@@ -101,7 +130,13 @@ public class TelaProcurarUsuarioController {
                             this.mensagemErro.setText("LEITOR NÃO ENCONTRADO");
 
                         else{
-                            //carrego a tela
+                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLeitor.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaEditarExcluirLeitorController controller = loader.getController();
+
+                            controller.setIdLeitorAAlterar(Integer.parseInt(dado));
+                            controller.carregaTabelaID(Integer.parseInt(dado));
+                            controller.setQualTabelaCarregar("ID");
                         }
                     }
 
@@ -110,7 +145,13 @@ public class TelaProcurarUsuarioController {
                             this.mensagemErro.setText("LEITOR NÃO ENCONTRADO");
 
                         else{
-                            //carrego a tela
+                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLeitor.fxml");
+                            StageController.criaStage(StageController.getStage(event), loader);
+                            TelaEditarExcluirLeitorController controller = loader.getController();
+
+                            controller.setNomeLeitorAAlterar(dado);
+                            controller.carregaTabelaNome(dado);
+                            controller.setQualTabelaCarregar("Nome");
                         }
                     }
                 }
