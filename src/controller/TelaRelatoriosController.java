@@ -34,7 +34,7 @@ public class TelaRelatoriosController {
 
     @FXML
     void initialize(){
-        grupo.selectedToggleProperty().addListener((observable, oldValue, newValue) -> visibilidadeID((RadioButton) newValue));
+        this.grupo.selectedToggleProperty().addListener((observable, oldValue, newValue) -> visibilidadeID((RadioButton) newValue));
     }
 
     @FXML

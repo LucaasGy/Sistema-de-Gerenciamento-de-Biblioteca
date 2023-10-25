@@ -97,6 +97,7 @@ public class TelaMinhasReservasController {
 
     public void selecionarLivroTabela(Livro livro){
         this.mensagemErro.setText("");
+
         if(livro!=null) {
             this.tituloLivro.setText(livro.getTitulo());
             this.isbnLivro.setText(Double.toString(livro.getISBN()));

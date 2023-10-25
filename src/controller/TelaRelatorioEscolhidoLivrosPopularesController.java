@@ -106,6 +106,4 @@ public class TelaRelatorioEscolhidoLivrosPopularesController {
         else
             this.disponibilidadeLivro.setText("Não");
     }
-
-
 }

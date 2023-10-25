@@ -19,19 +19,19 @@
               <menus>
                 <Menu fx:id="gerirAdministrador" mnemonicParsing="false" text="Gerir Admistrador">
                   <items>
-                    <MenuItem fx:id="criarAdm" mnemonicParsing="false" onAction="#gerirAdministradorCriar" text="Criar" />
+                    <MenuItem fx:id="criarAdm" mnemonicParsing="false" onAction="#gerirAdministradorCriar" text="Criar/Ver todos" />
                         <MenuItem fx:id="editarExcluirAdm" mnemonicParsing="false" onAction="#gerirAdministradorEditarExcluir" text="Editar/Excluir" />
                   </items>
                 </Menu>
                 <Menu fx:id="gerirBibliotecario" mnemonicParsing="false" text="Gerir Bibliotecario">
                   <items>
-                    <MenuItem fx:id="criarBibliotecario" mnemonicParsing="false" onAction="#gerirBibliotecarioCriar" text="Criar" />
+                    <MenuItem fx:id="criarBibliotecario" mnemonicParsing="false" onAction="#gerirBibliotecarioCriar" text="Criar/Ver todos" />
                         <MenuItem fx:id="editarExcluirBibliotecario" mnemonicParsing="false" onAction="#gerirBibliotecarioEditarExcluir" text="Editar/Excluir" />
                   </items>
                 </Menu>
                 <Menu fx:id="gerirLeitor" mnemonicParsing="false" text="Gerir Leitor">
                   <items>
-                    <MenuItem fx:id="criarLeitor" mnemonicParsing="false" onAction="#gerirLeitorCriar" text="Criar" />
+                    <MenuItem fx:id="criarLeitor" mnemonicParsing="false" onAction="#gerirLeitorCriar" text="Criar/Ver todos" />
                         <MenuItem fx:id="editarExcluirLeitor" mnemonicParsing="false" onAction="#gerirLeitorEditarExcluir" text="Editar/Excluir" />
                         <MenuItem fx:id="bloquearDesbloquearLeitor" mnemonicParsing="false" onAction="#gerirLeitorBloquearDesbloquear" text="Bloquear/Desbloquear" />
                         <MenuItem fx:id="tirarMultaLeitor" mnemonicParsing="false" onAction="#gerirLeitorTirarMulta" text="Tirar multa" />
@@ -39,7 +39,7 @@
                 </Menu>
                   <Menu fx:id="gerirLivro" mnemonicParsing="false" text="Gerir Livro">
                      <items>
-                        <MenuItem fx:id="criarLivro" mnemonicParsing="false" onAction="#gerirLivroCriar" text="Criar" />
+                        <MenuItem fx:id="criarLivro" mnemonicParsing="false" onAction="#gerirLivroCriar" text="Criar/Ver todos" />
                         <MenuItem fx:id="editarExcluirLivro" mnemonicParsing="false" onAction="#gerirLivroEditarExcluir" text="Editar/Excluir" />
                      </items>
                   </Menu>
@@ -57,7 +57,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Label fx:id="mensagemBemVindo" alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="109.0" prefHeight="20.0" prefWidth="312.0" textAlignment="CENTER">
+      <Label fx:id="mensagemBemVindo" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="93.0" prefHeight="20.0" prefWidth="312.0" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
