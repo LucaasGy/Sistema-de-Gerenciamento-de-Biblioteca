@@ -67,6 +67,7 @@ public class TelaCriarBibliotecarioController {
     void criarBibliotecario(){
         if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty()) {
             this.mensagemErro.setText("PREENCHA OS CAMPOS");
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -77,22 +78,30 @@ public class TelaCriarBibliotecarioController {
                 Bibliotecario novoBibliotecario = new Bibliotecario(this.digitaNome.getText(),this.digitaSenha.getText());
                 Adm.criarBibliotecario(novoBibliotecario);
 
-                this.mensagemErro.setText("");
                 this.alertaNome.setVisible(false);
                 this.alertaSenha.setVisible(false);
-
                 this.digitaNome.clear();
                 this.digitaSenha.clear();
 
                 carregaTabela();
+
+                this.mensagemErro.setText("BIBLIOTECARIO CRIADO");
+                this.mensagemErro.setStyle("-fx-text-fill: green;");
             }catch (ObjetoNaoCriado e){
                 this.mensagemErro.setText(e.getMessage());
+                this.mensagemErro.setStyle("-fx-text-fill: red;");
             }
         }
     }
 
     @FXML
     void mostrarDados() throws IOException {
+        this.mensagemErro.setText("");
+        this.alertaNome.setVisible(false);
+        this.alertaSenha.setVisible(false);
+        this.digitaNome.clear();
+        this.digitaSenha.clear();
+
         if(this.tabelaBibliotecario.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum bibliotecario selecionado","Para obter dados de um bibliotecario, selecione um primeiramente");
 
@@ -121,5 +130,4 @@ public class TelaCriarBibliotecarioController {
         else
             this.botaoDados.setDisable(true);
     }
-
 }

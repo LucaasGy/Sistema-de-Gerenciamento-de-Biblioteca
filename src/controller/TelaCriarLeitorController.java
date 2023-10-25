@@ -79,6 +79,7 @@ public class TelaCriarLeitorController {
     void criarLeitor(){
         if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty() || this.digitaEndereco.getText().isEmpty() || this.digitaTelefone.getText().isEmpty()) {
             this.mensagemErro.setText("PREENCHA OS CAMPOS");
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -87,7 +88,9 @@ public class TelaCriarLeitorController {
         }
 
         else if (!StageController.tryParseLong(this.digitaTelefone.getText())) {
-            this.mensagemErro.setText("TELEFONE É COMPOSTO APENAS POR NÚMERO");
+            this.mensagemErro.setText("TELEFONE É COMPOSTO APENAS POR NÚMEROS");
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
+
             this.alertaTelefone.setVisible(true);
             this.alertaNome.setVisible(false);
             this.alertaSenha.setVisible(false);
@@ -99,7 +102,6 @@ public class TelaCriarLeitorController {
                 Leitor novoLeitor = new Leitor(this.digitaNome.getText(),this.digitaEndereco.getText(),this.digitaTelefone.getText(),this.digitaSenha.getText());
                 Adm.criarLeitor(novoLeitor);
 
-                this.mensagemErro.setText("");
                 this.alertaNome.setVisible(false);
                 this.alertaSenha.setVisible(false);
                 this.alertaEndereco.setVisible(false);
@@ -111,6 +113,9 @@ public class TelaCriarLeitorController {
                 this.digitaTelefone.clear();
 
                 carregaTabela();
+
+                this.mensagemErro.setText("LEITOR CRIADO");
+                this.mensagemErro.setStyle("-fx-text-fill: green;");
             }catch (ObjetoNaoCriado e){
                 this.mensagemErro.setText(e.getMessage());
             }
@@ -119,6 +124,17 @@ public class TelaCriarLeitorController {
 
     @FXML
     void mostrarDados() throws IOException {
+        this.mensagemErro.setText("");
+        this.alertaNome.setVisible(false);
+        this.alertaSenha.setVisible(false);
+        this.alertaEndereco.setVisible(false);
+        this.alertaTelefone.setVisible(false);
+
+        this.digitaNome.clear();
+        this.digitaSenha.clear();
+        this.digitaEndereco.clear();
+        this.digitaTelefone.clear();
+
         if(this.tabelaLeitor.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum leitor selecionado","Para obter dados de um leitor, selecione um primeiramente");
 

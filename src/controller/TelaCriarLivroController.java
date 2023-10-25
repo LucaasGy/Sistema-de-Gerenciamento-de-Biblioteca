@@ -82,9 +82,10 @@ public class TelaCriarLivroController {
     }
 
     @FXML
-    void criarLeitor(){
+    void criarLivro(){
         if(this.digitaTitulo.getText().isEmpty() || this.digitaAutor.getText().isEmpty() || this.digitaEditora.getText().isEmpty() || this.digitaAno.getText().isEmpty() || this.digitaCategoria.getText().isEmpty()) {
             this.mensagemErro.setText("PREENCHA OS CAMPOS");
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
 
             this.alertaTitulo.setVisible(this.digitaTitulo.getText().isEmpty());
             this.alertaAutor.setVisible(this.digitaAutor.getText().isEmpty());
@@ -95,6 +96,8 @@ public class TelaCriarLivroController {
 
         else if (!StageController.tryParseInt(this.digitaAno.getText())) {
             this.mensagemErro.setText("ANO É COMPOSTO APENAS POR NÚMEROS");
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
+
             this.alertaAno.setVisible(true);
             this.alertaTitulo.setVisible(false);
             this.alertaAutor.setVisible(false);
@@ -107,7 +110,6 @@ public class TelaCriarLivroController {
                 Livro novoLivro = new Livro(this.digitaTitulo.getText(),this.digitaAutor.getText(),this.digitaEditora.getText(),Integer.parseInt(this.digitaAno.getText()),this.digitaCategoria.getText());
                 Sistema.registrarLivro(novoLivro);
 
-                this.mensagemErro.setText("");
                 this.alertaAno.setVisible(false);
                 this.alertaTitulo.setVisible(false);
                 this.alertaAutor.setVisible(false);
@@ -121,6 +123,9 @@ public class TelaCriarLivroController {
                 this.digitaCategoria.clear();
 
                 carregaTabela();
+
+                this.mensagemErro.setText("LIVRO CRIADO");
+                this.mensagemErro.setStyle("-fx-text-fill: green;");
             }catch (ObjetoNaoCriado e){
                 this.mensagemErro.setText(e.getMessage());
             }
@@ -129,6 +134,19 @@ public class TelaCriarLivroController {
 
     @FXML
     void mostrarDados() throws IOException {
+        this.mensagemErro.setText("");
+        this.alertaAno.setVisible(false);
+        this.alertaTitulo.setVisible(false);
+        this.alertaAutor.setVisible(false);
+        this.alertaEditora.setVisible(false);
+        this.alertaCategoria.setVisible(false);
+
+        this.digitaTitulo.clear();
+        this.digitaAutor.clear();
+        this.digitaEditora.clear();
+        this.digitaAno.clear();
+        this.digitaCategoria.clear();
+
         if(this.tabelaLivro.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum livro selecionado","Para obter dados de um livro, selecione um primeiramente");
 

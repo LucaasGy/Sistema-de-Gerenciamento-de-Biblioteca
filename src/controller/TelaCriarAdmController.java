@@ -66,6 +66,7 @@ public class TelaCriarAdmController {
     void criarAdm(){
         if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty()) {
             this.mensagemErro.setText("PREENCHA OS CAMPOS");
+            this.mensagemErro.setStyle("-fx-text-fill: red;");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -76,14 +77,15 @@ public class TelaCriarAdmController {
                 Adm novoAdm = new Adm(this.digitaNome.getText(),this.digitaSenha.getText());
                 Adm.criarAdm(novoAdm);
 
-                this.mensagemErro.setText("");
                 this.alertaNome.setVisible(false);
                 this.alertaSenha.setVisible(false);
-
                 this.digitaNome.clear();
                 this.digitaSenha.clear();
 
                 carregaTabela();
+
+                this.mensagemErro.setText("ADMINISTRADOR CRIADO");
+                this.mensagemErro.setStyle("-fx-text-fill: green;");
             }catch (ObjetoNaoCriado e){
                 this.mensagemErro.setText(e.getMessage());
             }
@@ -92,6 +94,12 @@ public class TelaCriarAdmController {
 
     @FXML
     void mostrarDados() throws IOException {
+        this.mensagemErro.setText("");
+        this.alertaNome.setVisible(false);
+        this.alertaSenha.setVisible(false);
+        this.digitaNome.clear();
+        this.digitaSenha.clear();
+
         if(this.tabelaAdm.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum administrador selecionado","Para obter dados de um administrador, selecione um primeiramente");
 
