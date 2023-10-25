@@ -3,9 +3,12 @@ package controller;
 import dao.DAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import utils.StageController;
+
+import java.io.IOException;
 
 public class TelaProcurarLivroController {
 
@@ -28,7 +31,7 @@ public class TelaProcurarLivroController {
     private Label mensagemTitulo;
 
     @FXML
-    void confirmarEscolha(ActionEvent event) {
+    void confirmarEscolha(ActionEvent event) throws IOException {
         String dado = digitaEscolha.getText();
 
         if(dado.isEmpty())
@@ -47,7 +50,13 @@ public class TelaProcurarLivroController {
                         this.mensagemErro.setText("LIVRO NÃO ENCONTRADO");
 
                     else{
-                        //carrego tela
+                        FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLivro.fxml");
+                        StageController.criaStage(StageController.getStage(event), loader);
+                        TelaEditarExcluirLivroController controller = loader.getController();
+
+                        controller.setIsbnLivroAAlterar(Double.parseDouble(dado));
+                        controller.carregaTabelaISBN(Double.parseDouble(dado));
+                        controller.setQualTabelaCarregar("ISBN");
                     }
                 }
 
@@ -56,7 +65,13 @@ public class TelaProcurarLivroController {
                         this.mensagemErro.setText("LIVRO NÃO ENCONTRADO");
 
                     else{
-                        //carrego tela
+                        FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLivro.fxml");
+                        StageController.criaStage(StageController.getStage(event), loader);
+                        TelaEditarExcluirLivroController controller = loader.getController();
+
+                        controller.setTituloLivroAAlterar(dado);
+                        controller.carregaTabelaTitulo(dado);
+                        controller.setQualTabelaCarregar("Titulo");
                     }
                 }
             }
