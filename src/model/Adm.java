@@ -56,25 +56,19 @@ public class Adm extends Usuario {
     /**
      * Método que remove um Leitor do sistema.
      *
-     * Caso o leitor não seja encontrado ou esteja com algum empréstimo
-     * ele não poderá ser removido.
+     * Caso o leitor esteja com algum empréstimo, ele não poderá ser removido.
      * Caso tudo esteja correto, é removido todas as reservas e empréstimos já feitos do leitor
      * e ele é removido do sistema.
      * Caso ele possua prazos ativos, os prazos são deletados e são criados novos prazos
      * para o top2 da fila ( oque vem depois do leitor bloqueado ) ir realizar o empréstimo.
      *
      * @param id identificação do leitor
-     * @throws ObjetoInvalido caso não seja encontrado o leitor com o id informado,
-     * retorna uma exceção informando o ocorrido
      * @throws LeitorTemEmprestimo caso o leitor esteja com algum emprestimo de livro,
      * retorna uma exceção informando o ocorrido
      */
 
-    public static void removerLeitor(int id) throws ObjetoInvalido, LeitorTemEmprestimo {
-        if(DAO.getLeitor().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("LEITOR NÃO ENCONTRADO");
-
-        else if(DAO.getEmprestimo().encontrarPorId(id)!=null)
+    public static void removerLeitor(int id) throws LeitorTemEmprestimo {
+        if(DAO.getEmprestimo().encontrarPorId(id)!=null)
             throw new LeitorTemEmprestimo();
 
         Sistema.adicionarPrazoParaTop2reserva(id);
@@ -114,14 +108,9 @@ public class Adm extends Usuario {
      * Método que remove um Bibliotecario do sistema.
      *
      * @param id identificação do bibliotecario
-     * @throws ObjetoInvalido caso não seja encontrado o bibliotecario com o id informado,
-     * retorna uma exceção informando o ocorrido
      */
 
-    public static void removerBibliotecario(int id) throws ObjetoInvalido {
-        if(DAO.getBibliotecario().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("BIBLIOTECARIO NÃO ENCONTRADO");
-
+    public static void removerBibliotecario(int id){
         DAO.getBibliotecario().remover(id);
     }
 
@@ -155,14 +144,9 @@ public class Adm extends Usuario {
      * Método que remove um Administrador do sistema.
      *
      * @param id identicação do administrador
-     * @throws ObjetoInvalido caso não seja encontrado o administrador com o id informado,
-     * retorna uma exceção informando o ocorrido
      */
 
-    public static void removerAdm(int id) throws ObjetoInvalido {
-        if(DAO.getAdm().encontrarPorId(id)==null)
-            throw new ObjetoInvalido("ADMINISTRADOR NÃO ENCONTRADO");
-
+    public static void removerAdm(int id){
         DAO.getAdm().remover(id);
     }
 
@@ -244,17 +228,12 @@ public class Adm extends Usuario {
      * e também o histórico de empréstimos já feitos desse livro. Após isso, ele é removido do acervo.
      *
      * @param isbn isbn do livro
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o isbn informado,
-     * retorna uma exceção informando o ocorrido
      * @throws LivroEmprestado caso o livro esteja emprestado por algum leitor,
      * retorna uma exceção informando o ocorrido
      */
 
-    public static void removerUmLivro(double isbn) throws ObjetoInvalido, LivroEmprestado {
-        if(DAO.getLivro().encontrarPorISBN(isbn)==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        else if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
+    public static void removerUmLivro(double isbn) throws LivroEmprestado {
+        if(DAO.getEmprestimo().encontrarPorISBN(isbn)!=null)
             throw new LivroEmprestado();
 
         DAO.getReserva().removerReservasDeUmLivro(isbn);
@@ -276,19 +255,14 @@ public class Adm extends Usuario {
      * ps: não altera dados do livro caso ele esteja emprestado
      *
      * @param livro objeto livro que será atualizado
-     * @throws ObjetoInvalido caso não seja encontrado o livro com o objeto informado,
-     * retorna uma exceção informando o ocorrido
      * @throws LivroEmprestado caso o livro esteja emprestado por algum leitor,
      * retorna uma exceção informando o ocorrido
      */
 
-    public static void atualizarDadosLivro(Livro livro) throws ObjetoInvalido, LivroEmprestado {
+    public static void atualizarDadosLivro(Livro livro) throws LivroEmprestado {
         Livro livroDAO = DAO.getLivro().encontrarPorISBN(livro.getISBN());
 
-        if(livroDAO==null)
-            throw new ObjetoInvalido("LIVRO NÃO ENCONTRADO");
-
-        else if(DAO.getEmprestimo().encontrarPorISBN(livroDAO.getISBN())!=null)
+        if(DAO.getEmprestimo().encontrarPorISBN(livroDAO.getISBN())!=null)
             throw new LivroEmprestado();
 
         if(!livro.getDisponivel()){
