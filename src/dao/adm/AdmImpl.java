@@ -97,6 +97,8 @@ public class AdmImpl implements AdmDAO {
         for(Adm adm : this.listaAdm){
             if(adm.getID()==id) {
                 this.listaAdm.remove(adm);
+                if(this.listaAdm.isEmpty())
+                    this.nextID=1001;
                 return;
             }
         }

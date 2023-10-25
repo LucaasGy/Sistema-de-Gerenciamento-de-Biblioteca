@@ -144,6 +144,8 @@ public class AdmImplArquivo implements AdmDAO{
         for(Adm adm : this.listaAdm){
             if(adm.getID()==id) {
                 this.listaAdm.remove(adm);
+                if(this.listaAdm.isEmpty())
+                    this.nextID=1001;
                 ArmazenamentoArquivo.guardar(this.listaAdm,this.nomeArquivo,this.nomePasta);
                 return;
             }
