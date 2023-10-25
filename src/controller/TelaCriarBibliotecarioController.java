@@ -99,8 +99,6 @@ public class TelaCriarBibliotecarioController {
         this.mensagemErro.setText("");
         this.alertaNome.setVisible(false);
         this.alertaSenha.setVisible(false);
-        this.digitaNome.clear();
-        this.digitaSenha.clear();
 
         if(this.tabelaBibliotecario.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum bibliotecario selecionado","Para obter dados de um bibliotecario, selecione um primeiramente");

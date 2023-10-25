@@ -141,12 +141,6 @@ public class TelaCriarLivroController {
         this.alertaEditora.setVisible(false);
         this.alertaCategoria.setVisible(false);
 
-        this.digitaTitulo.clear();
-        this.digitaAutor.clear();
-        this.digitaEditora.clear();
-        this.digitaAno.clear();
-        this.digitaCategoria.clear();
-
         if(this.tabelaLivro.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum livro selecionado","Para obter dados de um livro, selecione um primeiramente");
 

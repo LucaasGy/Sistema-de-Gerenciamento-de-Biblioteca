@@ -97,8 +97,6 @@ public class TelaCriarAdmController {
         this.mensagemErro.setText("");
         this.alertaNome.setVisible(false);
         this.alertaSenha.setVisible(false);
-        this.digitaNome.clear();
-        this.digitaSenha.clear();
 
         if(this.tabelaAdm.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum administrador selecionado","Para obter dados de um administrador, selecione um primeiramente");

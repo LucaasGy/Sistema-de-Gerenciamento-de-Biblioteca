@@ -130,11 +130,6 @@ public class TelaCriarLeitorController {
         this.alertaEndereco.setVisible(false);
         this.alertaTelefone.setVisible(false);
 
-        this.digitaNome.clear();
-        this.digitaSenha.clear();
-        this.digitaEndereco.clear();
-        this.digitaTelefone.clear();
-
         if(this.tabelaLeitor.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum leitor selecionado","Para obter dados de um leitor, selecione um primeiramente");
 
