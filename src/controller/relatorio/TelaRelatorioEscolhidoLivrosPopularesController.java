@@ -1,6 +1,5 @@
-package controller;
+package controller.relatorio;
 
-import dao.DAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,24 +11,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Leitor;
 import model.Livro;
-import model.Reserva;
 import utils.StageController;
 
 import java.io.IOException;
 import java.util.List;
 
-public class TelaRelatorioEscolhidoReservadosController {
+public class TelaRelatorioEscolhidoLivrosPopularesController {
 
     @FXML
     private Label anoLivro;
 
     @FXML
     private Label autorLivro;
-
-    @FXML
-    private Label idLeitor;
 
     @FXML
     private Button botaoMenu;
@@ -41,10 +35,13 @@ public class TelaRelatorioEscolhidoReservadosController {
     private Label categoriaLivro;
 
     @FXML
+    private Label totalEmpLivro;
+
+    @FXML
     private TableColumn<Livro, Double> colunaISBN;
 
     @FXML
-    private TableColumn<Livro, String> colunasTitulo;
+    private TableColumn<Livro, String> colunaTitulo;
 
     @FXML
     private Label disponibilidadeLivro;
@@ -53,25 +50,16 @@ public class TelaRelatorioEscolhidoReservadosController {
     private Label editoraLivro;
 
     @FXML
-    private Label enderecoLeitor;
-
-    @FXML
     private Label isbnLivro;
 
     @FXML
-    private Label nomeLeitor;
+    private Label mensagemTotal;
 
     @FXML
     private TableView<Livro> tabelaLivros;
 
     @FXML
-    private Label telefoneLeitor;
-
-    @FXML
     private Label tituloLivro;
-
-    @FXML
-    private Label mensagemTotal;
 
     public void setMensagemTotal(String mensagemTotal) {
         this.mensagemTotal.setText(mensagemTotal);
@@ -97,7 +85,7 @@ public class TelaRelatorioEscolhidoReservadosController {
 
     public void carregarTabela(List<Livro> livros){
         this.colunaISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
-        this.colunasTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        this.colunaTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
 
         ObservableList<Livro> listaLivros = FXCollections.observableArrayList(livros);
         this.tabelaLivros.setItems(listaLivros);
@@ -110,19 +98,12 @@ public class TelaRelatorioEscolhidoReservadosController {
         this.editoraLivro.setText(livro.getEditora());
         this.anoLivro.setText(Integer.toString(livro.getAno()));
         this.categoriaLivro.setText(livro.getCategoria());
+        this.totalEmpLivro.setText(Integer.toString(livro.getQtdEmprestimo()));
 
         if(livro.getDisponivel())
             this.disponibilidadeLivro.setText("Sim");
 
         else
             this.disponibilidadeLivro.setText("Não");
-
-        Reserva reserva = DAO.getReserva().top1Reserva(livro.getISBN());
-        Leitor leitor = DAO.getLeitor().encontrarPorId(reserva.getIDleitor());
-
-        this.nomeLeitor.setText(leitor.getNome());
-        this.idLeitor.setText(Integer.toString(leitor.getID()));
-        this.telefoneLeitor.setText(leitor.getTelefone());
-        this.enderecoLeitor.setText(leitor.getEndereco());
     }
 }

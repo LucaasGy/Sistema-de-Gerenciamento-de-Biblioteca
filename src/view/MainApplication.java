@@ -3,7 +3,7 @@ package view;
 import erros.objetos.ObjetoInvalido;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.*;
+import model.Sistema;
 import utils.StageController;
 
 import java.io.IOException;

@@ -1,5 +1,6 @@
-package controller;
+package controller.editarExcluirObjeto;
 
+import controller.procurarObjeto.TelaProcurarUsuarioController;
 import dao.DAO;
 import erros.objetos.ObjetoInvalido;
 import javafx.collections.FXCollections;
@@ -82,8 +83,7 @@ public class TelaEditarExcluirBibliotecarioController {
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao atualizar bibliotecario", "Escolha um bibliotecario antes de atualizar");
 
         else if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty()) {
-            this.mensagemErro.setText("PREENCHA OS CAMPOS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"PREENCHA OS CAMPOS");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -104,11 +104,9 @@ public class TelaEditarExcluirBibliotecarioController {
                 else if(this.qualTabelaCarregar.equals("Nome"))
                     carregaTabelaNome(this.nomeBibliotecarioAAlterar);
 
-                this.mensagemErro.setText("BIBLIOTECARIO ATUALIZADO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"BIBLIOTECARIO ATUALIZADO");
             }catch (ObjetoInvalido e) {
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }
@@ -129,8 +127,7 @@ public class TelaEditarExcluirBibliotecarioController {
             else if(this.qualTabelaCarregar.equals("Nome"))
                 carregaTabelaNome(this.nomeBibliotecarioAAlterar);
 
-            this.mensagemErro.setText("BIBLIOTECARIO REMOVIDO");
-            this.mensagemErro.setStyle("-fx-text-fill: green;");
+            StageController.sucesso(this.mensagemErro,"BIBLIOTECARIO REMOVIDO");
         }
     }
 

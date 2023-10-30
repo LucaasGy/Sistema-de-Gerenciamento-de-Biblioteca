@@ -1,4 +1,4 @@
-package controller;
+package controller.relatorio;
 
 import dao.DAO;
 import javafx.collections.FXCollections;

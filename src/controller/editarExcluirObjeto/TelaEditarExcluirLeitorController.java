@@ -1,5 +1,6 @@
-package controller;
+package controller.editarExcluirObjeto;
 
+import controller.procurarObjeto.TelaProcurarUsuarioController;
 import dao.DAO;
 import erros.leitor.LeitorTemEmprestimo;
 import erros.objetos.ObjetoInvalido;
@@ -95,8 +96,7 @@ public class TelaEditarExcluirLeitorController {
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao atualizar leitor", "Escolha um leitor antes de atualizar");
 
         else if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty() || this.digitaEndereco.getText().isEmpty() || this.digitaTelefone.getText().isEmpty()) {
-            this.mensagemErro.setText("PREENCHA OS CAMPOS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"PREENCHA OS CAMPOS");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -129,11 +129,9 @@ public class TelaEditarExcluirLeitorController {
                 else if(this.qualTabelaCarregar.equals("Nome"))
                     carregaTabelaNome(this.nomeLeitorAAlterar);
 
-                this.mensagemErro.setText("LEITOR ATUALIZADO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"LEITOR ATUALIZADO");
             }catch (ObjetoInvalido e) {
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }
@@ -155,11 +153,9 @@ public class TelaEditarExcluirLeitorController {
                 else if (this.qualTabelaCarregar.equals("Nome"))
                     carregaTabelaNome(this.nomeLeitorAAlterar);
 
-                this.mensagemErro.setText("LEITOR REMOVIDO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"LEITOR REMOVIDO");
             }catch (LeitorTemEmprestimo e){
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }

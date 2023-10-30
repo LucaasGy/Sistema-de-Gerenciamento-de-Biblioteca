@@ -1,5 +1,7 @@
-package controller;
+package controller.pesquisaLivro;
 
+import controller.procurarObjeto.TelaDigiteIDController;
+import controller.telaInicial.TelaInicialController;
 import dao.DAO;
 import erros.leitor.*;
 import erros.livro.*;
@@ -18,6 +20,15 @@ import utils.StageController;
 
 import java.io.IOException;
 import java.util.List;
+
+/**
+ * Controller  responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaLivrosPesquisados" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
 
 public class TelaLivrosPesquisadosController {
 
@@ -67,9 +78,9 @@ public class TelaLivrosPesquisadosController {
     private Label tituloLivro;
     private TelaInicialController telaInicialController;
 
-    public void setTelaInicialController(TelaInicialController telaInicialController) {
-        this.telaInicialController = telaInicialController;
-    }
+    /**
+     * Observador para coletar objeto escolhio no TableView.
+     */
 
     @FXML
     void initialize(){
@@ -77,72 +88,96 @@ public class TelaLivrosPesquisadosController {
                 (observable, oldValue, newValue)->selecionarLivroTabela(newValue));
     }
 
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
     @FXML
     void voltarMenu(ActionEvent event){
         Stage stage = StageController.getStage(event);
         stage.close();
     }
 
+    /**
+     * Ação de cliar no botão de fazer reserva.
+     */
+
     @FXML
     void fazerReserva(){
+
+        //caso não seja escolhido um livro para reservar, cria alert informando o error
         if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar reserva", "Escolha um livro antes de confirmar");
 
         else {
+            //cria reserva para o leitor logado na tela inicial e exibe mensagem de operação bem sucedida
             try {
                 this.telaInicialController.getLeitor().reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-                this.mensagemErro.setText("RESERVA FEITA COM SUCESSO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"RESERVA FEITA COM SUCESSO");
             } catch (LeitorBloqueado | LivroLimiteDeReservas | LivroNaoDisponivel | LeitorTemEmprestimoEmAtraso |
-                     LivroNaoPossuiEmprestimoNemReserva |
-                     LeitorMultado | LeitorReservarLivroEmMaos | LeitorLimiteDeReservas | ObjetoInvalido |
-                     LeitorPossuiReservaDesseLivro e) {
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                     LivroNaoPossuiEmprestimoNemReserva | LeitorMultado | LeitorReservarLivroEmMaos |
+                     LeitorLimiteDeReservas | ObjetoInvalido | LeitorPossuiReservaDesseLivro e) {
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }
 
+    /**
+     * Ação de cliar no botão de fazer devolução.
+     */
+
     @FXML
     void fazerDevolucao(){
+
+        //caso não seja escolhido um livro para devolver, cria alert informando o error
         if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar devolução", "Escolha um livro antes de confirmar");
 
         else {
+            //devolve livro escolhido e exibe mensagem de operação bem sucedida
             try {
                 Bibliotecario.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-                this.mensagemErro.setText("DEVOLUÇÃO FEITA COM SUCESSO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
-
+                StageController.sucesso(this.mensagemErro,"DEVOLUÇÃO FEITA COM SUCESSO");
             } catch (LivroNaoPossuiEmprestimo e) {
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }
 
+    /**
+     * Ação de cliar no botão de fazer empréstimo.
+     */
+
     @FXML
     void fazerEmprestimo() throws IOException {
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
+        Livro livro = this.tabelaLivros.getSelectionModel().getSelectedItem();
+
+        //caso não seja escolhido um livro para emprestimo, cria alert informando o error
+        if(livro==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar empréstimo", "Escolha um livro antes de confirmar");
 
         else {
-            Livro livro = this.tabelaLivros.getSelectionModel().getSelectedItem();
-
+            /*caso livro escolhido não esteja disponível, é necessário verificar porque não está disponível.
+            Pode não ta disponível porque está emprestado ou porque algum Administrador alterou manualmente
+            sua disponibilidade. Exibe a mensagem a depender da possibilidade.*/
             if (!livro.getDisponivel()) {
                 if (DAO.getEmprestimo().encontrarPorISBN(livro.getISBN()) != null) {
                     LivroEmprestado e = new LivroEmprestado();
-                    this.mensagemErro.setText(e.getMessage());
-                    this.mensagemErro.setStyle("-fx-text-fill: red;");
+                    StageController.error(this.mensagemErro,e.getMessage());
                 }
 
                 else {
                     LivroNaoDisponivel e = new LivroNaoDisponivel();
-                    this.mensagemErro.setText(e.getMessage());
-                    this.mensagemErro.setStyle("-fx-text-fill: red;");
+                    StageController.error(this.mensagemErro,e.getMessage());
                 }
             }
 
+            /*carrega a tela de digite ID em um novo stage, seta a operação empréstimo e
+            seta o livro escolhido do TableView.*/
             else {
                 this.mensagemErro.setText("");
 
@@ -160,6 +195,13 @@ public class TelaLivrosPesquisadosController {
         }
     }
 
+    /**
+     * Método responsável por setar nos label da tela as informações do Livro escolhido
+     * no TableView.
+     *
+     * @param livro livro escolhido
+     */
+
     public void selecionarLivroTabela(Livro livro){
         this.mensagemErro.setText("");
         this.tituloLivro.setText(livro.getTitulo());
@@ -176,10 +218,23 @@ public class TelaLivrosPesquisadosController {
             this.disponibilidadeLivro.setText("Não");
     }
 
+    /**
+     * Método responsável por setar colunas do TableView com dados pré determinados de um objeto Livro.
+     */
+
     public void setaColunas(){
         this.colunaTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         this.colunaISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
     }
+
+    /**
+     * Método responsável por carregar o TableView com o livro encontrado do controller da tela
+     * "pesquisaLivro".
+     *
+     * Livro encontrado pelo ISBN.
+     *
+     * @param livro livro encontrado
+     */
 
     public void carregaTableLivroISBN(Livro livro){
         setaColunas();
@@ -187,11 +242,24 @@ public class TelaLivrosPesquisadosController {
         this.tabelaLivros.setItems(listaLivros);
     }
 
+    /**
+     * Método responsável por carregar o TableView com a lista de livros encontrada do controller da tela
+     * "pesquisaLivro".
+     *
+     * Essa lista pode ser de livros encontrados a partir do titulo, autor ou categoria.
+     *
+     * @param livros lista de livros encontrada
+     */
+
     public void carregaTableLivroLista(List<Livro> livros){
         setaColunas();
         ObservableList<Livro> listaLivros = FXCollections.observableArrayList(livros);
         this.tabelaLivros.setItems(listaLivros);
     }
+
+    /**
+     * Método responsável por desabilitar botões com funcionalidades não permitidas a um Administrador e a um Convidado.
+     */
 
     public void telaAdministradorEConvidado(){
         this.botaoEmprestimo.setDisable(true);
@@ -199,12 +267,24 @@ public class TelaLivrosPesquisadosController {
         this.botaoReservar.setDisable(true);
     }
 
+    /**
+     * Método responsável por desabilitar botões com funcionalidades não permitidas a um Leitor.
+     */
+
     public void telaLeitor(){
         this.botaoDevolucao.setDisable(true);
         this.botaoEmprestimo.setDisable(true);
     }
 
+    /**
+     * Método responsável por desabilitar botões com funcionalidades não permitidas a um Bibliotecario.
+     */
+
     public void telaBibliotecario(){
         this.botaoReservar.setDisable(true);
+    }
+
+    public void setTelaInicialController(TelaInicialController telaInicialController) {
+        this.telaInicialController = telaInicialController;
     }
 }

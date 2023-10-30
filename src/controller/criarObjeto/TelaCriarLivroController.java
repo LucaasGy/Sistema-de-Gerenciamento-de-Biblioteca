@@ -1,5 +1,6 @@
-package controller;
+package controller.criarObjeto;
 
+import controller.dadosObjeto.TelaDadosLivroController;
 import dao.DAO;
 import erros.objetos.ObjetoNaoCriado;
 import javafx.collections.FXCollections;
@@ -84,8 +85,7 @@ public class TelaCriarLivroController {
     @FXML
     void criarLivro(){
         if(this.digitaTitulo.getText().isEmpty() || this.digitaAutor.getText().isEmpty() || this.digitaEditora.getText().isEmpty() || this.digitaAno.getText().isEmpty() || this.digitaCategoria.getText().isEmpty()) {
-            this.mensagemErro.setText("PREENCHA OS CAMPOS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"PREENCHA OS CAMPOS");
 
             this.alertaTitulo.setVisible(this.digitaTitulo.getText().isEmpty());
             this.alertaAutor.setVisible(this.digitaAutor.getText().isEmpty());
@@ -95,8 +95,7 @@ public class TelaCriarLivroController {
         }
 
         else if (!StageController.tryParseInt(this.digitaAno.getText())) {
-            this.mensagemErro.setText("ANO É COMPOSTO APENAS POR NÚMEROS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"ANO É COMPOSTO APENAS POR NÚMEROS");
 
             this.alertaAno.setVisible(true);
             this.alertaTitulo.setVisible(false);
@@ -124,10 +123,9 @@ public class TelaCriarLivroController {
 
                 carregaTabela();
 
-                this.mensagemErro.setText("LIVRO CRIADO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"LIVRO CRIADO");
             }catch (ObjetoNaoCriado e){
-                this.mensagemErro.setText(e.getMessage());
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }

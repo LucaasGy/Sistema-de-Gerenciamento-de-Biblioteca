@@ -1,5 +1,6 @@
-package controller;
+package controller.criarObjeto;
 
+import controller.dadosObjeto.TelaDadosAdmEBibliotecarioController;
 import dao.DAO;
 import erros.objetos.ObjetoNaoCriado;
 import javafx.collections.FXCollections;
@@ -12,11 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Adm;
+import model.Bibliotecario;
 import utils.StageController;
 
 import java.io.IOException;
 
-public class TelaCriarAdmController {
+public class TelaCriarBibliotecarioController {
 
     @FXML
     private Label alertaNome;
@@ -34,10 +36,10 @@ public class TelaCriarAdmController {
     private Button botaoMenu;
 
     @FXML
-    private TableColumn<Adm, Integer> colunaID;
+    private TableColumn<Bibliotecario, Integer> colunaID;
 
     @FXML
-    private TableColumn<Adm, String> colunaNome;
+    private TableColumn<Bibliotecario, String> colunaNome;
 
     @FXML
     private TextField digitaNome;
@@ -49,7 +51,7 @@ public class TelaCriarAdmController {
     private Label mensagemErro;
 
     @FXML
-    private TableView<Adm> tabelaAdm;
+    private TableView<Bibliotecario> tabelaBibliotecario;
 
     @FXML
     void initialize(){
@@ -63,10 +65,9 @@ public class TelaCriarAdmController {
     }
 
     @FXML
-    void criarAdm(){
+    void criarBibliotecario(){
         if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty()) {
-            this.mensagemErro.setText("PREENCHA OS CAMPOS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"PREENCHA OS CAMPOS");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -74,8 +75,8 @@ public class TelaCriarAdmController {
 
         else{
             try{
-                Adm novoAdm = new Adm(this.digitaNome.getText(),this.digitaSenha.getText());
-                Adm.criarAdm(novoAdm);
+                Bibliotecario novoBibliotecario = new Bibliotecario(this.digitaNome.getText(),this.digitaSenha.getText());
+                Adm.criarBibliotecario(novoBibliotecario);
 
                 this.alertaNome.setVisible(false);
                 this.alertaSenha.setVisible(false);
@@ -84,10 +85,9 @@ public class TelaCriarAdmController {
 
                 carregaTabela();
 
-                this.mensagemErro.setText("ADMINISTRADOR CRIADO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"BIBLIOTECARIO CRIADO");
             }catch (ObjetoNaoCriado e){
-                this.mensagemErro.setText(e.getMessage());
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }
@@ -98,8 +98,8 @@ public class TelaCriarAdmController {
         this.alertaNome.setVisible(false);
         this.alertaSenha.setVisible(false);
 
-        if(this.tabelaAdm.getSelectionModel().getSelectedItem()==null)
-            StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum administrador selecionado","Para obter dados de um administrador, selecione um primeiramente");
+        if(this.tabelaBibliotecario.getSelectionModel().getSelectedItem()==null)
+            StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum bibliotecario selecionado","Para obter dados de um bibliotecario, selecione um primeiramente");
 
         else{
             FXMLLoader loader = StageController.retornaLoader("TelaDadosAdmEBibliotecario.fxml");
@@ -107,7 +107,7 @@ public class TelaCriarAdmController {
             StageController.criaStage(stage, loader);
             TelaDadosAdmEBibliotecarioController controller = loader.getController();
 
-            controller.setAdm(this.tabelaAdm.getSelectionModel().getSelectedItem());
+            controller.setBibliotecario(this.tabelaBibliotecario.getSelectionModel().getSelectedItem());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         }
@@ -116,10 +116,10 @@ public class TelaCriarAdmController {
     public void carregaTabela(){
         this.colunaID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         this.colunaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        ObservableList<Adm> listaAdm = FXCollections.observableArrayList(DAO.getAdm().encontrarTodos());
+        ObservableList<Bibliotecario> listaBibliotecario = FXCollections.observableArrayList(DAO.getBibliotecario().encontrarTodos());
 
-        if(!listaAdm.isEmpty()) {
-            this.tabelaAdm.setItems(listaAdm);
+        if(!listaBibliotecario.isEmpty()) {
+            this.tabelaBibliotecario.setItems(listaBibliotecario);
             this.botaoDados.setDisable(false);
         }
 

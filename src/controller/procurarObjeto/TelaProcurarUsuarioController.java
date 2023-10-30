@@ -1,5 +1,8 @@
-package controller;
+package controller.procurarObjeto;
 
+import controller.editarExcluirObjeto.TelaEditarExcluirAdministradorController;
+import controller.editarExcluirObjeto.TelaEditarExcluirBibliotecarioController;
+import controller.editarExcluirObjeto.TelaEditarExcluirLeitorController;
 import dao.DAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,13 +44,13 @@ public class TelaProcurarUsuarioController {
 
         if(dado.isEmpty()) {
             if(this.qualOperacao.equals("Administrador"))
-                this.mensagemErro.setText("INSIRA DADO DO ADMINISTRADOR");
+                StageController.error(this.mensagemErro,"INSIRA DADO DO ADMINISTRADOR");
 
             else if(this.qualOperacao.equals("Bibliotecario"))
-                this.mensagemErro.setText("INSIRA DADO DO BIBLIOTECARIO");
+                StageController.error(this.mensagemErro,"INSIRA DADO DO BIBLIOTECARIO");
 
             else if(this.qualOperacao.equals("Leitor"))
-                this.mensagemErro.setText("INSIRA DADO DO LEITOR");
+                StageController.error(this.mensagemErro,"INSIRA DADO DO LEITOR");
         }
 
         else{
@@ -55,13 +58,13 @@ public class TelaProcurarUsuarioController {
             String escolha = radio.getText();
 
             if (escolha.equals("ID") && !StageController.tryParseInt(dado))
-                this.mensagemErro.setText("ID É COMPOSTO APENAS POR NÚMEROS");
+                StageController.error(this.mensagemErro,"ID É COMPOSTO APENAS POR NÚMEROS");
 
             else{
                 if(this.qualOperacao.equals("Administrador")){
                     if(escolha.equals("ID")){
                         if(DAO.getAdm().encontrarPorId(Integer.parseInt(dado))==null)
-                            this.mensagemErro.setText("ADMINISTRADOR NÃO ENCONTRADO");
+                            StageController.error(this.mensagemErro,"ADMINISTRADOR NÃO ENCONTRADO");
 
                         else{
                             FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirAdministrador.fxml");
@@ -77,7 +80,7 @@ public class TelaProcurarUsuarioController {
 
                     else if(escolha.equals("Nome")){
                         if(DAO.getAdm().encontrarPorNome(dado).isEmpty())
-                            this.mensagemErro.setText("ADMINISTRADOR NÃO ENCONTRADO");
+                            StageController.error(this.mensagemErro,"ADMINISTRADOR NÃO ENCONTRADO");
 
                         else{
                             FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirAdministrador.fxml");
@@ -95,7 +98,7 @@ public class TelaProcurarUsuarioController {
                 else if(this.qualOperacao.equals("Bibliotecario")){
                     if(escolha.equals("ID")){
                         if(DAO.getBibliotecario().encontrarPorId(Integer.parseInt(dado))==null)
-                            this.mensagemErro.setText("BIBLIOTECARIO NÃO ENCONTRADO");
+                            StageController.error(this.mensagemErro,"BIBLIOTECARIO NÃO ENCONTRADO");
 
                         else{
                             FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirBibliotecario.fxml");
@@ -110,7 +113,7 @@ public class TelaProcurarUsuarioController {
 
                     else if(escolha.equals("Nome")){
                         if(DAO.getBibliotecario().encontrarPorNome(dado).isEmpty())
-                            this.mensagemErro.setText("BIBLIOTECARIO NÃO ENCONTRADO");
+                            StageController.error(this.mensagemErro,"BIBLIOTECARIO NÃO ENCONTRADO");
 
                         else{
                             FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirBibliotecario.fxml");
@@ -127,7 +130,7 @@ public class TelaProcurarUsuarioController {
                 else if(this.qualOperacao.equals("Leitor")){
                     if(escolha.equals("ID")){
                         if(DAO.getLeitor().encontrarPorId(Integer.parseInt(dado))==null)
-                            this.mensagemErro.setText("LEITOR NÃO ENCONTRADO");
+                            StageController.error(this.mensagemErro,"LEITOR NÃO ENCONTRADO");
 
                         else{
                             FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLeitor.fxml");
@@ -142,7 +145,7 @@ public class TelaProcurarUsuarioController {
 
                     else if(escolha.equals("Nome")){
                         if(DAO.getBibliotecario().encontrarPorNome(dado).isEmpty())
-                            this.mensagemErro.setText("LEITOR NÃO ENCONTRADO");
+                            StageController.error(this.mensagemErro,"LEITOR NÃO ENCONTRADO");
 
                         else{
                             FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLeitor.fxml");

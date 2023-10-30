@@ -1,4 +1,4 @@
-package controller;
+package controller.dadosObjeto;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +8,15 @@ import javafx.stage.Stage;
 import model.Adm;
 import model.Bibliotecario;
 import utils.StageController;
+
+/**
+ * Controller  responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaDadosAdmEBibliotecario" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
 
 public class TelaDadosAdmEBibliotecarioController {
 
@@ -29,11 +38,25 @@ public class TelaDadosAdmEBibliotecarioController {
     @FXML
     private Label tipoUsuario;
 
+    /**
+     * Ação de clicar no botão de ok.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
     @FXML
     void clicarOk(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
+
+    /**
+     * Método responsável por setar nos label da tela as informações do Administrador escolhido.
+     *
+     * @param adm administrador escolhido
+     */
 
     public void setAdm(Adm adm) {
         this.mensagemTitulo.setText("Detalhes do Administrador");
@@ -43,6 +66,12 @@ public class TelaDadosAdmEBibliotecarioController {
         this.senhaUsuario.setText(adm.getSenha());
         this.tipoUsuario.setText(adm.getTipoUsuario().name());
     }
+
+    /**
+     * Método responsável por setar nos label da tela as informações do Bibliotecario escolhido.
+     *
+     * @param bibliotecario bibliotecario escolhido
+     */
 
     public void setBibliotecario(Bibliotecario bibliotecario) {
         this.mensagemTitulo.setText("Detalhes do Bibliotecario");

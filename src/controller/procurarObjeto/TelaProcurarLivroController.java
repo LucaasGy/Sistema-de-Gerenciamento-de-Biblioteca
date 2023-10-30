@@ -1,5 +1,6 @@
-package controller;
+package controller.procurarObjeto;
 
+import controller.editarExcluirObjeto.TelaEditarExcluirLivroController;
 import dao.DAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,19 +36,19 @@ public class TelaProcurarLivroController {
         String dado = digitaEscolha.getText();
 
         if(dado.isEmpty())
-            this.mensagemErro.setText("INSIRA DADO DO LIVRO");
+            StageController.error(this.mensagemErro,"INSIRA DADO DO LIVRO");
 
         else{
             RadioButton radio = (RadioButton) grupo.getSelectedToggle();
             String escolha = radio.getText();
 
             if (escolha.equals("ISBN") && !StageController.tryParseDouble(dado))
-                this.mensagemErro.setText("ISBN É COMPOSTO APENAS POR NÚMEROS");
+                StageController.error(this.mensagemErro,"ISBN É COMPOSTO APENAS POR NÚMEROS");
 
             else{
                 if(escolha.equals("ISBN")){
                     if(DAO.getLivro().encontrarPorISBN(Double.parseDouble(dado))==null)
-                        this.mensagemErro.setText("LIVRO NÃO ENCONTRADO");
+                        StageController.error(this.mensagemErro,"LIVRO NÃO ENCONTRADO");
 
                     else{
                         FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLivro.fxml");
@@ -62,7 +63,7 @@ public class TelaProcurarLivroController {
 
                 else if(escolha.equals("Titulo")){
                     if(DAO.getLivro().encontrarPorTitulo(dado).isEmpty())
-                        this.mensagemErro.setText("LIVRO NÃO ENCONTRADO");
+                        StageController.error(this.mensagemErro,"LIVRO NÃO ENCONTRADO");
 
                     else{
                         FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLivro.fxml");

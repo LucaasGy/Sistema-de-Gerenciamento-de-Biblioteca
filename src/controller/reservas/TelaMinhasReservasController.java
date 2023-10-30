@@ -1,5 +1,6 @@
-package controller;
+package controller.reservas;
 
+import controller.telaInicial.TelaInicialController;
 import dao.DAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,15 @@ import javafx.stage.Stage;
 import model.Livro;
 import model.Prazos;
 import utils.StageController;
+
+/**
+ * Controller  responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaMinhasReservas" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
 
 public class TelaMinhasReservasController {
 
@@ -57,24 +67,23 @@ public class TelaMinhasReservasController {
     private Label prazoReserva;
     private TelaInicialController telaInicialController;
 
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
     @FXML
     void voltarMenu(ActionEvent event){
         Stage stage = StageController.getStage(event);
         stage.close();
     }
 
-    @FXML
-    void retirarReserva(){
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
-            StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao retirar reserva", "Escolha um livro antes de retirar");
-
-        else {
-            this.telaInicialController.getLeitor().retirarReserva(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
-            this.mensagemErro.setText("RESERVA RETIRADA COM SUCESSO");
-            this.mensagemErro.setStyle("-fx-text-fill: green;");
-            carregaTabela();
-        }
-    }
+    /**
+     * Observador para coletar objeto escolhio no TableView.
+     */
 
     @FXML
     void initialize(){
@@ -82,6 +91,32 @@ public class TelaMinhasReservasController {
                 (observable, oldValue, newValue)->selecionarLivroTabela(newValue));
     }
 
+    /**
+     * Ação de clicar no botão de retirar reserva.
+     */
+
+    @FXML
+    void retirarReserva(){
+
+        //caso não seja escolhida uma reserva para retirar, cria alert informando error
+        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
+            StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao retirar reserva", "Escolha um livro antes de retirar");
+
+        /*retira reserva do leitor logado na tela inicial, exibe mensagem de operação bem
+        sucedida e recarrega o TableView com as reservas atualizadas.*/
+        else {
+            this.telaInicialController.getLeitor().retirarReserva(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+            StageController.sucesso(this.mensagemErro,"RESERVA RETIRADA COM SUCESSO");
+            carregaTabela();
+        }
+    }
+
+    /**
+     * Método responsável por carregar o TableView com as reservas do leitor logado na tela inicial.
+     *
+     * Caso não exista mais reservas do leitor logado ao recarregar o TableView, o botão de retirar reservas
+     * é desabilitado e o TableView é limpo.
+     */
     public void carregaTabela(){
         this.tabelaTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         this.tabelaISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
@@ -94,6 +129,13 @@ public class TelaMinhasReservasController {
             this.botaoRetirarReserva.setDisable(true);
         }
     }
+
+    /**
+     * Método responsável por setar nos label da tela as informações do Livro escolhido
+     * no TableView.
+     *
+     * @param livro livro escolhido
+     */
 
     public void selecionarLivroTabela(Livro livro){
         this.mensagemErro.setText("");

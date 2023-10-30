@@ -1,5 +1,6 @@
-package controller;
+package controller.criarObjeto;
 
+import controller.dadosObjeto.TelaDadosLeitorController;
 import dao.DAO;
 import erros.objetos.ObjetoNaoCriado;
 import javafx.collections.FXCollections;
@@ -78,8 +79,7 @@ public class TelaCriarLeitorController {
     @FXML
     void criarLeitor(){
         if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty() || this.digitaEndereco.getText().isEmpty() || this.digitaTelefone.getText().isEmpty()) {
-            this.mensagemErro.setText("PREENCHA OS CAMPOS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"PREENCHA OS CAMPOS");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -88,8 +88,7 @@ public class TelaCriarLeitorController {
         }
 
         else if (!StageController.tryParseLong(this.digitaTelefone.getText())) {
-            this.mensagemErro.setText("TELEFONE É COMPOSTO APENAS POR NÚMEROS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"TELEFONE É COMPOSTO APENAS POR NÚMEROS");
 
             this.alertaTelefone.setVisible(true);
             this.alertaNome.setVisible(false);
@@ -114,10 +113,9 @@ public class TelaCriarLeitorController {
 
                 carregaTabela();
 
-                this.mensagemErro.setText("LEITOR CRIADO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"LEITOR CRIADO");
             }catch (ObjetoNaoCriado e){
-                this.mensagemErro.setText(e.getMessage());
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }

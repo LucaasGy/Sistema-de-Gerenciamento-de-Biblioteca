@@ -1,5 +1,9 @@
-package controller;
+package controller.relatorio;
 
+import controller.relatorio.TelaRelatorioEscolhidoEmprestimoController;
+import controller.relatorio.TelaRelatorioEscolhidoLeitoresBloqueadosController;
+import controller.relatorio.TelaRelatorioEscolhidoLivrosPopularesController;
+import controller.relatorio.TelaRelatorioEscolhidoReservadosController;
 import erros.objetos.ObjetoInvalido;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +56,7 @@ public class TelaRelatoriosController {
             List<Emprestimo> emprestimosAtuais = Adm.livrosEmprestados();
 
             if(emprestimosAtuais.isEmpty())
-                this.mensagemErro.setText("NÃO HÁ LIVROS EMPRESTADOS");
+                StageController.error(this.mensagemErro,"NÃO HÁ LIVROS EMPRESTADOS");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
@@ -69,7 +73,7 @@ public class TelaRelatoriosController {
             List<Livro> livros = Adm.livrosReservados();
 
             if(livros.isEmpty())
-                this.mensagemErro.setText("NÃO HÁ LIVROS RESERVADOS");
+                StageController.error(this.mensagemErro,"NÃO HÁ LIVROS RESERVADOS");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoReservados.fxml");
@@ -86,7 +90,7 @@ public class TelaRelatoriosController {
             List<Emprestimo> emprestimosAtrasados = Adm.livrosAtrasados();
 
             if(emprestimosAtrasados.isEmpty())
-                this.mensagemErro.setText("NÃO HÁ LIVROS ATRASADOS");
+                StageController.error(this.mensagemErro,"NÃO HÁ LIVROS ATRASADOS");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
@@ -104,7 +108,7 @@ public class TelaRelatoriosController {
             List<Livro> livrosPopulares = Adm.livrosMaisPopulares();
 
             if(livrosPopulares.isEmpty())
-                this.mensagemErro.setText("NÃO HÁ LIVROS NO SISTEMA");
+                StageController.error(this.mensagemErro,"NÃO HÁ LIVROS NO SISTEMA");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
@@ -118,7 +122,7 @@ public class TelaRelatoriosController {
             List<Livro> todosLivros = Adm.estoque();
 
             if(todosLivros.isEmpty())
-                this.mensagemErro.setText("NÃO HÁ LIVROS NO SISTEMA");
+                StageController.error(this.mensagemErro,"NÃO HÁ LIVROS NO SISTEMA");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
@@ -135,7 +139,7 @@ public class TelaRelatoriosController {
             List<Leitor> leitoresBloqueados = Adm.leitoresBloqueados();
 
             if(leitoresBloqueados.isEmpty())
-                this.mensagemErro.setText("NÃO HÁ LEITORES BLOQUEADOS NO SISTEMA");
+                StageController.error(this.mensagemErro,"NÃO HÁ LEITORES BLOQUEADOS NO SISTEMA");
 
             else{
                 FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLeitoresBloqueados.fxml");
@@ -150,17 +154,17 @@ public class TelaRelatoriosController {
 
         else{
             if(this.digiteID.getText().isEmpty())
-                this.mensagemErro.setText("INSIRA ID DO LEITOR");
+                StageController.error(this.mensagemErro,"INSIRA ID DO LEITOR");
 
             else if(!StageController.tryParseInt(this.digiteID.getText()))
-                this.mensagemErro.setText("ID É COMPOSTO APENAS POR NÚMEROS");
+                StageController.error(this.mensagemErro,"ID É COMPOSTO APENAS POR NÚMEROS");
 
             else{
                 try{
                     List<Emprestimo> historicoLeitor = Adm.historicoEmprestimoDeUmLeitor(Integer.parseInt(this.digiteID.getText()));
 
                     if(historicoLeitor.isEmpty())
-                        this.mensagemErro.setText("NÃO HÁ EMPRÉSTIMOS DESSE LEITOR");
+                        StageController.error(this.mensagemErro,"NÃO HÁ EMPRÉSTIMOS DESSE LEITOR");
 
                     else{
                         FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
@@ -173,7 +177,7 @@ public class TelaRelatoriosController {
                     }
 
                 }catch (ObjetoInvalido e){
-                    this.mensagemErro.setText(e.getMessage());
+                    StageController.error(this.mensagemErro,e.getMessage());
                 }
             }
         }

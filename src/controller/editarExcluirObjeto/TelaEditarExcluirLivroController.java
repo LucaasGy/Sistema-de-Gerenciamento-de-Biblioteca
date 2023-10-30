@@ -1,4 +1,4 @@
-package controller;
+package controller.editarExcluirObjeto;
 
 import dao.DAO;
 import erros.livro.LivroEmprestado;
@@ -108,8 +108,7 @@ public class TelaEditarExcluirLivroController {
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao atualizar livro", "Escolha um livro antes de atualizar");
 
         else if(this.digitaTitulo.getText().isEmpty() || this.digitaAutor.getText().isEmpty() || this.digitaEditora.getText().isEmpty() || this.digitaAno.getText().isEmpty() || this.digitaCategoria.getText().isEmpty()) {
-            this.mensagemErro.setText("PREENCHA OS CAMPOS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"PREENCHA OS CAMPOS");
 
             this.alertaTitulo.setVisible(this.digitaTitulo.getText().isEmpty());
             this.alertaAutor.setVisible(this.digitaAutor.getText().isEmpty());
@@ -119,7 +118,7 @@ public class TelaEditarExcluirLivroController {
         }
 
         else if (!StageController.tryParseInt(this.digitaAno.getText())) {
-            this.mensagemErro.setText("ANO É COMPOSTO APENAS POR NÚMEROS");
+            StageController.error(this.mensagemErro,"ANO É COMPOSTO APENAS POR NÚMEROS");
             this.alertaAno.setVisible(true);
             this.alertaTitulo.setVisible(false);
             this.alertaAutor.setVisible(false);
@@ -155,11 +154,9 @@ public class TelaEditarExcluirLivroController {
                 else if(this.qualTabelaCarregar.equals("Nome"))
                     carregaTabelaTitulo(this.tituloLivroAAlterar);
 
-                this.mensagemErro.setText("LIVRO ATUALIZADO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"LIVRO ATUALIZADO");
             }catch (LivroEmprestado e) {
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                StageController.error(this.mensagemErro,e.getMessage());
                 this.disponibilidadeNao.setSelected(true);
             }
         }
@@ -182,11 +179,9 @@ public class TelaEditarExcluirLivroController {
                 else if (this.qualTabelaCarregar.equals("Titulo"))
                     carregaTabelaTitulo(this.tituloLivroAAlterar);
 
-                this.mensagemErro.setText("LIVRO REMOVIDO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"LIVRO REMOVIDO");
             }catch (LivroEmprestado e){
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                StageController.error(this.mensagemErro,e.getMessage());
                 this.disponibilidadeNao.setSelected(true);
             }
         }

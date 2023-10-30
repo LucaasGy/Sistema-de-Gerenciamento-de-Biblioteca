@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="270.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaDadosAdmEBibliotecarioController">
+<AnchorPane prefHeight="270.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dadosObjeto.TelaDadosAdmEBibliotecarioController">
    <children>
       <Label fx:id="mensagemTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="29.0" prefHeight="27.0" prefWidth="286.0" textAlignment="CENTER">
          <font>

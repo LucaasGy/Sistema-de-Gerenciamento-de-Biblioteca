@@ -1,4 +1,4 @@
-package controller;
+package controller.dadosObjeto;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +7,15 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Leitor;
 import utils.StageController;
+
+/**
+ * Controller  responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaDadosLeitor" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
 
 public class TelaDadosLeitorController {
 
@@ -40,11 +49,25 @@ public class TelaDadosLeitorController {
     @FXML
     private Label tipoUsuario;
 
+    /**
+     * Ação de clicar no botão de ok.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
     @FXML
     void clicarOk(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
+
+    /**
+     * Método responsável por setar nos label da tela as informações do Leitor escolhido.
+     *
+     * @param leitor leitor escolhido
+     */
 
     public void setLeitor(Leitor leitor) {
         this.idUsuario.setText(Integer.toString(leitor.getID()));

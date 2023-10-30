@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="220.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaDigiteIDController">
+<AnchorPane prefHeight="220.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.procurarObjeto.TelaDigiteIDController">
    <children>
       <Label layoutX="108.0" layoutY="38.0" text="Digite o ID do leitor:">
          <font>

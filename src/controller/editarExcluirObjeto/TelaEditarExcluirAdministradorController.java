@@ -1,5 +1,6 @@
-package controller;
+package controller.editarExcluirObjeto;
 
+import controller.procurarObjeto.TelaProcurarUsuarioController;
 import dao.DAO;
 import erros.objetos.ObjetoInvalido;
 import javafx.collections.FXCollections;
@@ -83,8 +84,7 @@ public class TelaEditarExcluirAdministradorController {
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao atualizar administrador", "Escolha um administrador antes de atualizar");
 
         else if(this.digitaNome.getText().isEmpty() || this.digitaSenha.getText().isEmpty()) {
-            this.mensagemErro.setText("PREENCHA OS CAMPOS");
-            this.mensagemErro.setStyle("-fx-text-fill: red;");
+            StageController.error(this.mensagemErro,"PREENCHA OS CAMPOS");
 
             this.alertaNome.setVisible(this.digitaNome.getText().isEmpty());
             this.alertaSenha.setVisible(this.digitaSenha.getText().isEmpty());
@@ -110,11 +110,9 @@ public class TelaEditarExcluirAdministradorController {
                 else if(this.qualTabelaCarregar.equals("Nome"))
                     carregaTabelaNome(this.nomeAdmAAlterar);
 
-                this.mensagemErro.setText("ADMINISTRADOR ATUALIZADO");
-                this.mensagemErro.setStyle("-fx-text-fill: green;");
+                StageController.sucesso(this.mensagemErro,"ADMINISTRADOR ATUALIZADO");
             }catch (ObjetoInvalido e) {
-                this.mensagemErro.setText(e.getMessage());
-                this.mensagemErro.setStyle("-fx-text-fill: red;");
+                StageController.error(this.mensagemErro,e.getMessage());
             }
         }
     }
@@ -138,8 +136,7 @@ public class TelaEditarExcluirAdministradorController {
             else if(this.qualTabelaCarregar.equals("Nome"))
                 carregaTabelaNome(this.nomeAdmAAlterar);
 
-            this.mensagemErro.setText("ADMINISTRADOR REMOVIDO");
-            this.mensagemErro.setStyle("-fx-text-fill: green;");
+            StageController.sucesso(this.mensagemErro,"ADMINISTRADOR REMOVIDO");
         }
     }
 
