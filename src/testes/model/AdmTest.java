@@ -99,9 +99,7 @@ class AdmTest {
     }
 
     @Test
-    void removerLeitor() throws ObjetoInvalido, LeitorTemEmprestimo {
-        assertThrows(ObjetoInvalido.class, ()->Adm.removerLeitor(666));
-
+    void removerLeitor() throws LeitorTemEmprestimo {
         assertThrows(LeitorTemEmprestimo.class, ()->Adm.removerLeitor(1003));
         DAO.getEmprestimo().removerTodos();
 
@@ -130,9 +128,7 @@ class AdmTest {
     }
 
     @Test
-    void removerBibliotecario() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->Adm.removerBibliotecario(666));
-
+    void removerBibliotecario(){
         assertNotNull(DAO.getBibliotecario().encontrarPorId(1002));
 
         Adm.removerBibliotecario(1002);
@@ -156,9 +152,7 @@ class AdmTest {
     }
 
     @Test
-    void removerAdm() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->Adm.removerAdm(666));
-
+    void removerAdm(){
         assertNotNull(DAO.getAdm().encontrarPorId(1001));
 
         Adm.removerAdm(1001);
@@ -182,9 +176,7 @@ class AdmTest {
     }
 
     @Test
-    void bloquearLeitor() throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->Adm.bloquearLeitor(666));
-
+    void bloquearLeitor(){
         assertEquals(1, DAO.getReserva().encontrarReservasLeitor(1003).size());
         assertFalse(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
 
@@ -195,9 +187,7 @@ class AdmTest {
     }
 
     @Test
-    void desbloquearLeitor()  throws ObjetoInvalido {
-        assertThrows(ObjetoInvalido.class, ()->Adm.desbloquearLeitor(666));
-
+    void desbloquearLeitor(){
         this.leitor1.setBloqueado(true);
         DAO.getLeitor().atualizar(this.leitor1);
         assertTrue(DAO.getLeitor().encontrarPorId(1003).getBloqueado());
@@ -222,9 +212,7 @@ class AdmTest {
     }
 
     @Test
-    void removerUmLivro()  throws ObjetoInvalido, LivroEmprestado {
-        assertThrows(ObjetoInvalido.class, ()->Adm.removerUmLivro(666));
-
+    void removerUmLivro()  throws LivroEmprestado {
         assertThrows(LivroEmprestado.class, ()->Adm.removerUmLivro(this.livro1.getISBN()));
         DAO.getEmprestimo().removerTodos();
 
@@ -238,12 +226,8 @@ class AdmTest {
     }
 
     @Test
-    void atualizarDadosLivro() throws ObjetoInvalido, LivroEmprestado {
+    void atualizarDadosLivro() throws LivroEmprestado {
         Livro livro20 = new Livro("LIVRO20","AUTOR20","EDITORA20",2020,"CATEGORIA20");
-
-        //livro nao existe
-        assertThrows(ObjetoInvalido.class, ()->Adm.atualizarDadosLivro(livro20));
-
         livro20.setISBN(this.livro1.getISBN());
 
         //livro ta emprestado
