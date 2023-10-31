@@ -8,7 +8,25 @@ import utils.StageController;
 
 import java.io.IOException;
 
+/**
+ * Classe principal do sistema responsável pelo ponto de entrada do aplicativo Java,
+ * ou seja, onde a execução do programa começa.
+ *
+ * Contém um método main que define a interface do usuário, a lógica do aplicativo JavaFX,
+ * e inicia a aplicação JavaFX.
+ * O método main é o ponto de entrada para o aplicativo, mas ele delega o controle para o JavaFX,
+ * que posteriormente chama o método start. Isso permite que a estrutura do JavaFX inicialize e
+ * gerencie o aplicativo.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class MainApplication extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage stage) throws IOException, ObjetoInvalido {
@@ -17,9 +35,5 @@ public class MainApplication extends Application {
 
         StageController.criaStage(stage,StageController.retornaLoader("TelaLogin.fxml"));
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

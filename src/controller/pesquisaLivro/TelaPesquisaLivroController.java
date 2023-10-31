@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Controller  responsável por intermediar a interação entre a interface
+ * Controller responsável por intermediar a interação entre a interface
  * gráfica definida no arquivo FXML "TelaPesquisaLivro" e a lógica da aplicação Java,
  * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
  *

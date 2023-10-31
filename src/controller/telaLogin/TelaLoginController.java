@@ -15,7 +15,7 @@ import utils.StageController;
 import java.io.IOException;
 
 /**
- * Controller  responsável por intermediar a interação entre a interface
+ * Controller responsável por intermediar a interação entre a interface
  * gráfica definida no arquivo FXML "TelaLogin" e a lógica da aplicação Java,
  * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
  *

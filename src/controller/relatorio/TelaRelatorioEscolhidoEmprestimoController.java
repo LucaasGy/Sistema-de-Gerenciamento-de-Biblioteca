@@ -14,13 +14,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import model.Emprestimo;
-import model.Livro;
 import utils.StageController;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaRelatorioEscolhidoEmprestimo" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
 
 public class TelaRelatorioEscolhidoEmprestimoController {
 
@@ -87,23 +95,23 @@ public class TelaRelatorioEscolhidoEmprestimoController {
     @FXML
     private RowConstraints linhaDiasEmAtraso;
 
-    public void mostraDiasEmAtraso(){
-        this.labelDiasEmAtraso.setVisible(true);
-        this.labelNumeroDias.setVisible((true));
-        this.linhaDiasEmAtraso.setMinHeight(10);
-        this.linhaDiasEmAtraso.setPrefHeight(40);
-        this.linhaDiasEmAtraso.setMaxHeight(95);
-    }
-
-    public void setMensagemTotal(String mensagemTotal) {
-        this.mensagemTotal.setText(mensagemTotal);
-    }
+    /**
+     * Observador para coletar objeto escolhido no TableView.
+     */
 
     @FXML
     void initialize(){
         this.tabelaLivros.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue)->selecionarLivroTabela(newValue));
+                (observable, oldValue, newValue)->selecionarEmprestimoTabela(newValue));
     }
+
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
 
     @FXML
     void menu(ActionEvent event){
@@ -111,11 +119,31 @@ public class TelaRelatorioEscolhidoEmprestimoController {
         stage.close();
     }
 
+    /**
+     * Ação de clicar no botão de voltar.
+     *
+     * Stage atual é redefinido para a tela anterior "TelaRelatórios".
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     @FXML
     void voltar(ActionEvent event) throws IOException {
         FXMLLoader loader = StageController.retornaLoader("TelaRelatorios.fxml");
         StageController.criaStage(StageController.getStage(event), loader);
     }
+
+    /**
+     * Método responsável por carregar o TableView com a lista de empréstimos recebida do
+     * controller da tela relatórios.
+     *
+     * ps: Esta lista pode ser de empréstimos atuais, empréstimo atuais em atraso ou
+     * histórico de empréstimos de um leitor.
+     *
+     * @param emprestimos lista de empréstimos
+     */
 
     public void carregarTabela(List<Emprestimo> emprestimos){
         this.colunasISBN.setCellValueFactory(new PropertyValueFactory<>("ISBNlivro"));
@@ -126,7 +154,14 @@ public class TelaRelatorioEscolhidoEmprestimoController {
         this.tabelaLivros.setItems(listaEmprestimos);
     }
 
-    public void selecionarLivroTabela(Emprestimo emprestimo){
+    /**
+     * Método responsável por setar nos label da tela as informações do livro e do leitor
+     * do empréstimo escolhido no TableView.
+     *
+     * @param emprestimo empréstimo escolhido no TableView
+     */
+
+    public void selecionarEmprestimoTabela(Emprestimo emprestimo){
         this.tituloLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getTitulo());
         this.isbnLivro.setText(Double.toString(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getISBN()));
         this.autorLivro.setText(DAO.getLivro().encontrarPorISBN(emprestimo.getISBNlivro()).getAutor());
@@ -145,5 +180,30 @@ public class TelaRelatorioEscolhidoEmprestimoController {
         this.telefoneLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getTelefone());
         this.enderecoLeitor.setText(DAO.getLeitor().encontrarPorId(emprestimo.getIDleitor()).getEndereco());
         this.labelNumeroDias.setText(Long.toString(ChronoUnit.DAYS.between(emprestimo.getDataPrevista(),LocalDate.now())));
+    }
+
+    /**
+     * Método responsável por tornar visível campo que mostra dias em atraso de um empréstimo.
+     *
+     * Estes campos só irão ser visíveis caso o usuário escolha na tela de relatórios, a opção
+     * de obter relatório de empréstimos em atraso.
+     */
+
+    public void mostraDiasEmAtraso(){
+        this.labelDiasEmAtraso.setVisible(true);
+        this.labelNumeroDias.setVisible((true));
+        this.linhaDiasEmAtraso.setMinHeight(10);
+        this.linhaDiasEmAtraso.setPrefHeight(40);
+        this.linhaDiasEmAtraso.setMaxHeight(95);
+    }
+
+    /**
+     * Método responsável por setar o título da tela a depender da escolha do usuário na tela relatórios.
+     *
+     * @param mensagemTotal titulo da tela
+     */
+
+    public void setMensagemTotal(String mensagemTotal) {
+        this.mensagemTotal.setText(mensagemTotal);
     }
 }

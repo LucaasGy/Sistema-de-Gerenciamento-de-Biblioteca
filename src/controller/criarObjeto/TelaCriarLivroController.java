@@ -18,6 +18,15 @@ import utils.StageController;
 
 import java.io.IOException;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaCriarLivro" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaCriarLivroController {
 
     @FXML
@@ -71,16 +80,32 @@ public class TelaCriarLivroController {
     @FXML
     private TableView<Livro> tabelaLivro;
 
+    /**
+     * Inicializa o TableView com os Livros registrados no sistema.
+     */
+
     @FXML
     void initialize(){
         carregaTabela();
     }
+
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
 
     @FXML
     void voltarMenu(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
+
+    /**
+     * Ação de clicar no botão de criar Livro.
+     */
 
     @FXML
     void criarLivro(){
@@ -130,6 +155,18 @@ public class TelaCriarLivroController {
         }
     }
 
+    /**
+     * Ação de clicar no botão de mostrar dados.
+     *
+     * A depender do objeto Livro escolhido no TableView, carrega a
+     * tela "TelaDadosLivro" em um novo stage, que exibe os dados
+     * que um livro possui.
+     * É necessário setar a qual o objeto livro deve ser exibido os dados.
+     *
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     @FXML
     void mostrarDados() throws IOException {
         this.mensagemErro.setText("");
@@ -153,6 +190,13 @@ public class TelaCriarLivroController {
             stage.showAndWait();
         }
     }
+
+    /**
+     * Método responsável por carregar o TableView com todos os Livros do sistema.
+     *
+     * Caso não exista nenhum livro registrado no banco de dados, ao carregar o TableView,
+     * o botão de dados de um livro é desabilitado.
+     */
 
     public void carregaTabela(){
         this.colunaISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));

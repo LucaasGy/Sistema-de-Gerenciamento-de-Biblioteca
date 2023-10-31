@@ -9,7 +9,7 @@ import model.Livro;
 import utils.StageController;
 
 /**
- * Controller  responsável por intermediar a interação entre a interface
+ * Controller responsável por intermediar a interação entre a interface
  * gráfica definida no arquivo FXML "TelaDadosLivro" e a lógica da aplicação Java,
  * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
  *
@@ -61,7 +61,7 @@ public class TelaDadosLivroController {
     }
 
     /**
-     * Método responsável por setar nos label da tela as informações do Livro escolhido.
+     * Método responsável por setar nos label da tela as informações do Livro escolhido no TableView.
      *
      * @param livro livro escolhido
      */

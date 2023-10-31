@@ -18,6 +18,15 @@ import utils.StageController;
 
 import java.io.IOException;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaCriarBibliotecario" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaCriarBibliotecarioController {
 
     @FXML
@@ -53,16 +62,32 @@ public class TelaCriarBibliotecarioController {
     @FXML
     private TableView<Bibliotecario> tabelaBibliotecario;
 
+    /**
+     * Inicializa o TableView com os Bibliotecarios registrados no sistema.
+     */
+
     @FXML
     void initialize(){
         carregaTabela();
     }
+
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
 
     @FXML
     void voltarMenu(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
+
+    /**
+     * Ação de clicar no botão de criar Bibliotecario.
+     */
 
     @FXML
     void criarBibliotecario(){
@@ -92,6 +117,19 @@ public class TelaCriarBibliotecarioController {
         }
     }
 
+    /**
+     * Ação de clicar no botão de mostrar dados.
+     *
+     * A depender do objeto Bibliotecario escolhido no TableView, carrega a
+     * tela "TelaDadosAdmEBibliotecario" em um novo stage, que exibe os dados
+     * que um bibliotecario possui.
+     * Como esta tela é usada tanto para exibir dados de um Administrador ou Bibliotecario,
+     * é necessário setar a qual dos dois tipos a tela deve exibir os dados.
+     *
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     @FXML
     void mostrarDados() throws IOException {
         this.mensagemErro.setText("");
@@ -112,6 +150,13 @@ public class TelaCriarBibliotecarioController {
             stage.showAndWait();
         }
     }
+
+    /**
+     * Método responsável por carregar o TableView com todos os Bibliotecarios do sistema.
+     *
+     * Caso não exista nenhum bibliotecario registrado no banco de dados, ao carregar o TableView,
+     * o botão de dados de um bibliotecario é desabilitado.
+     */
 
     public void carregaTabela(){
         this.colunaID.setCellValueFactory(new PropertyValueFactory<>("ID"));

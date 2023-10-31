@@ -17,6 +17,15 @@ import utils.StageController;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaRelatorioEscolhidoLivrosPopulares" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaRelatorioEscolhidoLivrosPopularesController {
 
     @FXML
@@ -61,9 +70,9 @@ public class TelaRelatorioEscolhidoLivrosPopularesController {
     @FXML
     private Label tituloLivro;
 
-    public void setMensagemTotal(String mensagemTotal) {
-        this.mensagemTotal.setText(mensagemTotal);
-    }
+    /**
+     * Observador para coletar objeto escolhido no TableView.
+     */
 
     @FXML
     void initialize(){
@@ -71,17 +80,42 @@ public class TelaRelatorioEscolhidoLivrosPopularesController {
                 (observable, oldValue, newValue)->selecionarLivroTabela(newValue));
     }
 
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
     @FXML
     void menu(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
 
+    /**
+     * Ação de clicar no botão de voltar.
+     *
+     * Stage atual é redefinido para a tela anterior "TelaRelatórios".
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     @FXML
     void voltar(ActionEvent event) throws IOException {
         FXMLLoader loader = StageController.retornaLoader("TelaRelatorios.fxml");
         StageController.criaStage(StageController.getStage(event), loader);
     }
+
+    /**
+     * Método responsável por carregar o TableView com a lista de leitores
+     * bloqueados recebida do controller da tela relatórios.
+     *
+     * @param livros lista de livros
+     */
 
     public void carregarTabela(List<Livro> livros){
         this.colunaISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
@@ -90,6 +124,12 @@ public class TelaRelatorioEscolhidoLivrosPopularesController {
         ObservableList<Livro> listaLivros = FXCollections.observableArrayList(livros);
         this.tabelaLivros.setItems(listaLivros);
     }
+
+    /**
+     * Método responsável por setar nos label da tela as informações do livro escolhido no TableView.
+     *
+     * @param livro livro escolhido no TableView
+     */
 
     public void selecionarLivroTabela(Livro livro){
         this.tituloLivro.setText(livro.getTitulo());
@@ -105,5 +145,15 @@ public class TelaRelatorioEscolhidoLivrosPopularesController {
 
         else
             this.disponibilidadeLivro.setText("Não");
+    }
+
+    /**
+     * Método responsável por setar o título da tela a depender da escolha do usuário na tela relatórios.
+     *
+     * @param mensagemTotal titulo da tela
+     */
+
+    public void setMensagemTotal(String mensagemTotal) {
+        this.mensagemTotal.setText(mensagemTotal);
     }
 }

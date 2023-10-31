@@ -18,6 +18,15 @@ import utils.StageController;
 
 import java.io.IOException;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaEditarExcluirLeitor" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaEditarExcluirLeitorController {
 
     @FXML
@@ -80,6 +89,10 @@ public class TelaEditarExcluirLeitorController {
 
     private String qualTabelaCarregar;
 
+    /**
+     * Observador para coletar objeto escolhido no TableView.
+     */
+
     @FXML
     void initialize(){
         this.digitaID.setStyle("-fx-text-fill: gray;");
@@ -87,6 +100,10 @@ public class TelaEditarExcluirLeitorController {
         this.tabelaLeitor.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue)->selecionarLeitorTabela(newValue));
     }
+
+    /**
+     * Ação de clicar no botão de atualizar leitor.
+     */
 
     @FXML
     void atualizarLeitor() {
@@ -123,6 +140,8 @@ public class TelaEditarExcluirLeitorController {
                 leitorAtualizado.setID(leitorSelecionado.getID());
                 Adm.atualizarDadosLeitor(leitorAtualizado);
 
+                //verifica qual método chamar para recarregar a tabela a depender do dado setado no atributo
+                //"qualTabelaCarregar".
                 if(this.qualTabelaCarregar.equals("ID"))
                     carregaTabelaID(this.idLeitorAAlterar);
 
@@ -136,6 +155,10 @@ public class TelaEditarExcluirLeitorController {
         }
     }
 
+    /**
+     * Ação de clicar no botão de remover leitor.
+     */
+
     @FXML
     void removerLeitor() {
         Leitor leitorSelecionado = this.tabelaLeitor.getSelectionModel().getSelectedItem();
@@ -147,6 +170,8 @@ public class TelaEditarExcluirLeitorController {
             try {
                 Adm.removerLeitor(leitorSelecionado.getID());
 
+                //verifica qual método chamar para recarregar a tabela a depender do dado setado no atributo
+                //"qualTabelaCarregar".
                 if (this.qualTabelaCarregar.equals("ID"))
                     carregaTabelaID(this.idLeitorAAlterar);
 
@@ -160,11 +185,29 @@ public class TelaEditarExcluirLeitorController {
         }
     }
 
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
     @FXML
     void menu(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
+
+    /**
+     * Ação de clicar no botão de voltar.
+     *
+     * Stage atual é redefinido para a tela anterior "TelaProcurarUsuario".
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     @FXML
     void voltar(ActionEvent event) throws IOException {
@@ -175,12 +218,23 @@ public class TelaEditarExcluirLeitorController {
         controller.setTitulo("Procurar leitor por :");
     }
 
+    /**
+     * Método responsável por carregar o TableView com o leitor encontrado
+     * com o id do leitor recebido do controller da tela procurar usuário.
+     *
+     * @param id id do leitor recebido
+     */
+
     public void carregaTabelaID(int id){
         carregaColunas();
         ObservableList<Leitor> listaLeitor = FXCollections.observableArrayList(DAO.getLeitor().encontrarPorId(id));
+        //caso ao recarregar o TableView, encontre o id do leitor em questão
         if(listaLeitor.get(0)!=null)
             this.tabelaLeitor.setItems(listaLeitor);
 
+        /*caso ao recarregar o TableView, não seja encontrado o leitor com o id em questão (foi removido),
+        os botões de atualizar e remover leitor são desabilitados e também os campos de alterar os dados
+        deixam de ser editáveis, afinal, não existe mais nenhum leitor a ser atualizado.*/
         else {
             this.tabelaLeitor.getItems().clear();
             this.botaoAtualizar.setDisable(true);
@@ -192,13 +246,24 @@ public class TelaEditarExcluirLeitorController {
             this.digitaTelefone.setEditable(false);
         }
     }
+
+    /**
+     * Método responsável por carregar o TableView com os leitores encontrados
+     * com o nome do leitor recebido do controller da tela procurar usuário.
+     *
+     * @param nome nome do leitor recebido
+     */
 
     public void carregaTabelaNome(String nome){
         carregaColunas();
         ObservableList<Leitor> listaLeitor = FXCollections.observableArrayList(DAO.getLeitor().encontrarPorNome(nome));
+        //caso ao recarregar o TableView, encontre o nome do leitor em questão
         if(!listaLeitor.isEmpty())
             this.tabelaLeitor.setItems(listaLeitor);
 
+        /*caso ao recarregar o TableView, não seja encontrado o leitor com o nome em questão (foi removido),
+        os botões de atualizar e remover leitor são desabilitados e também os campos de alterar os dados
+        deixam de ser editáveis, afinal, não existe mais nenhum leitor a ser atualizado.*/
         else {
             this.tabelaLeitor.getItems().clear();
             this.botaoAtualizar.setDisable(true);
@@ -210,11 +275,21 @@ public class TelaEditarExcluirLeitorController {
             this.digitaTelefone.setEditable(false);
         }
     }
+
+    /**
+     * Método responsável por setar qual dado será inserido em cada coluna do TableView.
+     */
 
     public void carregaColunas(){
         this.colunaID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         this.colunaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
     }
+
+    /**
+     * Método responsável por setar nos label da tela as informações do leitor escolhido no TableView.
+     *
+     * @param leitor leitor escolhido no TableView
+     */
 
     public void selecionarLeitorTabela(Leitor leitor){
         this.mensagemErro.setText("");
@@ -238,13 +313,40 @@ public class TelaEditarExcluirLeitorController {
         }
     }
 
+    /**
+     * Método responsável por setar qual método chamar após remover ou alterar um leitor.
+     *
+     * Como o TableView pode conter os leitores encontrados por nome ou id, esse atributo
+     * é necessário para verificar qual operação realizar.
+     *
+     * @param qualTabelaCarregar atributo para decidir qual tabela recarregar
+     */
+
     public void setQualTabelaCarregar(String qualTabelaCarregar) {
         this.qualTabelaCarregar = qualTabelaCarregar;
     }
 
+    /**
+     * Método responsável por setar qual id de leitor o usuário digitou no controller da tela
+     * "TelaProcurarUsuario".
+     *
+     * Atributo necessário para recarregar o TabelView.
+     *
+     * @param idLeitorAAlterar id do leitor recebido
+     */
+
     public void setIdLeitorAAlterar(int idLeitorAAlterar) {
         this.idLeitorAAlterar = idLeitorAAlterar;
     }
+
+    /**
+     * Método responsável por setar qual nome de leitor o usuário digitou no controller da tela
+     * "TelaProcurarUsuario".
+     *
+     * Atributo necessário para recarregar o TabelView.
+     *
+     * @param nomeLeitorAAlterar nome do leitor recebido
+     */
 
     public void setNomeLeitorAAlterar(String nomeLeitorAAlterar) {
         this.nomeLeitorAAlterar = nomeLeitorAAlterar;

@@ -17,6 +17,15 @@ import utils.StageController;
 
 import java.io.IOException;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaCriarAdm" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaCriarAdmController {
 
     @FXML
@@ -52,16 +61,32 @@ public class TelaCriarAdmController {
     @FXML
     private TableView<Adm> tabelaAdm;
 
+    /**
+     * Inicializa o TableView com os Administradores registrados no sistema.
+     */
+
     @FXML
     void initialize(){
         carregaTabela();
     }
+
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
 
     @FXML
     void voltarMenu(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
+
+    /**
+     * Ação de clicar no botão de criar Administrador.
+     */
 
     @FXML
     void criarAdm(){
@@ -91,6 +116,19 @@ public class TelaCriarAdmController {
         }
     }
 
+    /**
+     * Ação de clicar no botão de mostrar dados.
+     *
+     * A depender do objeto Administrador escolhido no TableView, carrega a
+     * tela "TelaDadosAdmEBibliotecario" em um novo stage, que exibe os dados
+     * que um administrador possui.
+     * Como esta tela é usada tanto para exibir dados de um Administrador ou Bibliotecario,
+     * é necessário setar a qual dos dois tipos a tela deve exibir os dados.
+     *
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
+
     @FXML
     void mostrarDados() throws IOException {
         this.mensagemErro.setText("");
@@ -106,11 +144,19 @@ public class TelaCriarAdmController {
             StageController.criaStage(stage, loader);
             TelaDadosAdmEBibliotecarioController controller = loader.getController();
 
+            //deve exibir dados de um administrador
             controller.setAdm(this.tabelaAdm.getSelectionModel().getSelectedItem());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         }
     }
+
+    /**
+     * Método responsável por carregar o TableView com todos os Administradores do sistema.
+     *
+     * Caso não exista nenhum administrador registrado no banco de dados, ao carregar o TableView,
+     * o botão de dados de um administrador é desabilitado.
+     */
 
     public void carregaTabela(){
         this.colunaID.setCellValueFactory(new PropertyValueFactory<>("ID"));

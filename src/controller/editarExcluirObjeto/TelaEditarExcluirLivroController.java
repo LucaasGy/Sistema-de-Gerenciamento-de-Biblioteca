@@ -16,6 +16,15 @@ import utils.StageController;
 
 import java.io.IOException;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaEditarExcluirLivro" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaEditarExcluirLivroController {
 
     @FXML
@@ -93,12 +102,20 @@ public class TelaEditarExcluirLivroController {
 
     private String qualTabelaCarregar;
 
+    /**
+     * Observador para coletar objeto escolhido no TableView.
+     */
+
     @FXML
     void initialize(){
         this.digitaISBN.setStyle("-fx-text-fill: gray;");
         this.tabelaLivro.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue)->selecionarLivroTabela(newValue));
     }
+
+    /**
+     * Ação de clicar no botão de atualizar livro.
+     */
 
     @FXML
     void atualizarLivro() {
@@ -148,6 +165,8 @@ public class TelaEditarExcluirLivroController {
 
                 Adm.atualizarDadosLivro(livroAtualizado);
 
+                //verifica qual método chamar para recarregar a tabela a depender do dado setado no atributo
+                //"qualTabelaCarregar".
                 if(this.qualTabelaCarregar.equals("ISBN"))
                     carregaTabelaISBN(this.isbnLivroAAlterar);
 
@@ -162,6 +181,10 @@ public class TelaEditarExcluirLivroController {
         }
     }
 
+    /**
+     * Ação de clicar no botão de remover livro.
+     */
+
     @FXML
     void removerLivro() {
         Livro livroSelecionado = this.tabelaLivro.getSelectionModel().getSelectedItem();
@@ -173,6 +196,8 @@ public class TelaEditarExcluirLivroController {
             try {
                 Adm.removerUmLivro(livroSelecionado.getISBN());
 
+                //verifica qual método chamar para recarregar a tabela a depender do dado setado no atributo
+                //"qualTabelaCarregar".
                 if (this.qualTabelaCarregar.equals("ISBN"))
                     carregaTabelaISBN(this.isbnLivroAAlterar);
 
@@ -187,11 +212,29 @@ public class TelaEditarExcluirLivroController {
         }
     }
 
+    /**
+     * Ação de clicar no botão de menu.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
     @FXML
     void menu(ActionEvent event) {
         Stage stage = StageController.getStage(event);
         stage.close();
     }
+
+    /**
+     * Ação de clicar no botão de voltar.
+     *
+     * Stage atual é redefinido para a tela anterior "TelaProcurarLivro".
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     @FXML
     void voltar(ActionEvent event) throws IOException {
@@ -199,12 +242,23 @@ public class TelaEditarExcluirLivroController {
         StageController.criaStage(StageController.getStage(event), loader);
     }
 
+    /**
+     * Método responsável por carregar o TableView com o livro encontrado
+     * com o isbn do livro recebido do controller da tela procurar livro.
+     *
+     * @param isbn isbn do livro recebido
+     */
+
     public void carregaTabelaISBN(double isbn){
         carregaColunas();
         ObservableList<Livro> listaLivro = FXCollections.observableArrayList(DAO.getLivro().encontrarPorISBN(isbn));
+        //caso ao recarregar o TableView, encontre o isbn do livro em questão
         if(listaLivro.get(0)!=null)
             this.tabelaLivro.setItems(listaLivro);
 
+        /*caso ao recarregar o TableView, não seja encontrado o livro com o isbn em questão (foi removido),
+        os botões de atualizar e remover livro são desabilitados e também os campos de alterar os dados
+        deixam de ser editáveis, afinal, não existe mais nenhum livro a ser atualizado.*/
         else {
             this.tabelaLivro.getItems().clear();
             this.botaoAtualizar.setDisable(true);
@@ -222,13 +276,24 @@ public class TelaEditarExcluirLivroController {
             this.disponibilidadeNao.setDisable(true);
         }
     }
+
+    /**
+     * Método responsável por carregar o TableView com os livros encontrados
+     * com o titulo do livro recebido do controller da tela procurar livro.
+     *
+     * @param titulo titulo do livro recebido
+     */
 
     public void carregaTabelaTitulo(String titulo){
         carregaColunas();
         ObservableList<Livro> listaLivro = FXCollections.observableArrayList(DAO.getLivro().encontrarPorTitulo(titulo));
+        //caso ao recarregar o TableView, encontre o titulo do livro em questão
         if(!listaLivro.isEmpty())
             this.tabelaLivro.setItems(listaLivro);
 
+        /*caso ao recarregar o TableView, não seja encontrado o livro com o titulo em questão (foi removido),
+        os botões de atualizar e remover livro são desabilitados e também os campos de alterar os dados
+        deixam de ser editáveis, afinal, não existe mais nenhum livro a ser atualizado.*/
         else {
             this.tabelaLivro.getItems().clear();
             this.botaoAtualizar.setDisable(true);
@@ -246,11 +311,21 @@ public class TelaEditarExcluirLivroController {
             this.disponibilidadeNao.setDisable(true);
         }
     }
+
+    /**
+     * Método responsável por setar qual dado será inserido em cada coluna do TableView.
+     */
 
     public void carregaColunas(){
         this.colunaISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
         this.colunaTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
     }
+
+    /**
+     * Método responsável por setar nos label da tela as informações do livro escolhido no TableView.
+     *
+     * @param livro livro escolhido no TableView
+     */
 
     public void selecionarLivroTabela(Livro livro){
         this.mensagemErro.setText("");
@@ -283,16 +358,42 @@ public class TelaEditarExcluirLivroController {
         }
     }
 
+    /**
+     * Método responsável por setar qual método chamar após remover ou alterar um livro.
+     *
+     * Como o TableView pode conter os livros encontrados por titulo ou isbn, esse atributo
+     * é necessário para verificar qual operação realizar.
+     *
+     * @param qualTabelaCarregar atributo para decidir qual tabela recarregar
+     */
+
     public void setQualTabelaCarregar(String qualTabelaCarregar) {
         this.qualTabelaCarregar = qualTabelaCarregar;
     }
+
+    /**
+     * Método responsável por setar qual isbn de livro o usuário digitou no controller da tela
+     * "TelaProcurarLivro".
+     *
+     * Atributo necessário para recarregar o TabelView.
+     *
+     * @param isbnLivroAAlterar isbn do livro recebido
+     */
 
     public void setIsbnLivroAAlterar(double isbnLivroAAlterar) {
         this.isbnLivroAAlterar = isbnLivroAAlterar;
     }
 
+    /**
+     * Método responsável por setar qual titulo de livro o usuário digitou no controller da tela
+     * "TelaProcurarLivro".
+     *
+     * Atributo necessário para recarregar o TabelView.
+     *
+     * @param tituloLivroAAlterar titulo do livro recebido
+     */
+
     public void setTituloLivroAAlterar(String tituloLivroAAlterar) {
         this.tituloLivroAAlterar = tituloLivroAAlterar;
     }
 }
-

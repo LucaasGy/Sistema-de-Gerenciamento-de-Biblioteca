@@ -21,7 +21,7 @@ import utils.StageController;
 import java.io.IOException;
 
 /**
- * Controller  responsável por intermediar a interação entre a interface
+ * Controller responsável por intermediar a interação entre a interface
  * gráfica definida no arquivo FXML "TelaInicial" e a lógica da aplicação Java,
  * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
  *
@@ -103,7 +103,7 @@ public class TelaInicialController {
     /**
      * Ação de clicar no botão de sair da conta.
      *
-     * Stage atual é alterado para a tela de login.
+     * Stage atual é redefinido para a tela anterior "TelaLogin".
      * Usuário logado é "apagado" do objeto.
      *
      * @param event evento gerado quando uma ação interativa ocorre
@@ -421,7 +421,8 @@ public class TelaInicialController {
     }
 
     /**
-     * Método responsável por carregar o ListView com a funcionalidade padrão a todos tipos de usários do sistema.
+     * Método responsável por carregar o ListView com a funcionalidade padrão a todos
+     * tipos de usários do sistema.
      */
 
     public void carregarLista(){

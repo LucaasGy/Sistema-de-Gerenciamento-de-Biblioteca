@@ -9,7 +9,7 @@ import model.Leitor;
 import utils.StageController;
 
 /**
- * Controller  responsável por intermediar a interação entre a interface
+ * Controller responsável por intermediar a interação entre a interface
  * gráfica definida no arquivo FXML "TelaDadosLeitor" e a lógica da aplicação Java,
  * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
  *
@@ -64,7 +64,7 @@ public class TelaDadosLeitorController {
     }
 
     /**
-     * Método responsável por setar nos label da tela as informações do Leitor escolhido.
+     * Método responsável por setar nos label da tela as informações do Leitor escolhido no TableView.
      *
      * @param leitor leitor escolhido
      */

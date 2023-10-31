@@ -11,6 +11,15 @@ import utils.StageController;
 
 import java.io.IOException;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaProcurarLivro" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaProcurarLivroController {
 
     @FXML
@@ -30,6 +39,14 @@ public class TelaProcurarLivroController {
 
     @FXML
     private Label mensagemTitulo;
+
+    /**
+     * Ação de clicar no botão de confirmar livro a ser procurado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     * @throws IOException caso o stage não possa ser setado,
+     * retorna uma exceção informando o ocorrido
+     */
 
     @FXML
     void confirmarEscolha(ActionEvent event) throws IOException {
@@ -55,8 +72,12 @@ public class TelaProcurarLivroController {
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaEditarExcluirLivroController controller = loader.getController();
 
+                        //seta o ISBN do livro encontrado no controller da tela "TelaEditarExcluirLivroController"
                         controller.setIsbnLivroAAlterar(Double.parseDouble(dado));
+                        //carrega o TableView do controller da tela "TelaEditarExcluirLivroController"
+                        // com o livro encontrado por ISBN
                         controller.carregaTabelaISBN(Double.parseDouble(dado));
+                        //seta qual tabela recarregar após remoção/alteração de livros
                         controller.setQualTabelaCarregar("ISBN");
                     }
                 }
@@ -70,14 +91,26 @@ public class TelaProcurarLivroController {
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaEditarExcluirLivroController controller = loader.getController();
 
+                        //seta o titulo dos livros encontrados no controller da tela "TelaEditarExcluirLivroController"
                         controller.setTituloLivroAAlterar(dado);
+                        //carrega o TableView do controller da tela "TelaEditarExcluirLivroController" com os livros encontrados
+                        //por titulo
                         controller.carregaTabelaTitulo(dado);
+                        //seta qual tabela recarregar após remoção/alteração de livros
                         controller.setQualTabelaCarregar("Titulo");
                     }
                 }
             }
         }
     }
+
+    /**
+     * Ação de clicar no botão de voltar.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
 
     @FXML
     void voltar(ActionEvent event) {

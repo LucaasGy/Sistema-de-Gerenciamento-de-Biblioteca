@@ -20,6 +20,15 @@ import utils.StageController;
 
 import javafx.event.ActionEvent;
 
+/**
+ * Controller responsável por intermediar a interação entre a interface
+ * gráfica definida no arquivo FXML "TelaDigiteID" e a lógica da aplicação Java,
+ * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
+ *
+ * @author Lucas Gabriel.
+ * @author Rodrigo Nazareth.
+ */
+
 public class TelaDigiteIDController {
 
     @FXML
@@ -38,13 +47,28 @@ public class TelaDigiteIDController {
 
     private Livro livro;
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    /**
+     * Ação de clicar no botão de voltar.
+     *
+     * Stage atual é fechado.
+     *
+     * @param event evento gerado quando uma ação interativa ocorre
+     */
+
+    @FXML
+    void voltar(ActionEvent event){
+        Stage stage = StageController.getStage(event);
+        stage.close();
     }
 
-    public void setQualOperacao(String qualOperacao) {
-        this.qualOperacao = qualOperacao;
-    }
+    /**
+     * Ação de clicar no botão de confirmar.
+     *
+     * Como esta tela é usada tanto para confirmar empréstimo de um livro,
+     * bloquear/desbloquear um leitor e tirar multa de um leitor, a depender
+     * do valor setado no atributo "qualOperacao", o botão desempenhará diferentes
+     * funcionalidades.
+     */
 
     @FXML
     void confirmarID(){
@@ -57,6 +81,7 @@ public class TelaDigiteIDController {
         else {
             if (this.qualOperacao.equals("emprestimo")) {
                 try{
+                    //realiza empréstimo com o livro recebido do controller da tela "TelaLivrosPesquisados"
                     Bibliotecario.fazerEmprestimo(Integer.parseInt(this.digitaID.getText()),this.livro.getISBN());
                     StageController.sucesso(this.mensagemErro,"EMPRÉTIMO FEITO COM SUCESSO");
                 }catch ( LeitorBloqueado | LivroReservado | LeitorMultado | LeitorTemEmprestimo | ObjetoInvalido e){
@@ -73,11 +98,13 @@ public class TelaDigiteIDController {
                 }
 
                 else {
+                    //Caso o leitor encontrado esteja bloqueado, desbloqueia e informa em tela
                     if (leitor.getBloqueado()) {
                         Adm.desbloquearLeitor(Integer.parseInt(this.digitaID.getText()));
                         StageController.sucesso(this.mensagemErro,"LEITOR DESBLOQUEADO");
                     }
 
+                    //Caso o leitor encontrado não esteja bloqueado, bloqueia e informa em tela
                     else{
                         Adm.bloquearLeitor(Integer.parseInt(this.digitaID.getText()));
                         StageController.sucesso(this.mensagemErro,"LEITOR BLOQUEADO");
@@ -96,9 +123,23 @@ public class TelaDigiteIDController {
         }
     }
 
-    @FXML
-    void voltar(ActionEvent event){
-        Stage stage = StageController.getStage(event);
-        stage.close();
+    /**
+     * Método responsável por setar qual livro foi escolhido do TableView do controller
+     * da tela "TelaLivrosPesquisados".
+     *
+     * @param livro livro escolhido
+     */
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
+
+    /**
+     * Método responsável por setar qual funcionalidade o botão confirmar irá realizar.
+     *
+     * @param qualOperacao operação setada
+     */
+    public void setQualOperacao(String qualOperacao) {
+        this.qualOperacao = qualOperacao;
     }
 }

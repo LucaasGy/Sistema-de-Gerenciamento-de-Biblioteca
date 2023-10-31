@@ -14,7 +14,7 @@ import model.Prazos;
 import utils.StageController;
 
 /**
- * Controller  responsável por intermediar a interação entre a interface
+ * Controller responsável por intermediar a interação entre a interface
  * gráfica definida no arquivo FXML "TelaMinhasReservas" e a lógica da aplicação Java,
  * permitindo uma interação eficaz entre os elementos visuais e a funcionalidade da aplicação.
  *
@@ -82,7 +82,7 @@ public class TelaMinhasReservasController {
     }
 
     /**
-     * Observador para coletar objeto escolhio no TableView.
+     * Observador para coletar objeto escolhido no TableView.
      */
 
     @FXML
@@ -117,6 +117,7 @@ public class TelaMinhasReservasController {
      * Caso não exista mais reservas do leitor logado ao recarregar o TableView, o botão de retirar reservas
      * é desabilitado e o TableView é limpo.
      */
+
     public void carregaTabela(){
         this.tabelaTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         this.tabelaISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
@@ -131,8 +132,7 @@ public class TelaMinhasReservasController {
     }
 
     /**
-     * Método responsável por setar nos label da tela as informações do Livro escolhido
-     * no TableView.
+     * Método responsável por setar nos label da tela as informações do Livro escolhido no TableView.
      *
      * @param livro livro escolhido
      */
