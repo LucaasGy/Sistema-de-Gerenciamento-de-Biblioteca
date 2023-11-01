@@ -72,6 +72,9 @@ public class TelaLivrosPesquisadosController {
     private Label isbnLivro;
 
     @FXML
+    private Label numeroReservasLivro;
+
+    @FXML
     private TableView<Livro> tabelaLivros;
 
     @FXML
@@ -108,15 +111,17 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     void fazerReserva(){
+       Livro livroEscolhido = this.tabelaLivros.getSelectionModel().getSelectedItem();
 
         //caso não seja escolhido um livro para reservar, cria alert informando o error
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
+        if(livroEscolhido==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar reserva", "Escolha um livro antes de confirmar");
 
         else {
             //cria reserva para o leitor logado na tela inicial e exibe mensagem de operação bem sucedida
             try {
-                this.telaInicialController.getLeitor().reservarLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+                this.telaInicialController.getLeitor().reservarLivro(livroEscolhido.getISBN());
+                this.tabelaLivros.getSelectionModel().clearSelection();
                 StageController.sucesso(this.mensagemErro,"RESERVA FEITA COM SUCESSO");
             } catch (LeitorBloqueado | LivroLimiteDeReservas | LivroNaoDisponivel | LeitorTemEmprestimoEmAtraso |
                      LivroNaoPossuiEmprestimoNemReserva | LeitorMultado | LeitorReservarLivroEmMaos |
@@ -132,15 +137,17 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     void fazerDevolucao(){
+        Livro livroEscolhido = this.tabelaLivros.getSelectionModel().getSelectedItem();
 
         //caso não seja escolhido um livro para devolver, cria alert informando o error
-        if(this.tabelaLivros.getSelectionModel().getSelectedItem()==null)
+        if(livroEscolhido==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar devolução", "Escolha um livro antes de confirmar");
 
         else {
             //devolve livro escolhido e exibe mensagem de operação bem sucedida
             try {
-                Bibliotecario.devolverLivro(this.tabelaLivros.getSelectionModel().getSelectedItem().getISBN());
+                Bibliotecario.devolverLivro(livroEscolhido.getISBN());
+                this.tabelaLivros.getSelectionModel().clearSelection();
                 StageController.sucesso(this.mensagemErro,"DEVOLUÇÃO FEITA COM SUCESSO");
             } catch (LivroNaoPossuiEmprestimo e) {
                 StageController.error(this.mensagemErro,e.getMessage());
@@ -154,18 +161,18 @@ public class TelaLivrosPesquisadosController {
 
     @FXML
     void fazerEmprestimo() throws IOException {
-        Livro livro = this.tabelaLivros.getSelectionModel().getSelectedItem();
+        Livro livroEscolhido = this.tabelaLivros.getSelectionModel().getSelectedItem();
 
         //caso não seja escolhido um livro para emprestimo, cria alert informando o error
-        if(livro==null)
+        if(livroEscolhido==null)
             StageController.criaAlert(Alert.AlertType.WARNING, "ERROR", "Erro ao confirmar empréstimo", "Escolha um livro antes de confirmar");
 
         else {
             /*caso livro escolhido não esteja disponível, é necessário verificar porque não está disponível.
             Pode não ta disponível porque está emprestado ou porque algum Administrador alterou manualmente
             sua disponibilidade. Exibe a mensagem a depender da possibilidade.*/
-            if (!livro.getDisponivel()) {
-                if (DAO.getEmprestimo().encontrarPorISBN(livro.getISBN()) != null) {
+            if (!livroEscolhido.getDisponivel()) {
+                if (DAO.getEmprestimo().encontrarPorISBN(livroEscolhido.getISBN()) != null) {
                     LivroEmprestado e = new LivroEmprestado();
                     StageController.error(this.mensagemErro,e.getMessage());
                 }
@@ -180,6 +187,7 @@ public class TelaLivrosPesquisadosController {
             seta o livro escolhido do TableView.*/
             else {
                 this.mensagemErro.setText("");
+                this.tabelaLivros.getSelectionModel().clearSelection();
 
                 Stage stage = new Stage();
                 FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
@@ -187,7 +195,7 @@ public class TelaLivrosPesquisadosController {
                 TelaDigiteIDController controller = loader.getController();
 
                 controller.setQualOperacao("emprestimo");
-                controller.setLivro(this.tabelaLivros.getSelectionModel().getSelectedItem());
+                controller.setLivro(livroEscolhido);
 
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
@@ -203,18 +211,34 @@ public class TelaLivrosPesquisadosController {
 
     public void selecionarLivroTabela(Livro livro){
         this.mensagemErro.setText("");
-        this.tituloLivro.setText(livro.getTitulo());
-        this.isbnLivro.setText(Double.toString(livro.getISBN()));
-        this.autorLivro.setText(livro.getAutor());
-        this.editoraLivro.setText(livro.getEditora());
-        this.anoLivro.setText(Integer.toString(livro.getAno()));
-        this.categoriaLivro.setText(livro.getCategoria());
 
-        if(livro.getDisponivel())
-            this.disponibilidadeLivro.setText("Sim");
+        if(livro!=null) {
+            this.tituloLivro.setText(livro.getTitulo());
+            this.isbnLivro.setText(Double.toString(livro.getISBN()));
+            this.autorLivro.setText(livro.getAutor());
+            this.editoraLivro.setText(livro.getEditora());
+            this.anoLivro.setText(Integer.toString(livro.getAno()));
+            this.categoriaLivro.setText(livro.getCategoria());
 
-        else
-            this.disponibilidadeLivro.setText("Não");
+            //pega valores atualizados, caso usuario empreste/reserve/devolva livro
+            Livro livroATT = DAO.getLivro().encontrarPorISBN(livro.getISBN());
+            this.numeroReservasLivro.setText(Integer.toString(DAO.getReserva().encontrarReservasLivro(livroATT.getISBN()).size()));
+            if (livroATT.getDisponivel())
+                this.disponibilidadeLivro.setText("Sim");
+            else
+                this.disponibilidadeLivro.setText("Não");
+        }
+
+        else{
+            this.tituloLivro.setText("");
+            this.isbnLivro.setText("");
+            this.autorLivro.setText("");
+            this.editoraLivro.setText("");
+            this.anoLivro.setText("");
+            this.categoriaLivro.setText("");
+            this.numeroReservasLivro.setText("");
+            this.disponibilidadeLivro.setText("");
+        }
     }
 
     /**

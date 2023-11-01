@@ -46,9 +46,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Título" />
@@ -61,10 +62,12 @@
                         <Label fx:id="editoraLivro" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Ano" GridPane.rowIndex="4" />
                         <Label fx:id="anoLivro" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Categoria" GridPane.rowIndex="5" />
+                        <Label prefWidth="52.0" text="Categoria" GridPane.rowIndex="5" />
                         <Label text="Disponível" GridPane.rowIndex="6" />
                         <Label fx:id="categoriaLivro" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="disponibilidadeLivro" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Reservas" GridPane.rowIndex="7" />
+                        <Label fx:id="numeroReservasLivro" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
                   <Group layoutX="94.0" layoutY="379.0">
