@@ -1,4 +1,12 @@
-controller
+controller.criarObjeto
+controller.dadosObjeto
+controller.editarExcluirObjeto
+controller.pesquisaLivro
+controller.procurarObjeto
+controller.relatorio
+controller.reservas
+controller.telaInicial
+controller.telaLogin
 dao
 dao.adm
 dao.bibliotecario
