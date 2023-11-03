@@ -1,0 +1,66 @@
+----------------------------------------------------------------------------------------------------------------------------------
+
+*Administradores registrados*
+
+Nome: admin1 | Senha: senha1 (administrador padrão do sistema)
+Nome: joao | Senha: abacaxi
+Nome: lucas | Senha: batata
+Nome: lucas | Senha: beterraba
+Nome: maria | Senha: cenoura
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+*Bibliotecarios registrados*
+
+Nome: ana | Senha: laranja
+Nome: carlos | Senha: uva
+Nome: maria | Senha: kiwi
+Nome: pedro | Senha: limao
+Nome: pedro | Senha: banana
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+*Leitores registrados*
+
+Nome: ana | Endereço: avenida4 | Telefone: 72981234567 | Senha: sushi
+Nome: carla | Endereço: avenida6 | Telefone: 72982345678 | Senha: macarrao
+Nome: felipe | Endereço: avenida10 | Telefone: 72987657890 | Senha: salada
+Nome: felipe | Endereço: rua11 | Telefone: 72984567898 | Senha: sorvete
+Nome: joão | Endereço: rua3 | Telefone: 72987654321 | Senha: pizza
+Nome: julia | Endereço: avenida12 | Telefone: 72985678765 | Senha: torta
+Nome: julia | Endereço: rua13 | Telefone: 72985678900 | Senha: panqueca
+Nome: luisa | Endereço: avenida8 | Telefone: 72988776543 | Senha: churrasco
+Nome: lucas | Endereço: rua1 | Telefone: 72986756352 | Senha: salame
+Nome: lucas | Endereço: rua2 | Telefone: 72986756352 | Senha: feijoada
+Nome: marcos | Endereço: avenida14 | Telefone: 72986789876 | Senha: cafe
+Nome: maria | Endereço: avenida2 | Telefone: 72986543210 | Senha: lasanha
+Nome: maria | Endereço: rua5 | Telefone: 72983456789 | Senha: hamburguer
+Nome: maria | Endereço: rua9 | Telefone: 72987654567 | Senha: sanduiche
+Nome: miguel | Endereço: rua7 | Telefone: 72989987654 | Senha: tacos
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+*Livros registrados*
+
+Título: A Divina Comedia | Autor: Miguel de Cervantes | Editora: Editora C | Ano de publicação: 1605 | Categoria: Classico
+Título: A Divina Comedia | Autor: Franz Kafka | Editora: Editora F | Ano de publicação: 1915 | Categoria: Epico
+Título: A Divina Comedia | Autor: George Orwell | Editora: Editora I | Ano de publicação: 1320 | Categoria: Epico
+Título: A Estrada | Autor: Cormac McCarthy | Editora: Editora M | Ano de publicação: 2006 | Categoria: Romance
+Título: A Odisseia | Autor: Homero | Editora: Editora K | Ano de publicação: 800 | Categoria: Epico
+Título: A Revolta dos Animais | Autor: George Orwell | Editora: Editora A | Ano de publicação: 1950 | Categoria: Aventura
+Título: A Revolta dos Animais | Autor: J.K. Rowling | Editora: Editora L | Ano de publicação: 1997 | Categoria: Fantasia
+Título: Cem Anos de Solidao | Autor: Gabriel Garcia Marquez | Editora: Editora B | Ano de publicação: 1970 | Categoria: Infantil
+Título: Crime e Castigo | Autor: Gabriel Garcia Marquez | Editora: Editora J | Ano de publicação: 1866 | Categoria: Infantil
+Título: Moby Dick | Autor: George Orwell | Editora: Editora A | Ano de publicação: 1949 | Categoria: Romance
+Título: Moby Dick | Autor: Franz Kafka | Editora: Editora E | Ano de publicação: 1851 | Categoria: Aventura
+Título: O Grande Gatsby | Autor: Miguel de Cervantes | Editora: Editora H | Ano de publicação: 1925 | Categoria: Romance
+Título: O Livro Misterioso | Autor: Autor Desconhecido | Editora: Editora X | Ano de publicação: 1980 | Categoria: Aventura
+Título: O mal e o bem | Autor: Jose Dirceu | Editora: Editora Construir | Ano de publicação: 2000 | Categoria: Drama
+Título: O mal e o bem | Autor: Homero | Editora: Editora Viver | Ano de publicação: 2006 | Categoria: Drama
+Título: O Pequeno Principe | Autor: Homero | Editora: Editora D | Ano de publicação: 1943 | Categoria: Infantil
+Título: O Senhor dos Aneis | Autor: J.R.R. Tolkien | Editora: Editora G | Ano de publicação: 1954 | Categoria: Fantasia
+Título: O Senhor dos Aneis | Autor: Alice Johnson | Editora: Editora M | Ano de publicação: 2010 | Categoria: Classico
+Título: Segredos Obscuros | Autor: John Smith | Editora: Editora Z | Ano de publicação: 1975 | Categoria: Fantasia
+Título: Um Amor Eterno | Autor: Maria Silva | Editora: Editora Y | Ano de publicação: 1995 | Categoria: Romance
+
+----------------------------------------------------------------------------------------------------------------------------------
