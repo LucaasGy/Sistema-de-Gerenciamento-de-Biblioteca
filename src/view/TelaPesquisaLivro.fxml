@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="240.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.pesquisaLivro.TelaPesquisaLivroController">
+<AnchorPane prefHeight="240.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.pesquisaLivro.TelaPesquisaLivroController">
    <children>
       <Label layoutX="143.0" layoutY="43.0" text="Pesquisar por :">
          <font>

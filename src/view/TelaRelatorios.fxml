@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="320.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.relatorio.TelaRelatoriosController">
+<AnchorPane prefHeight="320.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.relatorio.TelaRelatoriosController">
    <children>
       <Label layoutX="156.0" layoutY="26.0" text="Relatório de :">
          <font>
