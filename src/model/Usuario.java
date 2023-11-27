@@ -1,11 +1,6 @@
 package model;
 
-import dao.DAO;
-
-import erros.objetos.ObjetoInvalido;
-
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Superclasse Usuário, que representa possíveis utilizadores do sistema.
