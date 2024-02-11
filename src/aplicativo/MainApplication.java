@@ -33,7 +33,7 @@ public class MainApplication extends Application {
         Sistema.verificarMultasLeitores();
         Sistema.verificarPrazosEReservas();
 
-        StageController.criaStage(stage,StageController.retornaLoader("TelaLogin.fxml"));
+        StageController.criaStage(stage,StageController.retornaLoader("/view/TelaLogin.fxml"));
         stage.show();
     }
 }
