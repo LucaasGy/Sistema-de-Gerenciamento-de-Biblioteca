@@ -1,4 +1,4 @@
-package view;
+package aplicativo;
 
 import erros.objetos.ObjetoInvalido;
 import javafx.application.Application;

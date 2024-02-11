@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import view.MainApplication;
+import aplicativo.MainApplication;
 
 import java.io.IOException;
 
