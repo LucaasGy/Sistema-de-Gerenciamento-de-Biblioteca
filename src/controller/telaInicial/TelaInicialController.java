@@ -117,7 +117,7 @@ public class TelaInicialController {
         this.bibliotecario = null;
         this.leitor = null;
         this.convidado = null;
-        FXMLLoader loader = StageController.retornaLoader("TelaLogin.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaLogin.fxml");
         StageController.criaStage(StageController.getStage(event), loader);
     }
 
@@ -132,7 +132,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirAdministradorCriar() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaCriarAdm.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaCriarAdm.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -150,7 +150,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirBibliotecarioCriar() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaCriarBibliotecario.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaCriarBibliotecario.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -168,7 +168,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirLeitorCriar() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaCriarLeitor.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaCriarLeitor.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -186,7 +186,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirLivroCriar() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaCriarLivro.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaCriarLivro.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -207,7 +207,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirAdministradorEditarExcluir() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaProcurarUsuario.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaProcurarUsuario.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
         TelaProcurarUsuarioController controller = loader.getController();
@@ -234,7 +234,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirBibliotecarioEditarExcluir() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaProcurarUsuario.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaProcurarUsuario.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
 
@@ -261,7 +261,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirLeitorEditarExcluir() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaProcurarUsuario.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaProcurarUsuario.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
 
@@ -285,7 +285,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirLivroEditarExcluir() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaProcurarLivro.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaProcurarLivro.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -306,7 +306,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirLeitorBloquearDesbloquear() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaDigiteID.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
 
@@ -332,7 +332,7 @@ public class TelaInicialController {
 
     @FXML
     void gerirLeitorTirarMulta() throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaDigiteID.fxml");
         Stage stage = new Stage();
         StageController.criaStage(stage, loader);
 
@@ -364,7 +364,7 @@ public class TelaInicialController {
         /*caso seja escolhida a funcionalidade de pesquisar livros, carrega a tela de pesquisar livros em
         um novo stage e seta o objeto da própra tela.*/
         else if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Pesquisar livros")) {
-            FXMLLoader loader = StageController.retornaLoader("TelaPesquisaLivro.fxml");
+            FXMLLoader loader = StageController.retornaLoader("/view/TelaPesquisaLivro.fxml");
             Stage stage = new Stage();
             StageController.criaStage(stage, loader);
             TelaPesquisaLivroController controller = loader.getController();
@@ -396,7 +396,7 @@ public class TelaInicialController {
             }
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaMinhasReservas.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaMinhasReservas.fxml");
                 Stage stage = new Stage();
                 StageController.criaStage(stage, loader);
                 TelaMinhasReservasController controller = loader.getController();
@@ -412,7 +412,7 @@ public class TelaInicialController {
 
         //caso seja escolhida a funcionalidade de relatórios, carrega a tela de relatórios em um novo stage
         else if(this.listaFuncionalidades.getSelectionModel().getSelectedItem().equals("Relatórios")){
-            FXMLLoader loader = StageController.retornaLoader("TelaRelatorios.fxml");
+            FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorios.fxml");
             Stage stage = new Stage();
             StageController.criaStage(stage, loader);
             stage.initModality(Modality.APPLICATION_MODAL);

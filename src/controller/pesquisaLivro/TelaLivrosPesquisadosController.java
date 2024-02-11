@@ -190,7 +190,7 @@ public class TelaLivrosPesquisadosController {
                 this.tabelaLivros.getSelectionModel().clearSelection();
 
                 Stage stage = new Stage();
-                FXMLLoader loader = StageController.retornaLoader("TelaDigiteID.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaDigiteID.fxml");
                 StageController.criaStage(stage, loader);
                 TelaDigiteIDController controller = loader.getController();
 

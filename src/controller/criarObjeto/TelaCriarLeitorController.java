@@ -169,7 +169,7 @@ public class TelaCriarLeitorController {
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum leitor selecionado","Para obter dados de um leitor, selecione um primeiramente");
 
         else{
-            FXMLLoader loader = StageController.retornaLoader("TelaDadosLeitor.fxml");
+            FXMLLoader loader = StageController.retornaLoader("/view/TelaDadosLeitor.fxml");
             Stage stage = new Stage();
             StageController.criaStage(stage, loader);
             TelaDadosLeitorController controller = loader.getController();

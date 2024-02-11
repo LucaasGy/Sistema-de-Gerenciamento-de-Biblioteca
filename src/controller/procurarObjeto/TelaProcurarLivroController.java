@@ -68,7 +68,7 @@ public class TelaProcurarLivroController {
                         StageController.error(this.mensagemErro,"LIVRO NÃO ENCONTRADO");
 
                     else{
-                        FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLivro.fxml");
+                        FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirLivro.fxml");
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaEditarExcluirLivroController controller = loader.getController();
 
@@ -87,7 +87,7 @@ public class TelaProcurarLivroController {
                         StageController.error(this.mensagemErro,"LIVRO NÃO ENCONTRADO");
 
                     else{
-                        FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLivro.fxml");
+                        FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirLivro.fxml");
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaEditarExcluirLivroController controller = loader.getController();
 

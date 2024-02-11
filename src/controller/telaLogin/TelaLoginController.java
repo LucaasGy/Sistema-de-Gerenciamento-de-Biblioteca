@@ -72,7 +72,7 @@ public class TelaLoginController{
             carregando a tela inicial com as funcionalidades permitidas a esse tipo e seta o objeto Convidado
             presente no controller da tela inicial.*/
             if(this.selecionaTipo.getSelectionModel().getSelectedItem()==TipoUsuario.Convidado){
-                FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaInicial.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaInicialController controller = loader.getController();
 
@@ -98,7 +98,7 @@ public class TelaLoginController{
                         try{
                             Adm adm = Sistema.checarLoginADM(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
 
-                            FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaInicial.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaInicialController controller = loader.getController();
 
@@ -116,7 +116,7 @@ public class TelaLoginController{
                         try{
                             Bibliotecario bibliotecario = Sistema.checarLoginBibliotecario(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
 
-                            FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaInicial.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaInicialController controller = loader.getController();
 
@@ -134,7 +134,7 @@ public class TelaLoginController{
                         try{
                             Leitor leitor = Sistema.checarLoginLeitor(Integer.parseInt(this.digitaID.getText()), this.digitaSenha.getText());
 
-                            FXMLLoader loader = StageController.retornaLoader("TelaInicial.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaInicial.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaInicialController controller = loader.getController();
 

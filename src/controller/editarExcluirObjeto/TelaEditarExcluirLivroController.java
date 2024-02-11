@@ -238,7 +238,7 @@ public class TelaEditarExcluirLivroController {
 
     @FXML
     void voltar(ActionEvent event) throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaProcurarLivro.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaProcurarLivro.fxml");
         StageController.criaStage(StageController.getStage(event), loader);
     }
 

@@ -88,7 +88,7 @@ public class TelaRelatoriosController {
                 StageController.error(this.mensagemErro,"NÃO HÁ LIVROS EMPRESTADOS");
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorioEscolhidoEmprestimo.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoEmprestimoController controller = loader.getController();
                 //carrega o TableView com os empréstimos atuais encontrados
@@ -109,7 +109,7 @@ public class TelaRelatoriosController {
                 StageController.error(this.mensagemErro,"NÃO HÁ LIVROS RESERVADOS");
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoReservados.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorioEscolhidoReservados.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoReservadosController controller = loader.getController();
                 //carrega o TableView com os livros reservados encontrados
@@ -128,7 +128,7 @@ public class TelaRelatoriosController {
                 StageController.error(this.mensagemErro,"NÃO HÁ LIVROS ATRASADOS");
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorioEscolhidoEmprestimo.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoEmprestimoController controller = loader.getController();
                 //carrega o TableView com os empréstimos atuais em atraso encontrados
@@ -151,7 +151,7 @@ public class TelaRelatoriosController {
                 StageController.error(this.mensagemErro,"NÃO HÁ LIVROS NO SISTEMA");
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorioEscolhidoLivrosPopulares.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoLivrosPopularesController controller = loader.getController();
                 //carrega o TableView com os 10 livros mais populares encontrados
@@ -167,7 +167,7 @@ public class TelaRelatoriosController {
                 StageController.error(this.mensagemErro,"NÃO HÁ LIVROS NO SISTEMA");
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLivrosPopulares.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorioEscolhidoLivrosPopulares.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoLivrosPopularesController controller = loader.getController();
                 //carrega o TableView com todos os livros encontrados
@@ -186,7 +186,7 @@ public class TelaRelatoriosController {
                 StageController.error(this.mensagemErro,"NÃO HÁ LEITORES BLOQUEADOS NO SISTEMA");
 
             else{
-                FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoLeitoresBloqueados.fxml");
+                FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorioEscolhidoLeitoresBloqueados.fxml");
                 StageController.criaStage(StageController.getStage(event), loader);
                 TelaRelatorioEscolhidoLeitoresBloqueadosController controller = loader.getController();
                 //carrega o TableView com os leitores bloqueados encontrados
@@ -213,7 +213,7 @@ public class TelaRelatoriosController {
                         StageController.error(this.mensagemErro,"NÃO HÁ EMPRÉSTIMOS DESSE LEITOR");
 
                     else{
-                        FXMLLoader loader = StageController.retornaLoader("TelaRelatorioEscolhidoEmprestimo.fxml");
+                        FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorioEscolhidoEmprestimo.fxml");
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaRelatorioEscolhidoEmprestimoController controller = loader.getController();
                         //carrega o TableView com todos os empréstimos encontrados de um leitor

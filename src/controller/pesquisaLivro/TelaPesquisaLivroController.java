@@ -90,7 +90,7 @@ public class TelaPesquisaLivroController  {
                     try {
                         List<Livro> livros = Sistema.pesquisarLivroPorTitulo(dado);
 
-                        FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                        FXMLLoader loader = StageController.retornaLoader("/view/TelaLivrosPesquisados.fxml");
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaLivrosPesquisadosController controller = loader.getController();
 
@@ -120,7 +120,7 @@ public class TelaPesquisaLivroController  {
                     try {
                         Livro livro = Sistema.pesquisarLivroPorISBN(Double.parseDouble(dado));
 
-                        FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                        FXMLLoader loader = StageController.retornaLoader("/view/TelaLivrosPesquisados.fxml");
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaLivrosPesquisadosController controller = loader.getController();
 
@@ -150,7 +150,7 @@ public class TelaPesquisaLivroController  {
                     try {
                         List<Livro> livros = Sistema.pesquisarLivroPorCategoria(dado);
 
-                        FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                        FXMLLoader loader = StageController.retornaLoader("/view/TelaLivrosPesquisados.fxml");
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaLivrosPesquisadosController controller = loader.getController();
 
@@ -180,7 +180,7 @@ public class TelaPesquisaLivroController  {
                     try {
                         List<Livro> livros = Sistema.pesquisarLivroPorAutor(dado);
 
-                        FXMLLoader loader = StageController.retornaLoader("TelaLivrosPesquisados.fxml");
+                        FXMLLoader loader = StageController.retornaLoader("/view/TelaLivrosPesquisados.fxml");
                         StageController.criaStage(StageController.getStage(event), loader);
                         TelaLivrosPesquisadosController controller = loader.getController();
 

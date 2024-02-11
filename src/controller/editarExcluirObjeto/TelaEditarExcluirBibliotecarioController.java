@@ -182,7 +182,7 @@ public class TelaEditarExcluirBibliotecarioController {
 
     @FXML
     void voltar(ActionEvent event) throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaProcurarUsuario.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaProcurarUsuario.fxml");
         StageController.criaStage(StageController.getStage(event), loader);
         TelaProcurarUsuarioController controller = loader.getController();
         controller.setQualOperacao("Bibliotecario");

@@ -139,7 +139,7 @@ public class TelaCriarAdmController {
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum administrador selecionado","Para obter dados de um administrador, selecione um primeiramente");
 
         else{
-            FXMLLoader loader = StageController.retornaLoader("TelaDadosAdmEBibliotecario.fxml");
+            FXMLLoader loader = StageController.retornaLoader("/view/TelaDadosAdmEBibliotecario.fxml");
             Stage stage = new Stage();
             StageController.criaStage(stage, loader);
             TelaDadosAdmEBibliotecarioController controller = loader.getController();

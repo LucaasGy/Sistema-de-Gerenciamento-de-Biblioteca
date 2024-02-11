@@ -88,7 +88,7 @@ public class TelaProcurarUsuarioController {
                             StageController.error(this.mensagemErro,"ADMINISTRADOR NÃO ENCONTRADO");
 
                         else{
-                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirAdministrador.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirAdministrador.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaEditarExcluirAdministradorController controller = loader.getController();
 
@@ -110,7 +110,7 @@ public class TelaProcurarUsuarioController {
                             StageController.error(this.mensagemErro,"ADMINISTRADOR NÃO ENCONTRADO");
 
                         else{
-                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirAdministrador.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirAdministrador.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaEditarExcluirAdministradorController controller = loader.getController();
 
@@ -134,7 +134,7 @@ public class TelaProcurarUsuarioController {
                             StageController.error(this.mensagemErro,"BIBLIOTECARIO NÃO ENCONTRADO");
 
                         else{
-                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirBibliotecario.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirBibliotecario.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaEditarExcluirBibliotecarioController controller = loader.getController();
 
@@ -153,7 +153,7 @@ public class TelaProcurarUsuarioController {
                             StageController.error(this.mensagemErro,"BIBLIOTECARIO NÃO ENCONTRADO");
 
                         else{
-                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirBibliotecario.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirBibliotecario.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaEditarExcluirBibliotecarioController controller = loader.getController();
 
@@ -174,7 +174,7 @@ public class TelaProcurarUsuarioController {
                             StageController.error(this.mensagemErro,"LEITOR NÃO ENCONTRADO");
 
                         else{
-                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLeitor.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirLeitor.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaEditarExcluirLeitorController controller = loader.getController();
 
@@ -193,7 +193,7 @@ public class TelaProcurarUsuarioController {
                             StageController.error(this.mensagemErro,"LEITOR NÃO ENCONTRADO");
 
                         else{
-                            FXMLLoader loader = StageController.retornaLoader("TelaEditarExcluirLeitor.fxml");
+                            FXMLLoader loader = StageController.retornaLoader("/view/TelaEditarExcluirLeitor.fxml");
                             StageController.criaStage(StageController.getStage(event), loader);
                             TelaEditarExcluirLeitorController controller = loader.getController();
 

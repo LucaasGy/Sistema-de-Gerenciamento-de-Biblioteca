@@ -118,7 +118,7 @@ public class TelaRelatorioEscolhidoReservadosController {
 
     @FXML
     void voltar(ActionEvent event) throws IOException {
-        FXMLLoader loader = StageController.retornaLoader("TelaRelatorios.fxml");
+        FXMLLoader loader = StageController.retornaLoader("/view/TelaRelatorios.fxml");
         StageController.criaStage(StageController.getStage(event), loader);
     }
 

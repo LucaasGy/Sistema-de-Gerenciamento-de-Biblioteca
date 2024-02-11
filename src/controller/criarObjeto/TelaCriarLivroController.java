@@ -180,7 +180,7 @@ public class TelaCriarLivroController {
             StageController.criaAlert(Alert.AlertType.ERROR,"ERROR","Nenhum livro selecionado","Para obter dados de um livro, selecione um primeiramente");
 
         else{
-            FXMLLoader loader = StageController.retornaLoader("TelaDadosLivro.fxml");
+            FXMLLoader loader = StageController.retornaLoader("/view/TelaDadosLivro.fxml");
             Stage stage = new Stage();
             StageController.criaStage(stage, loader);
             TelaDadosLivroController controller = loader.getController();
