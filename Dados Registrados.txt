@@ -1,66 +1,66 @@
-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 *Administradores registrados*
 
-Nome: admin1 | Senha: senha1 (administrador padrão do sistema)
-Nome: joao | Senha: abacaxi
-Nome: lucas | Senha: batata
-Nome: lucas | Senha: beterraba
-Nome: maria | Senha: cenoura
+ID: 1001 | Nome: admin1 | Senha: senha1 (administrador padrï¿½o do sistema)
+ID: 1041 | Nome: joao | Senha: abacaxi
+ID: 1011 | Nome: lucas | Senha: batata
+ID: 1021 | Nome: lucas | Senha: beterraba
+ID: 1031 | Nome: maria | Senha: cenoura
 
-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 *Bibliotecarios registrados*
 
-Nome: ana | Senha: laranja
-Nome: carlos | Senha: uva
-Nome: maria | Senha: kiwi
-Nome: pedro | Senha: limao
-Nome: pedro | Senha: banana
+ID: 1022 | Nome: ana | Senha: laranja
+ID: 1032 | Nome: carlos | Senha: uva
+ID: 1042 | Nome: maria | Senha: kiwi
+ID: 1002 | Nome: pedro | Senha: limao
+ID: 1012 | Nome: pedro | Senha: banana
 
-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 *Leitores registrados*
 
-Nome: ana | Endereço: avenida4 | Telefone: 72981234567 | Senha: sushi
-Nome: carla | Endereço: avenida6 | Telefone: 72982345678 | Senha: macarrao
-Nome: felipe | Endereço: avenida10 | Telefone: 72987657890 | Senha: salada
-Nome: felipe | Endereço: rua11 | Telefone: 72984567898 | Senha: sorvete
-Nome: joão | Endereço: rua3 | Telefone: 72987654321 | Senha: pizza
-Nome: julia | Endereço: avenida12 | Telefone: 72985678765 | Senha: torta
-Nome: julia | Endereço: rua13 | Telefone: 72985678900 | Senha: panqueca
-Nome: luisa | Endereço: avenida8 | Telefone: 72988776543 | Senha: churrasco
-Nome: lucas | Endereço: rua1 | Telefone: 72986756352 | Senha: salame
-Nome: lucas | Endereço: rua2 | Telefone: 72986756352 | Senha: feijoada
-Nome: marcos | Endereço: avenida14 | Telefone: 72986789876 | Senha: cafe
-Nome: maria | Endereço: avenida2 | Telefone: 72986543210 | Senha: lasanha
-Nome: maria | Endereço: rua5 | Telefone: 72983456789 | Senha: hamburguer
-Nome: maria | Endereço: rua9 | Telefone: 72987654567 | Senha: sanduiche
-Nome: miguel | Endereço: rua7 | Telefone: 72989987654 | Senha: tacos
+ID: 1043 | Nome: ana | Endereï¿½o: avenida4 | Telefone: 72981234567 | Senha: sushi
+ID: 1063 | Nome: carla | Endereï¿½o: avenida6 | Telefone: 72982345678 | Senha: macarrao
+ID: 1103 | Nome: felipe | Endereï¿½o: avenida10 | Telefone: 72987657890 | Senha: salada
+ID: 1113 | Nome: felipe | Endereï¿½o: rua11 | Telefone: 72984567898 | Senha: sorvete
+ID: 1033 | Nome: joï¿½o | Endereï¿½o: rua3 | Telefone: 72987654321 | Senha: pizza
+ID: 1123 | Nome: julia | Endereï¿½o: avenida12 | Telefone: 72985678765 | Senha: torta
+ID: 1133 | Nome: julia | Endereï¿½o: rua13 | Telefone: 72985678900 | Senha: panqueca
+ID: 1083 | Nome: luisa | Endereï¿½o: avenida8 | Telefone: 72988776543 | Senha: churrasco
+ID: 1003 | Nome: lucas | Endereï¿½o: rua1 | Telefone: 72986756352 | Senha: salame
+ID: 1013 | Nome: lucas | Endereï¿½o: rua2 | Telefone: 72986756352 | Senha: feijoada
+ID: 1143 | Nome: marcos | Endereï¿½o: avenida14 | Telefone: 72986789876 | Senha: cafe
+ID: 1023 | Nome: maria | Endereï¿½o: avenida2 | Telefone: 72986543210 | Senha: lasanha
+ID: 1053 | Nome: maria | Endereï¿½o: rua5 | Telefone: 72983456789 | Senha: hamburguer
+ID: 1093 | Nome: maria | Endereï¿½o: rua9 | Telefone: 72987654567 | Senha: sanduiche
+ID: 1073 | Nome: miguel | Endereï¿½o: rua7 | Telefone: 72989987654 | Senha: tacos
 
-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 *Livros registrados*
 
-Título: A Divina Comedia | Autor: Miguel de Cervantes | Editora: Editora C | Ano de publicação: 1605 | Categoria: Classico
-Título: A Divina Comedia | Autor: Franz Kafka | Editora: Editora F | Ano de publicação: 1915 | Categoria: Epico
-Título: A Divina Comedia | Autor: George Orwell | Editora: Editora I | Ano de publicação: 1320 | Categoria: Epico
-Título: A Estrada | Autor: Cormac McCarthy | Editora: Editora M | Ano de publicação: 2006 | Categoria: Romance
-Título: A Odisseia | Autor: Homero | Editora: Editora K | Ano de publicação: 800 | Categoria: Epico
-Título: A Revolta dos Animais | Autor: George Orwell | Editora: Editora A | Ano de publicação: 1950 | Categoria: Aventura
-Título: A Revolta dos Animais | Autor: J.K. Rowling | Editora: Editora L | Ano de publicação: 1997 | Categoria: Fantasia
-Título: Cem Anos de Solidao | Autor: Gabriel Garcia Marquez | Editora: Editora B | Ano de publicação: 1970 | Categoria: Infantil
-Título: Crime e Castigo | Autor: Gabriel Garcia Marquez | Editora: Editora J | Ano de publicação: 1866 | Categoria: Infantil
-Título: Moby Dick | Autor: George Orwell | Editora: Editora A | Ano de publicação: 1949 | Categoria: Romance
-Título: Moby Dick | Autor: Franz Kafka | Editora: Editora E | Ano de publicação: 1851 | Categoria: Aventura
-Título: O Grande Gatsby | Autor: Miguel de Cervantes | Editora: Editora H | Ano de publicação: 1925 | Categoria: Romance
-Título: O Livro Misterioso | Autor: Autor Desconhecido | Editora: Editora X | Ano de publicação: 1980 | Categoria: Aventura
-Título: O mal e o bem | Autor: Jose Dirceu | Editora: Editora Construir | Ano de publicação: 2000 | Categoria: Drama
-Título: O mal e o bem | Autor: Homero | Editora: Editora Viver | Ano de publicação: 2006 | Categoria: Drama
-Título: O Pequeno Principe | Autor: Homero | Editora: Editora D | Ano de publicação: 1943 | Categoria: Infantil
-Título: O Senhor dos Aneis | Autor: J.R.R. Tolkien | Editora: Editora G | Ano de publicação: 1954 | Categoria: Fantasia
-Título: O Senhor dos Aneis | Autor: Alice Johnson | Editora: Editora M | Ano de publicação: 2010 | Categoria: Classico
-Título: Segredos Obscuros | Autor: John Smith | Editora: Editora Z | Ano de publicação: 1975 | Categoria: Fantasia
-Título: Um Amor Eterno | Autor: Maria Silva | Editora: Editora Y | Ano de publicação: 1995 | Categoria: Romance
+ISBN: 98.14849 | Tï¿½tulo: A Divina Comedia | Autor: Miguel de Cervantes | Editora: Editora C | Ano de publicaï¿½ï¿½o: 1605 | Categoria: Classico
+ISBN: 83.25708 | Tï¿½tulo: A Divina Comedia | Autor: Franz Kafka | Editora: Editora F | Ano de publicaï¿½ï¿½o: 1915 | Categoria: Epico
+ISBN: 83.85040 | Tï¿½tulo: A Divina Comedia | Autor: George Orwell | Editora: Editora I | Ano de publicaï¿½ï¿½o: 1320 | Categoria: Epico
+ISBN: 64.75474 | Tï¿½tulo: A Estrada | Autor: Cormac McCarthy | Editora: Editora M | Ano de publicaï¿½ï¿½o: 2006 | Categoria: Romance
+ISBN: 63.05495 | Tï¿½tulo: A Odisseia | Autor: Homero | Editora: Editora K | Ano de publicaï¿½ï¿½o: 800 | Categoria: Epico
+ISBN: 53.20652 | Tï¿½tulo: A Revolta dos Animais | Autor: George Orwell | Editora: Editora A | Ano de publicaï¿½ï¿½o: 1950 | Categoria: Aventura
+ISBN: 31.81007 | Tï¿½tulo: A Revolta dos Animais | Autor: J.K. Rowling | Editora: Editora L | Ano de publicaï¿½ï¿½o: 1997 | Categoria: Fantasia
+ISBN: 47.89951 | Tï¿½tulo: Cem Anos de Solidao | Autor: Gabriel Garcia Marquez | Editora: Editora B | Ano de publicaï¿½ï¿½o: 1970 | Categoria: Infantil
+ISBN: 93.83841 | Tï¿½tulo: Crime e Castigo | Autor: Gabriel Garcia Marquez | Editora: Editora J | Ano de publicaï¿½ï¿½o: 1866 | Categoria: Infantil
+ISBN: 68.63315 | Tï¿½tulo: Moby Dick | Autor: George Orwell | Editora: Editora A | Ano de publicaï¿½ï¿½o: 1949 | Categoria: Romance
+ISBN: 23.01208 | Tï¿½tulo: Moby Dick | Autor: Franz Kafka | Editora: Editora E | Ano de publicaï¿½ï¿½o: 1851 | Categoria: Aventura
+ISBN: 70.90244 | Tï¿½tulo: O Grande Gatsby | Autor: Miguel de Cervantes | Editora: Editora H | Ano de publicaï¿½ï¿½o: 1925 | Categoria: Romance
+ISBN: 72.29321 | Tï¿½tulo: O Livro Misterioso | Autor: Autor Desconhecido | Editora: Editora X | Ano de publicaï¿½ï¿½o: 1980 | Categoria: Aventura
+ISBN: 10.00000 | Tï¿½tulo: O mal e o bem | Autor: Jose Dirceu | Editora: Editora Construir | Ano de publicaï¿½ï¿½o: 2000 | Categoria: Drama
+ISBN: 45.79872 | Tï¿½tulo: O mal e o bem | Autor: Homero | Editora: Editora Viver | Ano de publicaï¿½ï¿½o: 2006 | Categoria: Drama
+ISBN: 11.74355 | Tï¿½tulo: O Pequeno Principe | Autor: Homero | Editora: Editora D | Ano de publicaï¿½ï¿½o: 1943 | Categoria: Infantil
+ISBN: 74.61515 | Tï¿½tulo: O Senhor dos Aneis | Autor: J.R.R. Tolkien | Editora: Editora G | Ano de publicaï¿½ï¿½o: 1954 | Categoria: Fantasia
+ISBN: 30.16648 | Tï¿½tulo: O Senhor dos Aneis | Autor: Alice Johnson | Editora: Editora M | Ano de publicaï¿½ï¿½o: 2010 | Categoria: Classico
+ISBN: 67.35438 | Tï¿½tulo: Segredos Obscuros | Autor: John Smith | Editora: Editora Z | Ano de publicaï¿½ï¿½o: 1975 | Categoria: Fantasia
+ISBN: 15.24376 | Tï¿½tulo: Um Amor Eterno | Autor: Maria Silva | Editora: Editora Y | Ano de publicaï¿½ï¿½o: 1995 | Categoria: Romance
 
-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
