@@ -1,3 +1,4 @@
+aplicativo
 controller.criarObjeto
 controller.dadosObjeto
 controller.editarExcluirObjeto
@@ -20,4 +21,3 @@ erros.livro
 erros.objetos
 model
 utils
-view
