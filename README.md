@@ -18,7 +18,7 @@ O sistema deve ser capaz de atender aos seguintes requisitos:
 - Reserva de Livros: Leitores poderão reservar livros caso já tenham sido emprestados.
 - Renovação de Empréstimos: o sistema dará suporte ao leitor para renovação de um empréstimo ativo.
 - Controle de Usuários: Administrador será possível cadastrar, remover ou bloquear usuários caso necessário.
-- Relatórios e Estatísticas: o sistema poderá gerar relatórios constando a quantidade de livros emprestados, atrasados e reservados, bem como um histórico de empréstimos de um usuário.
+- Relatórios e Estatísticas: o sistema poderá gerar relatórios constando a quantidade de livros emprestados, atrasados e reservados, bem como um histórico de empréstimos de um usuário, leitores bloqueados e livros mais populares.
 - Gerenciamento de Multas: o sistema poderá calcular e registrar multas para um leitor por atraso na devolução dos livros.
 - Gerenciamento de Acervo: Administradores poderão gerenciar o acervo de livros da biblioteca por meio do sistema, incluindo tarefas como adição, remoção e alteração de informação dos livros.
 - Controle de Operadores do Sistema: Administradores poderão gerenciar operadores (administradores ou bibliotecarios) do sistema.
